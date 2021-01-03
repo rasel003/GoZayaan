@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!--Shape-->
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/reply_small_component_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/reply_medium_component_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/reply_large_component_corner_radius</item>
+    </style>
+
+    <dimen name="reply_small_component_corner_radius">24dp</dimen>
+    <dimen name="reply_medium_component_corner_radius">0dp</dimen>
+    <dimen name="reply_large_component_corner_radius">12dp</dimen>
+
+
+    <style name="ShapeAppearance.Sunflower.Card" parent="ShapeAppearance.MaterialComponents">
+        <item name="cornerFamily">rounded</item>
+
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">@dimen/card_corner_radius</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/card_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.Sunflower.Button.Add" parent="ShapeAppearance.MaterialComponents">
+        <item name="cornerFamily">rounded</item>
+
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">@dimen/button_corner_radius</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/button_corner_radius</item>
+    </style>
+
+    <style
+        name="ShapeAppearance.Sunflower.FAB"
+        parent="ShapeAppearance.MaterialComponents.SmallComponent" />
+
+    <!-- Add plant button -->
+    <dimen name="button_corner_radius">12dp</dimen>
+
+</resources>

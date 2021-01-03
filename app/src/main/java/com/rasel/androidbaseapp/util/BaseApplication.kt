@@ -1,0 +1,67 @@
+package com.rasel.androidbaseapp.util
+
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.graphics.Color
+import android.media.AudioAttributes
+import android.os.Build
+import android.provider.Settings
+import androidx.multidex.MultiDexApplication
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class BaseApplication : MultiDexApplication() {
+
+    init {
+        // createNotificationChannel()
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+
+        /*if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }*/
+
+        createNotificationChannel()
+    }
+
+    private fun createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Channel Leave Request" //getString(R.string.channel_received_leave_request)
+            val descriptionText =
+                "Channel for Received Leave Request" //getString(R.string.channel_leave_request_description)
+            val importance = NotificationManager.IMPORTANCE_HIGH
+
+            val channel =
+                NotificationChannel(CHANNEL_ID_RECEIVED_LEAVE_REQUEST, name, importance).apply {
+                    description = descriptionText
+                }
+            channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+            channel.enableLights(true)
+            channel.lightColor = Color.RED
+            // channel.setSound(Settings.System.DEFAULT_NOTIFICATION_URI, )
+            channel.enableVibration(true)
+            channel.setShowBadge(true)
+
+
+            // Register the channel with the system
+            //   val notificationManager: NotificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            val audioAttributes: AudioAttributes = AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .build()
+
+            channel.setSound(Settings.System.DEFAULT_NOTIFICATION_URI, audioAttributes)
+
+            val notificationManager = getSystemService(
+                NotificationManager::class.java
+            ) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+}

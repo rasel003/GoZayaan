@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/plantListFragment">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.rasel.androidbaseapp.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_gallery"
+            app:destination="@id/nav_gallery" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.rasel.androidbaseapp.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.rasel.androidbaseapp.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/plantListFragment"
+        android:name="com.rasel.androidbaseapp.ui.plant_list.PlantListFragment"
+        android:label="PlantListFragment"
+        tools:layout="@layout/fragment_plant_list">
+        <action
+            android:id="@+id/action_plantListFragment_to_plantDetailFragment"
+            app:destination="@id/plantDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plantDetailFragment"
+        android:name="com.rasel.androidbaseapp.ui.plant_details.PlantDetailFragment"
+        android:label="PlantDetailFragment"
+        tools:layout="@layout/fragment_plant_detail">
+
+        <argument
+            android:name="plantId"
+            app:argType="string" />
+
+    </fragment>
+
+</navigation>
