@@ -1,5 +1,6 @@
 package com.rasel.androidbaseapp.ui.plant_details
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -11,7 +12,7 @@ import com.squareup.inject.assisted.AssistedInject
 /**
  * The ViewModel used in [PlantDetailFragment].
  */
-class PlantDetailViewModel @AssistedInject constructor(
+class PlantDetailViewModel @ViewModelInject constructor(
     plantRepository: PlantRepository,
     @Assisted private val plantId: String
 ) : ViewModel() {

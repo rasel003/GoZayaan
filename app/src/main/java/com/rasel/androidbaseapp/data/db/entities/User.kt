@@ -3,10 +3,12 @@ package com.rasel.androidbaseapp.data.db.entities
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.RoomWarnings
 
 const val CURRENT_USER_ID = 0
 
 @Entity
+@SuppressWarnings(RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED)
 data class User(
 
     val id: Int?,
