@@ -3,6 +3,7 @@ package com.rasel.androidbaseapp.di
 import android.content.Context
 import com.rasel.androidbaseapp.data.db.AppDatabase
 import com.rasel.androidbaseapp.data.db.dao.PlantDao
+import com.rasel.androidbaseapp.data.preferences.PreferenceProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,8 +27,8 @@ class DatabaseModule {
         return appDatabase.plantDao()
     }
 
-    /*@Provides
-    fun provideGardenPlantingDao(appDatabase: AppDatabase): GardenPlantingDao {
-        return appDatabase.gardenPlantingDao()
-    }*/
+    @Provides
+    fun providePreferenceProvider(@ApplicationContext context: Context): PreferenceProvider {
+        return PreferenceProvider(context)
+    }
 }

@@ -8,12 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
-import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.rasel.androidbaseapp.R
@@ -28,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PlantDetailFragment : Fragment() {
 
-    private val args: PlantDetailFragmentArgs by navArgs()
+   // private val args: PlantDetailFragmentArgs by navArgs()
 
    /* @Inject
     lateinit var plantDetailViewModelFactory: PlantDetailViewModel.AssistedFactory
@@ -67,7 +65,7 @@ class PlantDetailFragment : Fragment() {
             var isToolbarShown = false
 
             // scroll change listener begins at Y = 0 when image is fully collapsed
-            plantDetailScrollview.setOnScrollChangeListener(
+           /* plantDetailScrollview.setOnScrollChangeListener(
                 NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
 
                     // User scrolled past image to height of toolbar and the title text is
@@ -87,8 +85,8 @@ class PlantDetailFragment : Fragment() {
                     }
                 }
             )
-
-            toolbar.setNavigationOnClickListener { view ->
+*/
+            /*toolbar.setNavigationOnClickListener { view ->
                 view.findNavController().navigateUp()
             }
 
@@ -100,7 +98,7 @@ class PlantDetailFragment : Fragment() {
                     }
                     else -> false
                 }
-            }
+            }*/
         }
         setHasOptionsMenu(true)
 
@@ -109,8 +107,8 @@ class PlantDetailFragment : Fragment() {
 
     private fun navigateToGallery() {
         plantDetailViewModel.plant?.value?.let { plant ->
-            /*val direction = PlantDetailFragmentDirections.actionPlantDetailFragmentToGalleryFragment(plant.name)
-            findNavController().navigate(direction)*/
+            val direction = PlantDetailFragmentDirections.actionPlantDetailFragmentToGalleryFragment(plant.name)
+            findNavController().navigate(direction)
         }
     }
 

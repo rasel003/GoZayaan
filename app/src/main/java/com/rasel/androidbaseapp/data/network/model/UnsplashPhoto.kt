@@ -1,5 +1,5 @@
 
-package com.rasel.androidbaseapp.data.network.responses
+package com.rasel.androidbaseapp.data.network.model
 
 import com.google.gson.annotations.SerializedName
 import com.google.samples.apps.sunflower.data.UnsplashPhotoUrls

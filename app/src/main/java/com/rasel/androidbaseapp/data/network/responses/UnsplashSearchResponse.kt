@@ -17,6 +17,7 @@
 package com.rasel.androidbaseapp.data.network.responses
 
 import com.google.gson.annotations.SerializedName
+import com.rasel.androidbaseapp.data.network.model.UnsplashPhoto
 
 /**
  * Data class that represents a photo search response from Unsplash.

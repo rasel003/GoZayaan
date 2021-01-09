@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.plantListFragment), binding.drawerLayout
+            setOf(R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_plantListFragment), binding.drawerLayout
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)

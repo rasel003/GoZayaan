@@ -1,6 +1,8 @@
 package com.rasel.androidbaseapp.data.network
 
+import com.rasel.androidbaseapp.BuildConfig
 import com.rasel.androidbaseapp.data.network.responses.LoginResponse
+import com.rasel.androidbaseapp.data.network.responses.UnsplashSearchResponse
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -176,6 +178,15 @@ interface MyApi {
     ): Call<LeaveHistoryResponse>*/
 
 
+    @GET("search/photos")
+    suspend fun searchPhotos(
+        @Query("query") query: String,
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int,
+        @Query("client_id") clientId: String = BuildConfig.UNSPLASH_ACCESS_KEY
+    ): UnsplashSearchResponse
+
+
     companion object {
 
 
@@ -190,8 +201,7 @@ interface MyApi {
                 .addInterceptor(networkConnectionInterceptor)
                 .build()
 
-            val baseUrl = "https://www.bsmrmu.edu.bd/leave/" // Live Server
-           // val baseUrl = "http://dev.nogorsolutions.com/leave/" // Local Server
+            val baseUrl = "https://api.unsplash.com/" // Live Server
 
             return Retrofit.Builder()
                 .client(okkHttpclient)

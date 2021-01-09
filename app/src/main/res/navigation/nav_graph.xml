@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/plantListFragment">
+    app:startDestination="@id/nav_plantListFragment">
 
     <fragment
         android:id="@+id/nav_home"
@@ -28,25 +28,43 @@
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-        android:id="@+id/plantListFragment"
+        android:id="@+id/nav_plantListFragment"
         android:name="com.rasel.androidbaseapp.ui.plant_list.PlantListFragment"
         android:label="PlantListFragment"
         tools:layout="@layout/fragment_plant_list">
         <action
             android:id="@+id/action_plantListFragment_to_plantDetailFragment"
-            app:destination="@id/plantDetailFragment" />
+            app:destination="@id/nav_plantDetailFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/plantDetailFragment"
+        android:id="@+id/nav_plantDetailFragment"
         android:name="com.rasel.androidbaseapp.ui.plant_details.PlantDetailFragment"
         android:label="PlantDetailFragment"
         tools:layout="@layout/fragment_plant_detail">
+
+        <action
+            android:id="@+id/action_plant_detail_fragment_to_gallery_fragment"
+            app:destination="@id/gallery_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <argument
             android:name="plantId"
             app:argType="string" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/gallery_fragment"
+        android:name="com.rasel.androidbaseapp.ui.gallery.GalleryFragment"
+        android:label="@string/plant_details_title"
+        tools:layout="@layout/fragment_gallery">
+        <argument
+            android:name="plantName"
+            app:argType="string" />
     </fragment>
 
 </navigation>

@@ -4,28 +4,45 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.rasel.androidbaseapp.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
+import com.rasel.androidbaseapp.databinding.FragmentGalleryBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class GalleryFragment : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
+    private val adapter = GalleryAdapter()
+    private val args: GalleryFragmentArgs by navArgs()
+    private var searchJob: Job? = null
+    private val viewModel: GalleryViewModel by viewModels()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel =
-                ViewModelProvider(this).get(GalleryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        galleryViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        val binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        context ?: return binding.root
+
+        binding.photoList.adapter = adapter
+        search(args.plantName)
+
+        return binding.root
+    }
+
+    private fun search(query: String) {
+        // Make sure we cancel the previous job before creating a new one
+        searchJob?.cancel()
+        searchJob = lifecycleScope.launch {
+            viewModel.searchPictures(query).collectLatest {
+                adapter.submitData(it)
+            }
+        }
     }
 }
