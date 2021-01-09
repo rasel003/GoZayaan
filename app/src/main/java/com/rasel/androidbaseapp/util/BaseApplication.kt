@@ -8,14 +8,14 @@ import android.media.AudioAttributes
 import android.os.Build
 import android.provider.Settings
 import androidx.multidex.MultiDexApplication
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
+import com.rasel.androidbaseapp.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
+
 
 @HiltAndroidApp
 class BaseApplication : MultiDexApplication() {
-
-    init {
-        // createNotificationChannel()
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -23,6 +23,13 @@ class BaseApplication : MultiDexApplication() {
         /*if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
         }*/
+
+        // used this logger throughout the app for logging
+        Logger.addLogAdapter(object : AndroidLogAdapter() {
+            override fun isLoggable(priority: Int, tag: String?): Boolean {
+                return BuildConfig.DEBUG
+            }
+        })
 
         createNotificationChannel()
     }
