@@ -13,15 +13,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.data.db.entities.Plant
 import com.rasel.androidbaseapp.databinding.FragmentPlantDetailBinding
+import com.rasel.androidbaseapp.ui.plant_details.PlantDetailFragment.Callback
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * A fragment representing a single Plant detail screen.
@@ -31,7 +30,7 @@ class PlantDetailFragment : Fragment() {
 
     private val args: PlantDetailFragmentArgs by navArgs()
 
-    @Inject
+   /* @Inject
     lateinit var plantDetailViewModelFactory: PlantDetailViewModel.AssistedFactory
 
     private val plantDetailViewModel: PlantDetailViewModel by viewModels {
@@ -39,7 +38,9 @@ class PlantDetailFragment : Fragment() {
             plantDetailViewModelFactory,
             args.plantId
         )
-    }
+    }*/
+
+    private val plantDetailViewModel: PlantDetailViewModel by viewModels ()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -107,7 +108,7 @@ class PlantDetailFragment : Fragment() {
     }
 
     private fun navigateToGallery() {
-        plantDetailViewModel.plant.value?.let { plant ->
+        plantDetailViewModel.plant?.value?.let { plant ->
             /*val direction = PlantDetailFragmentDirections.actionPlantDetailFragmentToGalleryFragment(plant.name)
             findNavController().navigate(direction)*/
         }
@@ -117,7 +118,7 @@ class PlantDetailFragment : Fragment() {
     // Should be used when user presses a share button/menu item.
     @Suppress("DEPRECATION")
     private fun createShareIntent() {
-        val shareText = plantDetailViewModel.plant.value.let { plant ->
+        val shareText = plantDetailViewModel.plant?.value.let { plant ->
             if (plant == null) {
                 ""
             } else {

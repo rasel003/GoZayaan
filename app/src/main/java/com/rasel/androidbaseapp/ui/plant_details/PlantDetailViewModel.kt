@@ -1,28 +1,29 @@
 package com.rasel.androidbaseapp.ui.plant_details
 
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.rasel.androidbaseapp.BuildConfig
 import com.rasel.androidbaseapp.data.repositories.PlantRepository
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+
 
 /**
  * The ViewModel used in [PlantDetailFragment].
  */
 class PlantDetailViewModel @ViewModelInject constructor(
     plantRepository: PlantRepository,
-    @Assisted private val plantId: String
+    @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
 
 
-    val plant = plantRepository.getPlant(plantId).asLiveData()
+    val plant = state.get<String>("plantId")?.let { plantRepository.getPlant(it).asLiveData() }
 
     fun hasValidUnsplashKey() = (BuildConfig.UNSPLASH_ACCESS_KEY != "null")
 
-    @AssistedInject.Factory
+   /* @AssistedInject.Factory
     interface AssistedFactory {
         fun create(plantId: String): PlantDetailViewModel
     }
@@ -37,5 +38,5 @@ class PlantDetailViewModel @ViewModelInject constructor(
                 return assistedFactory.create(plantId) as T
             }
         }
-    }
+    }*/
 }
