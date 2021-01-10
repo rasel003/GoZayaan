@@ -6,7 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rasel.androidbaseapp.data.network.model.UnsplashPhoto
+import com.rasel.androidbaseapp.databinding.DialogPhotoDetailsBinding
 import com.rasel.androidbaseapp.databinding.ListItemPhotoBinding
 
 /**
@@ -46,6 +50,21 @@ class HomeAdapter : ListAdapter<UnsplashPhoto, RecyclerView.ViewHolder>(PlantDif
         ) {
            /* val direction = PlantListFragmentDirections.actionPlantListFragmentToPlantDetailFragment(plant.plantId)
             view.findNavController().navigate(direction)*/
+
+           val dialog = MaterialAlertDialogBuilder(view.context)
+
+            val bindingDialog = DialogPhotoDetailsBinding.inflate(LayoutInflater.from(view.context))
+
+            Glide.with(view.context)
+                .load(plant.urls.small)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(bindingDialog.imageView)
+
+            bindingDialog.tvUserName.text = plant.user.name
+
+            dialog.setView(bindingDialog.root)
+
+            dialog.show()
         }
 
         fun bind(item: UnsplashPhoto) {

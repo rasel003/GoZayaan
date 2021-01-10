@@ -1,22 +1,8 @@
-/*
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+package com.rasel.androidbaseapp.data.network.model
 
-package com.google.samples.apps.sunflower.data
-
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Data class that represents URLs available for a Unsplash photo.
@@ -25,6 +11,8 @@ import com.google.gson.annotations.SerializedName
  * For more details, consult the API documentation
  * [here](https://unsplash.com/documentation#example-image-use).
  */
+
+@Parcelize
 data class UnsplashPhotoUrls(
     @field:SerializedName("small") val small: String
-)
+) : Parcelable
