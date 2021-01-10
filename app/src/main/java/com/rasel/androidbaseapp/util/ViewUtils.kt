@@ -2,6 +2,7 @@ package com.rasel.androidbaseapp.util
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.net.ConnectivityManager
@@ -14,6 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.navigation.navOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -206,3 +209,20 @@ fun String.capitalizeFirstCharacter(): String {
 fun TextInputEditText.disableError(view : TextInputLayout){
 
 }
+
+fun Context.showPermissionRequestDialog(
+    title: String,
+    body: String,
+    callback: () -> Unit
+) {
+    AlertDialog.Builder(this).also {
+        it.setTitle(title)
+        it.setMessage(body)
+        it.setPositiveButton("Ok") { _, _ ->
+            callback()
+        }
+    }.create().show()
+}
+
+fun Context.permissionGranted(permission: String) =
+    ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED

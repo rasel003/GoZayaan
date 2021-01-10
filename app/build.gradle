@@ -127,8 +127,8 @@ dependencies {
 
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
 
-    //
-   // implementation "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.4.21"
+    //new image loading library
+    implementation 'io.coil-kt:coil:1.1.0'
 
     //Retrofit and GSON
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpLoggingVersion"

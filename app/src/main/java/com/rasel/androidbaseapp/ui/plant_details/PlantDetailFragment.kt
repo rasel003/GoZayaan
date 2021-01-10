@@ -1,32 +1,52 @@
 
 package com.rasel.androidbaseapp.ui.plant_details
 
+import android.Manifest
+import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.View
-import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import coil.Coil
+import coil.ImageLoader
+import coil.request.ImageRequest
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.data.db.entities.Plant
 import com.rasel.androidbaseapp.databinding.FragmentPlantDetailBinding
 import com.rasel.androidbaseapp.ui.plant_details.PlantDetailFragment.Callback
+import com.rasel.androidbaseapp.util.permissionGranted
+import com.rasel.androidbaseapp.util.showPermissionRequestDialog
+import com.rasel.androidbaseapp.util.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 /**
  * A fragment representing a single Plant detail screen.
  */
 @AndroidEntryPoint
-class PlantDetailFragment : Fragment() {
+class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
 
-   // private val args: PlantDetailFragmentArgs by navArgs()
+    private lateinit var imageLoader: ImageLoader
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var downloadedBitmap: Bitmap
 
    /* @Inject
     lateinit var plantDetailViewModelFactory: PlantDetailViewModel.AssistedFactory
@@ -38,25 +58,21 @@ class PlantDetailFragment : Fragment() {
         )
     }*/
 
+    private lateinit var binding: FragmentPlantDetailBinding
     private val plantDetailViewModel: PlantDetailViewModel by viewModels ()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val binding = DataBindingUtil.inflate<FragmentPlantDetailBinding>(
-            inflater,
-            R.layout.fragment_plant_detail,
-            container,
-            false
-        ).apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding =  FragmentPlantDetailBinding.bind(view).apply {
             viewModel = plantDetailViewModel
             lifecycleOwner = viewLifecycleOwner
             callback = Callback { plant ->
                 plant?.let {
                     hideAppBarFab(fab)
                     Snackbar.make(root, R.string.added_plant_to_garden, Snackbar.LENGTH_LONG).show()
+
+                    getBitmapFromUrl(it.imageUrl)
                 }
             }
 
@@ -65,27 +81,27 @@ class PlantDetailFragment : Fragment() {
             var isToolbarShown = false
 
             // scroll change listener begins at Y = 0 when image is fully collapsed
-           /* plantDetailScrollview.setOnScrollChangeListener(
-                NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+            /* plantDetailScrollview.setOnScrollChangeListener(
+                 NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
 
-                    // User scrolled past image to height of toolbar and the title text is
-                    // underneath the toolbar, so the toolbar should be shown.
-                    val shouldShowToolbar = scrollY > toolbar.height
+                     // User scrolled past image to height of toolbar and the title text is
+                     // underneath the toolbar, so the toolbar should be shown.
+                     val shouldShowToolbar = scrollY > toolbar.height
 
-                    // The new state of the toolbar differs from the previous state; update
-                    // appbar and toolbar attributes.
-                    if (isToolbarShown != shouldShowToolbar) {
-                        isToolbarShown = shouldShowToolbar
+                     // The new state of the toolbar differs from the previous state; update
+                     // appbar and toolbar attributes.
+                     if (isToolbarShown != shouldShowToolbar) {
+                         isToolbarShown = shouldShowToolbar
 
-                        // Use shadow animator to add elevation if toolbar is shown
-                        appbar.isActivated = shouldShowToolbar
+                         // Use shadow animator to add elevation if toolbar is shown
+                         appbar.isActivated = shouldShowToolbar
 
-                        // Show the plant name if toolbar is shown
-                        toolbarLayout.isTitleEnabled = shouldShowToolbar
-                    }
-                }
-            )
-*/
+                         // Show the plant name if toolbar is shown
+                         toolbarLayout.isTitleEnabled = shouldShowToolbar
+                     }
+                 }
+             )
+ */
             /*toolbar.setNavigationOnClickListener { view ->
                 view.findNavController().navigateUp()
             }
@@ -100,9 +116,78 @@ class PlantDetailFragment : Fragment() {
                 }
             }*/
         }
-        setHasOptionsMenu(true)
 
-        return binding.root
+        setPermissionCallback()
+        imageLoader = Coil.imageLoader(requireContext())
+    }
+
+    private fun getBitmapFromUrl(mediaDownloadURL : String) = viewLifecycleOwner.lifecycleScope.launch {
+        // binding.progressbar.visible(true)
+        if (mediaDownloadURL.isNotEmpty()) {
+            val request = ImageRequest.Builder(requireContext())
+                .data(mediaDownloadURL)
+                .build()
+            downloadedBitmap = (imageLoader.execute(request).drawable as BitmapDrawable).bitmap
+            checkPermissionAndSaveBitmap()
+        } else {
+            requireContext().toast("No Media Downloaded")
+        }
+    }
+    private fun checkPermissionAndSaveBitmap() {
+        //  binding.progressbar.visible(false)
+        when {
+            requireContext().permissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
+                saveMediaToStorage(downloadedBitmap)
+            }
+            shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
+                requireContext().showPermissionRequestDialog(
+                    getString(R.string.permission_title),
+                    getString(R.string.write_permission_request)
+                ) {
+                    requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }
+            }
+            else -> {
+                requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        }
+    }
+
+    private fun setPermissionCallback() {
+        requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+                if (isGranted) {
+                    if (::downloadedBitmap.isInitialized) {
+                        saveMediaToStorage(downloadedBitmap)
+                    }
+                }
+            }
+    }
+
+    private fun saveMediaToStorage(bitmap: Bitmap) {
+        val filename = "${System.currentTimeMillis()}.jpg"
+        var fos: OutputStream? = null
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            context?.contentResolver?.also { resolver ->
+                val contentValues = ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                    put(
+                        MediaStore.MediaColumns.RELATIVE_PATH,
+                        Environment.DIRECTORY_PICTURES
+                    )
+                }
+                val imageUri: Uri? = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                fos = imageUri?.let { resolver.openOutputStream(it) }
+            }
+        } else {
+            val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            val image = File(imagesDir, filename)
+            fos = FileOutputStream(image)
+        }
+        fos?.use {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            context?.toast("Saved to Photos")
+        }
     }
 
     private fun navigateToGallery() {

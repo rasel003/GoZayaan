@@ -103,4 +103,8 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
 
+    <string name="permission_title">Oops! You\'ve denied the permission</string>
+    <string name="write_permission_request">I need storage permission, to save the media file to your storage.\nWithout the permission I cannot save your file.</string>
+
+
 </resources>
