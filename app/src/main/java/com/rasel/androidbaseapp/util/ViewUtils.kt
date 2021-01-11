@@ -17,6 +17,8 @@ import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat
 import androidx.navigation.navOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -39,6 +41,7 @@ fun Context.toastColorful(message: String) {
 
         //Gets the actual oval background of the Toast then sets the colour filter
         background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
+      //  background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.BLACK, BlendModeCompat.SRC_IN)
 
         //Gets the TextView from the Toast so it can be edited
         findViewById<TextView>(android.R.id.message).apply {

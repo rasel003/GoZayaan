@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.util.toastColorful
 
 class SlideshowFragment : Fragment() {
 
@@ -26,6 +27,16 @@ class SlideshowFragment : Fragment() {
         slideshowViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+
+        textView.setOnClickListener {
+            context?.toastColorful("Test Toast")
+        }
+
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 }
