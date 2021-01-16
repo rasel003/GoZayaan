@@ -5,7 +5,7 @@
     <!--Components-->
 
     <style name="MyDatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
-        <item name="colorAccent">@color/reply_blue_800</item>
+        <item name="colorAccent">@color/app_blue_800</item>
     </style>
 
     <style name="ShapeAppearance.MyApp.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
@@ -222,7 +222,7 @@
     </style>
 
     <style name="popupMenuStyle" parent="Widget.MaterialComponents.PopupMenu">
-        <item name="android:popupBackground">@color/white</item>
+        <item name="android:popupBackground">@color/app_white_50</item>
     </style>
 
     <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">

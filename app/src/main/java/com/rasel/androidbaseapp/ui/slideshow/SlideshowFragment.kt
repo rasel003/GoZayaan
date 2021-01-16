@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.util.snackBar
 import com.rasel.androidbaseapp.util.toastColorful
 
 class SlideshowFragment : Fragment() {
@@ -30,6 +31,7 @@ class SlideshowFragment : Fragment() {
 
         textView.setOnClickListener {
             context?.toastColorful("Test Toast")
+           // it.snackBar("Test Toast")
         }
 
         return root

@@ -34,6 +34,7 @@ fun Context.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
+
 fun Context.toastColorful(message: String) {
 
     val toast = Toast.makeText(this, message, Toast.LENGTH_LONG)

@@ -5,6 +5,6 @@
   <item
       android:state_activated="true"
       android:alpha="0.80"
-      android:color="@color/reply_black_800"/>
+      android:color="@color/app_black_800"/>
 
 </selector>
