@@ -128,7 +128,11 @@ class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
                 .data(mediaDownloadURL)
                 .build()
             downloadedBitmap = (imageLoader.execute(request).drawable as BitmapDrawable).bitmap
-            checkPermissionAndSaveBitmap()
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                checkPermissionAndSaveBitmap()
+            }else {
+                saveMediaToStorage(downloadedBitmap)
+            }
         } else {
             requireContext().toast("No Media Downloaded")
         }
