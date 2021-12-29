@@ -8,12 +8,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.rasel.androidbaseapp.BuildConfig
 import com.rasel.androidbaseapp.data.repositories.PlantRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 
 /**
  * The ViewModel used in [PlantDetailFragment].
  */
-class PlantDetailViewModel @ViewModelInject constructor(
+
+@HiltViewModel
+class PlantDetailViewModel @Inject constructor(
     plantRepository: PlantRepository,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {

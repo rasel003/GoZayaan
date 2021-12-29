@@ -1,6 +1,7 @@
 package com.rasel.androidbaseapp.ui.gallery
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.rasel.androidbaseapp.data.network.MyApi
 import com.rasel.androidbaseapp.data.network.model.UnsplashPhoto
 
@@ -24,5 +25,9 @@ class UnsplashPagingSource(
         } catch (exception: Exception) {
             LoadResult.Error(exception)
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, UnsplashPhoto>): Int? {
+        return 0
     }
 }
