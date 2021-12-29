@@ -1,6 +1,5 @@
 package com.rasel.androidbaseapp.ui.home
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +9,12 @@ import com.rasel.androidbaseapp.data.network.model.UnsplashPhoto
 import com.rasel.androidbaseapp.data.repositories.HomeRepository
 import com.rasel.androidbaseapp.util.ApiException
 import com.rasel.androidbaseapp.util.NoInternetException
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel @ViewModelInject constructor(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val repository: HomeRepository
 ) : ViewModel() {
 

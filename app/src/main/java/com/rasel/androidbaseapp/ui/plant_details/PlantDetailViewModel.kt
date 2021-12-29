@@ -1,10 +1,8 @@
 package com.rasel.androidbaseapp.ui.plant_details
 
 import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.rasel.androidbaseapp.BuildConfig
 import com.rasel.androidbaseapp.data.repositories.PlantRepository

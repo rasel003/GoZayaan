@@ -2,13 +2,11 @@
 package com.rasel.androidbaseapp.ui.plant_list
 
 import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.rasel.androidbaseapp.data.db.entities.Plant
 import com.rasel.androidbaseapp.data.repositories.PlantRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
