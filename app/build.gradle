@@ -64,6 +64,7 @@ android {
     androidExtensions {
         experimental = true
     }
+    namespace 'com.rasel.androidbaseapp'
 }
 
 dependencies {
