@@ -1,7 +1,6 @@
 
 package com.rasel.androidbaseapp.ui.plant_list
 
-import androidx.hilt.Assisted
 import androidx.lifecycle.*
 import com.rasel.androidbaseapp.data.db.entities.Plant
 import com.rasel.androidbaseapp.data.repositories.PlantRepository
@@ -18,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PlantListViewModel @Inject internal constructor(
     plantRepository: PlantRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val growZone: MutableStateFlow<Int> = MutableStateFlow(

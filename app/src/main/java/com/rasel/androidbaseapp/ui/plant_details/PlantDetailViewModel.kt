@@ -1,6 +1,5 @@
 package com.rasel.androidbaseapp.ui.plant_details
 
-import androidx.hilt.Assisted
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -17,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PlantDetailViewModel @Inject constructor(
     plantRepository: PlantRepository,
-    @Assisted private val state: SavedStateHandle
+    state: SavedStateHandle
 ) : ViewModel() {
 
 
