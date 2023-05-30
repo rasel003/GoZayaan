@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.rasel.androidbaseapp.BuildConfig
 import com.rasel.androidbaseapp.data.repositories.PlantRepository
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PlantDetailViewModel @Inject constructor(
     plantRepository: PlantRepository,
-    state: SavedStateHandle
+    private val state: SavedStateHandle
 ) : ViewModel() {
 
 
