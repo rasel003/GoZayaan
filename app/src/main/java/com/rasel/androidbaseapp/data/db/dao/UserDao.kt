@@ -12,12 +12,12 @@ import com.rasel.androidbaseapp.data.db.entities.User
 interface UserDao{
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(user: User) : Long
+     fun upsert(user: User) : Long
 
     @Query("SELECT * FROM user WHERE uid = $CURRENT_USER_ID")
     fun getuser() : LiveData<User>
 
     @Query("SELECT * FROM user WHERE uid = $CURRENT_USER_ID")
-   suspend fun getUserInfo() : User
+    fun getUserInfo() : User?
 
 }
