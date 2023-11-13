@@ -194,6 +194,9 @@ interface MyApi {
         @Query("client_id") clientId: String = BuildConfig.UNSPLASH_ACCESS_KEY
     ): Response<UnsplashSearchResponse>
 
+    @GET("https://jsonplaceholder.typicode.com/posts")
+    suspend fun getNotifications(
+    ): NotificationResponse
 
     companion object {
 
