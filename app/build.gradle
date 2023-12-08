@@ -44,6 +44,7 @@ android {
         buildFeatures {
             viewBinding true
         }
+        buildConfig true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -85,8 +86,8 @@ dependencies {
 
     //for logging and debug
     implementation 'com.orhanobut:logger:2.2.0'
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
 
 
     compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$rootProject.assistedInjectVersion"
@@ -127,7 +128,7 @@ dependencies {
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
 
     //new image loading library
-    implementation 'io.coil-kt:coil:2.4.0'
+    implementation 'io.coil-kt:coil:2.5.0'
 
     //Retrofit and GSON
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpLoggingVersion"
@@ -146,7 +147,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
 
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:30.4.0')
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
 
     // Add the dependencies for the Crashlytics and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies

@@ -29,10 +29,10 @@ class SlideshowFragment : Fragment(R.layout.fragment_slideshow) {
         slideshowViewModel = ViewModelProvider(this)[SlideshowViewModel::class.java]
         binding = FragmentSlideshowBinding.inflate(inflater, container, false)
 
-        binding.recyclerview.adapter = adapter
         adapter = NotificationAdapter(ArrayList(), onEditOrderClicked = {
 
         })
+        binding.recyclerview.adapter = adapter
         return binding.root
     }
 
