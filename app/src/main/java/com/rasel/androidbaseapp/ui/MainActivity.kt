@@ -3,6 +3,7 @@ package com.rasel.androidbaseapp.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
@@ -15,14 +16,16 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.ActivityMainBinding
+import com.rasel.androidbaseapp.viewmodel.LocalizedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.NonCancellable.cancel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: LocalizedViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +48,16 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_plantListFragment), binding.drawerLayout
+            setOf(R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_plantListFragment, R.id.nav_settings), binding.drawerLayout
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getLocalizationFromRemote()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -65,10 +73,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when(item.itemId){
-            R.id.action_logOut -> { logOutFromApp() ; return true}
-            R.id.action_settings -> { return true}
-            else ->  return super.onOptionsItemSelected(item)
+        return when(item.itemId){
+            R.id.action_logOut -> { logOutFromApp() ; true
+            }
+
+            R.id.action_settings -> {
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

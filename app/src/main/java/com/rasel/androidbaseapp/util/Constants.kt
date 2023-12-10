@@ -16,3 +16,10 @@ const val KEY_SEX = "key_sex"
 
 
 const val CHANNEL_ID_RECEIVED_LEAVE_REQUEST = "ID_RECEIVED_LEAVE_REQUEST"
+
+
+enum class AppLanguage(val value: String) {
+    ENGLISH("English"),
+    BURMESE("Burmese"),
+    CHINESE("Chinese");
+}

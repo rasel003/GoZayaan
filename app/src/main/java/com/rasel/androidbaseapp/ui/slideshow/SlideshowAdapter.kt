@@ -9,10 +9,10 @@ import com.rasel.androidbaseapp.data.network.Records
 import com.rasel.androidbaseapp.databinding.ItemNotificationBinding
 
 
-class NotificationAdapter(
+class SlideshowAdapter(
     var dataArrayList: MutableList<Records>,
     private var onEditOrderClicked: ((item: Records) -> Unit),
-) : RecyclerView.Adapter<NotificationAdapter.MyViewHOlder>() {
+) : RecyclerView.Adapter<SlideshowAdapter.MyViewHOlder>() {
 
     private var layoutInflater: LayoutInflater? = null
     private val mFilterData: List<Records>
