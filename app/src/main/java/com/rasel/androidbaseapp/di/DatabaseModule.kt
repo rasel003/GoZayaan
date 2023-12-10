@@ -23,7 +23,7 @@ class DatabaseModule {
 
     @Provides
     fun providePlantDao(appDatabase: AppDatabase): PlantDao {
-        return appDatabase.plantDao()
+        return appDatabase.getPlantDao()
     }
 
     @Provides

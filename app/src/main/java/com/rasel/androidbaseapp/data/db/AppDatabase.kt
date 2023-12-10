@@ -31,7 +31,7 @@ import com.rasel.androidbaseapp.workers.SeedDatabaseWorker
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getUserDao(): UserDao
-    abstract fun plantDao(): PlantDao
+    abstract fun getPlantDao(): PlantDao
 
     companion object {
 

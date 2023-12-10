@@ -198,30 +198,5 @@ interface MyApi {
     suspend fun getNotifications(
     ): NotificationResponse
 
-    companion object {
-
-
-        operator fun invoke(
-            networkConnectionInterceptor: NetworkConnectionInterceptor
-        ): MyApi {
-
-            val okkHttpclient = OkHttpClient.Builder()
-                .connectTimeout(20L, TimeUnit.SECONDS)
-                .readTimeout(30L, TimeUnit.SECONDS)
-                .writeTimeout(30L, TimeUnit.SECONDS)
-                .addInterceptor(networkConnectionInterceptor)
-                .build()
-
-            val baseUrl = "https://api.unsplash.com/" // Live Server
-
-            return Retrofit.Builder()
-                .client(okkHttpclient)
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(MyApi::class.java)
-        }
-    }
-
 }
 

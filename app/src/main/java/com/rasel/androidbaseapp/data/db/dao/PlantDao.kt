@@ -1,4 +1,3 @@
-
 package com.rasel.androidbaseapp.data.db.dao
 
 import androidx.room.Dao
@@ -16,6 +15,9 @@ interface PlantDao {
     @Query("SELECT * FROM plants ORDER BY name")
     fun getPlants(): Flow<List<Plant>>
 
+    @Query("SELECT * FROM plants ORDER BY name")
+    fun getPlantList(): List<Plant>
+
     @Query("SELECT * FROM plants WHERE growZoneNumber = :growZoneNumber ORDER BY name")
     fun getPlantsWithGrowZoneNumber(growZoneNumber: Int): Flow<List<Plant>>
 
@@ -23,5 +25,5 @@ interface PlantDao {
     fun getPlant(plantId: String): Flow<Plant>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun insertAll(plants: List<Plant>)
+    fun insertAll(plants: List<Plant>)
 }
