@@ -3,27 +3,25 @@ package com.rasel.androidbaseapp.data.repositories
 import android.content.Context
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.data.network.MyApi
-import com.rasel.androidbaseapp.util.AppLanguage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import com.rasel.androidbaseapp.data.network.model.Localization
 import com.rasel.androidbaseapp.data.network.model.LocalizationBundle
+import com.rasel.androidbaseapp.data.network.responses.ProductListItem
 import com.rasel.androidbaseapp.data.preferences.PreferenceProvider
+import com.rasel.androidbaseapp.util.AppLanguage
+import com.rasel.androidbaseapp.util.NetworkResult
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
-import java.util.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 class LocalizationRepository  @Inject constructor(
     private val preferenceStorage: PreferenceProvider,
     @ApplicationContext private val context : Context,
-    private val remote: MyApi,
+    private val myApi: MyApi,
 ) {
 
     private val moshiAdapter : JsonAdapter<LocalizationBundle> by lazy {
@@ -115,5 +113,22 @@ class LocalizationRepository  @Inject constructor(
         AppLanguage.ENGLISH -> en
         AppLanguage.CHINESE -> cn
         AppLanguage.BURMESE -> mm
+    }
+
+
+
+
+    suspend fun getProducts(): NetworkResult<List<ProductListItem>> {
+        val response = myApi.getProducts()
+        return if (response.isSuccessful) {
+            val responseBody = response.body()
+            if (responseBody != null) {
+                NetworkResult.Success(responseBody)
+            } else {
+                NetworkResult.Error("Something went wrong")
+            }
+        } else {
+            NetworkResult.Error("Something went wrong")
+        }
     }
 }

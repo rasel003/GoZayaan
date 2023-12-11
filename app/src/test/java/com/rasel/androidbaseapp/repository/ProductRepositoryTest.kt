@@ -1,13 +1,12 @@
 package com.rasel.androidbaseapp.repository
 
-import com.cheezycode.mvvmtest.api.ProductsAPI
-import com.cheezycode.mvvmtest.models.ProductListItem
-import com.cheezycode.mvvmtest.utils.NetworkResult
+import com.rasel.androidbaseapp.data.network.MyApi
+import com.rasel.androidbaseapp.data.network.responses.ProductListItem
+import com.rasel.androidbaseapp.data.repositories.ProductRepository
+import com.rasel.androidbaseapp.util.NetworkResult
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert
-import org.junit.Assert.*
-
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -18,7 +17,7 @@ import retrofit2.Response
 class ProductRepositoryTest {
 
     @Mock
-    lateinit var productsAPI: ProductsAPI
+    lateinit var productsAPI: MyApi
 
     @Before
     fun setUp() {

@@ -2,6 +2,7 @@ package com.rasel.androidbaseapp.data.network
 
 import com.rasel.androidbaseapp.BuildConfig
 import com.rasel.androidbaseapp.data.network.responses.LoginResponse
+import com.rasel.androidbaseapp.data.network.responses.ProductListItem
 import com.rasel.androidbaseapp.data.network.responses.UnsplashSearchResponse
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -197,6 +198,9 @@ interface MyApi {
     @GET("https://jsonplaceholder.typicode.com/posts")
     suspend fun getNotifications(
     ): NotificationResponse
+
+    @GET("/products")
+    suspend fun getProducts() : Response<List<ProductListItem>>
 
 }
 

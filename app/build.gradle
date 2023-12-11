@@ -133,6 +133,7 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:1.13.0"
 
     //Retrofit and GSON
+    implementation "com.squareup.okhttp3:okhttp:4.11.0"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpLoggingVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
