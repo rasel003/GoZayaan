@@ -294,7 +294,17 @@
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/color_on_surface_divider</item>
     </style>
 
+    <style name="ModalBottomSheetDialog2" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="behavior_draggable">false</item>
+        <item name="behavior_hideable">false</item>
+        <item name="behavior_peekHeight">2000dp</item>
+        <!--        <item name="backgroundTint">@color/transparent</item>-->
+        <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
+    </style>
 
+    <style name="ThemeOverlay.App.BottomSheetDialog.FullScreen" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog2</item>
+    </style>
 
     <!-- snackbar style-->
     <!--   <style name="Widget.App.Snackbar" parent="Widget.MaterialComponents.Snackbar">

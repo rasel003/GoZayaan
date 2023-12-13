@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import com.rasel.androidbaseapp.data.network.model.Localization
 import com.rasel.androidbaseapp.databinding.FragmentSettingsBinding
+import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
 import com.rasel.androidbaseapp.viewmodel.LocalizedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,6 +45,13 @@ class SettingsFragment : Fragment() {
         binding.btnEnglish.setOnClickListener{viewModel.switchToEnglish()}
         binding.btnBurmese.setOnClickListener{viewModel.switchToBurmese()}
         binding.btnChinese.setOnClickListener{viewModel.switchToChinese()}
+
+        binding.textView.setOnClickListener {
+            OrderUpdateHistoryMerchantDialog.display(
+                childFragmentManager, "history",
+                "it1"
+            )
+        }
     }
 
     companion object {

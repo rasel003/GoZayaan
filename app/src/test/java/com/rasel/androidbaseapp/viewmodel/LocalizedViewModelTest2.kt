@@ -17,9 +17,12 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import retrofit2.Response
+
 
 class LocalizedViewModelTest2 {
     private val testDispatcher = StandardTestDispatcher()
@@ -30,7 +33,7 @@ class LocalizedViewModelTest2 {
     @Mock
     lateinit var myApi: MyApi
 
-    @Mock
+    @InjectMocks
     lateinit var repository2: LocalizationRepository2
 
     @Before
@@ -41,9 +44,10 @@ class LocalizedViewModelTest2 {
 
     @Test
     fun test_GetProducts() = runTest {
-//        Mockito.`when`(repository2.getProducts()).doReturn(NetworkResult.Success(emptyList()))
-        Mockito.doReturn(NetworkResult.Success(emptyList<ProductListItem>()))
-            .`when`(repository2.getProducts())
+//        Mockito.`when`(myApi.getProducts()).doReturn(Response<List<ProductListItem>>(okhttp3.Response.Builder().networkResponse()))
+        Mockito.`when`(repository2.getProducts()).thenReturn(NetworkResult.Success(emptyList()))
+       /* Mockito.doReturn(NetworkResult.Success(emptyList<ProductListItem>()))
+            .`when`(repository2.getProducts())*/
 
         val sut = LocalizedViewModel2(repository2)
         sut.getProducts()
@@ -51,6 +55,20 @@ class LocalizedViewModelTest2 {
         val result = sut.products.getOrAwaitValue()
         assertEquals(0, result.data!!.size)
     }
+
+    /*@Test
+    fun rsl (){
+        val mockedList: LinkedList<*> = mock(LinkedList::class.java)
+        val mockedList: List<String> = mock(List::class.java)
+
+        //using mock object
+        mockedList.add("one");
+        mockedList.clear();
+
+        //verification
+        verify(mockedList).add("one");
+        verify(mockedList).clear();
+    }*/
 
     /* @Test
      fun test_GetProduct_expectedError() = runTest {
