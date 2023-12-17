@@ -60,9 +60,9 @@ class SlideshowFragment : Fragment(R.layout.fragment_slideshow) {
                     lifecycleScope.launch {
                         binding.progressBar.visibility = View.GONE
 
-                        if (it.value.records.isNotEmpty()) {
+                        if (it.value.isNotEmpty()) {
                             binding.tvNoDataFound.visibility = View.GONE
-                            adapter.addNewData(it.value.records)
+                            adapter.addNewData(it.value)
 
                         } else {
                             binding.tvNoDataFound.visibility = View.VISIBLE

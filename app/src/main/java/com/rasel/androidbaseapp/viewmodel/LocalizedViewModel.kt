@@ -52,11 +52,5 @@ open class LocalizedViewModel @Inject constructor(
     val products: LiveData<NetworkResult<List<ProductListItem>>>
         get() = _products
 
-    fun getProducts(){
-        viewModelScope.launch {
-            val result = localizationRepository.getProducts()
-            _products.postValue(result)
-        }
-    }
 
 }

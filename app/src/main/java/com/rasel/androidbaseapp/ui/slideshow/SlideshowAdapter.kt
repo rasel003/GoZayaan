@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rasel.androidbaseapp.data.network.Records
+import com.rasel.androidbaseapp.data.network.responses.PostItem
 import com.rasel.androidbaseapp.databinding.ItemNotificationBinding
 
 
 class SlideshowAdapter(
-    var dataArrayList: MutableList<Records>,
-    private var onEditOrderClicked: ((item: Records) -> Unit),
+    var dataArrayList: MutableList<PostItem>,
+    private var onEditOrderClicked: ((item: PostItem) -> Unit),
 ) : RecyclerView.Adapter<SlideshowAdapter.MyViewHOlder>() {
 
     private var layoutInflater: LayoutInflater? = null
-    private val mFilterData: List<Records>
+    private val mFilterData: List<PostItem>
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MyViewHOlder {
         if (layoutInflater == null) {
@@ -35,7 +36,7 @@ class SlideshowAdapter(
         return dataArrayList.size
     }
 
-    fun addNewData(orderHistoryItemList: List<Records>) {
+    fun addNewData(orderHistoryItemList: List<PostItem>) {
         dataArrayList.clear()
         dataArrayList.addAll(orderHistoryItemList)
         notifyDataSetChanged()
@@ -47,20 +48,11 @@ class SlideshowAdapter(
         binding.root
     ) {
 
-        fun bind(item: Records, position: Int) {
-            binding.tvTitle.text = item.body
-            binding.tvSubTitle.text = item.date_sent
+        fun bind(item: PostItem, position: Int) {
+            binding.tvTitle.text = item.title
+            binding.tvSubTitle.text = item.body
             binding.llNotification.setOnClickListener {
-                if (item.date_read == null) {
-                    onEditOrderClicked(item)
-                }
-            }
-            if (item.date_read != null) {
-                binding.ivArrow.visibility = View.INVISIBLE
-                binding.tvTitle.setTextColor(Color.parseColor("#999999"))
-            } else {
-                binding.ivArrow.visibility = View.VISIBLE
-                binding.tvTitle.setTextColor(Color.parseColor("#334660"))
+                onEditOrderClicked(item)
             }
         }
 

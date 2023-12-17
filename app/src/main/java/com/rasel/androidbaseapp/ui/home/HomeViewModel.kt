@@ -27,12 +27,12 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getDataFromUnSplash(query)
-                if (response.results.isNotEmpty()) {
+               /* if (response.value.body.isNotEmpty()) {
                     _unsplashPhoto.value = response.results
                    
                 } else {
                     Logger.d("Current user available Response is not successful")
-                }
+                }*/
             } catch (e: NoInternetException) {
                 Logger.d(e.message!!)
             } catch (e: ApiException) {

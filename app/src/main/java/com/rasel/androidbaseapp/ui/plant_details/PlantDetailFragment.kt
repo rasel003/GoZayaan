@@ -5,7 +5,6 @@ import android.Manifest
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -20,9 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import coil.Coil
-import coil.ImageLoader
-import coil.request.ImageRequest
+import com.bumptech.glide.RequestManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.rasel.androidbaseapp.R
@@ -37,6 +34,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
+import javax.inject.Inject
 
 /**
  * A fragment representing a single Plant detail screen.
@@ -44,7 +42,8 @@ import java.io.OutputStream
 @AndroidEntryPoint
 class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
 
-    private lateinit var imageLoader: ImageLoader
+    @Inject
+    lateinit var imageLoader: RequestManager
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var downloadedBitmap: Bitmap
 
@@ -118,16 +117,18 @@ class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
         }
 
         setPermissionCallback()
-        imageLoader = Coil.imageLoader(requireContext())
+//        imageLoader = Coil.imageLoader(requireContext())
     }
 
     private fun getBitmapFromUrl(mediaDownloadURL : String) = viewLifecycleOwner.lifecycleScope.launch {
         // binding.progressbar.visible(true)
         if (mediaDownloadURL.isNotEmpty()) {
-            val request = ImageRequest.Builder(requireContext())
+           /* val request = ImageRequest.Builder(requireContext())
                 .data(mediaDownloadURL)
                 .build()
-            downloadedBitmap = (imageLoader.execute(request).drawable as BitmapDrawable).bitmap
+            downloadedBitmap = (imageLoader.execute(request).drawable as BitmapDrawable).bitmap*/
+            downloadedBitmap = plantDetailViewModel.loadImageAsync(mediaDownloadURL)
+
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 checkPermissionAndSaveBitmap()
             }else {

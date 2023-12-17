@@ -1,43 +1,18 @@
 package com.rasel.androidbaseapp.data.network
 
 import com.rasel.androidbaseapp.BuildConfig
-import com.rasel.androidbaseapp.data.network.responses.LoginResponse
-import com.rasel.androidbaseapp.data.network.responses.ProductListItem
+import com.rasel.androidbaseapp.data.network.responses.PostItem
 import com.rasel.androidbaseapp.data.network.responses.UnsplashSearchResponse
-import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
-import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import java.util.concurrent.TimeUnit
 
 interface MyApi {
 
     /*  @FormUrlEncoded
       @POST("api/login")
       suspend fun userLogin(
-          @Field("login") emailOrPassword: String,
-          @Field("password") password: String,
-          @Field("fcm_token") fcm_token: String
+          @Field("login") emailOrPassword: String
       ): Response<LoginResponse>
-
-      @Multipart
-      @POST("api/reg")
-      suspend fun userSignup(
-          @Part part: MultipartBody.Part?,
-          @PartMap params: HashMap<String, RequestBody>
-      ): Response<SignUpResponse>
-
-      @Multipart
-      @POST("api/leaves")
-      suspend fun submitLeaveApplication(
-          @Header("Authorization") token: String,
-          @Part part: MultipartBody.Part?,
-          @PartMap map: HashMap<String, RequestBody>
-      ): Response<LeaveApplySubmitResponse>
 
       @Multipart
       @PUT("api/leaves/update/{id}")
@@ -48,41 +23,6 @@ interface MyApi {
           @PartMap map: HashMap<String, RequestBody>
       ): Response<LeaveApplySubmitResponse>
 
-      @GET("api/all_static_data")
-      suspend fun userSignupData(
-      ): Response<SignUpStaticDataResponse>
-
-      @GET("api/leaves/create")
-      suspend fun getLeaveTypeForUser(
-          @Header("Authorization") token: String
-      ): Response<LeaveTypeResponse>
-
-      @GET("api/after_logged_user")
-      suspend fun getLeaveApplyStaticData(
-          @Header("Authorization") token: String
-      ): Response<LeaveApplyStaticDataResponse>
-
-      @GET("api/leaves")
-      suspend fun getLeaveHistory(
-          @Header("Authorization") token: String
-      ): Response<LeaveHistoryResponse>
-
-      @GET("api/leaveApprovals")
-      suspend fun getLeaveRequest(
-          @Header("Authorization") token: String
-      ): Response<LeaveRequestResponse>
-
-      @GET("api/address_info")
-      suspend fun getAddressInfo(): Response<AddressInfoResponse>
-
-      @GET("api/academic_calendar")
-      suspend fun getAcademicCalendar(): Response<AcademicCalendarResponse>
-
-      @GET("api/leaveApprovals/{id}")
-      suspend fun getLeaveApproveSubmitStaticData(
-          @Header("Authorization") token: String,
-          @Path("id") id: Int
-      ): Response<LeaveApproveSubmitStaticData>
 
       @FormUrlEncoded
       @POST("api/leaveApprovals")
@@ -90,21 +30,6 @@ interface MyApi {
           @Header("Authorization") token: String,
           @FieldMap map: HashMap<String, String>
       ): Response<LeaveApprovalSubmitResponse>
-
-      @GET("api/leave_heads")
-      suspend fun getAllLiveType(
-          @Header("Authorization") token: String
-      ): Response<AllLeaveTypeResponse>
-
-      @GET("api/all_users")
-      suspend fun getAllUserInfo(
-          @Header("Authorization") token: String
-      ): Response<AllUserInfoResponse>
-
-      @GET("api/dashboard")
-      suspend fun getCurrentUserAvailableLeave(
-          @Header("Authorization") token: String
-      ): Response<CurrentUserLeaveResponse>
 
       @GET("api/messages/{id}")
       suspend fun getMailDetails(
@@ -121,29 +46,6 @@ interface MyApi {
           @PartMap map: HashMap<String, RequestBody>
       ): Response<WriteMailResponse>
 
-      @GET("https://www.bsmrmu.edu.bd/leave/api/leaves/change_info")
-      suspend fun checkIfStationary(
-          @Header("Authorization") token: String,
-          @Query("from_date") startDate: String,
-          @Query("to_date") endDate: String,
-          @Query("medical_leave") medical_leave: String,
-          @Query("user_id") userId: String,
-          @Query("leave_head_id") leaveHeadId: String
-      ): Response<CheckIfStationaryResponse>
-
-      @Multipart
-      @POST("api/stations")
-      suspend fun submitStationLeaveApplication(
-          @Header("Authorization") token: String,
-          @PartMap map: HashMap<String, RequestBody>
-      ): Response<StationLeaveApplicationResponse>
-
-      @GET("api/stations/{id}")
-      suspend fun getSLHistoryDetails(
-          @Header("Authorization") token: String,
-          @Path("id") id: Int
-      ): Response<SLHDetailsResponse>
-
 
       @FormUrlEncoded
       @POST("api/stations/leaveApprovestore")
@@ -151,25 +53,6 @@ interface MyApi {
           @Header("Authorization") token: String,
           @FieldMap map: HashMap<String, String>
       ): Response<SLRDetailsApproveSubmitResponse>
-
-
-      @GET("api/getUnread")
-      suspend fun getNotification(
-          @Header("Authorization") token: String
-      ): Response<NotificationResponse>
-
-      @GET("api/leaves")
-      suspend fun getMyLeaveHistoryRefreshedData(
-          @Header("Authorization") token: String
-      ): Response<LeaveHistoryResponse>
-
-
-
-      @GET("api/leaveApprovals")
-     suspend fun getLeaveRequest(
-          @Header("Authorization") token: String,
-          @Query("page") page: Int
-      ): Response<LeaveRequestResponse>
 
 
       @GET("api/leaves")
@@ -195,12 +78,8 @@ interface MyApi {
         @Query("client_id") clientId: String = BuildConfig.UNSPLASH_ACCESS_KEY
     ): Response<UnsplashSearchResponse>
 
-    @GET("https://jsonplaceholder.typicode.com/posts")
-    suspend fun getNotifications(
-    ): NotificationResponse
-
-    @GET("/products")
-    suspend fun getProducts() : Response<List<ProductListItem>>
+    @GET("/posts")
+    suspend fun getPostList(): List<PostItem>
 
 }
 

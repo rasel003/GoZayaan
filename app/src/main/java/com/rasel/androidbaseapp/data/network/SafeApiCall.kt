@@ -14,7 +14,7 @@ import java.net.SocketTimeoutException
 
 interface SafeApiCall {
 
-    suspend fun <T> safeApiCall(
+    suspend fun <T> apiRequest(
         apiCall: suspend () -> T
     ): Resource<T> {
         return withContext(Dispatchers.IO) {

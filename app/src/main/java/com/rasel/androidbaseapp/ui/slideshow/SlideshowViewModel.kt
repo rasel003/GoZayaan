@@ -4,21 +4,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rasel.androidbaseapp.data.network.NotificationResponse
 import com.rasel.androidbaseapp.data.network.Resource
-import com.rasel.androidbaseapp.data.repositories.MerchantRepository
+import com.rasel.androidbaseapp.data.network.responses.PostItem
+import com.rasel.androidbaseapp.data.repositories.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SlideshowViewModel @Inject constructor(
-    private val repository: MerchantRepository
+    private val repository: HomeRepository
 ) : ViewModel() {
 
-    private val _notificationResponse: MutableLiveData<Resource<NotificationResponse>> =
+    private val _notificationResponse: MutableLiveData<Resource<List<PostItem>>> =
         MutableLiveData()
-    val notificationResponse: LiveData<Resource<NotificationResponse>> get() = _notificationResponse
+    val notificationResponse: LiveData<Resource<List<PostItem>>> get() = _notificationResponse
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is slideshow Fragment"
@@ -29,6 +29,6 @@ class SlideshowViewModel @Inject constructor(
     ) = viewModelScope.launch {
         _notificationResponse.value = Resource.Loading
         _notificationResponse.value =
-            repository.getNotifications()
+            repository.getPostList()
     }
 }

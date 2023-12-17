@@ -18,13 +18,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class LocalizationRepository  @Inject constructor(
+class LocalizationRepository @Inject constructor(
     private val preferenceStorage: PreferenceProvider,
-    @ApplicationContext private val context : Context,
+    @ApplicationContext private val context: Context,
     private val myApi: MyApi,
 ) {
 
-    private val moshiAdapter : JsonAdapter<LocalizationBundle> by lazy {
+    private val moshiAdapter: JsonAdapter<LocalizationBundle> by lazy {
         Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
@@ -38,8 +38,7 @@ class LocalizationRepository  @Inject constructor(
         return localizationBundle ?: LocalizationBundle()
     }
 
-    private fun getLocalizationJsonFromLocal() : String
-            = context.resources
+    private fun getLocalizationJsonFromLocal(): String = context.resources
         .openRawResource(R.raw.localization)
         .bufferedReader()
         .use { it.readText() }
@@ -47,21 +46,21 @@ class LocalizationRepository  @Inject constructor(
 
     private val _localizationFlow: MutableStateFlow<Localization> by lazy {
         MutableStateFlow(
-           getLocalizationBundle().getLocalization(currentAppLanguage)
+            getLocalizationBundle().getLocalization(currentAppLanguage)
         )
     }
 
     val localizationFlow: StateFlow<Localization> = _localizationFlow
-    private var cachedLocalizationBundle : LocalizationBundle? = null
+    private var cachedLocalizationBundle: LocalizationBundle? = null
 
     val currentAppLanguage: AppLanguage
         get() = preferenceStorage.getAppLanguage()
 
-   /* init {
-        CoroutineScope(Dispatchers.IO).launch {
-            getLocalizationFromRemote()
-        }
-    }*/
+    /* init {
+         CoroutineScope(Dispatchers.IO).launch {
+             getLocalizationFromRemote()
+         }
+     }*/
 
     suspend fun updateLanguage(language: AppLanguage) {
         _localizationFlow.value = getLocalization(language)
@@ -103,32 +102,14 @@ class LocalizationRepository  @Inject constructor(
         }
     }
 
-    private fun getLocalization(language: AppLanguage) : Localization
-            = cachedLocalizationBundle?.getLocalization(language)
-        ?: getLocalizationBundle().getLocalization(language)
+    private fun getLocalization(language: AppLanguage): Localization =
+        cachedLocalizationBundle?.getLocalization(language)
+            ?: getLocalizationBundle().getLocalization(language)
 
 
-    fun LocalizationBundle.getLocalization(language: AppLanguage): Localization
-            = when(language) {
+    fun LocalizationBundle.getLocalization(language: AppLanguage): Localization = when (language) {
         AppLanguage.ENGLISH -> en
         AppLanguage.CHINESE -> cn
         AppLanguage.BURMESE -> mm
-    }
-
-
-
-
-    suspend fun getProducts(): NetworkResult<List<ProductListItem>> {
-        val response = myApi.getProducts()
-        return if (response.isSuccessful) {
-            val responseBody = response.body()
-            if (responseBody != null) {
-                NetworkResult.Success(responseBody)
-            } else {
-                NetworkResult.Error("Something went wrong")
-            }
-        } else {
-            NetworkResult.Error("Something went wrong")
-        }
     }
 }

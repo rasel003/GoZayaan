@@ -8,7 +8,7 @@ data class NotificationResponse(
     val limit: Int,
     val totalFiltered: Int,
     val totalRecords: Int,
-    val records: List<Records>
+    val records: List<Records> = emptyList()
 )
 
 data class Records(

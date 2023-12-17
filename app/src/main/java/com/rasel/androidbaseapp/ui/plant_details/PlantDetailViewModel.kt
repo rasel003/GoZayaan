@@ -1,13 +1,15 @@
 package com.rasel.androidbaseapp.ui.plant_details
 
+import android.graphics.Bitmap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import com.bumptech.glide.RequestManager
 import com.rasel.androidbaseapp.BuildConfig
-import com.rasel.androidbaseapp.data.repositories.PlantRepository
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
+import com.rasel.androidbaseapp.data.repositories.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -17,14 +19,27 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlantDetailViewModel @Inject constructor(
-    plantRepository: PlantRepository,
-    private val state: SavedStateHandle
+    plantRepository: HomeRepository,
+    private var imageLoader: RequestManager,
+    state: SavedStateHandle
 ) : ViewModel() {
 
 
     val plant = state.get<String>("plantId")?.let { plantRepository.getPlant(it).asLiveData() }
 
     fun hasValidUnsplashKey() = (BuildConfig.UNSPLASH_ACCESS_KEY != "null")
+
+    // Function to load image asynchronously using coroutines
+    suspend fun loadImageAsync(mediaDownloadURL: String): Bitmap {
+        return withContext(Dispatchers.IO) {
+            // Perform image loading on the IO dispatcher (background thread)
+            return@withContext imageLoader
+                .asBitmap()
+                .load(mediaDownloadURL)
+                .submit()
+                .get()
+        }
+    }
 
    /* @AssistedInject.Factory
     interface AssistedFactory {

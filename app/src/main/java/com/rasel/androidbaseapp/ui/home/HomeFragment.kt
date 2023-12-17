@@ -29,10 +29,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onResume() {
         super.onResume()
 
-        viewModel.unsplashPhoto.observe(viewLifecycleOwner, {
+        viewModel.unsplashPhoto.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) binding.progressCircular.visibility =
                 View.GONE else binding.progressCircular.visibility = View.VISIBLE
             adapter.submitList(it)
-        })
+        }
     }
 }
