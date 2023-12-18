@@ -15,7 +15,7 @@ android {
         applicationId "com.rasel.androidbaseapp"
         namespace "com.rasel.androidbaseapp"
 
-        minSdkVersion rootProject.minSdkVersion
+        minSdkVersion 26
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
@@ -164,6 +164,9 @@ dependencies {
     androidTestImplementation "com.google.dagger:hilt-android-testing:$rootProject.hiltVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
     androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation "junit:junit:4.13.2"
+    androidTestImplementation 'com.linkedin.dexmaker:dexmaker-mockito:2.28.3'
+    androidTestImplementation "org.mockito:mockito-core:3.8.0"
 
     testImplementation "junit:junit:$rootProject.junitVersion"
     testImplementation 'androidx.test:runner:1.5.2'
