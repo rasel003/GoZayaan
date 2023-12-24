@@ -18,6 +18,16 @@
     <color name="app_orange_300">#fbd790</color>
     <color name="app_orange_400">#f9be64</color>
     <color name="app_orange_500">#f9aa33</color>
+    <color name="sun_flower_200">#ddd10f</color>
+    <color name="sun_flower_500">#DBA900</color>
+    <color name="sun_flower_700">#D99100</color>
+    <color name="star_ship_200">#DBA800</color>
+    <color name="star_ship_700">#D56800</color>
+    <color name="black">#FF000000</color>
+    <color name="color_background">#E8ECEB</color>
+    <color name="color_background_dark">#24292E</color>
+    <color name="color_card_view_dark">#3B3E43</color>
+    <color name="color_text">#30353A</color>
 
     <color name="app_red_200">#cf7779</color>
     <color name="app_red_400">#ff4c5d</color>
@@ -36,4 +46,5 @@
     <!--handles contrast by either dynamically coloring the nav bar handle (gesture nav) -->
     <!--or automatically applying a translucent background (3-button mode).-->
     <color name="nav_bar">@color/app_black_900_alpha_020</color>
+    <color name="white">#FFFFFF</color>
 </resources>

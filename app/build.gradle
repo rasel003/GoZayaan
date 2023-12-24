@@ -75,12 +75,13 @@ dependencies {
     implementation "com.android.support:multidex:$rootProject.multidexVersion"
 
     //  for logging and debug
-    //  implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
+      implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
     //for logging and debug
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'
 
     compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$rootProject.assistedInjectVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"

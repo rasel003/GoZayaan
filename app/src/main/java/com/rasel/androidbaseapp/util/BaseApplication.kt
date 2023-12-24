@@ -12,6 +12,7 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.rasel.androidbaseapp.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 
 
 @HiltAndroidApp
@@ -20,16 +21,16 @@ class BaseApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        /*if (BuildConfig.DEBUG) {
-            Timber.plant(DebugTree())
-        }*/
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
 
         // used this logger throughout the app for logging
-        Logger.addLogAdapter(object : AndroidLogAdapter() {
+        /*Logger.addLogAdapter(object : AndroidLogAdapter() {
             override fun isLoggable(priority: Int, tag: String?): Boolean {
                 return BuildConfig.DEBUG
             }
-        })
+        })*/
 
         createNotificationChannel()
     }

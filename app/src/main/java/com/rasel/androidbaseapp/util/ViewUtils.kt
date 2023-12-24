@@ -76,6 +76,20 @@ fun ProgressBar.show() {
 fun ProgressBar.hide() {
     visibility = View.GONE
 }
+/**
+ * Shorthand extension function to make view gone
+ */
+fun View.makeGone() {
+    this.visibility = View.GONE
+}
+
+/**
+ * Shorthand extension function to make view visible
+ */
+fun View.makeVisible() {
+    this.visibility = View.VISIBLE
+}
+
 
 fun View.snackBar(message: String) {
     Snackbar.make(this, message, Snackbar.LENGTH_LONG).also { snackbar ->

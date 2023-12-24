@@ -7,7 +7,7 @@ import android.util.TypedValue
 import android.view.View
 
 fun Activity.getRootView(): View {
-    return findViewById<View>(android.R.id.content)
+    return findViewById(android.R.id.content)
 }
 fun Context.convertDpToPx(dp: Float): Float {
     return TypedValue.applyDimension(
