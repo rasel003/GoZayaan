@@ -37,9 +37,14 @@ class PlantListFragment : Fragment() {
         subscribeUi(adapter)
 
         binding.tvTest.setOnClickListener {
-            findNavController().navigate(
+            /*findNavController().navigate(
                 PlantListFragmentDirections.actionPlantListFragmentToPlantDetailFragment(
                     "bougainvillea-glabra"
+                )
+            )*/
+            findNavController().navigate(
+                PlantListFragmentDirections.actionNavPlantListFragmentToCharacterDetailFragment(
+                    2
                 )
             )
         }

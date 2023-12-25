@@ -10,7 +10,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="plant"
-            type="com.rasel.androidbaseapp.data.db.entities.Plant"/>
+            type="com.rasel.androidbaseapp.cache.entities.Plant"/>
     </data>
 
     <com.rasel.androidbaseapp.views.MaskedCardView

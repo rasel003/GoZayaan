@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.rasel.androidbaseapp.data.db.entities.Plant
+import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.databinding.ListItemPlantBinding
 
 /**

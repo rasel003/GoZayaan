@@ -23,7 +23,7 @@ import com.bumptech.glide.RequestManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.rasel.androidbaseapp.R
-import com.rasel.androidbaseapp.data.db.entities.Plant
+import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.databinding.FragmentPlantDetailBinding
 import com.rasel.androidbaseapp.ui.plant_details.PlantDetailFragment.Callback
 import com.rasel.androidbaseapp.util.permissionGranted

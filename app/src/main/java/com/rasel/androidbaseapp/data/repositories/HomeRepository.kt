@@ -4,8 +4,8 @@ import android.os.Build
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.rasel.androidbaseapp.data.db.dao.PlantDao
-import com.rasel.androidbaseapp.data.network.MyApi
+import com.rasel.androidbaseapp.cache.dao.PlantDao
+import com.rasel.androidbaseapp.data.network.api.MyApi
 import com.rasel.androidbaseapp.data.network.SafeApiCall
 import com.rasel.androidbaseapp.data.network.model.UnsplashPhoto
 import com.rasel.androidbaseapp.data.preferences.PreferenceProvider

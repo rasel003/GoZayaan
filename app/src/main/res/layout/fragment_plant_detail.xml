@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.rasel.androidbaseapp.data.db.entities.Plant"/>
+        <import type="com.rasel.androidbaseapp.cache.entities.Plant"/>
         <variable
             name="viewModel"
             type="com.rasel.androidbaseapp.ui.plant_details.PlantDetailViewModel" />

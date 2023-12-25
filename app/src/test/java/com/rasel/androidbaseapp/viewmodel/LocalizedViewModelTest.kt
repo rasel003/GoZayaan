@@ -1,29 +1,25 @@
 package com.rasel.androidbaseapp.viewmodel
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.doReturn
 import com.rasel.androidbaseapp.data.repositories.LocalizationRepository
-import com.rasel.androidbaseapp.getOrAwaitValue
-import com.rasel.androidbaseapp.util.NetworkResult
+import com.rasel.androidbaseapp.utils.PresentationBaseTest
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
 
-class LocalizedViewModelTest {
-    private val testDispatcher = StandardTestDispatcher()
-
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+@ExperimentalCoroutinesApi
+@RunWith(MockitoJUnitRunner::class)
+class LocalizedViewModelTest : PresentationBaseTest(){
 
     @Mock
     lateinit var repository: LocalizationRepository
@@ -31,14 +27,14 @@ class LocalizedViewModelTest {
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
-        Dispatchers.setMain(testDispatcher)
+        Dispatchers.setMain(dispatcher = dispatcher.main)
     }
 
    /* @Test
     fun test_GetProducts() = runTest{
         Mockito.`when`(repository.getProducts()).doReturn(NetworkResult.Success(emptyList()))
 
-        val sut = LocalizedViewModel2(repository)
+        val sut = LocalizedViewModel(repository)
         sut.getProducts()
         testDispatcher.scheduler.advanceUntilIdle()
         val result = sut.products.getOrAwaitValue()

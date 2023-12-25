@@ -1,9 +1,9 @@
 package com.rasel.androidbaseapp.di
 
 import android.content.Context
+import com.rasel.androidbaseapp.presentation.utils.CoroutineContextProvider
+import com.rasel.androidbaseapp.presentation.utils.CoroutineContextProviderImp
 import com.rasel.androidbaseapp.ui.settings.PresentationPreferencesHelper
-import com.rasel.androidbaseapp.util.CoroutineContextProvider
-import com.rasel.androidbaseapp.util.CoroutineContextProviderImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

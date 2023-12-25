@@ -51,8 +51,8 @@ class SlideshowFragment : Fragment(R.layout.fragment_slideshow) {
                 viewModel.currentLanguageFlow.value
             )
         }
-
-        slideshowViewModel.notificationResponse.observe(viewLifecycleOwner) {
+        slideshowViewModel.getPostList()
+        slideshowViewModel.postList.observe(viewLifecycleOwner) {
             binding.progress = it is Resource.Loading
             when (it) {
 

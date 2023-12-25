@@ -1,4 +1,4 @@
-package com.aqube.ram.base
+package com.rasel.androidbaseapp.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.rasel.androidbaseapp.core.dialog.dismissLoadingDialog
 import com.rasel.androidbaseapp.core.dialog.showLoadingDialog
+import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.util.showSnackBar
-import com.rasel.androidbaseapp.viewmodel.BaseViewModel
 import timber.log.Timber
 
 abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragment() {

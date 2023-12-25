@@ -8,8 +8,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.orhanobut.logger.Logger
-import com.rasel.androidbaseapp.data.db.AppDatabase
-import com.rasel.androidbaseapp.data.db.entities.Plant
+import com.rasel.androidbaseapp.cache.database.AppDatabase
+import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.util.PLANT_DATA_FILENAME
 import kotlinx.coroutines.coroutineScope
 

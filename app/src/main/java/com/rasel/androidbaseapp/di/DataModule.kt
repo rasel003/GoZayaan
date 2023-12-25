@@ -1,8 +1,10 @@
 package com.rasel.androidbaseapp.di
 
 import com.rasel.androidbaseapp.BuildConfig
-import com.rasel.androidbaseapp.ui.settings.SettingsRepository
-import com.rasel.androidbaseapp.ui.settings.SettingsRepositoryImp
+import com.rasel.androidbaseapp.data2.CharacterRepositoryImp
+import com.rasel.androidbaseapp.domain.repository.CharacterRepository
+import com.rasel.androidbaseapp.data2.SettingsRepositoryImp
+import com.rasel.androidbaseapp.domain.repository.SettingsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,10 +15,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DataModule {
 
-    /*@Provides
+    @Provides
     @Singleton
-    fun provideCharacterRepository(characterRepository: CharacterRepositoryImp): CharacterRepository =
-        characterRepository*/
+    fun provideCharacterRepository(characterRepository: CharacterRepositoryImp): CharacterRepository = characterRepository
 
     @Provides
     @Singleton

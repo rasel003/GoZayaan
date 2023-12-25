@@ -1,6 +1,6 @@
 package com.rasel.androidbaseapp
 
-import com.rasel.androidbaseapp.data.network.MyApi
+import com.rasel.androidbaseapp.data.network.api.MyApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

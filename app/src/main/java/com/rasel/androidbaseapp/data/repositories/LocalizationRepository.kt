@@ -2,13 +2,11 @@ package com.rasel.androidbaseapp.data.repositories
 
 import android.content.Context
 import com.rasel.androidbaseapp.R
-import com.rasel.androidbaseapp.data.network.MyApi
+import com.rasel.androidbaseapp.data.network.api.MyApi
 import com.rasel.androidbaseapp.data.network.model.Localization
 import com.rasel.androidbaseapp.data.network.model.LocalizationBundle
-import com.rasel.androidbaseapp.data.network.responses.ProductListItem
 import com.rasel.androidbaseapp.data.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.util.AppLanguage
-import com.rasel.androidbaseapp.util.NetworkResult
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

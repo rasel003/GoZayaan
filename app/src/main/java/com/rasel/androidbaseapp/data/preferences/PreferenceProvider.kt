@@ -2,7 +2,6 @@ package com.rasel.androidbaseapp.data.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.preference.PreferenceManager
 import com.rasel.androidbaseapp.util.AppLanguage
 
 class PreferenceProvider(
@@ -12,6 +11,8 @@ class PreferenceProvider(
     companion object {
         private const val SHARED_PREFERENCE_KEY = "APP_SHARED_PREF"
         private const val KEY_APP_LANGUAGE = "KEY_APP_LANGUAGE"
+        private const val PREF_KEY_LAST_CACHE = "last_cache"
+        private const val PREF_KEY_NIGHT_MODE = "night_mode"
     }
 
     private val appContext = context.applicationContext
@@ -51,5 +52,14 @@ class PreferenceProvider(
             .putString(KEY_APP_LANGUAGE, language.name)
             .apply()
     }
+
+    var lastCacheTime: Long
+        get() = preference.getLong(PREF_KEY_LAST_CACHE, 0)
+        set(lastCache) = preference.edit().putLong(PREF_KEY_LAST_CACHE, lastCache).apply()
+
+    var isNightMode: Boolean
+        get() = preference.getBoolean(PREF_KEY_NIGHT_MODE, false)
+        set(isDarkMode) = preference.edit().putBoolean(PREF_KEY_NIGHT_MODE, isDarkMode).apply()
+
 
 }

@@ -3,36 +3,10 @@
   <component name="deploymentTargetDropDown">
     <value>
       <entry key="HomeRepositoryTest">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="SERIAL_NUMBER" />
-                  <value value="8d3e949b" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2023-12-18T17:29:46.247750400Z" />
-        </State>
+        <State />
       </entry>
-      <entry key="PlantListFragmentTest">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="SERIAL_NUMBER" />
-                  <value value="8d3e949b" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2023-12-20T18:18:45.362606300Z" />
-        </State>
+      <entry key="PlantDaoTest">
+        <State />
       </entry>
       <entry key="app">
         <State />

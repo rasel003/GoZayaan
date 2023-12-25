@@ -6,16 +6,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aqube.ram.base.BaseFragment
+import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.core.theme.ThemeUtils
 import com.rasel.androidbaseapp.data.network.model.Localization
 import com.rasel.androidbaseapp.databinding.FragmentSettingsBinding
+import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
+import com.rasel.androidbaseapp.presentation.viewmodel.SettingUIModel
+import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
 import com.rasel.androidbaseapp.util.observe
-import com.rasel.androidbaseapp.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.viewmodel.LocalizedViewModel
-import com.rasel.androidbaseapp.viewmodel.SettingUIModel
-import com.rasel.androidbaseapp.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

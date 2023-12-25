@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.aqube.ram.base.BaseAdapter
+import com.rasel.androidbaseapp.base.BaseAdapter
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.CornerFamily.ROUNDED
 import com.rasel.androidbaseapp.R
-import com.rasel.androidbaseapp.data.network.responses.SettingType
-import com.rasel.androidbaseapp.data.network.responses.Settings
 import com.rasel.androidbaseapp.databinding.ItemSettingListBinding
+import com.rasel.androidbaseapp.domain.models.SettingType
+import com.rasel.androidbaseapp.domain.models.Settings
 import com.rasel.androidbaseapp.util.makeGone
 import com.rasel.androidbaseapp.util.makeVisible
 import javax.inject.Inject

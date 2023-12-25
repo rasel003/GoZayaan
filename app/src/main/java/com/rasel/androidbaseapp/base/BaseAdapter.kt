@@ -1,4 +1,4 @@
-package com.aqube.ram.base
+package com.rasel.androidbaseapp.base
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer

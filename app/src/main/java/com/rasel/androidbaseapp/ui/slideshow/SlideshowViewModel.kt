@@ -16,19 +16,19 @@ class SlideshowViewModel @Inject constructor(
     private val repository: HomeRepository
 ) : ViewModel() {
 
-    private val _notificationResponse: MutableLiveData<Resource<List<PostItem>>> =
+    private val _postList: MutableLiveData<Resource<List<PostItem>>> =
         MutableLiveData()
-    val notificationResponse: LiveData<Resource<List<PostItem>>> get() = _notificationResponse
+    val postList: LiveData<Resource<List<PostItem>>> get() = _postList
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is slideshow Fragment"
     }
     val text: LiveData<String> = _text
 
-    fun getNotifications(
+    fun getPostList(
     ) = viewModelScope.launch {
-        _notificationResponse.value = Resource.Loading
-        _notificationResponse.value =
+//        _postList.value = Resource.Loading
+        _postList.value =
             repository.getPostList()
     }
 }
