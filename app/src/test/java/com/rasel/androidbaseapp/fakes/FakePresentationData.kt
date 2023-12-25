@@ -1,9 +1,9 @@
 package com.rasel.androidbaseapp.fakes
 
-import com.aqube.ram.presentation.fakes.FakeValueFactory.randomInt
-import com.aqube.ram.presentation.fakes.FakeValueFactory.randomString
-import com.rasel.androidbaseapp.data.network.responses.SettingType
-import com.rasel.androidbaseapp.data.network.responses.Settings
+import com.rasel.androidbaseapp.fakes.FakeValueFactory.randomInt
+import com.rasel.androidbaseapp.fakes.FakeValueFactory.randomString
+import com.rasel.androidbaseapp.domain.models.SettingType
+import com.rasel.androidbaseapp.domain.models.Settings
 
 object FakePresentationData {
 

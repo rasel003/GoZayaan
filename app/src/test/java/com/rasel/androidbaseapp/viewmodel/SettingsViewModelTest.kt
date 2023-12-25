@@ -1,13 +1,14 @@
 package com.rasel.androidbaseapp.viewmodel
 
 import androidx.lifecycle.Observer
-import com.rasel.androidbaseapp.presentation.viewmodel.SettingUIModel
-import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import com.rasel.androidbaseapp.data.preferences.PreferenceProvider
+import com.rasel.androidbaseapp.domain.interactor.GetSettingsUseCase
 import com.rasel.androidbaseapp.fakes.FakePresentationData
-import com.rasel.androidbaseapp.ui.settings.PresentationPreferencesHelper
+import com.rasel.androidbaseapp.presentation.viewmodel.SettingUIModel
+import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.rasel.androidbaseapp.utils.PresentationBaseTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -30,7 +31,7 @@ class SettingsViewModelTest : PresentationBaseTest() {
     lateinit var settingsUseCase: GetSettingsUseCase
 
     @Mock
-    lateinit var preferencesHelper: PresentationPreferencesHelper
+    lateinit var preferencesHelper: PreferenceProvider
 
     @Mock
     private lateinit var observer: Observer<SettingUIModel>

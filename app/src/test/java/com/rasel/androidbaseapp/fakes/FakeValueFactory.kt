@@ -1,4 +1,4 @@
-package com.aqube.ram.presentation.fakes
+package com.rasel.androidbaseapp.fakes
 
 import java.util.UUID
 import kotlin.random.Random

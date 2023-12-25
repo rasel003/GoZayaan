@@ -1,13 +1,13 @@
 package com.rasel.androidbaseapp.remote.models
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class CharacterModel(
     val created: String,
     val gender: String,
     val id: Int,
     val image: String,
-    @field:Json(name = "location")
+    @SerializedName("location")
     val characterLocation: CharacterLocationModel,
     val name: String,
     val species: String,

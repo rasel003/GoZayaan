@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.test.espresso.IdlingResource
-import androidx.test.espresso.idling.CountingIdlingResource
 import com.rasel.androidbaseapp.EspressoIdlingResource
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.FragmentPlantListBinding
@@ -37,14 +35,9 @@ class PlantListFragment : Fragment() {
         subscribeUi(adapter)
 
         binding.tvTest.setOnClickListener {
-            /*findNavController().navigate(
+            findNavController().navigate(
                 PlantListFragmentDirections.actionPlantListFragmentToPlantDetailFragment(
                     "bougainvillea-glabra"
-                )
-            )*/
-            findNavController().navigate(
-                PlantListFragmentDirections.actionNavPlantListFragmentToCharacterDetailFragment(
-                    2
                 )
             )
         }
@@ -63,6 +56,7 @@ class PlantListFragment : Fragment() {
                 updateData()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

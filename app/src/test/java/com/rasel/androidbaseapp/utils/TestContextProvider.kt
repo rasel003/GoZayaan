@@ -1,6 +1,6 @@
 package com.rasel.androidbaseapp.utils
 
-import com.rasel.androidbaseapp.util.CoroutineContextProvider
+import com.rasel.androidbaseapp.presentation.utils.CoroutineContextProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
