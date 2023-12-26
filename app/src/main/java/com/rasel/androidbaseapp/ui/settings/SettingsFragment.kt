@@ -8,7 +8,7 @@ import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.core.theme.ThemeUtils
-import com.rasel.androidbaseapp.data.network.model.Localization
+import com.rasel.androidbaseapp.data.models.Localization
 import com.rasel.androidbaseapp.databinding.FragmentSettingsBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.SettingUIModel

@@ -1,9 +1,9 @@
 package com.rasel.androidbaseapp.di
 
 import com.rasel.androidbaseapp.BuildConfig
-import com.rasel.androidbaseapp.data2.CharacterRepositoryImp
+import com.rasel.androidbaseapp.data.CharacterRepositoryImp
 import com.rasel.androidbaseapp.domain.repository.CharacterRepository
-import com.rasel.androidbaseapp.data2.SettingsRepositoryImp
+import com.rasel.androidbaseapp.data.SettingsRepositoryImp
 import com.rasel.androidbaseapp.domain.repository.SettingsRepository
 import dagger.Module
 import dagger.Provides

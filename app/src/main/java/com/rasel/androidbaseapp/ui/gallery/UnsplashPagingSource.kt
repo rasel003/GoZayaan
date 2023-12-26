@@ -2,8 +2,8 @@ package com.rasel.androidbaseapp.ui.gallery
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.rasel.androidbaseapp.data.network.api.MyApi
-import com.rasel.androidbaseapp.data.network.model.UnsplashPhoto
+import com.rasel.androidbaseapp.remote.api.MyApi
+import com.rasel.androidbaseapp.data.models.UnsplashPhoto
 
 private const val UNSPLASH_STARTING_PAGE_INDEX = 1
 

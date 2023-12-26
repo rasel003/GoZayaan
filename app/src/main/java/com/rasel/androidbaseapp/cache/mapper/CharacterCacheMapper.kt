@@ -1,7 +1,7 @@
 package com.rasel.androidbaseapp.cache.mapper
 
 import com.rasel.androidbaseapp.cache.entities.CharacterCacheEntity
-import com.rasel.androidbaseapp.data2.models.CharacterEntity
+import com.rasel.androidbaseapp.data.models.CharacterEntity
 import javax.inject.Inject
 
 class CharacterCacheMapper @Inject constructor(

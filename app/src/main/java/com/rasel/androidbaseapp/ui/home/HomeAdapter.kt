@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.rasel.androidbaseapp.data.network.model.UnsplashPhoto
+import com.rasel.androidbaseapp.data.models.UnsplashPhoto
 import com.rasel.androidbaseapp.databinding.DialogPhotoDetailsBinding
 import com.rasel.androidbaseapp.databinding.ListItemPhotoBinding
 

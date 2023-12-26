@@ -1,6 +1,6 @@
 package com.rasel.androidbaseapp.remote.mappers
 
-import com.rasel.androidbaseapp.data2.models.CharacterLocationEntity
+import com.rasel.androidbaseapp.data.models.CharacterLocationEntity
 import com.rasel.androidbaseapp.remote.models.CharacterLocationModel
 import javax.inject.Inject
 

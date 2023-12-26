@@ -10,7 +10,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="photo"
-            type="com.rasel.androidbaseapp.data.network.model.UnsplashPhoto"/>
+            type="com.rasel.androidbaseapp.data.models.UnsplashPhoto"/>
     </data>
 
     <com.rasel.androidbaseapp.views.MaskedCardView

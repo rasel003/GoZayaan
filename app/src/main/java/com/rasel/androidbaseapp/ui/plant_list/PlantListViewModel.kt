@@ -6,13 +6,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import com.rasel.androidbaseapp.cache.entities.Plant
-import com.rasel.androidbaseapp.data.repositories.HomeRepository
+import com.rasel.androidbaseapp.data.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PlantListViewModel @Inject internal constructor(
     plantRepository: HomeRepository,
-     private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val growZone: MutableStateFlow<Int> = MutableStateFlow(

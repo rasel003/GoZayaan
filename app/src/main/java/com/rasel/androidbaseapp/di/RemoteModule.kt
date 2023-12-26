@@ -2,11 +2,11 @@ package com.rasel.androidbaseapp.di
 
 import android.content.Context
 import com.rasel.androidbaseapp.BuildConfig
-import com.rasel.androidbaseapp.data.network.NetworkConnectionInterceptor
-import com.rasel.androidbaseapp.data.network.api.CharacterService
-import com.rasel.androidbaseapp.data.network.api.MyApi
-import com.rasel.androidbaseapp.data.network.api.ServiceFactory
-import com.rasel.androidbaseapp.data2.repository.CharacterRemote
+import com.rasel.androidbaseapp.remote.utils.NetworkConnectionInterceptor
+import com.rasel.androidbaseapp.remote.api.CharacterService
+import com.rasel.androidbaseapp.remote.api.MyApi
+import com.rasel.androidbaseapp.remote.api.ServiceFactory
+import com.rasel.androidbaseapp.data.repository.CharacterRemote
 import com.rasel.androidbaseapp.remote.repository.CharacterRemoteImp
 import dagger.Module
 import dagger.Provides

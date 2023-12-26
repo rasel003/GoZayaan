@@ -1,12 +1,9 @@
 package com.rasel.androidbaseapp.ui.slideshow
 
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.rasel.androidbaseapp.data.network.Records
-import com.rasel.androidbaseapp.data.network.responses.PostItem
+import com.rasel.androidbaseapp.remote.models.PostItem
 import com.rasel.androidbaseapp.databinding.ItemNotificationBinding
 
 

@@ -2,7 +2,7 @@ package com.rasel.androidbaseapp.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.rasel.androidbaseapp.data.preferences.PreferenceProvider
+import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.domain.interactor.GetSettingsUseCase
 import com.rasel.androidbaseapp.domain.models.Settings
 import com.rasel.androidbaseapp.presentation.utils.CoroutineContextProvider

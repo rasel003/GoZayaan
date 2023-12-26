@@ -5,8 +5,8 @@ import com.rasel.androidbaseapp.cache.CharacterCacheImp
 import com.rasel.androidbaseapp.cache.dao.CharacterDao
 import com.rasel.androidbaseapp.cache.database.AppDatabase
 import com.rasel.androidbaseapp.cache.dao.PlantDao
-import com.rasel.androidbaseapp.data.preferences.PreferenceProvider
-import com.rasel.androidbaseapp.data2.repository.CharacterCache
+import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
+import com.rasel.androidbaseapp.data.repository.CharacterCache
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -2,9 +2,9 @@ package com.rasel.androidbaseapp.cache
 
 import com.rasel.androidbaseapp.cache.dao.CharacterDao
 import com.rasel.androidbaseapp.cache.mapper.CharacterCacheMapper
-import com.rasel.androidbaseapp.data.preferences.PreferenceProvider
-import com.rasel.androidbaseapp.data2.models.CharacterEntity
-import com.rasel.androidbaseapp.data2.repository.CharacterCache
+import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
+import com.rasel.androidbaseapp.data.models.CharacterEntity
+import com.rasel.androidbaseapp.data.repository.CharacterCache
 import javax.inject.Inject
 
 class CharacterCacheImp @Inject constructor(

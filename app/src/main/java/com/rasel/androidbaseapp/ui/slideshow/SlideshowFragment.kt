@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.rasel.androidbaseapp.R
-import com.rasel.androidbaseapp.data.network.Resource
-import com.rasel.androidbaseapp.data.network.model.Localization
+import com.rasel.androidbaseapp.remote.utils.Resource
+import com.rasel.androidbaseapp.data.models.Localization
 import com.rasel.androidbaseapp.databinding.FragmentSlideshowBinding
 import com.rasel.androidbaseapp.viewmodel.LocalizedViewModel
 import dagger.hilt.android.AndroidEntryPoint

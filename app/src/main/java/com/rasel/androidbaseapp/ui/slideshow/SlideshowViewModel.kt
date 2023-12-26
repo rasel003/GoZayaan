@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rasel.androidbaseapp.data.network.Resource
-import com.rasel.androidbaseapp.data.network.responses.PostItem
-import com.rasel.androidbaseapp.data.repositories.HomeRepository
+import com.rasel.androidbaseapp.remote.utils.Resource
+import com.rasel.androidbaseapp.remote.models.PostItem
+import com.rasel.androidbaseapp.data.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

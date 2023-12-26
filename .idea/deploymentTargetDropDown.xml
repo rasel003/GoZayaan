@@ -2,19 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="HomeRepositoryTest">
-        <State />
-      </entry>
-      <entry key="PlantDaoTest">
-        <State />
-      </entry>
       <entry key="app">
-        <State />
-      </entry>
-      <entry key="clickAddShoppingItemButton_navigateToAddShoppingItemFragment()">
-        <State />
-      </entry>
-      <entry key="test_backNavigation_toMovieListFragment()">
         <State />
       </entry>
     </value>

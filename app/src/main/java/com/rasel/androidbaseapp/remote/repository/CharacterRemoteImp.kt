@@ -1,9 +1,9 @@
 package com.rasel.androidbaseapp.remote.repository
 
-import com.rasel.androidbaseapp.data2.models.CharacterEntity
-import com.rasel.androidbaseapp.data2.repository.CharacterRemote
+import com.rasel.androidbaseapp.data.models.CharacterEntity
+import com.rasel.androidbaseapp.data.repository.CharacterRemote
 import com.rasel.androidbaseapp.remote.mappers.CharacterEntityMapper
-import com.rasel.androidbaseapp.data.network.api.CharacterService
+import com.rasel.androidbaseapp.remote.api.CharacterService
 import javax.inject.Inject
 
 class CharacterRemoteImp @Inject constructor(

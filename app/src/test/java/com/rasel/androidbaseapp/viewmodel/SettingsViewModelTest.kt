@@ -4,7 +4,7 @@ import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import com.rasel.androidbaseapp.data.preferences.PreferenceProvider
+import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.domain.interactor.GetSettingsUseCase
 import com.rasel.androidbaseapp.fakes.FakePresentationData
 import com.rasel.androidbaseapp.presentation.viewmodel.SettingUIModel

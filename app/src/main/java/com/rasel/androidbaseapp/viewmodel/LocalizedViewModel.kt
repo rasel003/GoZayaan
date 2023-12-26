@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rasel.androidbaseapp.data.network.model.Localization
-import com.rasel.androidbaseapp.data.network.responses.ProductListItem
-import com.rasel.androidbaseapp.data.repositories.LocalizationRepository
+import com.rasel.androidbaseapp.data.models.Localization
+import com.rasel.androidbaseapp.remote.models.ProductListItem
+import com.rasel.androidbaseapp.data.LocalizationRepository
 import com.rasel.androidbaseapp.util.AppLanguage
 import com.rasel.androidbaseapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel

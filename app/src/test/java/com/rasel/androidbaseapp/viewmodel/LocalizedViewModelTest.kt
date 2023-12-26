@@ -1,19 +1,15 @@
 package com.rasel.androidbaseapp.viewmodel
 
-import com.rasel.androidbaseapp.data.repositories.LocalizationRepository
+import com.rasel.androidbaseapp.data.LocalizationRepository
 import com.rasel.androidbaseapp.utils.PresentationBaseTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 

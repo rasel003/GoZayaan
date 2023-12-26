@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.Logger
-import com.rasel.androidbaseapp.data.network.model.UnsplashPhoto
-import com.rasel.androidbaseapp.data.repositories.HomeRepository
+import com.rasel.androidbaseapp.data.models.UnsplashPhoto
+import com.rasel.androidbaseapp.data.HomeRepository
 import com.rasel.androidbaseapp.util.ApiException
 import com.rasel.androidbaseapp.util.NoInternetException
 import dagger.hilt.android.lifecycle.HiltViewModel

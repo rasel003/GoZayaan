@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.bumptech.glide.RequestManager
 import com.rasel.androidbaseapp.BuildConfig
-import com.rasel.androidbaseapp.data.repositories.HomeRepository
+import com.rasel.androidbaseapp.data.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
