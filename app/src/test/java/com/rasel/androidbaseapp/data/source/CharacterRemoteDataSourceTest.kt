@@ -54,21 +54,20 @@ class CharacterRemoteDataSourceTest : DataBaseTest() {
             verify(characterRemote, times(1)).getCharacters()
         }
 
-   /* @Test
-    fun `get characters should return error`() =
-        runTest {
+    @Test
+    fun `get characters should return error`() = runTest {
             // Arrange (Given)
             whenever(characterRemote.getCharacters()) doAnswer { throw IOException() }
 
-            // Act (When)
-            launch(exceptionHandler) { sut.getCharacters() }
+        // Act (When)
+        val result = kotlin.runCatching {
+            sut.getCharacters()
+        }
 
             // Assert (Then)
-            assertThat(
-                exceptionHandler.uncaughtExceptions.first(), instanceOf(IOException::class.java)
-            )
+            assertThat(result.exceptionOrNull(), instanceOf(IOException::class.java))
             verify(characterRemote, times(1)).getCharacters()
-        }*/
+        }
 
     @Test
     fun `get character with character-id should return characters from remote`() = runTest {

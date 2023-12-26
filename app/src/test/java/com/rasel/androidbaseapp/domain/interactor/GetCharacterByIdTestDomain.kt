@@ -13,6 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert
 import org.junit.Before
@@ -38,7 +39,7 @@ class GetCharacterByIdTestDomain : DomainBaseTest() {
 
     @Test
     fun `get character with id should return success result with character detail`() =
-        dispatcher.runBlockingTest {
+        runTest {
             // Arrange (Given)
             val characterId = 1L
             whenever(characterRepository.getCharacter(characterId)) doReturn FakeData.getCharacter()

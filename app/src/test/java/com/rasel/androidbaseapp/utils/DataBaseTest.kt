@@ -1,7 +1,6 @@
 package com.rasel.androidbaseapp.utils
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-//import kotlinx.coroutines.test.TestCoroutineExceptionHandler
 import org.junit.Rule
 
 @ExperimentalCoroutinesApi

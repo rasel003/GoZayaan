@@ -15,6 +15,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
@@ -46,7 +47,7 @@ class CharacterRemoteImpTest : RemoteBaseTest() {
 
     @Test
     fun `get characters should return response with list size 7 from remote server`() =
-        dispatcher.runBlockingTest {
+        runTest {
             // Arrange (Given)
             val response = FakeRemoteData.getResponse(7)
             `when`(characterService.getCharacters()) doReturn response
@@ -61,7 +62,7 @@ class CharacterRemoteImpTest : RemoteBaseTest() {
 
     @Test
     fun `get characters should return response with empty character list from remote server`() =
-        dispatcher.runBlockingTest {
+        runTest {
             // Arrange (Given)
             val response = FakeRemoteData.getResponse(0)
             `when`(characterService.getCharacters()) doReturn response
@@ -76,7 +77,7 @@ class CharacterRemoteImpTest : RemoteBaseTest() {
 
    /* @Test
     fun `get characters should return error from remote server`() =
-        dispatcher.runBlockingTest {
+        runTest {
             // Arrange (Given)
             whenever(characterService.getCharacters()) doAnswer { throw IOException() }
 
@@ -92,7 +93,7 @@ class CharacterRemoteImpTest : RemoteBaseTest() {
 
     @Test
     fun `get character should return response from remote server`() =
-        dispatcher.runBlockingTest {
+        runTest {
             // Arrange (Given)
             val characterId = 1L
             val response = FakeRemoteData.getCharacterModel(false)
@@ -110,7 +111,7 @@ class CharacterRemoteImpTest : RemoteBaseTest() {
 
     /*@Test
     fun `get character should return error response from remote server`() =
-        dispatcher.runBlockingTest {
+        runTest {
             // Arrange (Given)
             val characterId = 1L
             whenever(characterService.getCharacter(characterId)) doAnswer { throw IOException() }
