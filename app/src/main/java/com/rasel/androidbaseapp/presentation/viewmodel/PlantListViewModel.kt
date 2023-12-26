@@ -1,32 +1,45 @@
-
-package com.rasel.androidbaseapp.ui.plant_list
+package com.rasel.androidbaseapp.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.data.HomeRepository
+import com.rasel.androidbaseapp.domain.models.Character
+import com.rasel.androidbaseapp.presentation.utils.CoroutineContextProvider
+import com.rasel.androidbaseapp.presentation.utils.ExceptionHandler
+import com.rasel.androidbaseapp.presentation.utils.UiAwareModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed class PlantUIModel : UiAwareModel() {
+    object Loading : CharacterUIModel()
+    data class Error(var error: String = "") : CharacterUIModel()
+    data class Success(val data: List<Plant>) : CharacterUIModel()
+}
+
 /**
  * The ViewModel for [PlantListFragment].
  */
-
 @HiltViewModel
 class PlantListViewModel @Inject internal constructor(
+    contextProvider: CoroutineContextProvider,
     plantRepository: HomeRepository,
     private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+) : BaseViewModel(contextProvider) {
 
     private val growZone: MutableStateFlow<Int> = MutableStateFlow(
-        savedStateHandle.get(GROW_ZONE_SAVED_STATE_KEY) ?: NO_GROW_ZONE
+        savedStateHandle[GROW_ZONE_SAVED_STATE_KEY] ?: NO_GROW_ZONE
     )
+
+    override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
+        val message = ExceptionHandler.parse(exception)
+    }
 
     val plants: LiveData<List<Plant>> = growZone.flatMapLatest { zone ->
         if (zone == NO_GROW_ZONE) {
@@ -67,7 +80,7 @@ class PlantListViewModel @Inject internal constructor(
          */
         viewModelScope.launch {
             growZone.collect { newGrowZone ->
-                savedStateHandle.set(GROW_ZONE_SAVED_STATE_KEY, newGrowZone)
+                savedStateHandle[GROW_ZONE_SAVED_STATE_KEY] = newGrowZone
             }
         }
     }

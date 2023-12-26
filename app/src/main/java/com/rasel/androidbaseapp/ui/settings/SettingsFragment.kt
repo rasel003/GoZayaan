@@ -15,7 +15,7 @@ import com.rasel.androidbaseapp.presentation.viewmodel.SettingUIModel
 import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
 import com.rasel.androidbaseapp.util.observe
-import com.rasel.androidbaseapp.viewmodel.LocalizedViewModel
+import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

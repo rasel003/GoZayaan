@@ -13,7 +13,7 @@ import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.remote.utils.Resource
 import com.rasel.androidbaseapp.data.models.Localization
 import com.rasel.androidbaseapp.databinding.FragmentSlideshowBinding
-import com.rasel.androidbaseapp.viewmodel.LocalizedViewModel
+import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

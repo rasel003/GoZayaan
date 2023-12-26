@@ -1,4 +1,4 @@
-package com.rasel.androidbaseapp.viewmodel
+package com.rasel.androidbaseapp.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

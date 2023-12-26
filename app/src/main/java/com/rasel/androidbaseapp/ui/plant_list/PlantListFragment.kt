@@ -7,18 +7,21 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.rasel.androidbaseapp.EspressoIdlingResource
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.databinding.FragmentPlantListBinding
+import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
+import com.rasel.androidbaseapp.presentation.viewmodel.PlantListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PlantListFragment : Fragment() {
+class PlantListFragment : BaseFragment<FragmentPlantListBinding, BaseViewModel>() {
 
-    private val viewModel: PlantListViewModel by viewModels()
+    override fun getViewBinding(): FragmentPlantListBinding = FragmentPlantListBinding.inflate(layoutInflater)
+    override val viewModel: PlantListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

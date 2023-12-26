@@ -16,7 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.ActivityMainBinding
-import com.rasel.androidbaseapp.viewmodel.LocalizedViewModel
+import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

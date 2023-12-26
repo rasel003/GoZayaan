@@ -60,6 +60,8 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
                     characterAdapter.list = it
                 }
             }
+
+            else -> {}
         }
     }
 }
