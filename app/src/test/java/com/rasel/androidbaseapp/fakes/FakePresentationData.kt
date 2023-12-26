@@ -4,10 +4,14 @@ import com.rasel.androidbaseapp.fakes.FakeValueFactory.randomInt
 import com.rasel.androidbaseapp.fakes.FakeValueFactory.randomString
 import com.rasel.androidbaseapp.domain.models.SettingType
 import com.rasel.androidbaseapp.domain.models.Settings
+import com.rasel.androidbaseapp.domain.models.Character
+import com.rasel.androidbaseapp.domain.models.CharacterLocation
+import com.rasel.androidbaseapp.fakes.FakeValueFactory.randomBoolean
+
 
 object FakePresentationData {
 
-    /*fun getCharacters(
+    fun getCharacters(
         size: Int,
         isRandomId: Boolean = true,
         isBookmarked: Boolean = false
@@ -17,7 +21,7 @@ object FakePresentationData {
             characters.add(createCharacter(isRandomId, isBookmarked))
         }
         return characters
-    }*/
+    }
 
     fun getSettings(size: Int): List<Settings> {
         val settings = mutableListOf<Settings>()
@@ -27,7 +31,7 @@ object FakePresentationData {
         return settings
     }
 
-    /*private fun createCharacter(isRandomId: Boolean, isBookmarked: Boolean): Character {
+    private fun createCharacter(isRandomId: Boolean, isBookmarked: Boolean): Character {
         return Character(
             created = randomString(),
             gender = randomString(),
@@ -44,7 +48,7 @@ object FakePresentationData {
             url = randomString(),
             isBookMarked = if (isBookmarked) true else randomBoolean()
         )
-    }*/
+    }
 
     private fun createSetting(): Settings {
         return Settings(

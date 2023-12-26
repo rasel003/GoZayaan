@@ -1,4 +1,4 @@
-package com.rasel.androidbaseapp.viewmodel
+package com.rasel.androidbaseapp.presentation.viewmodel
 
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.doAnswer
@@ -7,8 +7,6 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.domain.interactor.GetSettingsUseCase
 import com.rasel.androidbaseapp.fakes.FakePresentationData
-import com.rasel.androidbaseapp.presentation.viewmodel.SettingUIModel
-import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.rasel.androidbaseapp.utils.PresentationBaseTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
