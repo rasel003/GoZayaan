@@ -14,8 +14,6 @@ import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.single
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
@@ -74,20 +72,20 @@ class GetSettingsTestDomain : DomainBaseTest() {
             verify(settingRepository, times(1)).getSettings(isNightMode)
         }
 
-    /*@Test
+    @Test
     fun `get settings with night mode off return error result with exception`() = runTest {
             // Arrange (Given)
             val isNightMode = false
             whenever(settingRepository.getSettings(isNightMode)) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut(isNightMode).single() }
+            val result = kotlin.runCatching { sut(isNightMode).single() }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(),
+                result.exceptionOrNull(),
                 instanceOf(IOException::class.java)
             )
             verify(settingRepository, times(1)).getSettings(isNightMode)
-        }*/
+        }
 }

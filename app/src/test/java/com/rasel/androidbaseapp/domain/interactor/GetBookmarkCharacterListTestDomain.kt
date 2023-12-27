@@ -50,19 +50,19 @@ class GetBookmarkCharacterListTestDomain : DomainBaseTest() {
             verify(characterRepository, times(1)).getBookMarkedCharacters()
         }
 
-    /*@Test
+    @Test
     fun `get bookmark characters should return error result with exception`() = runTest {
             // Arrange (Given)
             whenever(characterRepository.getBookMarkedCharacters()) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut(Unit).single() }
+            val result = kotlin.runCatching { sut(Unit).single() }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(),
+                result.exceptionOrNull(),
                 instanceOf(IOException::class.java)
             )
             verify(characterRepository, times(1)).getBookMarkedCharacters()
-        }*/
+        }
 }

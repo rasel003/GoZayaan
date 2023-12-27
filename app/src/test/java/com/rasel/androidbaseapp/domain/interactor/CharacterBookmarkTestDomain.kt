@@ -64,20 +64,20 @@ class CharacterBookmarkTestDomain : DomainBaseTest() {
             verify(characterRepository, times(1)).setCharacterBookmarked(characterId)
         }
 
-    /*@Test
+    @Test
     fun `set bookmark character with id should return error result with exception`() = runTest {
             // Arrange (Given)
             val characterId = 1L
             whenever(characterRepository.setCharacterBookmarked(characterId)) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut(characterId).single() }
+            val result = kotlin.runCatching { sut(characterId).single() }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(),
+                result.exceptionOrNull(),
                 instanceOf(IOException::class.java)
             )
             verify(characterRepository, times(1)).setCharacterBookmarked(characterId)
-        }*/
+        }
 }

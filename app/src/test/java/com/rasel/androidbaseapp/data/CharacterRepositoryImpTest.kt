@@ -18,7 +18,6 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.single
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
@@ -184,7 +183,7 @@ class CharacterRepositoryImpTest : DataBaseTest() {
             verify(characterMapper, times(2)).mapFromEntity(any())
         }
 
-   /* @Test
+    @Test
     fun `get bookmark characters should return error`() =
         runTest {
             // Arrange (Given)
@@ -192,15 +191,15 @@ class CharacterRepositoryImpTest : DataBaseTest() {
             whenever(dataSource.getBookMarkedCharacters()) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut.getBookMarkedCharacters().single() }
+            val result = kotlin.runCatching { sut.getBookMarkedCharacters().single() }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(), instanceOf(IOException::class.java)
+                result.exceptionOrNull(), instanceOf(IOException::class.java)
             )
             verify(dataSourceFactory, times(1)).getCacheDataSource()
             verify(dataSource, times(1)).getBookMarkedCharacters()
-        }*/
+        }
 
     @Test
     fun `set bookmark character should return bookmark status fail`() =
@@ -238,7 +237,7 @@ class CharacterRepositoryImpTest : DataBaseTest() {
             verify(dataSource, times(1)).setCharacterBookmarked(characterId)
         }
 
-   /* @Test
+    @Test
     fun `set bookmark character should return error`() =
         runTest {
             // Arrange (Given)
@@ -248,15 +247,15 @@ class CharacterRepositoryImpTest : DataBaseTest() {
             whenever(dataSource.setCharacterBookmarked(characterId)) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut.setCharacterBookmarked(characterId).single() }
+            val result = kotlin.runCatching { sut.setCharacterBookmarked(characterId).single() }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(), instanceOf(IOException::class.java)
+                result.exceptionOrNull(), instanceOf(IOException::class.java)
             )
             verify(dataSourceFactory, times(1)).getCacheDataSource()
             verify(dataSource, times(1)).setCharacterBookmarked(characterId)
-        }*/
+        }
 
     @Test
     fun `set un-bookmark character should return bookmark status fail`() =
@@ -294,7 +293,7 @@ class CharacterRepositoryImpTest : DataBaseTest() {
             verify(dataSource, times(1)).setCharacterUnBookMarked(characterId)
         }
 
-   /* @Test
+    @Test
     fun `set un-bookmark character should return error`() =
         runTest {
             // Arrange (Given)
@@ -304,13 +303,13 @@ class CharacterRepositoryImpTest : DataBaseTest() {
             whenever(dataSource.setCharacterUnBookMarked(characterId)) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut.setCharacterUnBookMarked(characterId).single() }
+            val result = kotlin.runCatching { sut.setCharacterUnBookMarked(characterId).single() }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(), instanceOf(IOException::class.java)
+                result.exceptionOrNull(), instanceOf(IOException::class.java)
             )
             verify(dataSourceFactory, times(1)).getCacheDataSource()
             verify(dataSource, times(1)).setCharacterUnBookMarked(characterId)
-        }*/
+        }
 }

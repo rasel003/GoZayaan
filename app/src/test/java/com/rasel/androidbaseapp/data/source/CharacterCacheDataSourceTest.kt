@@ -1,9 +1,11 @@
 package com.rasel.androidbaseapp.data.source
 
 import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import com.rasel.androidbaseapp.data.repository.CharacterCache
 import com.rasel.androidbaseapp.fakes.FakeCharacters
 import com.rasel.androidbaseapp.utils.DataBaseTest
@@ -13,12 +15,15 @@ import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
+import java.io.IOException
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
@@ -37,48 +42,48 @@ class CharacterCacheDataSourceTest : DataBaseTest() {
 
     @Test
     fun `get characters should return characters from local cache`() = runTest {
-            // Arrange (Given)
-            `when`(characterCache.getCharacters()) doReturn FakeCharacters.getCharacters()
+        // Arrange (Given)
+        `when`(characterCache.getCharacters()) doReturn FakeCharacters.getCharacters()
 
-            // Act (When)
-            val characters = sut.getCharacters()
+        // Act (When)
+        val characters = sut.getCharacters()
 
-            // Assert (Then)
-            assertEquals(characters.size, 2)
-            verify(characterCache, times(1)).getCharacters()
-        }
+        // Assert (Then)
+        assertEquals(characters.size, 2)
+        verify(characterCache, times(1)).getCharacters()
+    }
 
-    /*@Test
+    @Test
     fun `get characters should return error`() =
         runTest {
             // Arrange (Given)
             whenever(characterCache.getCharacters()) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut.getCharacters() }
+            val result = kotlin.runCatching { sut.getCharacters() }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(), instanceOf(IOException::class.java)
+                result.exceptionOrNull(), instanceOf(IOException::class.java)
             )
             verify(characterCache, times(1)).getCharacters()
-        }*/
+        }
 
     @Test
     fun `get character with character-id should return characters from local cache`() = runTest {
-            // Arrange (Given)
-            val characterId = 1L
-            `when`(characterCache.getCharacter(characterId)) doReturn FakeCharacters.getCharacters()[0]
+        // Arrange (Given)
+        val characterId = 1L
+        `when`(characterCache.getCharacter(characterId)) doReturn FakeCharacters.getCharacters()[0]
 
-            // Act (When)
-            val characters = sut.getCharacter(characterId)
+        // Act (When)
+        val characters = sut.getCharacter(characterId)
 
-            // Assert (Then)
-            assertEquals(characters.name, "Rick")
-            verify(characterCache, times(1)).getCharacter(characterId)
-        }
+        // Assert (Then)
+        assertEquals(characters.name, "Rick")
+        verify(characterCache, times(1)).getCharacter(characterId)
+    }
 
-    /*@Test
+    @Test
     fun `get character with character-id should return error`() =
         runTest {
             // Arrange (Given)
@@ -86,28 +91,28 @@ class CharacterCacheDataSourceTest : DataBaseTest() {
             whenever(characterCache.getCharacter(characterId)) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut.getCharacter(characterId) }
+            val result = kotlin.runCatching { sut.getCharacter(characterId) }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(), instanceOf(IOException::class.java)
+                result.exceptionOrNull(), instanceOf(IOException::class.java)
             )
             verify(characterCache, times(1)).getCharacter(characterId)
-        }*/
+        }
 
     @Test
     fun `save character passed character list should save character into local cache`() = runTest {
-            // Arrange (Given)
-            val characters = FakeCharacters.getCharacters()
-            // Act (When)
-            sut.saveCharacters(characters)
+        // Arrange (Given)
+        val characters = FakeCharacters.getCharacters()
+        // Act (When)
+        sut.saveCharacters(characters)
 
-            // Assert (Then)
-            verify(characterCache, times(1)).saveCharacters(characters)
-            verify(characterCache, times(1)).setLastCacheTime(any())
-        }
+        // Assert (Then)
+        verify(characterCache, times(1)).saveCharacters(characters)
+        verify(characterCache, times(1)).setLastCacheTime(any())
+    }
 
-    /*@Test
+    @Test
     fun `save character passed character list should return error failed to save last time`() =
         runTest {
             // Arrange (Given)
@@ -115,76 +120,76 @@ class CharacterCacheDataSourceTest : DataBaseTest() {
             whenever(characterCache.saveCharacters(characters)) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut.saveCharacters(characters) }
+            val result = kotlin.runCatching { sut.saveCharacters(characters) }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(), instanceOf(IOException::class.java)
+                result.exceptionOrNull(), instanceOf(IOException::class.java)
             )
             verify(characterCache, times(1)).saveCharacters(characters)
             verify(characterCache, times(0)).setLastCacheTime(any())
-        }*/
+        }
 
     @Test
     fun `get bookmark characters should return characters from local cache`() = runTest {
-            // Arrange (Given)
-            `when`(characterCache.getBookMarkedCharacters()) doReturn FakeCharacters.getCharacters()
+        // Arrange (Given)
+        `when`(characterCache.getBookMarkedCharacters()) doReturn FakeCharacters.getCharacters()
 
-            // Act (When)
-            val characters = sut.getBookMarkedCharacters()
+        // Act (When)
+        val characters = sut.getBookMarkedCharacters()
 
-            // Assert (Then)
-            assertEquals(characters.size, 2)
-            verify(characterCache, times(1)).getBookMarkedCharacters()
-        }
+        // Assert (Then)
+        assertEquals(characters.size, 2)
+        verify(characterCache, times(1)).getBookMarkedCharacters()
+    }
 
-    /*@Test
+    @Test
     fun `get bookmark characters should return error`() =
         runTest {
             // Arrange (Given)
             whenever(characterCache.getBookMarkedCharacters()) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut.getBookMarkedCharacters() }
+            val result = kotlin.runCatching { sut.getBookMarkedCharacters() }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(), instanceOf(IOException::class.java)
+                result.exceptionOrNull(), instanceOf(IOException::class.java)
             )
             verify(characterCache, times(1)).getBookMarkedCharacters()
-        }*/
+        }
 
     @Test
     fun `set bookmark characters should return success status`() = runTest {
-            // Arrange (Given)
-            val characterId = 1L
-            val statusFake = 1
-            `when`(characterCache.setCharacterBookmarked(characterId)) doReturn statusFake
+        // Arrange (Given)
+        val characterId = 1L
+        val statusFake = 1
+        `when`(characterCache.setCharacterBookmarked(characterId)) doReturn statusFake
 
-            // Act (When)
-            val resultStatus = sut.setCharacterBookmarked(characterId)
+        // Act (When)
+        val resultStatus = sut.setCharacterBookmarked(characterId)
 
-            // Assert (Then)
-            assertEquals(resultStatus, statusFake)
-            verify(characterCache, times(1)).setCharacterBookmarked(characterId)
-        }
+        // Assert (Then)
+        assertEquals(resultStatus, statusFake)
+        verify(characterCache, times(1)).setCharacterBookmarked(characterId)
+    }
 
     @Test
     fun `set bookmark characters should return fail status`() = runTest {
-            // Arrange (Given)
-            val characterId = 1L
-            val statusFake = 0
-            `when`(characterCache.setCharacterBookmarked(characterId)) doReturn statusFake
+        // Arrange (Given)
+        val characterId = 1L
+        val statusFake = 0
+        `when`(characterCache.setCharacterBookmarked(characterId)) doReturn statusFake
 
-            // Act (When)
-            val resultStatus = sut.setCharacterBookmarked(characterId)
+        // Act (When)
+        val resultStatus = sut.setCharacterBookmarked(characterId)
 
-            // Assert (Then)
-            assertEquals(resultStatus, statusFake)
-            verify(characterCache, times(1)).setCharacterBookmarked(characterId)
-        }
+        // Assert (Then)
+        assertEquals(resultStatus, statusFake)
+        verify(characterCache, times(1)).setCharacterBookmarked(characterId)
+    }
 
-    /*@Test
+    @Test
     fun `set bookmark characters should return error`() =
         runTest {
             // Arrange (Given)
@@ -192,46 +197,46 @@ class CharacterCacheDataSourceTest : DataBaseTest() {
             whenever(characterCache.setCharacterBookmarked(characterId)) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut.setCharacterBookmarked(characterId) }
+            val result = kotlin.runCatching { sut.setCharacterBookmarked(characterId) }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(), instanceOf(IOException::class.java)
+                result.exceptionOrNull(), instanceOf(IOException::class.java)
             )
             verify(characterCache, times(1)).setCharacterBookmarked(characterId)
-        }*/
+        }
 
     @Test
     fun `set un-bookmark characters should return success status`() = runTest {
-            // Arrange (Given)
-            val characterId = 1L
-            val statusFake = 1
-            `when`(characterCache.setCharacterUnBookMarked(characterId)) doReturn statusFake
+        // Arrange (Given)
+        val characterId = 1L
+        val statusFake = 1
+        `when`(characterCache.setCharacterUnBookMarked(characterId)) doReturn statusFake
 
-            // Act (When)
-            val resultStatus = sut.setCharacterUnBookMarked(characterId)
+        // Act (When)
+        val resultStatus = sut.setCharacterUnBookMarked(characterId)
 
-            // Assert (Then)
-            assertEquals(resultStatus, statusFake)
-            verify(characterCache, times(1)).setCharacterUnBookMarked(characterId)
-        }
+        // Assert (Then)
+        assertEquals(resultStatus, statusFake)
+        verify(characterCache, times(1)).setCharacterUnBookMarked(characterId)
+    }
 
     @Test
     fun `set un-bookmark characters should return fail status`() = runTest {
-            // Arrange (Given)
-            val characterId = 1L
-            val statusFake = 0
-            `when`(characterCache.setCharacterUnBookMarked(characterId)) doReturn statusFake
+        // Arrange (Given)
+        val characterId = 1L
+        val statusFake = 0
+        `when`(characterCache.setCharacterUnBookMarked(characterId)) doReturn statusFake
 
-            // Act (When)
-            val resultStatus = sut.setCharacterUnBookMarked(characterId)
+        // Act (When)
+        val resultStatus = sut.setCharacterUnBookMarked(characterId)
 
-            // Assert (Then)
-            assertEquals(resultStatus, statusFake)
-            verify(characterCache, times(1)).setCharacterUnBookMarked(characterId)
-        }
+        // Assert (Then)
+        assertEquals(resultStatus, statusFake)
+        verify(characterCache, times(1)).setCharacterUnBookMarked(characterId)
+    }
 
-    /*@Test
+    @Test
     fun `set in-bookmark characters should return error`() =
         runTest {
             // Arrange (Given)
@@ -239,38 +244,38 @@ class CharacterCacheDataSourceTest : DataBaseTest() {
             whenever(characterCache.setCharacterUnBookMarked(characterId)) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut.setCharacterUnBookMarked(characterId) }
+            val result = kotlin.runCatching { sut.setCharacterUnBookMarked(characterId) }
 
             // Assert (Then)
             assertThat(
-                exceptionHandler.uncaughtExceptions.first(), instanceOf(IOException::class.java)
+                result.exceptionOrNull(), instanceOf(IOException::class.java)
             )
             verify(characterCache, times(1)).setCharacterUnBookMarked(characterId)
-        }*/
+        }
 
     @Test
     fun `is cached should return true`() = runTest {
-            // Arrange (Given)
-            `when`(characterCache.isCached()) doReturn true
+        // Arrange (Given)
+        `when`(characterCache.isCached()) doReturn true
 
-            // Act (When)
-            val resultStatus = sut.isCached()
+        // Act (When)
+        val resultStatus = sut.isCached()
 
-            // Assert (Then)
-            assertTrue(resultStatus)
-            verify(characterCache, times(1)).isCached()
-        }
+        // Assert (Then)
+        assertTrue(resultStatus)
+        verify(characterCache, times(1)).isCached()
+    }
 
     @Test
     fun `is cached should return false`() = runTest {
-            // Arrange (Given)
-            `when`(characterCache.isCached()) doReturn false
+        // Arrange (Given)
+        `when`(characterCache.isCached()) doReturn false
 
-            // Act (When)
-            val resultStatus = sut.isCached()
+        // Act (When)
+        val resultStatus = sut.isCached()
 
-            // Assert (Then)
-            assertFalse(resultStatus)
-            verify(characterCache, times(1)).isCached()
-        }
+        // Assert (Then)
+        assertFalse(resultStatus)
+        verify(characterCache, times(1)).isCached()
+    }
 }

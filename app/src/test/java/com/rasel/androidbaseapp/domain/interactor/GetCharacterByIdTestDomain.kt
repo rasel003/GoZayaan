@@ -38,8 +38,7 @@ class GetCharacterByIdTestDomain : DomainBaseTest() {
     }
 
     @Test
-    fun `get character with id should return success result with character detail`() =
-        runTest {
+    fun `get character with id should return success result with character detail`() = runTest {
             // Arrange (Given)
             val characterId = 1L
             whenever(characterRepository.getCharacter(characterId)) doReturn FakeData.getCharacter()
@@ -53,21 +52,20 @@ class GetCharacterByIdTestDomain : DomainBaseTest() {
             verify(characterRepository, times(1)).getCharacter(characterId)
         }
 
-    /*@Test
-    fun `get character with id should return error result with exception`() =
-        dispatcher.runBlockingTest {
+    @Test
+    fun `get character with id should return error result with exception`() = runTest {
             // Arrange (Given)
             val characterId = 1L
             whenever(characterRepository.getCharacter(characterId)) doAnswer { throw IOException() }
 
             // Act (When)
-            launch(exceptionHandler) { sut(characterId).single() }
+            val result = kotlin.runCatching { sut(characterId).single() }
 
             // Assert (Then)
             MatcherAssert.assertThat(
-                exceptionHandler.uncaughtExceptions.first(),
+                result.exceptionOrNull(),
                 instanceOf(IOException::class.java)
             )
             verify(characterRepository, times(1)).getCharacter(characterId)
-        }*/
+        }
 }
