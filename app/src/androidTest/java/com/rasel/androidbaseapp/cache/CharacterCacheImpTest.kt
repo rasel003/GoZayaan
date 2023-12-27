@@ -1,37 +1,47 @@
 package com.rasel.androidbaseapp.cache
 
-import androidx.test.runner.AndroidJUnit4
+import com.rasel.androidbaseapp.cache.dao.CharacterDao
+import com.rasel.androidbaseapp.cache.database.AppDatabase
 import com.rasel.androidbaseapp.cache.mapper.CharacterCacheMapper
 import com.rasel.androidbaseapp.cache.mapper.CharacterLocationCacheMapper
 import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.fakes.FakeCacheData
-import com.rasel.androidbaseapp.utils.CacheBaseTest
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertNotNull
 import junit.framework.TestCase.assertTrue
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.annotation.Config
+import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
-@Config(manifest = Config.NONE)
-@RunWith(AndroidJUnit4::class)
-class CharacterCacheImpTest : CacheBaseTest() {
+@HiltAndroidTest
+class CharacterCacheImpTest  {
 
     private val locationMapper = CharacterLocationCacheMapper()
     private val characterCacheMapper = CharacterCacheMapper(locationMapper)
-    private lateinit var preferencesHelper: PreferenceProvider
     private lateinit var sut: CharacterCacheImp
 
+    @get:Rule
+    val hiltAndroidRule = HiltAndroidRule(this)
+
+    @Inject
+    lateinit var preferenceProvider: PreferenceProvider
+
+    @Inject
+    lateinit var appDatabase: AppDatabase
+    private lateinit var charaterDao: CharacterDao
+
+
     @Before
-    override fun setup() {
-        super.setup()
-        preferencesHelper = PreferenceProvider(context)
-        sut = CharacterCacheImp(charaterDao, characterCacheMapper, preferencesHelper)
+    fun setUp() {
+        hiltAndroidRule.inject()
+        charaterDao = appDatabase.cachedCharacterDao()
+        sut = CharacterCacheImp(charaterDao, characterCacheMapper, preferenceProvider)
     }
 
     @Test
@@ -196,7 +206,7 @@ class CharacterCacheImpTest : CacheBaseTest() {
             val time = 1000L
             // Act (When)
             sut.setLastCacheTime(time)
-            val lastCacheTime = preferencesHelper.lastCacheTime
+            val lastCacheTime = preferenceProvider.lastCacheTime
 
             // Assert (Then)
             assertEquals(lastCacheTime, lastCacheTime)
@@ -224,4 +234,9 @@ class CharacterCacheImpTest : CacheBaseTest() {
             // Assert (Then)
             assertFalse(isExpired)
         }
+
+    @After
+    fun closeDatabase() {
+        appDatabase.close()
+    }
 }
