@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rasel.androidbaseapp.data.models.Localization
 import com.rasel.androidbaseapp.remote.models.ProductListItem
-import com.rasel.androidbaseapp.data.LocalizationRepository
+import com.rasel.androidbaseapp.data.LocalizationRepositoryImp
 import com.rasel.androidbaseapp.util.AppLanguage
 import com.rasel.androidbaseapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,16 +19,16 @@ import javax.inject.Inject
  */
 @HiltViewModel
 open class LocalizedViewModel @Inject constructor(
-    private var localizationRepository: LocalizationRepository
+    private var localizationRepositoryImp: LocalizationRepositoryImp
 ) : ViewModel() {
 
     val localizationFlow: StateFlow<Localization>
-        get() = localizationRepository.localizationFlow
+        get() = localizationRepositoryImp.localizationFlow
 
     val localization: Localization
         get() = localizationFlow.value
 
-    val currentLanguageFlow: AppLanguage get() = localizationRepository.currentAppLanguage
+    val currentLanguageFlow: AppLanguage get() = localizationRepositoryImp.currentAppLanguage
 
     fun switchToEnglish() = switchLanguage(AppLanguage.ENGLISH)
 
@@ -38,12 +38,12 @@ open class LocalizedViewModel @Inject constructor(
 
     private fun switchLanguage(language: AppLanguage) {
         viewModelScope.launch {
-            localizationRepository.updateLanguage(language)
+            localizationRepositoryImp.updateLanguage(language)
         }
     }
     fun getLocalizationFromRemote() {
         viewModelScope.launch {
-            localizationRepository.getLocalizationFromRemote()
+            localizationRepositoryImp.getLocalizationFromRemote()
         }
     }
 

@@ -1,6 +1,6 @@
 package com.rasel.androidbaseapp.viewmodel
 
-import com.rasel.androidbaseapp.data.LocalizationRepository
+import com.rasel.androidbaseapp.data.LocalizationRepositoryImp
 import com.rasel.androidbaseapp.utils.PresentationBaseTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,7 +18,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class LocalizedViewModelTest : PresentationBaseTest(){
 
     @Mock
-    lateinit var repository: LocalizationRepository
+    lateinit var repository: LocalizationRepositoryImp
 
     @Before
     fun setUp() {

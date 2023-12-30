@@ -7,7 +7,9 @@ import com.rasel.androidbaseapp.remote.api.CharacterService
 import com.rasel.androidbaseapp.remote.api.MyApi
 import com.rasel.androidbaseapp.remote.api.ServiceFactory
 import com.rasel.androidbaseapp.data.repository.CharacterRemote
+import com.rasel.androidbaseapp.data.repository.LocalizationRemote
 import com.rasel.androidbaseapp.remote.repository.CharacterRemoteImp
+import com.rasel.androidbaseapp.remote.repository.LocalizationRemoteImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,20 +26,37 @@ object RemoteModule {
     fun provideNetworkConnectionInterceptor(@ApplicationContext context: Context): NetworkConnectionInterceptor {
         return NetworkConnectionInterceptor(context)
     }
+
     @Provides
     @Singleton
     fun provideBlogService(networkConnectionInterceptor: NetworkConnectionInterceptor): CharacterService {
-        return ServiceFactory.createCharacterService(BuildConfig.DEBUG, BuildConfig.BASE_URL, networkConnectionInterceptor)
+        return ServiceFactory.createCharacterService(
+            BuildConfig.DEBUG,
+            BuildConfig.BASE_URL,
+            networkConnectionInterceptor
+        )
     }
+
     @Singleton
     @Provides
     fun provideMyApi(networkConnectionInterceptor: NetworkConnectionInterceptor): MyApi {
-        return ServiceFactory.create(BuildConfig.DEBUG, BuildConfig.BASE_URL, networkConnectionInterceptor)
+        return ServiceFactory.create(
+            BuildConfig.DEBUG,
+            BuildConfig.BASE_URL,
+            networkConnectionInterceptor
+        )
 
     }
+
     @Provides
     @Singleton
     fun provideCharacterRemote(characterRemote: CharacterRemoteImp): CharacterRemote {
         return characterRemote
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalizationRemote(localizationRemote: LocalizationRemoteImp): LocalizationRemote {
+        return localizationRemote
     }
 }

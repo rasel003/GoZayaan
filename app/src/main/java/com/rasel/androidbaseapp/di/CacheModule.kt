@@ -2,11 +2,13 @@ package com.rasel.androidbaseapp.di
 
 import android.content.Context
 import com.rasel.androidbaseapp.cache.CharacterCacheImp
+import com.rasel.androidbaseapp.cache.LocalizationCacheImp
 import com.rasel.androidbaseapp.cache.dao.CharacterDao
 import com.rasel.androidbaseapp.cache.database.AppDatabase
 import com.rasel.androidbaseapp.cache.dao.PlantDao
 import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.data.repository.CharacterCache
+import com.rasel.androidbaseapp.data.repository.LocalizationCache
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,6 +35,7 @@ object CacheModule {
     fun providePreferenceProvider(@ApplicationContext context: Context): PreferenceProvider {
         return PreferenceProvider(context)
     }
+
     @Provides
     @Singleton
     fun provideCharacterDao(appDatabase: AppDatabase): CharacterDao {
@@ -43,5 +46,11 @@ object CacheModule {
     @Singleton
     fun provideCharacterCache(characterCache: CharacterCacheImp): CharacterCache {
         return characterCache
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalizationCache(localizationCache: LocalizationCacheImp): LocalizationCache {
+        return localizationCache
     }
 }
