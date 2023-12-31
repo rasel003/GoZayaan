@@ -2,6 +2,7 @@ package com.rasel.androidbaseapp.cache
 
 import android.content.Context
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.data.models.Localization
 import com.rasel.androidbaseapp.data.models.LocalizationBundle
 import com.rasel.androidbaseapp.data.repository.LocalizationCache
@@ -13,7 +14,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class LocalizationCacheImp @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val preferencesHelper: PreferenceProvider
 ) : LocalizationCache {
 
     private val moshiAdapter: JsonAdapter<LocalizationBundle> by lazy {
@@ -30,6 +32,14 @@ class LocalizationCacheImp @Inject constructor(
 
     override suspend fun saveLocalization(localization: Localization) {
         TODO("Not yet implemented")
+    }
+
+    override fun getAppLanguage(): AppLanguage {
+        return preferencesHelper.getAppLanguage()
+    }
+
+    override suspend fun saveAppLanguage(language: AppLanguage) {
+        preferencesHelper.saveAppLanguage(language)
     }
 
     override suspend fun isCached(): Boolean {
@@ -56,10 +66,11 @@ class LocalizationCacheImp @Inject constructor(
         .bufferedReader()
         .use { it.readText() }
 
-    private fun LocalizationBundle.getLocalization(language: AppLanguage): Localization = when (language) {
-        AppLanguage.ENGLISH -> en
-        AppLanguage.CHINESE -> cn
-        AppLanguage.BURMESE -> mm
-    }
+    private fun LocalizationBundle.getLocalization(language: AppLanguage): Localization =
+        when (language) {
+            AppLanguage.ENGLISH -> en
+            AppLanguage.CHINESE -> cn
+            AppLanguage.BURMESE -> mm
+        }
 
 }

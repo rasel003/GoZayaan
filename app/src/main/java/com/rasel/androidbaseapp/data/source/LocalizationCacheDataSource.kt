@@ -18,10 +18,19 @@ class LocalizationCacheDataSource @Inject constructor(
         return characterCache.getLocalization(language)
     }
 
+    override fun getAppLanguage() : AppLanguage {
+        return characterCache.getAppLanguage()
+    }
+
+    override suspend fun saveAppLanguage(language: AppLanguage) {
+        characterCache.saveAppLanguage(language)
+    }
+
     override suspend fun saveLocalization(localization: Localization) {
         characterCache.saveLocalization(localization)
         characterCache.setLastCacheTime(System.currentTimeMillis())
     }
+
     override suspend fun isCached(): Boolean {
         return characterCache.isCached()
     }

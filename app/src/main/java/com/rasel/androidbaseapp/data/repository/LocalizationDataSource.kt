@@ -9,7 +9,10 @@ interface LocalizationDataSource {
 
     // Cache
     fun getLocalizationFromCache(language: AppLanguage): Localization
+    fun getAppLanguage() : AppLanguage
+
 
     suspend fun saveLocalization(localization: Localization)
     suspend fun isCached(): Boolean
+    suspend fun saveAppLanguage(language: AppLanguage)
 }

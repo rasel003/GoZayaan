@@ -1,6 +1,5 @@
 package com.rasel.androidbaseapp.data
 
-import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.data.models.Localization
 import com.rasel.androidbaseapp.data.source.LocalizationDataSourceFactory
 import com.rasel.androidbaseapp.domain.repository.LocalizationRepository
@@ -13,7 +12,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LocalizationRepositoryImp @Inject constructor(
-    private val preferenceStorage: PreferenceProvider,
     private val dataSourceFactory: LocalizationDataSourceFactory
 ) : LocalizationRepository {
 
@@ -27,7 +25,7 @@ class LocalizationRepositoryImp @Inject constructor(
     override val localizationFlow: StateFlow<Localization> = _localizationFlow
 
     override val currentAppLanguage: AppLanguage
-        get() = preferenceStorage.getAppLanguage()
+        get() = dataSourceFactory.getCacheDataSource().getAppLanguage()
 
     init {
         CoroutineScope(Dispatchers.IO).launch {
@@ -36,7 +34,7 @@ class LocalizationRepositoryImp @Inject constructor(
     }
 
     override suspend fun updateLanguage(language: AppLanguage) {
-        preferenceStorage.saveAppLanguage(language)
+        dataSourceFactory.getCacheDataSource().saveAppLanguage(language)
         getLocalizationFromRemote()
     }
 

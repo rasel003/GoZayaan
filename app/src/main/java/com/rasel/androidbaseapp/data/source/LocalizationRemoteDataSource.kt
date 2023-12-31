@@ -14,6 +14,15 @@ class LocalizationRemoteDataSource @Inject constructor(
       return  localizationRemote.getLocalization(language)
     }
 
+    override fun getAppLanguage(): AppLanguage {
+        throw UnsupportedOperationException("getAppLanguage is not supported for RemoteDataSource.")
+    }
+
+    override suspend fun saveAppLanguage(language: AppLanguage) {
+        throw UnsupportedOperationException("Save AppLanguage is not supported for RemoteDataSource.")
+
+    }
+
     override fun getLocalizationFromCache(language: AppLanguage): Localization {
         throw UnsupportedOperationException("getLocalizationFromCache is not supported for RemoteDataSource.")
     }

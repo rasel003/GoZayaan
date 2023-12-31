@@ -38,7 +38,7 @@ class CharacterListViewModelTest : PresentationBaseTest() {
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         sut = CharacterListViewModel(dispatcher, charactersUseCase, bookmarkUseCase)
         sut.getCharacters().observeForever(observer)
     }
