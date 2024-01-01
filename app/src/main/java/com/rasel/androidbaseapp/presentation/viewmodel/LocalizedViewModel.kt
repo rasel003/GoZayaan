@@ -48,9 +48,4 @@ open class LocalizedViewModel @Inject constructor(
     }
 
 
-    private val _products = MutableLiveData<NetworkResult<List<ProductListItem>>>()
-    val products: LiveData<NetworkResult<List<ProductListItem>>>
-        get() = _products
-
-
 }

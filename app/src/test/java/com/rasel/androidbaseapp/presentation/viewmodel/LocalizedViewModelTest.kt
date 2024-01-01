@@ -71,6 +71,16 @@ class LocalizedViewModelTest : PresentationBaseTest() {
         val result = sut.localizationFlow.asLiveData().getOrAwaitValue()
         assertEquals("英语", result.lblEnglish)
     }
+  @Test
+    fun `get localization from remote should return chinese`() = runTest {
+        val localization = FakeData.getLocalization(AppLanguage.CHINESE)
+        Mockito.`when`(repository.localizationFlow).doReturn(MutableStateFlow(localization))
+
+        val sut = LocalizedViewModel(repository)
+        sut.getLocalizationFromRemote()
+        val result = sut.localizationFlow.asLiveData().getOrAwaitValue()
+        assertEquals("英语", result.lblEnglish)
+    }
 
     /* @Test
      fun test_GetProduct_expectedError() = runTest{
