@@ -7,31 +7,31 @@ import com.rasel.androidbaseapp.util.AppLanguage
 import javax.inject.Inject
 
 class LocalizationCacheDataSource @Inject constructor(
-    private val characterCache: LocalizationCache
+    private val localizationCache: LocalizationCache
 ) : LocalizationDataSource {
 
     override suspend fun getLocalization(language: AppLanguage): Localization {
-        return characterCache.getLocalization(language)
+        return localizationCache.getLocalization(language)
     }
 
     override fun getLocalizationFromCache(language: AppLanguage): Localization {
-        return characterCache.getLocalization(language)
+        return localizationCache.getLocalization(language)
     }
 
     override fun getAppLanguage() : AppLanguage {
-        return characterCache.getAppLanguage()
+        return localizationCache.getAppLanguage()
     }
 
     override suspend fun saveAppLanguage(language: AppLanguage) {
-        characterCache.saveAppLanguage(language)
+        localizationCache.saveAppLanguage(language)
     }
 
     override suspend fun saveLocalization(localization: Localization) {
-        characterCache.saveLocalization(localization)
-        characterCache.setLastCacheTime(System.currentTimeMillis())
+        localizationCache.saveLocalization(localization)
+        localizationCache.setLastCacheTime(System.currentTimeMillis())
     }
 
     override suspend fun isCached(): Boolean {
-        return characterCache.isCached()
+        return localizationCache.isCached()
     }
 }
