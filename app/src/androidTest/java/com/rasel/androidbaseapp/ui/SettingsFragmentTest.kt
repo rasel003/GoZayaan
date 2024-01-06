@@ -1,21 +1,23 @@
 package com.rasel.androidbaseapp.ui
 
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import org.junit.Before
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.launchFragmentInHiltContainer
 import com.rasel.androidbaseapp.ui.settings.SettingsFragment
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.test.runTest
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
-
+@RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
 class SettingsFragmentTest {
 
@@ -25,52 +27,38 @@ class SettingsFragmentTest {
 
     @Before
     fun setup() {
-        hiltRule.inject()
+//        hiltRule.inject()
+        launchFragmentInHiltContainer<SettingsFragment>()
+
 //        scenario = launchFragmentInContainer(themeResId = R.style.Theme_App_DayNight)
 //        scenario.moveToState(Lifecycle.State.STARTED)
     }
-    /* @Test
-     fun testLaunchFragmentInHiltContainer() {
-         val activityScenario: ActivityScenario<MainActivity> = launchActivity()
-         activityScenario.onActivity {
-             val yourFragment: Fragment = it.supportFragmentManager.fragmentFactory.instantiate(
-                 Preconditions.checkNotNull(SettingsFragment::class.java.classLoader),
-                 SettingsFragment::class.java.name
-             )
-
-             it.supportFragmentManager.beginTransaction()
-                 .add(android.R.id.content, yourFragment, "")
-                 .commitNow()
-
-         }
-     }*/
 
 
     @Test
-    fun testEventFragment() {
-//        val scenario = launchFragmentInContainer<SettingsFragment>()
-        launchFragmentInHiltContainer<SettingsFragment> {
-//            onView(withId(R.id.btnEnglish)).perform(click())
-
-            //Assertion
-//            onView(withId(R.id.btnEnglish)).check(matches(withText("English")))
-        }
-
-    }
-
-
-
-    @Test
-    fun testAddingSpend() {
-        /* val amount = 100
-         val desc = "Bought Eggs"
-         //Espresso Matcher and Action
-         onView(withId(R.id.edit_text_amount)).perform(typeText(amount.toString()))
-         onView(withId(R.id.edit_text_description)).perform(typeText(desc))*/
-        Espresso.closeSoftKeyboard()
+    fun switch_to_english_should_return_english_localization() {
+        // Espresso.closeSoftKeyboard()
         onView(withId(R.id.btnEnglish)).perform(click())
 
         //Assertion
         onView(withId(R.id.btnEnglish)).check(matches(withText("English")))
+    }
+
+    @Test
+    fun switch_to_chinese_should_return_chinese_localization() = runTest {
+        // Espresso.closeSoftKeyboard()
+        onView(withId(R.id.btnChinese)).perform(click())
+
+        //Assertion
+        onView(withId(R.id.btnEnglish)).check(matches(withText("英语")))
+    }
+
+    @Test
+    fun switch_to_burmese_should_return_burmese_localization() {
+        // Espresso.closeSoftKeyboard()
+        onView(withId(R.id.btnBurmese)).perform(click())
+
+        //Assertion
+        onView(withId(R.id.btnEnglish)).check(matches(withText("အင်္ဂလိပ်")))
     }
 }

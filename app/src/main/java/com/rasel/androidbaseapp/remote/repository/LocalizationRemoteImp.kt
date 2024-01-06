@@ -11,7 +11,7 @@ import javax.inject.Inject
 class LocalizationRemoteImp @Inject constructor(): LocalizationRemote {
 
     override suspend fun getLocalization(language: AppLanguage): Localization {
-        delay(2000)
+//        delay(2000)
 
         // A Dummy Implementation of fetching Localization from Remote
         val bundle = LocalizationBundle(
