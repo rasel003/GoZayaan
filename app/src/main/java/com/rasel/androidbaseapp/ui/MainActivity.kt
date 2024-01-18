@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -19,11 +20,12 @@ import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.core.theme.ThemeUtils
 import com.rasel.androidbaseapp.databinding.ActivityMainBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
+import com.rasel.androidbaseapp.util.NoticeDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -49,8 +51,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            showNoticeDialog()
         }
 //        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
 //        val navView: NavigationView = findViewById(R.id.nav_view)
@@ -118,5 +119,27 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
             .show()
+    }
+
+    fun showNoticeDialog() {
+        // Create an instance of the dialog fragment and show it.
+        val dialog = NoticeDialogFragment()
+        dialog.show(supportFragmentManager, "NoticeDialogFragment")
+    }
+
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following
+    // methods defined by the NoticeDialogFragment.NoticeDialogListener
+    // interface.
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        // User taps the dialog's positive button.
+        Snackbar.make(binding.fab, "Replace with your own action", Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+        // User taps the dialog's negative button.
+        Snackbar.make(binding.fab, "Replace with your own action", Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
     }
 }

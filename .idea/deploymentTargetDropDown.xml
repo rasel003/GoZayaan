@@ -2,10 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="CharacterCacheImpTest">
+      <entry key="a_test_isListFragmentVisible_onAppLaunch()">
+        <State />
+      </entry>
+      <entry key="a_test_isListFragmentVisible_onAppLaunch2()">
         <State />
       </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="on_view_click_go_next_page()">
+        <State />
+      </entry>
+      <entry key="test_backNavigation_toMovieListFragment()">
+        <State />
+      </entry>
+      <entry key="test_backNavigation_toPlantListFragment()">
         <State />
       </entry>
     </value>

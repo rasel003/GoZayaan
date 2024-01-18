@@ -69,6 +69,7 @@
         <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
         <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
         <item name="chipStyle">@style/Widget.App.Chip.Entry</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
 
         <!--System/Platform attributes-->
         <item name="android:windowBackground">?android:colorBackground</item>
