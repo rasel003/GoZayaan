@@ -15,9 +15,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
+import com.rasel.androidbaseapp.core.theme.ThemeUtils
 import com.rasel.androidbaseapp.databinding.ActivityMainBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -26,9 +29,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: LocalizedViewModel by viewModels()
 
+    @Inject
+    lateinit var themeUtils: ThemeUtils
+
+    @Inject
+    lateinit var preferencesHelper: PreferenceProvider
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        themeUtils.setNightMode(preferencesHelper.isNightMode)
 
         // binding = ActivityMainBinding.inflate(layoutInflater)
         binding =
