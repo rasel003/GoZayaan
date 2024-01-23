@@ -21,9 +21,9 @@
 
     <data>
 
-       <!-- <variable
+        <variable
             name="activityViewModel"
-            type="com.google.samples.apps.iosched.ui.onboarding.OnboardingViewModel" />-->
+            type="com.rasel.androidbaseapp.ui.onboarding.OnboardingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,6 +52,7 @@
             android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_small"
             android:text="@string/sign_in"
+            android:onClick="@{() -> activityViewModel.onSigninClicked()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Sign in" />

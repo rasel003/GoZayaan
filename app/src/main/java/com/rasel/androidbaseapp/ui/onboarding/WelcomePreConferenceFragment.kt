@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.rasel.androidbaseapp.databinding.FragmentOnboardingWelcomePreBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,7 +34,7 @@ class WelcomePreConferenceFragment : Fragment() {
 
     private lateinit var binding: FragmentOnboardingWelcomePreBinding
 
-//    private val viewModel: OnboardingViewModel by activityViewModels()
+    private val viewModel: OnboardingViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +49,7 @@ class WelcomePreConferenceFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        binding.activityViewModel = viewModel
+        binding.activityViewModel = viewModel
         binding.buttonSignin.doOnLayout {
             activity?.reportFullyDrawn()
         }

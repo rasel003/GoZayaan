@@ -16,7 +16,35 @@
 
 package com.rasel.androidbaseapp.ui.onboarding
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.rasel.androidbaseapp.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
 /**
  * Records that onboarding has been completed and navigates user onward.
  */
+@HiltViewModel
+class OnboardingViewModel @Inject constructor(
+) : ViewModel(){
 
+    private val _navigateToMainActivity = MutableLiveData<Event<Unit>>()
+    val navigateToMainActivity: LiveData<Event<Unit>> = _navigateToMainActivity
+
+    private val _navigateToSignInDialogAction = MutableLiveData<Event<Unit>>()
+    val navigateToSignInDialogAction: LiveData<Event<Unit>> = _navigateToSignInDialogAction
+
+    fun getStartedClick() {
+        viewModelScope.launch {
+            _navigateToMainActivity.postValue(Event(Unit))
+        }
+    }
+
+    fun onSigninClicked() {
+        _navigateToSignInDialogAction.value = Event(Unit)
+    }
+}

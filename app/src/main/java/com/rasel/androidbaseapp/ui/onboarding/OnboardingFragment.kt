@@ -18,6 +18,7 @@ package com.rasel.androidbaseapp.ui.onboarding
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -26,7 +27,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.viewModels
 import com.rasel.androidbaseapp.databinding.FragmentOnboardingBinding
+import com.rasel.androidbaseapp.ui.MainActivity
+import com.rasel.androidbaseapp.util.EventObserver
 import com.rasel.androidbaseapp.util.ViewPagerPager
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +42,8 @@ private const val INITIAL_ADVANCE_DELAY = 3_000L
  */
 @AndroidEntryPoint
 class OnboardingFragment : Fragment() {
+
+    private val onboardingViewModel: OnboardingViewModel by viewModels()
 
 
     private lateinit var binding: FragmentOnboardingBinding
@@ -61,6 +67,7 @@ class OnboardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOnboardingBinding.inflate(inflater, container, false).apply {
+            viewModel = onboardingViewModel
             lifecycleOwner = viewLifecycleOwner
             pager.adapter = OnboardingAdapter(childFragmentManager)
             pagerPager = ViewPagerPager(pager)
@@ -71,12 +78,12 @@ class OnboardingFragment : Fragment() {
             }
         }
 
-      /*  onboardingViewModel.navigateToMainActivity.observe(viewLifecycleOwner, EventObserver {
+        onboardingViewModel.navigateToMainActivity.observe(viewLifecycleOwner, EventObserver {
             requireActivity().run {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
-        })*/
+        })
 
         return binding.root
     }
@@ -96,6 +103,8 @@ class OnboardingAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter
 
     // Don't show then countdown fragment if the conference has already started
     private val fragments = arrayOf(
+        WelcomePreConferenceFragment(),
+        WelcomePreConferenceFragment(),
         WelcomePreConferenceFragment(),
         WelcomePreConferenceFragment(),
     )
