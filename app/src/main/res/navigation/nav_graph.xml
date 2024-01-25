@@ -95,4 +95,38 @@
             app:argType="long" />
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_email_list"
+        android:name="com.rasel.androidbaseapp.ui.email_list.EmailListFragment"
+        android:label="HomeFragment">
+        <!-- <argument
+             android:name="mailbox"
+             android:defaultValue="INBOX"
+             app:argType="com.materialstudies.reply.ui.home.Mailbox" />-->
+        <action
+            android:id="@+id/action_homeFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+        <action
+            android:id="@+id/action_nav_email_list_to_composeFragment"
+            app:destination="@id/composeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.rasel.androidbaseapp.ui.email.EmailFragment"
+        android:label="EmailFragment">
+        <argument
+            android:name="emailId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/composeFragment"
+        tools:layout="@layout/fragment_compose"
+        android:name="com.rasel.androidbaseapp.ui.compose.ComposeFragment"
+        android:label="ComposeFragment">
+        <argument
+            android:name="replyToEmailId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
 </navigation>

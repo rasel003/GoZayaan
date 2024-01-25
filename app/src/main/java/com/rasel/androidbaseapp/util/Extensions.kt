@@ -111,12 +111,7 @@ fun newStaticLayout(
     }
 }
 
-/**
- * Linearly interpolate between two values.
- */
-fun lerp(a: Float, b: Float, t: Float): Float {
-    return a + (b - a) * t
-}
+
 
 /**
  * Alternative to Resources.getDimension() for values that are TYPE_FLOAT.
@@ -288,6 +283,23 @@ fun View.requestApplyInsetsWhenAttached() {
         })
     }
 }
+/*fun View.requestApplyInsetsWhenAttached() {
+    if (isAttachedToWindow) {
+        // We're already attached, just request as normal
+        requestApplyInsets()
+    } else {
+        // We're not attached to the hierarchy, add a listener to
+        // request when we are
+        addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View) {
+                v.removeOnAttachStateChangeListener(this)
+                v.requestApplyInsets()
+            }
+
+            override fun onViewDetachedFromWindow(v: View) = Unit
+        })
+    }
+}*/
 
 private fun createStateForView(view: View) = ViewPaddingState(view.paddingLeft,
     view.paddingTop, view.paddingRight, view.paddingBottom, view.paddingStart, view.paddingEnd)

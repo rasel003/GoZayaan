@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListe
                 R.id.nav_slideshow,
                 R.id.nav_plantListFragment,
                 R.id.nav_character_list,
+                R.id.nav_email_list,
                 R.id.nav_settings
             ), binding.drawerLayout
         )
