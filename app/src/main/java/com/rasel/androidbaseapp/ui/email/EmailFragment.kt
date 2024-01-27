@@ -33,7 +33,6 @@ import com.rasel.androidbaseapp.databinding.FragmentEmailBinding
 import com.rasel.androidbaseapp.util.themeColor
 import kotlin.LazyThreadSafetyMode.NONE
 
-private const val MAX_GRID_SPANS = 3
 
 /**
  * A [Fragment] which displays a single, full email.
@@ -98,5 +97,9 @@ class EmailFragment : Fragment() {
 
     private fun showError() {
         // Do nothing
+    }
+
+    companion object {
+        const val MAX_GRID_SPANS = 3
     }
 }

@@ -19,6 +19,7 @@ package com.materialstudies.reply.ui.email
 import androidx.recyclerview.widget.GridLayoutManager
 import com.materialstudies.reply.ui.common.EmailAttachmentAdapter
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.ui.email.EmailFragment.Companion.MAX_GRID_SPANS
 import kotlin.random.Random
 
 class EmailAttachmentGridAdapter(
@@ -40,11 +41,18 @@ class EmailAttachmentGridAdapter(
         private fun generateSpanCountForItems(count: Int): List<Int> {
             val list = mutableListOf<Int>()
 
-            var rowSpansOccupied = 0
+            var rowSpansOccupied = 1
             repeat(count) {
-                val size = Random.nextInt(1, spans + 1 - rowSpansOccupied)
+                val size =  when(it){
+                    0 -> 3
+                    1 -> 1
+                    2 -> 1
+                    3 -> 1
+                    4 -> 2
+                    else ->  Random.nextInt(1, spans + 1 - rowSpansOccupied)
+                }
                 rowSpansOccupied += size
-                if (rowSpansOccupied >= 3) rowSpansOccupied = 0
+                if (rowSpansOccupied >= MAX_GRID_SPANS) rowSpansOccupied = 0
                 list.add(size)
             }
 
