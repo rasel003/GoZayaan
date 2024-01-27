@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.materialstudies.reply.ui.email
+package com.rasel.androidbaseapp.ui.email
 
 import androidx.recyclerview.widget.GridLayoutManager
 import com.materialstudies.reply.ui.common.EmailAttachmentAdapter

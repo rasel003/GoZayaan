@@ -5,7 +5,9 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.core.theme.ThemeUtils
 import com.rasel.androidbaseapp.data.models.Localization
@@ -50,6 +52,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
         binding.btnEnglish.setOnClickListener{localizedViewModel.switchToEnglish()}
         binding.btnBurmese.setOnClickListener{localizedViewModel.switchToBurmese()}
         binding.btnChinese.setOnClickListener{localizedViewModel.switchToChinese()}
+
+        binding.chipOwl.setOnClickListener {
+            findNavController().navigate(R.id.action_global_nav_home)
+        }
 
         binding.textView.setOnClickListener {
             OrderUpdateHistoryMerchantDialog.display(

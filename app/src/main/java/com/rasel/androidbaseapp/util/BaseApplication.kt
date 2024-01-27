@@ -11,12 +11,21 @@ import androidx.multidex.MultiDexApplication
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.rasel.androidbaseapp.BuildConfig
+import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
+import com.rasel.androidbaseapp.core.theme.ThemeUtils
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
+import javax.inject.Inject
 
 
 @HiltAndroidApp
 class BaseApplication : MultiDexApplication() {
+
+    @Inject
+    lateinit var themeUtils: ThemeUtils
+
+    @Inject
+    lateinit var preferencesHelper: PreferenceProvider
 
     override fun onCreate() {
         super.onCreate()
@@ -24,6 +33,7 @@ class BaseApplication : MultiDexApplication() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+        themeUtils.setNightMode(preferencesHelper.isNightMode)
 
         // used this logger throughout the app for logging
         /*Logger.addLogAdapter(object : AndroidLogAdapter() {

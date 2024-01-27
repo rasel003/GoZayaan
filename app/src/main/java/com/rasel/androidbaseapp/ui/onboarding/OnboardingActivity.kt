@@ -19,11 +19,9 @@ package com.rasel.androidbaseapp.ui.onboarding
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updatePadding
 import com.rasel.androidbaseapp.R
-import com.rasel.androidbaseapp.util.EventObserver
 import com.rasel.androidbaseapp.util.doOnApplyWindowInsets
 import com.rasel.androidbaseapp.util.inTransaction
 import dagger.hilt.android.AndroidEntryPoint

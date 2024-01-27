@@ -46,6 +46,11 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_extra_small">4dp</dimen>
 
+    <dimen name="padding_large">32dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_extra_small">4dp</dimen>
+
     <dimen name="plant_item_image_height">95dp</dimen>
 
     <!-- elevation for Plant Detail toolbar - used to convert to pixels when hiding/showing -->
@@ -151,8 +156,33 @@
     <!-- Map -->
     <dimen name="map_bottom_sheet_peek_height">56dp</dimen>
 
+    <!--Layout-->
+    <!--Reply uses an 8dp grid system. Smaller components can align to a 2dp 'sub' grid.-->
+
+    <!--2dp sub grid-->
+    <dimen name="grid_0_25">2dp</dimen>
+
+    <!--8dp grid-->
+    <dimen name="grid_1">8dp</dimen>
+    <dimen name="grid_2">16dp</dimen>
+    <dimen name="grid_3">24dp</dimen>
+    <dimen name="grid_4">32dp</dimen>
+
     <!-- Info -->
     <dimen name="info_page_margin">17dp</dimen>
+    <dimen name="small_component_top_left_radius">28dp</dimen>
+    <dimen name="minimized_sheet_top_left_radius">48dp</dimen>
+
+    <dimen name="grid_0_5">4dp</dimen>
+    <dimen name="grid_1_5">12dp</dimen>
+
+    <!--    <dimen name="card_elevation">1dp</dimen>-->
+    <dimen name="divider_inset">128dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+
+    <integer name="featured_grid_columns">2</integer>
+    <integer name="onboarding_topics_rows">2</integer>
+    <dimen name="onboarding_topics_height">160dp</dimen>
 
     <!-- Profile dialog -->
     <dimen name="profile_dialog_account_image_size">36dp</dimen>

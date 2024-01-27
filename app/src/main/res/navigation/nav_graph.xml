@@ -97,6 +97,7 @@
 
     <fragment
         android:id="@+id/nav_email_list"
+        tools:layout="@layout/fragment_email_list"
         android:name="com.rasel.androidbaseapp.ui.email_list.EmailListFragment"
         android:label="HomeFragment">
         <!-- <argument
@@ -112,6 +113,7 @@
     </fragment>
     <fragment
         android:id="@+id/emailFragment"
+        tools:layout="@layout/fragment_email"
         android:name="com.rasel.androidbaseapp.ui.email.EmailFragment"
         android:label="EmailFragment">
         <argument
@@ -128,5 +130,8 @@
             android:defaultValue="-1L"
             app:argType="long" />
     </fragment>
+
+    <action android:id="@+id/action_global_nav_home" app:destination="@id/nav_home"/>
+
 
 </navigation>

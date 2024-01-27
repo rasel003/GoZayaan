@@ -7,30 +7,25 @@
 
         <item
             android:id="@+id/nav_plantListFragment"
-            android:icon="@drawable/ic_accessibility_new"
+            android:icon="@drawable/asl_my_courses"
             android:title="@string/menu_plantList" />
 
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
-
-        <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/asl_featured"
             android:title="@string/menu_slideshow" />
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/asl_my_courses"
             android:title="@string/menu_settings" />
         <item
             android:id="@+id/nav_character_list"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/asl_search"
             android:title="@string/menu_character_list" />
  <item
             android:id="@+id/nav_email_list"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Email List" />
+            android:icon="@drawable/asl_my_courses"
+            android:title="Emails" />
 
     </group>
 </menu>

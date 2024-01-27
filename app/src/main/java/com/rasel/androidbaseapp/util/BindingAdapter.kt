@@ -288,3 +288,49 @@ private fun recordInitialHeightForView(view: View): Int {
     return view.layoutParams.height
 }
 
+
+
+@BindingAdapter("srcUrl", "circleCrop", "placeholder", "loadListener", requireAll = false)
+fun ImageView.bindSrcUrl(
+    url: String,
+    circleCrop: Boolean,
+    placeholder: Drawable?,
+    loadListener: GlideDrawableLoadListener?
+) {
+    val request = Glide.with(this).load(url)
+    if (circleCrop) request.circleCrop()
+    if (placeholder != null) request.placeholder(placeholder)
+    if (loadListener != null) request.listener(loadListener)
+    request.into(this)
+}
+
+/**
+ * Alter the background color as if this view had the given elevation. We don't want to actually
+ * use elevation as the design calls for no shadow.
+ */
+@BindingAdapter("elevationOverlay")
+fun View.bindElevationOverlay(previousElevation: Float, elevation: Float) {
+    if (previousElevation == elevation) return
+    val color = ElevationOverlayProvider(context)
+        .compositeOverlayWithThemeSurfaceColorIfNeeded(elevation)
+    setBackgroundColor(color)
+}
+
+
+
+fun View.doOnApplyWindowInsets(
+    block: (View, WindowInsets, InitialPadding, InitialMargin) -> Unit
+) {
+    // Create a snapshot of the view's padding & margin states
+    val initialPadding = recordInitialPaddingForView(this)
+    val initialMargin = recordInitialMarginForView(this)
+    // Set an actual OnApplyWindowInsetsListener which proxies to the given
+    // lambda, also passing in the original padding & margin states
+    setOnApplyWindowInsetsListener { v, insets ->
+        block(v, insets, initialPadding, initialMargin)
+        // Always return the insets, so that children can also use them
+        insets
+    }
+    // request some insets
+    requestApplyInsetsWhenAttached()
+}

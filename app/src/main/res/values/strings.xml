@@ -25,7 +25,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_settings">Settings</string>
-    <string name="menu_character_list">Character List</string>
+    <string name="menu_character_list">Characters</string>
     <string name="menu_favorites">Favorites</string>
 
     <string name="bookmark_error">Something went wrong, please try again.</string>
@@ -111,7 +111,7 @@
     <string name="a11y_plant_item_image" translation_description="Accessibility text for each of the plant images shown in the 'My garden' and 'Plant list' screens.">Picture of plant</string>
     <string name="gallery_content_description" translation_description="Content description for the clickable image to navigate to the gallery screen">Navigate to gallery screen</string>
     <string name="plant_detail_image_content_description" translation_description="Content description for the header / hero image that is show at the top of the plant detail screen.">Image of plant</string>
-    <string name="menu_plantList">Plant List</string>
+    <string name="menu_plantList">Plants</string>
     <string name="action_logOut">Log Out</string>
     <string name="titleLogOut">Log Out !</string>
     <string name="messageLogOut">Are you sure you want to Log Out ?</string>

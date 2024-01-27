@@ -3,12 +3,12 @@ package com.rasel.androidbaseapp.ui.slideshow
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.rasel.androidbaseapp.databinding.ItemSlideBinding
 import com.rasel.androidbaseapp.remote.models.PostItem
-import com.rasel.androidbaseapp.databinding.ItemNotificationBinding
 
 
 class SlideshowAdapter(
-    var dataArrayList: MutableList<PostItem>,
+    private var dataArrayList: MutableList<PostItem>,
     private var onEditOrderClicked: ((item: PostItem) -> Unit),
 ) : RecyclerView.Adapter<SlideshowAdapter.MyViewHOlder>() {
 
@@ -19,7 +19,7 @@ class SlideshowAdapter(
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(viewGroup.context)
         }
-        val binding = ItemNotificationBinding.inflate(
+        val binding = ItemSlideBinding.inflate(
             layoutInflater!!, viewGroup, false
         )
         return MyViewHOlder(binding)
@@ -40,7 +40,7 @@ class SlideshowAdapter(
     }
 
     inner class MyViewHOlder(
-        private val binding: ItemNotificationBinding,
+        private val binding: ItemSlideBinding,
     ) : RecyclerView.ViewHolder(
         binding.root
     ) {

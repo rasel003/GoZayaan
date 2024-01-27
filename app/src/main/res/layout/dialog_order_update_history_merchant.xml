@@ -88,7 +88,7 @@
             android:layout_weight="1"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="2"
-            tools:listitem="@layout/item_notification" />
+            tools:listitem="@layout/item_slide" />
 
         <View
             android:layout_width="wrap_content"

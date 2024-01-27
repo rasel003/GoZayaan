@@ -26,7 +26,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.transition.MaterialContainerTransform
-import com.materialstudies.reply.ui.email.EmailAttachmentGridAdapter
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.data.models.EmailStore
 import com.rasel.androidbaseapp.databinding.FragmentEmailBinding
@@ -51,7 +50,7 @@ class EmailFragment : Fragment() {
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             // Scope the transition to a view in the hierarchy so we know it will be added under
             // the bottom app bar but over the elevation scale of the exiting HomeFragment.
-            drawingViewId = R.id.nav_host_fragment
+            drawingViewId = R.id.nav_host
             duration = resources.getInteger(R.integer.app_motion_duration_large).toLong()
             scrimColor = Color.TRANSPARENT
             setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))

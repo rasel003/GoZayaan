@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright (c) 2019 Google Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -12,22 +11,24 @@
   or implied. See the License for the specific language governing permissions and limitations under
   the License.
   -->
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="emailAttachment"
             type="com.materialstudies.reply.data.EmailAttachment" />
     </data>
 
-    <ImageView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/attachment_image_view"
-        android:layout_height="200dp"
         android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_margin="@dimen/grid_0_25"
         android:contentDescription="@{emailAttachment.contentDesc}"
+        app:glideCenterCrop="@{true}"
         app:glideSrc="@{emailAttachment.resId}"
-        app:glideCenterCrop="@{true}" />
+        tools:src="@tools:sample/avatars" />
 
 </layout>
