@@ -38,6 +38,7 @@ import androidx.dynamicanimation.animation.DynamicAnimation.ViewProperty
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.rasel.androidbaseapp.R
 
 @Suppress("DEPRECATION")
 fun TextView.setTextAppearanceCompat(context: Context, resId: Int) {
@@ -80,7 +81,7 @@ fun View.spring(
 @IdRes
 private fun getKey(property: ViewProperty): Int {
     return when (property) {
-        /*SpringAnimation.TRANSLATION_X -> R.id.translation_x
+        SpringAnimation.TRANSLATION_X -> R.id.translation_x
         SpringAnimation.TRANSLATION_Y -> R.id.translation_y
         SpringAnimation.TRANSLATION_Z -> R.id.translation_z
         SpringAnimation.SCALE_X -> R.id.scale_x
@@ -93,7 +94,7 @@ private fun getKey(property: ViewProperty): Int {
         SpringAnimation.Z -> R.id.z
         SpringAnimation.ALPHA -> R.id.alpha
         SpringAnimation.SCROLL_X -> R.id.scroll_x
-        SpringAnimation.SCROLL_Y -> R.id.scroll_y*/
+        SpringAnimation.SCROLL_Y -> R.id.scroll_y
         else -> throw IllegalAccessException("Unknown ViewProperty: $property")
     }
 }

@@ -131,7 +131,91 @@
             app:argType="long" />
     </fragment>
 
+    <fragment
+        android:id="@+id/owl_onboarding"
+        android:name="com.rasel.androidbaseapp.ui.owl_onboarding.OwlOnboardingFragment"
+        android:label="fragment_onboarding"
+        tools:layout="@layout/fragment_owl_onboarding">
+        <action
+            android:id="@+id/action_owl_onboarding_to_featured"
+            app:destination="@id/featured"
+            app:popUpTo="@+id/featured"/>
+        <action
+            android:id="@+id/action_owl_onboarding_to_search"
+            app:destination="@id/search" />
+        <action
+            android:id="@+id/action_owl_onboarding_to_myCourses"
+            app:destination="@id/myCourses" />
+        <action
+            android:id="@+id/action_owl_onboarding_to_lessonsSheetFragment"
+            app:destination="@id/lessonsSheetFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myCourses"
+        android:name="com.rasel.androidbaseapp.ui.mycourses.MyCoursesFragment"
+        android:label="fragment_my_courses"
+        tools:layout="@layout/fragment_my_courses">
+        <action
+            android:id="@+id/action_mycourses_to_learn"
+            app:destination="@id/learn"
+            app:exitAnim="@null"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/featured"
+        android:name="com.rasel.androidbaseapp.ui.featured.FeaturedFragment"
+        android:label="fragment_featured"
+        tools:layout="@layout/fragment_featured">
+        <action
+            android:id="@+id/action_featured_to_learn"
+            app:destination="@id/learn"
+            app:exitAnim="@null"/>
+        <!--app:exitAnim="@anim/shrink_fade_out_center"-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/search"
+        android:name="com.rasel.androidbaseapp.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search"/>
+
+    <fragment
+        android:id="@+id/learn"
+        android:name="com.rasel.androidbaseapp.ui.learn.LearnFragment"
+        android:label="fragment_learn"
+        tools:layout="@layout/fragment_learn">
+        <argument
+            android:name="course_id"
+            app:argType="long"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/lessonsSheetFragment"
+        android:name="com.rasel.androidbaseapp.ui.lessons.LessonsSheetFragment"
+        android:label="fragment_lessons_sheet"
+        tools:layout="@layout/fragment_lessons_sheet">
+        <action
+            android:id="@+id/action_lessons_sheet_to_lesson"
+            app:launchSingleTop="true"
+            app:destination="@+id/lesson"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/lesson"
+        android:name="com.rasel.androidbaseapp.ui.lessons.LessonFragment"
+        android:label="fragment_lesson"
+        tools:layout="@layout/fragment_lesson">
+        <argument
+            android:name="course_id"
+            app:argType="long"/>
+        <argument
+            android:name="step_number"
+            app:argType="integer"/>
+    </fragment>
+
     <action android:id="@+id/action_global_nav_home" app:destination="@id/nav_home"/>
+    <action android:id="@+id/action_global_owl_onboarding" app:destination="@id/owl_onboarding"/>
 
 
 </navigation>

@@ -33,28 +33,33 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
     @Inject
     lateinit var themeUtils: ThemeUtils
 
-    override fun getViewBinding(): FragmentSettingsBinding = FragmentSettingsBinding.inflate(layoutInflater)
+    override fun getViewBinding(): FragmentSettingsBinding =
+        FragmentSettingsBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        localizedViewModel.localizationFlow.asLiveData().observe(viewLifecycleOwner){
+        localizedViewModel.localizationFlow.asLiveData().observe(viewLifecycleOwner) {
             binding.btnEnglish.text = it.lblEnglish
             binding.btnBurmese.text = it.lblBurmese
             binding.btnChinese.text = it.lblChinese
 
             binding.textView.text =
-                Localization.getTemplatedString(it.lblSelectedLanguage,
+                Localization.getTemplatedString(
+                    it.lblSelectedLanguage,
                     localizedViewModel.currentLanguageFlow.value
                 )
 
         }
-        binding.btnEnglish.setOnClickListener{localizedViewModel.switchToEnglish()}
-        binding.btnBurmese.setOnClickListener{localizedViewModel.switchToBurmese()}
-        binding.btnChinese.setOnClickListener{localizedViewModel.switchToChinese()}
+        binding.btnEnglish.setOnClickListener { localizedViewModel.switchToEnglish() }
+        binding.btnBurmese.setOnClickListener { localizedViewModel.switchToBurmese() }
+        binding.btnChinese.setOnClickListener { localizedViewModel.switchToChinese() }
 
-        binding.chipOwl.setOnClickListener {
+        binding.chipHome.setOnClickListener {
             findNavController().navigate(R.id.action_global_nav_home)
+        }
+        binding.chipOwl.setOnClickListener {
+            findNavController().navigate(R.id.action_global_owl_onboarding)
         }
 
         binding.textView.setOnClickListener {
@@ -90,6 +95,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
                     themeUtils.setNightMode(it)
                 }
             }
+
             is SettingUIModel.Success -> {
                 handleLoading(false)
                 result.data.let {

@@ -123,4 +123,8 @@
         <!--        <item name="cornerSizeBottomLeft">8dp</item>-->
     </style>
 
+    <style name="ShapeAppearance.App.MinimizedSheet" parent="ShapeAppearance.App.MediumComponent">
+        <item name="cornerSizeTopLeft">@dimen/minimized_sheet_top_left_radius</item>
+    </style>
+
 </resources>

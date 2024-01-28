@@ -154,6 +154,24 @@
         <item name="itemIconTint">@color/color_on_surface_emphasis_medium</item>
     </style>
 
+    <style
+        name="Widget.Owl.BottomNavigationView"
+        parent="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="labelVisibilityMode">selected</item>
+        <item name="itemIconTint">@color/bottom_nav_item</item>
+        <item name="itemTextColor">@color/bottom_nav_item</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.Owl.BottomNavigation</item>
+    </style>
+
+    <style name="Widget.Owl.SeekBar" parent="@style/Widget.AppCompat.SeekBar">
+        <item name="android:progressTint">@color/owl_yellow_500</item>
+        <item name="android:secondaryProgressTint">#99ffffff</item>
+        <item name="android:thumbTint">@color/owl_yellow_500</item>
+        <item name="android:progressDrawable">@drawable/seekbar_track</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+
     <style name="Widget.App.Chip.Entry" parent="Widget.MaterialComponents.Chip.Entry">
         <item name="closeIconSize">0dp</item>
         <item name="closeIconEnabled">false</item>
