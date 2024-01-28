@@ -27,7 +27,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/hello_blank_fragment"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -89,6 +89,67 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Owl App" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSelectedDateRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?colorOnPrimary"
+                    app:chipBackgroundColor="?colorPrimary"
+                    app:chipIcon="@drawable/ic_baseline_calendar_month_24"
+                    app:chipIconSize="18dp"
+                    app:chipIconTint="?colorOnPrimary"
+                    app:iconStartPadding="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    tools:text="@tools:sample/date/ddmmyy" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/tvDelivered"
+                    style="@style/Widget.App.Chip.Green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Delivered: 433" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilReasonList"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp"
+                    android:hint="Remarks">
+
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDateSelection"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Select Date"
+                    app:endIconDrawable="@drawable/ic_baseline_calendar_month_24"
+                    app:endIconMode="custom">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
 
             </com.google.android.material.chip.ChipGroup>
 

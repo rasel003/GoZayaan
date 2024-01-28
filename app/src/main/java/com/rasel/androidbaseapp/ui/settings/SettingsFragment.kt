@@ -2,11 +2,15 @@ package com.rasel.androidbaseapp.ui.settings
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import androidx.core.util.Pair
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.core.theme.ThemeUtils
@@ -18,7 +22,11 @@ import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
 import com.rasel.androidbaseapp.util.observe
 import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
+import com.rasel.androidbaseapp.util.getDatePicker
+import com.rasel.androidbaseapp.util.getDateRangePicker
+import com.rasel.androidbaseapp.util.getStringDateFromTimeInMillis
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,6 +40,14 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
 
     @Inject
     lateinit var themeUtils: ThemeUtils
+
+
+    private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
+    private var endDate: String = ""
+    private var startDate: String = ""
+
+    private lateinit var datePicker: MaterialDatePicker<Long>
+    private var selectedDate: String = ""
 
     override fun getViewBinding(): FragmentSettingsBinding =
         FragmentSettingsBinding.inflate(layoutInflater)
@@ -68,6 +84,17 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
                 "it1"
             )
         }
+        setDateRangeSelection()
+        setDateSelection()
+
+        val adapterOnhold = ArrayAdapter(
+            requireContext(),
+            R.layout.list_item,
+            resources.getStringArray(R.array.hold_reasons_v2)
+        )
+        adapterOnhold.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        (binding.tilReasonList.editText as? AutoCompleteTextView)?.setAdapter(adapterOnhold)
 
         observe(viewModel.settings, ::onViewStateChange)
         setupRecyclerView()
@@ -83,6 +110,61 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
         settingsAdapter.setItemClickListener { selectedSetting ->
             viewModel.setSettings(selectedSetting)
         }
+    }
+
+    private fun setDateRangeSelection() {
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        calendar.add(Calendar.DAY_OF_MONTH, -1)
+        val yesterday = calendar.timeInMillis
+        dateRangePicker = getDateRangePicker()
+            .setSelection(
+                Pair(yesterday, MaterialDatePicker.todayInUtcMilliseconds())
+            ).build()
+
+        dateRangePicker.addOnPositiveButtonClickListener {
+            parseSelectedDate(it)
+        }
+        dateRangePicker.selection?.let { parseSelectedDate(it) }
+
+        binding.chipSelectedDateRange.setOnClickListener {
+            if (!dateRangePicker.isAdded) {
+                dateRangePicker.show(
+                    parentFragmentManager,
+                    "datePicker_courier_send_report"
+                )
+            }
+        }
+    }
+
+    private fun setDateSelection() {
+        datePicker = getDatePicker(isTodaySelected = true, fromNow = true, futureDate = 15)
+        datePicker.addOnPositiveButtonClickListener {
+            selectedDate = getStringDateFromTimeInMillis(it, "yyyy-MM-dd")
+            binding.tilDateSelection.editText?.setText(
+                getStringDateFromTimeInMillis(
+                    it,
+                    "dd MMM yyyy"
+                )
+            )
+        }
+        binding.tilDateSelection.editText?.setOnClickListener {
+            if (!datePicker.isAdded) {
+                datePicker.show(parentFragmentManager, "datePicker_on_hold")
+            }
+        }
+    }
+
+    private fun parseSelectedDate(it: Pair<Long, Long>) {
+        startDate = getStringDateFromTimeInMillis(it.first, "yyyy-MM-dd")
+        endDate = getStringDateFromTimeInMillis(it.second, "yyyy-MM-dd")
+
+        val dateText = "${
+            getStringDateFromTimeInMillis(
+                it.first,
+                "dd MMM"
+            )
+        } to ${getStringDateFromTimeInMillis(it.second, "dd MMM")}"
+        binding.chipSelectedDateRange.text = dateText
     }
 
     private fun onViewStateChange(result: SettingUIModel) {

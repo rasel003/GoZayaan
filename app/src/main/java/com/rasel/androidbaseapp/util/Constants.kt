@@ -16,6 +16,7 @@ const val KEY_SEX = "key_sex"
 
 
 const val CHANNEL_ID_RECEIVED_LEAVE_REQUEST = "ID_RECEIVED_LEAVE_REQUEST"
+const val MINIMUM_INTERVAL_IN_MINUTE_ORDER = 60
 
 
 enum class AppLanguage(val value: String) {

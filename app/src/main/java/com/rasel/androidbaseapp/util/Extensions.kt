@@ -17,6 +17,7 @@
 package com.rasel.androidbaseapp.util
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.content.res.TypedArray
@@ -36,6 +37,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnAttachStateChangeListener
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.annotation.ColorInt
 import androidx.annotation.DimenRes
 import androidx.annotation.LayoutRes
@@ -44,8 +46,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.BuildCompat
 import androidx.core.os.ParcelCompat
+import androidx.core.util.Pair
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
@@ -59,12 +63,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.tasks.Task
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.CompositeDateValidator
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.orhanobut.logger.Logger
 import com.rasel.androidbaseapp.BuildConfig
+import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.data.models.Theme
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.threeten.bp.ZonedDateTime
 import timber.log.Timber
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
@@ -508,3 +525,149 @@ fun exceptionInDebug(t: Throwable) {
         Timber.e(t)
     }
 }
+
+
+private const val TAG = "Utils"
+
+fun Activity.changeStatusBarColor(color: Int, isLight: Boolean) {
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.statusBarColor = color
+
+    WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = isLight
+}
+
+fun convertDate(date: String, inFormat: String?, outFormat: String?): String? {
+    val sdf = SimpleDateFormat(inFormat, Locale.US)
+    var formattedDate: String? = ""
+    try {
+        val convertedDate = sdf.parse(date)
+        formattedDate = if (convertedDate != null) {
+            SimpleDateFormat(outFormat, Locale.US).format(convertedDate)
+        } else return ""
+    } catch (e: ParseException) {
+        Logger.e(TAG, "convertDate: " + e.message, e)
+    } catch (e: NullPointerException) {
+        Logger.e(TAG, "convertDate: " + e.message, e)
+    }
+    return formattedDate
+}
+
+fun getStringFromDate(date: Date, outFormat: String): String {
+    return SimpleDateFormat(outFormat, Locale.US).format(date)
+}
+
+fun getDateFromTimeInMillis(time: Long): Date {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time
+    return calendar.time
+}
+
+fun getStringDateFromTimeInMillis(time: Long, outFormat: String): String {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time
+    return SimpleDateFormat(outFormat, Locale.US).format(calendar.time)
+}
+
+fun getDateFromString(dateText: String, inFormat: String?): Date? {
+    val sdf = SimpleDateFormat(inFormat, Locale.US)
+    return try {
+        sdf.parse(dateText)
+    } catch (e: ParseException) {
+        e.printStackTrace()
+        null
+    }
+}
+
+fun getSavedTimeKey(): String {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        LocalDateTime.now().toString()
+    } else {
+        Date().time.toString()
+    }
+}
+
+//checking if last fetched time exceeded the interval time
+fun isFetchNeeded(savedAt: String): Boolean {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        ChronoUnit.MINUTES.between(
+            LocalDateTime.parse(savedAt),
+            LocalDateTime.now()
+        ) >= MINIMUM_INTERVAL_IN_MINUTE_ORDER
+    } else {
+        val interVal = Date().time - savedAt.toLong()
+        interVal >= MINIMUM_INTERVAL_IN_MINUTE_ORDER * 1000 * 60
+    }
+}
+
+
+@JvmOverloads
+fun getDatePicker(
+    fromNow: Boolean = false,
+    futureDate: Int = 0,
+    isTodaySelected: Boolean = true
+): MaterialDatePicker<Long> {
+    val calendar = Calendar.getInstance(Locale.getDefault())
+    val constraintsBuilder = CalendarConstraints.Builder()
+    val listValidators = ArrayList<CalendarConstraints.DateValidator>()
+    if (fromNow) {
+        //  CalendarConstraints.DateValidator dateValidatorMin = DateValidatorPointForward.from(calendar.getTimeInMillis());
+        listValidators.add(DateValidatorPointForward.now())
+        constraintsBuilder.setStart(calendar.timeInMillis)
+    }
+    if (futureDate > 0) {
+        calendar.add(Calendar.DATE, futureDate)
+        constraintsBuilder.setEnd(calendar.timeInMillis)
+        val dateValidatorMax: CalendarConstraints.DateValidator =
+            DateValidatorPointBackward.before(calendar.timeInMillis)
+        listValidators.add(dateValidatorMax)
+    }
+    val validators = CompositeDateValidator.allOf(listValidators)
+    constraintsBuilder.setValidator(validators)
+    val builder = MaterialDatePicker.Builder.datePicker()
+        .setTitleText("Select date")
+        .setCalendarConstraints(constraintsBuilder.build())
+        .setTheme(R.style.ThemeOverlay_App_DatePicker)
+    if (isTodaySelected) {
+        builder.setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+    }
+    return builder.build()
+}
+
+@JvmOverloads
+fun getDateRangePicker(
+    fromNow: Boolean = false,
+    futureDate: Int = 0,
+    currentMonthSelected: Boolean = true
+): MaterialDatePicker.Builder<Pair<Long, Long>> {
+    val calendar = Calendar.getInstance(Locale.getDefault())
+    val constraintsBuilder = CalendarConstraints.Builder()
+    val listValidators = ArrayList<CalendarConstraints.DateValidator>()
+    if (fromNow) {
+        //  CalendarConstraints.DateValidator dateValidatorMin = DateValidatorPointForward.from(calendar.getTimeInMillis());
+        listValidators.add(DateValidatorPointForward.now())
+        constraintsBuilder.setStart(calendar.timeInMillis)
+    }
+    if (futureDate > 0) {
+        calendar.add(Calendar.DATE, futureDate)
+        constraintsBuilder.setEnd(calendar.timeInMillis)
+        val dateValidatorMax: CalendarConstraints.DateValidator =
+            DateValidatorPointBackward.before(calendar.timeInMillis)
+        listValidators.add(dateValidatorMax)
+    }
+    val validators = CompositeDateValidator.allOf(listValidators)
+    constraintsBuilder.setValidator(validators)
+    val builder = MaterialDatePicker.Builder.dateRangePicker()
+        .setTitleText("Select dates")
+        .setCalendarConstraints(constraintsBuilder.build())
+        .setTheme(R.style.ThemeOverlay_App_DatePicker)
+    if (currentMonthSelected) {
+        builder.setSelection(
+            Pair(
+                MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                MaterialDatePicker.todayInUtcMilliseconds()
+            )
+        )
+    }
+    return builder
+}
+
