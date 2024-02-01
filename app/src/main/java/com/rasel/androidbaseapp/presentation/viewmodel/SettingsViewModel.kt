@@ -2,14 +2,23 @@ package com.rasel.androidbaseapp.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
+import com.rasel.androidbaseapp.data.models.Theme
 import com.rasel.androidbaseapp.domain.interactor.GetSettingsUseCase
+import com.rasel.androidbaseapp.domain.interactor.SetThemeUseCase
+import com.rasel.androidbaseapp.domain.interactor.settings.GetAvailableThemesUseCase
+import com.rasel.androidbaseapp.domain.interactor.settings.GetThemeUseCase
 import com.rasel.androidbaseapp.domain.models.Settings
 import com.rasel.androidbaseapp.presentation.utils.CoroutineContextProvider
 import com.rasel.androidbaseapp.presentation.utils.ExceptionHandler
 import com.rasel.androidbaseapp.presentation.utils.UiAwareModel
+import com.rasel.androidbaseapp.util.result.Event
+import com.rasel.androidbaseapp.util.result.successOr
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class SettingUIModel : UiAwareModel() {
@@ -23,11 +32,28 @@ sealed class SettingUIModel : UiAwareModel() {
 class SettingsViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val getSettingsUseCase: GetSettingsUseCase,
+    val setThemeUseCase: SetThemeUseCase,
+    getAvailableThemesUseCase: GetAvailableThemesUseCase,
+    getThemeUseCase: GetThemeUseCase,
     private val preferencesHelper: PreferenceProvider
 ) : BaseViewModel(contextProvider) {
 
     private val _settings = MutableLiveData<SettingUIModel>()
     val settings: LiveData<SettingUIModel> = _settings
+
+    private val _navigateToThemeSelector = MutableLiveData<Event<Unit>>()
+    val navigateToThemeSelector: LiveData<Event<Unit>>
+        get() = _navigateToThemeSelector
+
+    // Theme setting
+    val theme: LiveData<Theme> = liveData {
+        emit(getThemeUseCase(Unit).successOr(Theme.SYSTEM))
+    }
+
+    // Theme setting
+    val availableThemes: LiveData<List<Theme>> = liveData {
+        emit(getAvailableThemesUseCase(Unit).successOr(emptyList()))
+    }
 
     override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         val message = ExceptionHandler.parse(exception)
@@ -52,5 +78,13 @@ class SettingsViewModel @Inject constructor(
             preferencesHelper.isNightMode = selectedValue
             _settings.postValue(SettingUIModel.NightMode(selectedValue))
         }
+    }
+    fun setTheme(theme: Theme) {
+        viewModelScope.launch {
+            setThemeUseCase(theme)
+        }
+    }
+    fun onThemeSettingClicked() {
+        _navigateToThemeSelector.value = Event(Unit)
     }
 }

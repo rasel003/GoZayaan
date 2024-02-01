@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -13,6 +14,7 @@ import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.ActivityMain2Binding
 import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
 import com.rasel.androidbaseapp.util.NoticeDialogFragment
+import com.rasel.androidbaseapp.util.updateForTheme
 import com.rasel.androidbaseapp.util.contentView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,10 +22,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListener {
 
     private val viewModel: LocalizedViewModel by viewModels()
+    private val mainActivityViewModel: MainActivityViewModel by viewModels()
+
     private val binding: ActivityMain2Binding by contentView(R.layout.activity_main2)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Update for Dark Mode straight away
+        updateForTheme(mainActivityViewModel.currentTheme)
 
         binding.apply {
             val navController = Navigation.findNavController(this@MainActivity, R.id.nav_host)
@@ -43,6 +50,9 @@ class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListe
                 }
             }*/
         }
+
+        mainActivityViewModel.theme.observe(this, Observer(::updateForTheme))
+
 
     }
 

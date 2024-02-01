@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.rasel.androidbaseapp.util
+package com.rasel.androidbaseapp.util.result
 
 import androidx.lifecycle.Observer
 

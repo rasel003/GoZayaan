@@ -20,7 +20,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.rasel.androidbaseapp.data.models.signin.AuthenticatedUserInfo
-import com.rasel.androidbaseapp.util.Event
+import com.rasel.androidbaseapp.util.result.Event
 
 enum class SignInEvent {
     RequestSignIn, RequestSignOut

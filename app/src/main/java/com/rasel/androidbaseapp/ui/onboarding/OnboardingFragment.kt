@@ -30,7 +30,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.viewModels
 import com.rasel.androidbaseapp.databinding.FragmentOnboardingBinding
 import com.rasel.androidbaseapp.ui.MainActivity
-import com.rasel.androidbaseapp.util.EventObserver
+import com.rasel.androidbaseapp.util.result.EventObserver
 import com.rasel.androidbaseapp.util.ViewPagerPager
 import dagger.hilt.android.AndroidEntryPoint
 

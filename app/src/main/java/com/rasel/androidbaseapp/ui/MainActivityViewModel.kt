@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,37 +14,31 @@
  * limitations under the License.
  */
 
-package com.rasel.androidbaseapp.ui.onboarding
+package com.rasel.androidbaseapp.ui
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.rasel.androidbaseapp.ui.signin.SignInViewModelDelegate
+import com.rasel.androidbaseapp.ui.theme.ThemedActivityDelegate
 import com.rasel.androidbaseapp.util.result.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-/**
- * Records that onboarding has been completed and navigates user onward.
- */
 @HiltViewModel
-class OnboardingViewModel @Inject constructor(
-) : ViewModel(){
-
-    private val _navigateToMainActivity = MutableLiveData<Event<Unit>>()
-    val navigateToMainActivity: LiveData<Event<Unit>> = _navigateToMainActivity
+class MainActivityViewModel @Inject constructor(
+    themedActivityDelegate: ThemedActivityDelegate,
+    @ApplicationContext context: Context
+) : ViewModel(),
+    ThemedActivityDelegate by themedActivityDelegate {
 
     private val _navigateToSignInDialogAction = MutableLiveData<Event<Unit>>()
-    val navigateToSignInDialogAction: LiveData<Event<Unit>> = _navigateToSignInDialogAction
+    val navigateToSignInDialogAction: LiveData<Event<Unit>>
+        get() = _navigateToSignInDialogAction
 
-    fun getStartedClick() {
-        viewModelScope.launch {
-            _navigateToMainActivity.postValue(Event(Unit))
-        }
-    }
-
-    fun onSigninClicked() {
-        _navigateToSignInDialogAction.value = Event(Unit)
-    }
+    private val _navigateToSignOutDialogAction = MutableLiveData<Event<Unit>>()
+    val navigateToSignOutDialogAction: LiveData<Event<Unit>>
+        get() = _navigateToSignOutDialogAction
 }

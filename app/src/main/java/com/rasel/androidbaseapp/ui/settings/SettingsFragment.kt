@@ -22,6 +22,7 @@ import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
 import com.rasel.androidbaseapp.util.observe
 import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
+import com.rasel.androidbaseapp.util.result.EventObserver
 import com.rasel.androidbaseapp.util.getDatePicker
 import com.rasel.androidbaseapp.util.getDateRangePicker
 import com.rasel.androidbaseapp.util.getStringDateFromTimeInMillis
@@ -54,6 +55,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         localizedViewModel.localizationFlow.asLiveData().observe(viewLifecycleOwner) {
             binding.btnEnglish.text = it.lblEnglish
@@ -99,6 +103,11 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
         observe(viewModel.settings, ::onViewStateChange)
         setupRecyclerView()
         viewModel.getSettings()
+
+        viewModel.navigateToThemeSelector.observe(viewLifecycleOwner, EventObserver {
+            ThemeSettingDialogFragment.newInstance()
+                .show(requireFragmentManager(), null)
+        })
     }
 
     private fun setupRecyclerView() {
