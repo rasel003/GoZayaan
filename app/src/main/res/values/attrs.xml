@@ -7,6 +7,7 @@
     <attr name="colorPrimarySurfaceVariant" format="color" />
 
 
+    <attr name="textColorDefault" format="color" />
     <attr name="cardViewBorderColor" format="color" />
     <attr name="chipSelectedStrokeColor" format="color" />
     <attr name="chipSelectedBackgroundColor" format="color" />

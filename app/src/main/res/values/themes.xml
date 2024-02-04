@@ -18,8 +18,12 @@
         <item name="colorPrimarySurfaceVariant">?attr/colorPrimaryVariant</item>
         <item name="colorError">@color/app_red_400</item>
 
+        <item name="android:textColor">?textColorDefault</item>
+<!--        <item name="android:textColorPrimary">@color/red</item>-->
+
 
         <item name="cardViewBorderColor">@color/app_white_50</item>
+        <item name="textColorDefault">@color/black</item>
         <item name="chipSelectedStrokeColor">@color/app_white_50</item>
         <item name="chipSelectedBackgroundColor">@color/app_white_50</item>
         <item name="chipSelectedTextColor">@color/app_white_50</item>
