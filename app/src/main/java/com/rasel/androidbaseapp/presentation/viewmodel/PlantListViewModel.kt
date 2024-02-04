@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.data.HomeRepository
-import com.rasel.androidbaseapp.domain.models.Character
 import com.rasel.androidbaseapp.presentation.utils.CoroutineContextProvider
 import com.rasel.androidbaseapp.presentation.utils.ExceptionHandler
 import com.rasel.androidbaseapp.presentation.utils.UiAwareModel

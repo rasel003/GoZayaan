@@ -82,7 +82,6 @@ class EmailSwipeActionDrawable(context: Context) : Drawable() {
     private val interp = context.themeInterpolator(R.attr.motionInterpolatorPersistent)
 
     override fun onBoundsChange(bounds: Rect) {
-        if (bounds == null)  return
         update()
     }
 
@@ -108,7 +107,7 @@ class EmailSwipeActionDrawable(context: Context) : Drawable() {
 
     override fun onStateChange(state: IntArray): Boolean {
         val initialProgress = progress
-        val newProgress = if (state?.contains(android.R.attr.state_activated) == true) {
+        val newProgress = if (state.contains(android.R.attr.state_activated)) {
             1F
         } else {
             0F

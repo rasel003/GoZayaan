@@ -44,7 +44,7 @@ class CharacterAdapter @Inject constructor(
                     }
                 }
                 textViewStatus.text = "${item.status} - ${item.species}"
-                textViewKnownLocation.text = item.characterLocation?.name
+                textViewKnownLocation.text = item.characterLocation.name
             }
         }
     }

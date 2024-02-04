@@ -19,7 +19,7 @@ package com.rasel.androidbaseapp.ui.email_list
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.rasel.androidbaseapp.data.models.Email
-import com.materialstudies.reply.ui.common.EmailAttachmentAdapter
+import com.rasel.androidbaseapp.ui.common.EmailAttachmentAdapter
 import com.materialstudies.reply.ui.home.ReboundingSwipeActionCallback
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.EmailItemLayoutBinding

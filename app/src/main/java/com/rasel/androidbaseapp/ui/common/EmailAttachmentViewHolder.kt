@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.materialstudies.reply.ui.common
+package com.rasel.androidbaseapp.ui.common
 
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR

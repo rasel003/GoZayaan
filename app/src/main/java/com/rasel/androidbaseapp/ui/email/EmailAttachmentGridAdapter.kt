@@ -17,7 +17,7 @@
 package com.rasel.androidbaseapp.ui.email
 
 import androidx.recyclerview.widget.GridLayoutManager
-import com.materialstudies.reply.ui.common.EmailAttachmentAdapter
+import com.rasel.androidbaseapp.ui.common.EmailAttachmentAdapter
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.ui.email.EmailFragment.Companion.MAX_GRID_SPANS
 import kotlin.random.Random

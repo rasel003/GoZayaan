@@ -4,7 +4,7 @@ package com.rasel.androidbaseapp.data.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Data class that represents a photo from Unsplash.

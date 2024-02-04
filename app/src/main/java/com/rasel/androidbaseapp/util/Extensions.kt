@@ -332,7 +332,7 @@ data class ViewPaddingState(
 
 @SuppressLint("NewApi") // Lint does not understand isAtLeastQ currently
 fun DrawerLayout.shouldCloseDrawerFromBackPress(): Boolean {
-    if (BuildCompat.isAtLeastQ()) {
+    if (Build.VERSION.SDK_INT >= 29) {
         // If we're running on Q, and this call to closeDrawers is from a key event
         // (for back handling), we should only honor it IF the device is not currently
         // in gesture mode. We approximate that by checking the system gesture insets

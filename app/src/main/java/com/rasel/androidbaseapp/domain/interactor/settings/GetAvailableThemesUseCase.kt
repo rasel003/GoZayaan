@@ -16,7 +16,7 @@
 
 package com.rasel.androidbaseapp.domain.interactor.settings
 
-import androidx.core.os.BuildCompat
+import android.os.Build
 import com.rasel.androidbaseapp.data.models.Theme
 import com.rasel.androidbaseapp.di.MainImmediateDispatcher
 import com.rasel.androidbaseapp.domain.interactor.UseCase
@@ -28,9 +28,10 @@ class GetAvailableThemesUseCase @Inject constructor(
 ) : UseCase<Unit, List<Theme>>(dispatcher) {
 
     override suspend fun execute(parameters: Unit): List<Theme> = when {
-        BuildCompat.isAtLeastQ() -> {
+        Build.VERSION.SDK_INT >= 29 -> {
             listOf(Theme.LIGHT, Theme.DARK, Theme.SYSTEM)
         }
+
         else -> {
             listOf(Theme.LIGHT, Theme.DARK, Theme.BATTERY_SAVER)
         }

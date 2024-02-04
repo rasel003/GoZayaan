@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.materialstudies.reply.ui.common
+package com.rasel.androidbaseapp.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.materialstudies.reply.data.EmailAttachment
+import com.rasel.androidbaseapp.ui.common.EmailAttachmentViewHolder
 
 /**
  * Generic RecyclerView.Adapter to display [EmailAttachment]s.

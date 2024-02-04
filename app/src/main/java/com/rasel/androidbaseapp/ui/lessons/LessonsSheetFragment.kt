@@ -93,7 +93,7 @@ class LessonsSheetFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLessonsSheetBinding.inflate(inflater, container, false).apply {
             val behavior = BottomSheetBehavior.from(lessonsSheet)
             val backCallback =

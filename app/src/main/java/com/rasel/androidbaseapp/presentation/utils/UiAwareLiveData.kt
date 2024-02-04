@@ -13,11 +13,11 @@ class UiAwareLiveData<T : UiAwareModel> : MutableLiveData<T>() {
         super.observe(
             owner
         ) { value: T ->
-            value?.isRedelivered = false
+            value.isRedelivered = false
             val inProperState =
                 owner.lifecycle.currentState == Lifecycle.State.CREATED || owner.lifecycle.currentState == Lifecycle.State.STARTED
             if (previousValue == value && inProperState) {
-                value?.isRedelivered = true
+                value.isRedelivered = true
             }
 
             observer.onChanged(value)

@@ -1,4 +1,4 @@
-package com.rasel.androidbaseapp.util
+package com.rasel.androidbaseapp.base
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -8,11 +8,10 @@ import android.media.AudioAttributes
 import android.os.Build
 import android.provider.Settings
 import androidx.multidex.MultiDexApplication
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
 import com.rasel.androidbaseapp.BuildConfig
 import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.core.theme.ThemeUtils
+import com.rasel.androidbaseapp.util.CHANNEL_ID_RECEIVED_LEAVE_REQUEST
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import javax.inject.Inject

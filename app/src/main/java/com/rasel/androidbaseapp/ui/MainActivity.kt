@@ -1,21 +1,18 @@
 package com.rasel.androidbaseapp.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.ActivityMain2Binding
 import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
 import com.rasel.androidbaseapp.util.NoticeDialogFragment
-import com.rasel.androidbaseapp.util.updateForTheme
 import com.rasel.androidbaseapp.util.contentView
+import com.rasel.androidbaseapp.util.updateForTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,6 +32,23 @@ class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListe
         binding.apply {
             val navController = Navigation.findNavController(this@MainActivity, R.id.nav_host)
             bottomNav.setupWithNavController(navController)
+
+           /* val appBarConfiguration = AppBarConfiguration(
+                setOf(
+                    R.id.nav_home,
+                    R.id.nav_gallery,
+                    R.id.nav_slideshow,
+                    R.id.nav_plantListFragment,
+                    R.id.nav_character_list,
+                    R.id.nav_email_list,
+                    R.id.nav_email_list,
+                    R.id.nav_settings
+                ), null
+            )
+
+            setSupportActionBar(toolbar)
+            setupActionBarWithNavController(navController, appBarConfiguration)
+            binding.toolbar.setupWithNavController(navController)*/
 
             // Hide bottom nav on screens which don't require it
             /*lifecycleScope.launchWhenResumed {
@@ -61,40 +75,7 @@ class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListe
         viewModel.getLocalizationFromRemote()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return when (item.itemId) {
-            R.id.action_logOut -> {
-                logOutFromApp(); true
-            }
-
-            R.id.action_settings -> {
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun logOutFromApp() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle(resources.getString(R.string.titleLogOut))
-            .setMessage(resources.getString(R.string.messageLogOut))
-            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
-                // Respond to negative button press
-            }
-            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
-                // Respond to positive button press
-                finish()
-            }
-            .show()
-    }
 
     fun showNoticeDialog() {
         // Create an instance of the dialog fragment and show it.

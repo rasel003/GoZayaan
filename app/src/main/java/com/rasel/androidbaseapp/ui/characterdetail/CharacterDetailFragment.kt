@@ -82,7 +82,7 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Bas
                         checkBoxBookmark.isChecked = character.isBookMarked
                         textViewSpecies.text = character.species
                         textViewGender.text = character.gender
-                        textViewGenderLocation.text = character.characterLocation?.name
+                        textViewGenderLocation.text = character.characterLocation.name
                         textViewStatus.text = character.status
                     }
                 }
