@@ -1,9 +1,11 @@
 package com.rasel.androidbaseapp.ui.settings
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.util.Pair
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -11,6 +13,7 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.core.theme.ThemeUtils
@@ -31,7 +34,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() {
+class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(), Toolbar.OnMenuItemClickListener {
 
     override val viewModel: SettingsViewModel by viewModels()
     private val localizedViewModel: LocalizedViewModel by activityViewModels()
@@ -58,6 +61,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.toolbar.inflateMenu(R.menu.main)
+        binding.toolbar.setOnMenuItemClickListener(this)
 
         localizedViewModel.localizationFlow.asLiveData().observe(viewLifecycleOwner) {
             binding.btnEnglish.text = it.lblEnglish
@@ -91,14 +97,14 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
         setDateRangeSelection()
         setDateSelection()
 
-        val adapterOnhold = ArrayAdapter(
+        val adapterOnHold = ArrayAdapter(
             requireContext(),
             R.layout.list_item,
             resources.getStringArray(R.array.hold_reasons_v2)
         )
-        adapterOnhold.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapterOnHold.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        (binding.tilReasonList.editText as? AutoCompleteTextView)?.setAdapter(adapterOnhold)
+        (binding.tilReasonList.editText as? AutoCompleteTextView)?.setAdapter(adapterOnHold)
 
         observe(viewModel.settings, ::onViewStateChange)
         setupRecyclerView()
@@ -106,8 +112,59 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>() 
 
         viewModel.navigateToThemeSelector.observe(viewLifecycleOwner, EventObserver {
             ThemeSettingDialogFragment.newInstance()
-                .show(requireFragmentManager(), null)
+                .show(parentFragmentManager, null)
         })
+    }
+
+
+    // when activity has toolbar
+    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.main, menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            R.id.action_logOut -> {
+                logOutFromApp(); true
+            }
+
+            R.id.action_settings -> {
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }*/
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_logOut -> {
+                logOutFromApp(); true
+            }
+
+            R.id.action_settings -> {
+                true
+            }
+
+            else -> false
+        }
+    }
+
+    private fun logOutFromApp() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.titleLogOut))
+            .setMessage(resources.getString(R.string.messageLogOut))
+            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
+                // Respond to negative button press
+                dialog.dismiss()
+            }
+            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+                // Respond to positive button press
+                dialog.dismiss()
+                activity?.finish()
+            }
+            .show()
     }
 
     private fun setupRecyclerView() {
