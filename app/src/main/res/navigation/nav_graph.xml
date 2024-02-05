@@ -214,8 +214,14 @@
             app:argType="integer"/>
     </fragment>
 
+    <fragment
+        android:id="@+id/counter_fragment"
+        android:name="com.rasel.androidbaseapp.ui.counter.CounterFragment"
+        tools:layout="@layout/fragment_counter"
+        android:label="CounterFragment" />
+
     <action android:id="@+id/action_global_nav_home" app:destination="@id/nav_home"/>
     <action android:id="@+id/action_global_owl_onboarding" app:destination="@id/owl_onboarding"/>
-
+    <action android:id="@+id/action_global_counter_fragment" app:destination="@id/counter_fragment"/>
 
 </navigation>

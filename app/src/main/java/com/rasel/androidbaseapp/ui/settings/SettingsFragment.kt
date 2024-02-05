@@ -89,6 +89,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         binding.chipOwl.setOnClickListener {
             findNavController().navigate(R.id.action_global_owl_onboarding)
         }
+        binding.chipCounter.setOnClickListener {
+            findNavController().navigate(R.id.action_global_counter_fragment)
+        }
 
         binding.chipFullScreenBottomSheet.setOnClickListener {
             OrderUpdateHistoryMerchantDialog.display(
