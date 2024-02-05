@@ -530,5 +530,9 @@
     <string name="step_0">Identify the right aperture for your scene\'s depth of field to achieve the best clarity. Use a narrower aperture so that the entire scene remains in focus.</string>
     <string name="step_1">Frame the subject of your landscape by making use of the lines and angles present in your scene. Look out for curves, textures, triangles, thirds, and other shapes that improve your composition.</string>
     <string name="step_2">Find the time of the day with the best light conditions for your scene. Balance the light sources in your composition so that both light and shadows are present, adding depth, texture, and scale to your landscape.</string>
+    <string name="i_understand">I Understand</string>
+    <string name="terms_insurance">Paperfly shall liable to compensate based on mutual discussion up to 50% of Production or Manufactural cost, but not exceeding BDT 10,000’’. If any product is partially damaged and which is repairable, Paperfly will compensate for the repairing cost of such damage. And 5% additional charge imposed for insurance. To avail of it, please select “Get Insurance</string>
+    <string name="get_insurance">Get Insurance</string>
+
 
 </resources>

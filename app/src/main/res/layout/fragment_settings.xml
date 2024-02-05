@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.rasel.androidbaseapp.BuildConfig" />
 
         <variable
@@ -38,10 +39,10 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    app:title="Settings"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/Theme.App.DayNight.PopupOverlay" />
+                    app:popupTheme="@style/Theme.App.DayNight.PopupOverlay"
+                    app:title="Settings" />
 
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -140,12 +141,26 @@
                     tools:text="@tools:sample/date/ddmmyy" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/tvDelivered"
+                    android:id="@+id/chipFullScreenBottomSheet"
                     style="@style/Widget.App.Chip.Green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="Delivered: 433" />
+                    android:text="Full Screen" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipBottomSheet"
+                    style="@style/Widget.App.Chip.Green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Bottom Sheet" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/chipCounter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Counter" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilReasonList"

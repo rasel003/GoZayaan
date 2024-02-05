@@ -9,30 +9,34 @@ import androidx.navigation.fragment.findNavController
 import com.rasel.androidbaseapp.EspressoIdlingResource
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.base.BaseFragment
+import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.databinding.FragmentPlantListBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.PlantListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PlantListFragment : BaseFragment<FragmentPlantListBinding, BaseViewModel>(), Toolbar.OnMenuItemClickListener {
+class PlantListFragment : BaseFragment<FragmentPlantListBinding, BaseViewModel>(),
+    Toolbar.OnMenuItemClickListener {
 
-    override fun getViewBinding(): FragmentPlantListBinding = FragmentPlantListBinding.inflate(layoutInflater)
+    override fun getViewBinding(): FragmentPlantListBinding =
+        FragmentPlantListBinding.inflate(layoutInflater)
+
     override val viewModel: PlantListViewModel by viewModels()
 
-   /* override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val binding = FragmentPlantListBinding.inflate(inflater, container, false)
-        context ?: return binding.root
+    /* override fun onCreateView(
+         inflater: LayoutInflater,
+         container: ViewGroup?,
+         savedInstanceState: Bundle?
+     ): View {
+         val binding = FragmentPlantListBinding.inflate(inflater, container, false)
+         context ?: return binding.root
 
 
 
-//        setHasOptionsMenu(true)
-        return binding.root
-    }*/
+ //        setHasOptionsMenu(true)
+         return binding.root
+     }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +46,9 @@ class PlantListFragment : BaseFragment<FragmentPlantListBinding, BaseViewModel>(
 
         EspressoIdlingResource.increment()
 
-        val adapter = PlantAdapter()
+        val adapter = PlantAdapter() {
+            navigateToPlant(it)
+        }
         binding.plantList.adapter = adapter
         subscribeUi(adapter)
 
@@ -62,24 +68,33 @@ class PlantListFragment : BaseFragment<FragmentPlantListBinding, BaseViewModel>(
                 updateData()
                 true
             }
+
             else -> false
         }
     }
 
-   /* override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_plant_list, menu)
+    private fun navigateToPlant(
+        plant: Plant
+    ) {
+        val direction = PlantListFragmentDirections.actionPlantListFragmentToPlantDetailFragment(
+            plant.plantId
+        )
+        findNavController().navigate(direction)
     }
+    /* override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+         inflater.inflate(R.menu.menu_plant_list, menu)
+     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.filter_zone -> {
-                updateData()
-                true
-            }
+     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+         return when (item.itemId) {
+             R.id.filter_zone -> {
+                 updateData()
+                 true
+             }
 
-            else -> super.onOptionsItemSelected(item)
-        }
-    }*/
+             else -> super.onOptionsItemSelected(item)
+         }
+     }*/
 
     private fun subscribeUi(adapter: PlantAdapter) {
         viewModel.plants.observe(viewLifecycleOwner) { plants ->

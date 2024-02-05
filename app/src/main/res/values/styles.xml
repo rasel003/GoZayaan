@@ -61,6 +61,24 @@
         </item>
     </style>
 
+    <style name="Widget.App.Button.Submit" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.PaperflyGo.Button.Submit</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:paddingTop">18dp</item>
+        <item name="android:paddingBottom">18dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:enabled">false</item>
+        <item name="iconGravity">textEnd</item>
+        <item name="icon">@drawable/ic_forward_icon</item>
+        <item name="android:backgroundTint">@color/submit_button_background</item>
+        <item name="iconTint">@color/white</item>
+    </style>
+
     <style name="Widget.App.Button.OutLineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textColor">@color/color_button_outline</item>
         <item name="strokeColor">@color/color_button_outline</item>
@@ -323,6 +341,15 @@
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/color_on_surface_divider</item>
     </style>
 
+    <!--    implemented using material design system-->
+    <style name="ModalBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="behavior_draggable">false</item>
+        <item name="behavior_hideable">false</item>
+        <item name="behavior_peekHeight">700dp</item>
+        <!--        <item name="backgroundTint">@color/transparent</item>-->
+        <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
+    </style>
+
     <style name="ModalBottomSheetDialog2" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="behavior_draggable">false</item>
         <item name="behavior_hideable">false</item>
@@ -331,6 +358,9 @@
         <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
     </style>
 
+    <style name="ThemeOverlay.PaperflyGo.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
+    </style>
     <style name="ThemeOverlay.App.BottomSheetDialog.FullScreen" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/ModalBottomSheetDialog2</item>
     </style>

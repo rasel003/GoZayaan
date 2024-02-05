@@ -25,6 +25,7 @@ import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
 import com.rasel.androidbaseapp.util.observe
 import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
+import com.rasel.androidbaseapp.util.DialogInsurancePolicy
 import com.rasel.androidbaseapp.util.result.EventObserver
 import com.rasel.androidbaseapp.util.getDatePicker
 import com.rasel.androidbaseapp.util.getDateRangePicker
@@ -34,7 +35,8 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(), Toolbar.OnMenuItemClickListener {
+class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
+    Toolbar.OnMenuItemClickListener {
 
     override val viewModel: SettingsViewModel by viewModels()
     private val localizedViewModel: LocalizedViewModel by activityViewModels()
@@ -88,11 +90,18 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             findNavController().navigate(R.id.action_global_owl_onboarding)
         }
 
-        binding.textView.setOnClickListener {
+        binding.chipFullScreenBottomSheet.setOnClickListener {
             OrderUpdateHistoryMerchantDialog.display(
                 childFragmentManager, "history",
                 "it1"
             )
+        }
+        binding.chipBottomSheet.setOnClickListener {
+            val dialog = DialogInsurancePolicy()
+            val args = Bundle()
+            args.putBoolean("is_update", false)
+            dialog.arguments = args
+            dialog.show(parentFragmentManager, "insurance_dialog")
         }
         setDateRangeSelection()
         setDateSelection()

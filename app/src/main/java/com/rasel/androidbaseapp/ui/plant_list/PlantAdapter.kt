@@ -13,7 +13,9 @@ import com.rasel.androidbaseapp.databinding.ListItemPlantBinding
 /**
  * Adapter for the [RecyclerView] in [PlantListFragment].
  */
-class PlantAdapter : ListAdapter<Plant, RecyclerView.ViewHolder>(PlantDiffCallback()) {
+class PlantAdapter(
+    private var onItemClicked: ((plant : Plant) -> Unit)
+) : ListAdapter<Plant, RecyclerView.ViewHolder>(PlantDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PlantViewHolder(
@@ -30,26 +32,18 @@ class PlantAdapter : ListAdapter<Plant, RecyclerView.ViewHolder>(PlantDiffCallba
         (holder as PlantViewHolder).bind(plant)
     }
 
-    class PlantViewHolder(
+   inner class PlantViewHolder(
         private val binding: ListItemPlantBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
                 binding.plant?.let { plant ->
-                    navigateToPlant(plant, it)
+                    onItemClicked(plant)
                 }
             }
         }
 
-        private fun navigateToPlant(
-            plant: Plant,
-            view: View
-        ) {
-            val direction = PlantListFragmentDirections.actionPlantListFragmentToPlantDetailFragment(
-                    plant.plantId
-                )
-            view.findNavController().navigate(direction)
-        }
+
 
         fun bind(item: Plant) {
             binding.apply {

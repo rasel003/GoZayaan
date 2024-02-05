@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.rasel.androidbaseapp.EspressoIdlingResource
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.DialogOrderUpdateHistoryMerchantBinding
+import com.rasel.androidbaseapp.presentation.viewmodel.PlantListViewModel
+import com.rasel.androidbaseapp.ui.plant_list.PlantAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -15,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class OrderUpdateHistoryMerchantDialog : BottomSheetDialogFragment() {
     private var orderId: String? = null
     private lateinit var binding: DialogOrderUpdateHistoryMerchantBinding
+    val viewModel: PlantListViewModel by viewModels()
+
 
     override fun getTheme(): Int {
         return R.style.ThemeOverlay_App_BottomSheetDialog_FullScreen
@@ -41,12 +47,24 @@ class OrderUpdateHistoryMerchantDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val adapter = PlantAdapter {
 
+        }
+        binding.recyclerview.adapter = adapter
+        subscribeUi(adapter)
+
+    }
+
+    private fun subscribeUi(adapter: PlantAdapter) {
+        viewModel.plants.observe(viewLifecycleOwner) { plants ->
+            adapter.submitList(plants)
+            EspressoIdlingResource.decrement()
+        }
     }
 
     companion object {
 
-        val KEY_ORDER_ID = ""
+        const val KEY_ORDER_ID = ""
         fun display(fragmentManager: FragmentManager, tag: String, orderId: String) {
             val dialog = OrderUpdateHistoryMerchantDialog()
             val bundle = Bundle()
