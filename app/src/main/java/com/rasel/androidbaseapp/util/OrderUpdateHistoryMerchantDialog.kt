@@ -26,6 +26,11 @@ class OrderUpdateHistoryMerchantDialog : BottomSheetDialogFragment() {
         return R.style.ThemeOverlay_App_BottomSheetDialog_FullScreen
     }
 
+   /* override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.ModalBottomSheetDialog2)
+    }*/
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

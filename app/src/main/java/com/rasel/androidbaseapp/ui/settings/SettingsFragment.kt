@@ -5,6 +5,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.util.Pair
 import androidx.fragment.app.activityViewModels
@@ -100,7 +101,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             )
         }
         binding.chipBottomSheet.setOnClickListener {
-            val dialog = DialogInsurancePolicy()
+            val dialog = DialogInsurancePolicy(){
+                Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
+            }
             val args = Bundle()
             args.putBoolean("is_update", false)
             dialog.arguments = args
