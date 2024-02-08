@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:background="?attr/colorPrimarySurface"
         android:clipChildren="false"
-        android:theme="@style/Owl.Yellow"
+        android:theme="@style/Theme.App.Yellow"
         app:paddingTopSystemWindowInsets="@{true}"
         tools:context=".ui.onboarding.OnboardingFragment"
         tools:targetApi="o">

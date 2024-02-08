@@ -19,7 +19,7 @@
         android:gravity="center_vertical"
         android:height="40dp">
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/reply_small_component_corner_radius"/>
+            <corners android:radius="@dimen/small_component_corner_radius"/>
             <solid android:color="#fff"/>
         </shape>
     </item>

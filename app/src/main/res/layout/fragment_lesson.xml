@@ -29,7 +29,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="#1e1e2e"
-      android:theme="@style/Owl.Pink"
+      android:theme="@style/Theme.App.Pink"
       tools:context=".ui.lessons.LessonFragment"
       tools:targetApi="o">
 

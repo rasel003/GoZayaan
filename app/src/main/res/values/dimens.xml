@@ -35,6 +35,10 @@
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="card_corner_radius">12dp</dimen>
 
+    <dimen name="small_component_corner_radius">24dp</dimen>
+    <dimen name="medium_component_corner_radius">16dp</dimen>
+    <dimen name="large_component_corner_radius">12dp</dimen>
+
 
     <!-- Padding on the bottom of a screen so that the FAB won't overlap scrolled text. -->
     <dimen name="fab_bottom_padding">72dp</dimen>
@@ -63,6 +67,9 @@
 
     <dimen name="tag_dot_size">8dp</dimen>
 
+
+    <!-- Add plant button -->
+    <dimen name="button_corner_radius">12dp</dimen>
 
     <!-- minimum height of plant detail page so that the collapsing toolbar can be shown on every page -->
     <dimen name="plant_description_min_height">555dp</dimen>

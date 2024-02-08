@@ -38,7 +38,7 @@ class EmailViewHolder(
     }
 
     private val starredCornerSize =
-        itemView.resources.getDimension(R.dimen.reply_small_component_corner_radius)
+        itemView.resources.getDimension(R.dimen.small_component_corner_radius)
 
     override val reboundableView: View = binding.cardView
 

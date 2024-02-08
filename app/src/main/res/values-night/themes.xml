@@ -34,13 +34,13 @@
     </style>
 
 
-    <style name="Owl.Yellow">
+    <style name="Theme.App.Yellow">
         <item name="colorPrimary">@color/owl_yellow_200</item>
         <item name="colorSecondary">@color/owl_blue_200</item>
         <item name="colorSurface">@color/owl_yellow_dark_primary</item>
     </style>
 
-    <style name="Owl.Blue">
+    <style name="Theme.App.Blue">
         <item name="colorPrimary">@color/owl_blue_200</item>
         <item name="colorSecondary">@color/owl_yellow_200</item>
         <item name="colorSurface">@color/owl_blue_dark_primary</item>
@@ -54,7 +54,7 @@
 
     <style name="ThemeOverlay.Owl.Blue.Dark"/>
 
-    <style name="Owl.Pink">
+    <style name="Theme.App.Pink">
         <item name="colorPrimary">@color/owl_pink_200</item>
         <item name="colorSecondary">@color/owl_pink_200</item>
         <item name="colorSurface">@color/owl_pink_dark_primary</item>

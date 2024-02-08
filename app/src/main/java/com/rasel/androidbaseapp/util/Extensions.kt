@@ -626,7 +626,7 @@ fun getDatePicker(
     val builder = MaterialDatePicker.Builder.datePicker()
         .setTitleText("Select date")
         .setCalendarConstraints(constraintsBuilder.build())
-        .setTheme(R.style.ThemeOverlay_App_DatePicker)
+//        .setTheme(R.style.ThemeOverlay_App_DatePicker)
     if (isTodaySelected) {
         builder.setSelection(MaterialDatePicker.todayInUtcMilliseconds())
     }

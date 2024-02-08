@@ -32,7 +32,7 @@
       android:id="@+id/root"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:theme="@style/Owl.Pink"
+      android:theme="@style/Theme.App.Pink"
       tools:context=".ui.learn.LearnFragment">
 
     <androidx.core.widget.NestedScrollView

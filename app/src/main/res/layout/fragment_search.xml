@@ -21,7 +21,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="?attr/colorPrimarySurface"
-      android:theme="@style/Owl.Blue"
+      android:theme="@style/Theme.App.Blue"
       app:paddingTopSystemWindowInsets="@{true}"
       app:paddingLeftSystemWindowInsets="@{true}"
       app:paddingRightSystemWindowInsets="@{true}"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         app:liftOnScroll="true"
         app:liftOnScrollTargetViewId="@id/search_results"
-        android:theme="@style/ThemeOverlay.Owl.Blue.Dark">
+        android:theme="@style/ThemeOverlay.App.Blue.Dark">
 
       <androidx.appcompat.widget.Toolbar
           android:layout_width="match_parent"
