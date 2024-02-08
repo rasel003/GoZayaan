@@ -328,7 +328,7 @@
     </style>
 
     <!--    implemented using material design system-->
-    <style name="ModalBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="Widget.App.ModalBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="behavior_draggable">false</item>
         <item name="behavior_hideable">false</item>
         <item name="behavior_peekHeight">700dp</item>
@@ -344,8 +344,8 @@
         <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
     </style>
 
-    <style name="ThemeOverlay.PaperflyGo.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.App.ModalBottomSheetDialog</item>
     </style>
     <style name="ThemeOverlay.App.BottomSheetDialog.FullScreen" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/ModalBottomSheetDialog2</item>

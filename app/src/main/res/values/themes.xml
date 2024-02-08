@@ -79,6 +79,7 @@
         <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
         <item name="chipStyle">@style/Widget.App.Chip.Entry</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+<!--        <item name="materialButtonStyle">@style/Widget.App.Button</item>-->
 
         <!--Default styles-->
         <item name="bottomNavigationStyle">@style/Widget.Owl.BottomNavigationView</item>

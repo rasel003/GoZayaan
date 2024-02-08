@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.rasel.androidbaseapp.R
-import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.databinding.DialogInsurancePolicyBinding
 
 class DialogInsurancePolicy(
@@ -18,7 +17,7 @@ class DialogInsurancePolicy(
     lateinit var binding: DialogInsurancePolicyBinding
 
     override fun getTheme(): Int {
-        return R.style.ThemeOverlay_PaperflyGo_BottomSheetDialog
+        return R.style.ThemeOverlay_App_BottomSheetDialog
     }
 
     /* override fun onCreate(savedInstanceState: Bundle?) {
