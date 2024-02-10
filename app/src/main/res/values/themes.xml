@@ -75,7 +75,8 @@
 
         <!--Styles-->
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
-        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
+<!--        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>-->
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
         <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
         <item name="chipStyle">@style/Widget.App.Chip.Entry</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>

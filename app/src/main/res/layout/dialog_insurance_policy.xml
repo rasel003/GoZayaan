@@ -47,7 +47,6 @@
             android:gravity="start"
             android:padding="12dp"
             android:text="@string/terms_insurance"
-            android:textColor="@color/color_title"
             android:textSize="12sp" />
 
         <com.google.android.material.button.MaterialButton

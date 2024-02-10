@@ -49,12 +49,12 @@
     </style>
 
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-        <item name="backgroundTint">?attr/colorPrimaryVariant</item>
-        <item name="textAllCaps">true</item>
-        <item name="android:stateListAnimator" tools:ignore="NewApi">
+<!--        <item name="android:textColor">?textColorDefault</item>-->
+<!--        <item name="backgroundTint">?attr/colorPrimaryVariant</item>-->
+<!--        <item name="textAllCaps">true</item>-->
+       <!-- <item name="android:stateListAnimator" tools:ignore="NewApi">
             @animator/shr_next_button_state_list_anim
-        </item>
+        </item>-->
     </style>
 
     <style name="Widget.App.Button.Submit" parent="Widget.MaterialComponents.Button">
@@ -336,7 +336,7 @@
         <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
     </style>
 
-    <style name="ModalBottomSheetDialog2" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="Widget.App.ModalBottomSheetDialog.FullScreen" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="behavior_draggable">false</item>
         <item name="behavior_hideable">false</item>
         <item name="behavior_peekHeight">2000dp</item>
@@ -346,9 +346,12 @@
 
     <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Widget.App.ModalBottomSheetDialog</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+
     </style>
     <style name="ThemeOverlay.App.BottomSheetDialog.FullScreen" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog2</item>
+        <item name="bottomSheetStyle">@style/Widget.App.ModalBottomSheetDialog.FullScreen</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
     </style>
 
     <!-- snackbar style-->

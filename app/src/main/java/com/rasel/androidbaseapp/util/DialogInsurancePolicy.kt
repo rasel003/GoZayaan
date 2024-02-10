@@ -1,5 +1,6 @@
 package com.rasel.androidbaseapp.util
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,13 +17,13 @@ class DialogInsurancePolicy(
 //    private lateinit var mBehavior: BottomSheetBehavior<View>
     lateinit var binding: DialogInsurancePolicyBinding
 
-    override fun getTheme(): Int {
+   /* override fun getTheme(): Int {
         return R.style.ThemeOverlay_App_BottomSheetDialog
-    }
+    }*/
 
     /* override fun onCreate(savedInstanceState: Bundle?) {
          super.onCreate(savedInstanceState)
-         setStyle(STYLE_NORMAL, R.style.AppBottomSheetDialogTheme2)
+         setStyle(STYLE_NORMAL, R.style.ModalBottomSheetDialog)
      }*/
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +39,7 @@ class DialogInsurancePolicy(
 
     override fun onStart() {
         super.onStart()
-        (dialog as BottomSheetDialog).setCancelable(false)
+//        (dialog as BottomSheetDialog).setCancelable(false)
 //        mBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
