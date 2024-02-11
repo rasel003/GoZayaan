@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:paddingHorizontal="@dimen/grid_0_5"
-        android:paddingTop="@dimen/grid_1"
+        android:paddingVertical="@dimen/grid_1"
         android:clipToPadding="false"
         android:background="?android:colorBackground"
         app:paddingTopSystemWindowInsets="@{true}">
@@ -129,6 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_3"
+                    tools:itemCount="1"
                     tools:listitem="@layout/email_attachment_grid_item_layout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/body_text_view"
