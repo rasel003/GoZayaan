@@ -26,7 +26,6 @@ import com.rasel.androidbaseapp.presentation.viewmodel.SettingUIModel
 import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.rasel.androidbaseapp.ui.dialog.BankData
 import com.rasel.androidbaseapp.ui.dialog.DialogForBank
-import com.rasel.androidbaseapp.ui.dialog.SelectionAdapter
 import com.rasel.androidbaseapp.util.DialogInsurancePolicy
 import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
 import com.rasel.androidbaseapp.util.getDatePicker
@@ -40,7 +39,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
-    Toolbar.OnMenuItemClickListener, SelectionAdapter.CustomClickListener {
+    Toolbar.OnMenuItemClickListener {
 
     override val viewModel: SettingsViewModel by viewModels()
     private val localizedViewModel: LocalizedViewModel by activityViewModels()
@@ -72,55 +71,22 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         binding.toolbar.inflateMenu(R.menu.main)
         binding.toolbar.setOnMenuItemClickListener(this)
 
-        val bankDataList = listOf(
-            BankData(1, "A"),
-            BankData(12, "A"),
-            BankData(11, "A"),
-            BankData(13, "A"),
-            BankData(14, "A"),
-            BankData(15, "A"),
-            BankData(16, "A"),
-            BankData(71, "A"),
-            BankData(18, "A"),
-            BankData(188, "A"),
-            BankData(166, "A"),
-            BankData(134, "A"),
-            BankData(190, "A"),
-            BankData(123, "A"),
-            BankData(135, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A"),
-            BankData(1, "A")
+        val sentences = listOf(
+            "The quick brown fox jumps over the lazy dog.",
+            "Lorem ipsum dolor sit amet, consecrate disciplining elite.",
+            "This is a random sentence.",
+            "Kotlin is a modern programming language.",
+            "Artificial Intelligence is shaping the future."
         )
-        dialogForBank = DialogForBank.display(bankDataList, this)
+
+        val bankDataList = mutableListOf<BankData>()
+
+        for (i in 1..40) {
+            bankDataList.add(BankData(i, sentences.random()))
+        }
+
+
+        dialogForBank = DialogForBank.display(bankDataList, ::addItem)
 
 
         localizedViewModel.localizationFlow.asLiveData().observe(viewLifecycleOwner) {
@@ -328,13 +294,15 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         }
     }
 
+    private fun addItem(bankData: BankData?) {
+        Toast.makeText(requireContext(), bankData?.bankTitle, Toast.LENGTH_SHORT).show()
+        dialogForBank.dismiss()
+    }
+
     companion object {
         @JvmStatic
         fun newInstance() = SettingsFragment()
     }
 
-    override fun addItem(bankData: BankData?) {
-        Toast.makeText(requireContext(), bankData?.bankTitle, Toast.LENGTH_SHORT).show()
-        dialogForBank.dismiss()
-    }
+
 }

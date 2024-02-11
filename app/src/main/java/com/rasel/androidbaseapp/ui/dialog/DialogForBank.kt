@@ -8,19 +8,19 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.DialogFragment
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.DialogForBankBinding
-import com.rasel.androidbaseapp.ui.dialog.SelectionAdapter.CustomClickListener
 import java.util.*
 
 class DialogForBank internal constructor(
     bankDataList: List<BankData>,
-    customClickListener: CustomClickListener?
+    private var onItemClicked: ((bankData: BankData) -> Unit)
 ) : DialogFragment() {
     private val bankDataList: List<BankData>
     private lateinit var binding: DialogForBankBinding
-    private val selectionAdapter: SelectionAdapter
+    private val selectionAdapter: SelectionAdapter = SelectionAdapter {
+        onItemClicked(it)
+    }
 
     init {
-        selectionAdapter = SelectionAdapter(customClickListener)
         selectionAdapter.submitList(bankDataList)
         this.bankDataList = bankDataList
     }
@@ -36,8 +36,8 @@ class DialogForBank internal constructor(
         if (dialog != null) {
             val width = ViewGroup.LayoutParams.MATCH_PARENT
             val height = ViewGroup.LayoutParams.MATCH_PARENT
-            dialog.window!!.setLayout(width, height)
-            dialog.window!!.setWindowAnimations(R.style.Slide)
+            dialog.window?.setLayout(width, height)
+            dialog.window?.setWindowAnimations(R.style.Slide)
         }
     }
 
@@ -55,8 +55,9 @@ class DialogForBank internal constructor(
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.setNavigationOnClickListener { dismiss() }
         binding.toolbar.title = "Bank List"
+
         val searchView = binding.toolbar.menu.getItem(0).actionView as SearchView?
-        searchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 val suggestions = ArrayList<BankData>()
                 for (people in bankDataList) {
@@ -95,9 +96,9 @@ class DialogForBank internal constructor(
     companion object {
         fun display(
             bankDataList: List<BankData>,
-            customClickListener: CustomClickListener?
+            onItemClicked: ((bankData: BankData) -> Unit)
         ): DialogForBank {
-            return DialogForBank(bankDataList, customClickListener)
+            return DialogForBank(bankDataList, onItemClicked)
         }
     }
 }
