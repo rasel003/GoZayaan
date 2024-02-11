@@ -59,11 +59,10 @@ class SettingsAdapter @Inject constructor() : BaseAdapter<Settings>() {
                         textViewValue.apply {
                             text = item.settingValue
                             makeVisible()
-                            setOnClickListener {
-                                setClickListener(item)
-                            }
                         }
-
+                        root.setOnClickListener {
+                            setClickListener(item)
+                        }
                         switchValue.makeGone()
                     }
                     SettingType.EMPTY -> {

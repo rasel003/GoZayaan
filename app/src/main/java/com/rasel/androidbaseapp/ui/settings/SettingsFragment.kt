@@ -34,6 +34,7 @@ import com.rasel.androidbaseapp.util.getStringDateFromTimeInMillis
 import com.rasel.androidbaseapp.util.observe
 import com.rasel.androidbaseapp.util.result.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -50,7 +51,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     @Inject
     lateinit var themeUtils: ThemeUtils
 
-    private lateinit var dialogForBank : DialogForBank
+    private lateinit var dialogForBank: DialogForBank
 
     private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
     private var endDate: String = ""
@@ -127,7 +128,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             )
         }
         binding.chipBottomSheet.setOnClickListener {
-            val dialog = DialogInsurancePolicy(){
+            val dialog = DialogInsurancePolicy() {
                 Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
             }
             val args = Bundle()
@@ -215,7 +216,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         }
 
         settingsAdapter.setItemClickListener { selectedSetting ->
-            viewModel.setSettings(selectedSetting)
+            if (selectedSetting.id == 3) {
+                viewModel.onThemeSettingClicked()
+            } else {
+                viewModel.setSettings(selectedSetting)
+            }
+            Timber.tag("rsl").d(selectedSetting.settingLabel)
         }
     }
 

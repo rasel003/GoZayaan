@@ -19,7 +19,8 @@ class SettingsRepositoryImp @Inject constructor(
         val settingList = mutableListOf<Settings>()
         settingList.add(Settings(1, SettingType.SWITCH, "Theme mode", "", isNightMode))
         settingList.add(Settings(2, SettingType.EMPTY, "Clear cache", ""))
-        settingList.add(Settings(2, SettingType.TEXT, "App version", appVersion))
+        settingList.add(Settings(3, SettingType.TEXT, "Choose Theme", appVersion))
+        settingList.add(Settings(4, SettingType.TEXT, "App version", appVersion))
         return settingList
     }
 }

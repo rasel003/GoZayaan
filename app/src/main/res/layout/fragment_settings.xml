@@ -183,7 +183,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilDateSelection"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="Select Date"
@@ -191,22 +191,15 @@
                     app:endIconMode="custom">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="160dp"
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/settings_choose_theme"
-                    style="@style/Widget.IOSched.Settings.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:onClick="@{(view) -> viewModel.onThemeSettingClicked()}"
-                    android:text="@string/settings_theme_title" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/chipFullscreenDialog"
