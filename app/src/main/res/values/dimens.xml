@@ -66,6 +66,8 @@
     <dimen name="gallery_header_margin">72dp</dimen>
 
     <dimen name="tag_dot_size">8dp</dimen>
+    <dimen name="body_radius_corner">16dp</dimen>
+
 
 
     <!-- Add plant button -->

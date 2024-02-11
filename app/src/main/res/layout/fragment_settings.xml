@@ -202,11 +202,17 @@
                 <TextView
                     android:id="@+id/settings_choose_theme"
                     style="@style/Widget.IOSched.Settings.Button"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:onClick="@{(view) -> viewModel.onThemeSettingClicked()}"
                     android:text="@string/settings_theme_title" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/chipFullscreenDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Full Screen Dialog" />
 
 
             </com.google.android.material.chip.ChipGroup>

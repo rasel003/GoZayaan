@@ -322,6 +322,24 @@
     </style>
 
 
+    <!--   for fullscreen dialog-->
+    <style name="ThemeOverlay.App.DayNight.FullScreenDialog" parent=""> <!--theme for popup dialog full screen-->
+        <!--  <item name="colorPrimary">@color/app_maroon_500</item>
+          <item name="colorPrimaryDark">@color/app_maroon_700</item>
+          <item name="colorPrimaryVariant">@color/app_maroon_700</item>
+          <item name="colorAccent">@color/app_orange_500</item>-->
+        <item name="android:windowIsFloating">false</item>
+        <item name="actionMenuTextColor">@color/white</item>
+
+    </style>
+
+    <!--   for fullscreen dialog-->
+    <style name="Slide"> <!-- popup dialog full screen animation-->
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+
     <style name="Widget.App.Divider.Surface" parent="">
         <item name="android:background"> @drawable/divider_rectangle </item>
         <item name="android:backgroundTint" >@color/color_on_surface_divider</item>

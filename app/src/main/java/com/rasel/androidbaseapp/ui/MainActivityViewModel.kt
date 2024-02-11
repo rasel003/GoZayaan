@@ -20,7 +20,6 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rasel.androidbaseapp.ui.signin.SignInViewModelDelegate
 import com.rasel.androidbaseapp.ui.theme.ThemedActivityDelegate
 import com.rasel.androidbaseapp.util.result.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
