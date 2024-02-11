@@ -110,7 +110,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             findNavController().navigate(R.id.action_global_nav_home)
         }
         binding.chipOwl.setOnClickListener {
-            findNavController().navigate(R.id.action_global_owl_onboarding)
+            findNavController().navigate(R.id.owl_graph)
         }
         binding.chipCounter.setOnClickListener {
             findNavController().navigate(R.id.action_global_counter_fragment)

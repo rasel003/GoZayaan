@@ -22,8 +22,8 @@
             android:id="@+id/nav_character_list"
             android:icon="@drawable/asl_search"
             android:title="@string/menu_character_list" />
- <item
-            android:id="@+id/nav_email_list"
+        <item
+            android:id="@+id/reply_graph"
             android:icon="@drawable/asl_my_courses"
             android:title="Emails" />
 
