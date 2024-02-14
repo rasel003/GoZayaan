@@ -113,9 +113,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerViewSettings">
 
-                <com.google.android.material.button.MaterialButton
+                <com.google.android.material.chip.Chip
                     android:id="@+id/chipHome"
+                    style="@style/Widget.App.Chip"
                     android:layout_width="wrap_content"
+                    android:checked="true"
                     android:layout_height="wrap_content"
                     android:text="Home" />
 
@@ -154,7 +156,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipFullScreenBottomSheet"
-                    style="@style/Widget.App.Chip.Green"
+                    style="@style/Widget.App.Chip.Yellow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -164,6 +166,7 @@
                     android:id="@+id/chipBottomSheet"
                     style="@style/Widget.App.Chip.Green"
                     android:layout_width="wrap_content"
+                    android:checked="true"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Bottom Sheet" />

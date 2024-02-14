@@ -169,10 +169,10 @@
         <item name="android:textAppearance">@style/TextAppearance.App.Body2</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
         <!--  <item name="chipIconTint">@color/brown</item>-->
-        <item name="chipBackgroundColor">?android:colorBackground</item>
+<!--        <item name="chipBackgroundColor">?android:colorBackground</item>-->
         <item name="chipEndPadding">@dimen/chip_padding</item>
         <item name="chipStartPadding">@dimen/chip_padding</item>
-        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipStrokeWidth">1dp</item>
         <item name="chipStrokeColor">@color/chip_stroke_tint</item>
         <!-- <item name="checkedIconVisible">true</item>-->
         <item name="shapeAppearanceOverlay">@null</item>
