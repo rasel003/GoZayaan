@@ -125,6 +125,18 @@
                     android:layout_height="wrap_content"
                     android:text="Owl App" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/chipCounter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Counter" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDownload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download" />
+
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipSelectedDateRange"
                     android:layout_width="wrap_content"
@@ -156,11 +168,6 @@
                     android:padding="5dp"
                     android:text="Bottom Sheet" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/chipCounter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Counter" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilReasonList"
@@ -193,10 +200,10 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minWidth="160dp"
                         android:cursorVisible="false"
                         android:focusable="false"
-                        android:inputType="none" />
+                        android:inputType="none"
+                        android:minWidth="160dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,12 +1,25 @@
 package com.rasel.androidbaseapp.ui.settings
 
+import android.Manifest
+import android.app.DownloadManager
+import android.content.ActivityNotFoundException
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.FileProvider
 import androidx.core.util.Pair
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -15,6 +28,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.core.theme.ThemeUtils
@@ -27,14 +41,19 @@ import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.rasel.androidbaseapp.ui.dialog.BankData
 import com.rasel.androidbaseapp.ui.dialog.DialogForBank
 import com.rasel.androidbaseapp.util.DialogInsurancePolicy
+import com.rasel.androidbaseapp.util.FileUtils
 import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
 import com.rasel.androidbaseapp.util.getDatePicker
 import com.rasel.androidbaseapp.util.getDateRangePicker
 import com.rasel.androidbaseapp.util.getStringDateFromTimeInMillis
 import com.rasel.androidbaseapp.util.observe
+import com.rasel.androidbaseapp.util.permissionGranted
 import com.rasel.androidbaseapp.util.result.EventObserver
+import com.rasel.androidbaseapp.util.showPermissionRequestDialog
+import com.rasel.androidbaseapp.util.toastInfo
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.io.File
 import java.util.*
 import javax.inject.Inject
 
@@ -60,8 +79,31 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     private lateinit var datePicker: MaterialDatePicker<Long>
     private var selectedDate: String = ""
 
+    private lateinit var mContext: Context
+    private lateinit var downLoadUrl: String
+    private var isPdfFileDownloading: Boolean = false
+    private lateinit var downloadFile: File
+    var downloadID: Long = 0
+
+
+    private var requestPermissionLauncher: ActivityResultLauncher<String> =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                if (::downLoadUrl.isInitialized) {
+                    downloadFile(downLoadUrl)
+                }
+            }
+        }
+
     override fun getViewBinding(): FragmentSettingsBinding =
         FragmentSettingsBinding.inflate(layoutInflater)
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,6 +113,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
 
         binding.toolbar.inflateMenu(R.menu.main)
         binding.toolbar.setOnMenuItemClickListener(this)
+
+        registerDownloadReceiver()
 
         val sentences = listOf(
             "The quick brown fox jumps over the lazy dog.",
@@ -127,6 +171,11 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
                 childFragmentManager, "history",
             )
         }
+        binding.btnDownload.setOnClickListener {
+            downLoadUrl =
+                "https://filesamples.com/samples/document/xlsx/sample1.xlsx"
+            checkPermissionAndDownload()
+        }
         binding.chipBottomSheet.setOnClickListener {
             val dialog = DialogInsurancePolicy() {
                 Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
@@ -160,6 +209,11 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             ThemeSettingDialogFragment.newInstance()
                 .show(parentFragmentManager, null)
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        unregisterDownloadReceiver()
     }
 
 
@@ -197,6 +251,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         }
     }
 
+
+
     private fun logOutFromApp() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.titleLogOut))
@@ -220,12 +276,16 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         }
 
         settingsAdapter.setItemClickListener { selectedSetting ->
-            if (selectedSetting.id == 3) {
-                viewModel.onThemeSettingClicked()
-            } else if (selectedSetting.id == 4) {
-                viewModel.onThemeSettingClicked()
-            } else {
-                viewModel.setSettings(selectedSetting)
+            when (selectedSetting.id) {
+                3 -> {
+                    viewModel.onThemeSettingClicked()
+                }
+                4 -> {
+                    viewModel.onThemeSettingClicked()
+                }
+                else -> {
+                    viewModel.setSettings(selectedSetting)
+                }
             }
             Timber.tag("rsl").d(selectedSetting.settingLabel)
         }
@@ -309,6 +369,126 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     private fun addItem(bankData: BankData?) {
         Toast.makeText(requireContext(), bankData?.bankTitle, Toast.LENGTH_SHORT).show()
         dialogForBank.dismiss()
+    }
+
+    private fun registerDownloadReceiver() {
+        activity?.registerReceiver(
+            onDownloadComplete,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
+    }
+
+    private fun unregisterDownloadReceiver() {
+        activity?.unregisterReceiver(onDownloadComplete)
+    }
+    private fun checkPermissionAndDownload() {
+        var customPermission: String = Manifest.permission.READ_EXTERNAL_STORAGE
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            customPermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+        }
+
+        when {
+            requireContext().permissionGranted(customPermission) -> {
+                downloadFile(downLoadUrl)
+            }
+
+            shouldShowRequestPermissionRationale(customPermission) -> {
+                requireContext().showPermissionRequestDialog(
+                    getString(R.string.permission_title),
+                    getString(R.string.write_permission_request)
+                ) {
+                    requestPermissionLauncher.launch(customPermission)
+                }
+            }
+
+            else -> {
+//                requestPermissionLauncher.launch(customPermission)
+                downloadFile(downLoadUrl)
+            }
+        }
+    }
+
+    private fun downloadFile(url: String) {
+        val fileUri = Uri.parse(url)
+        val downloadManager =
+            mContext.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
+        val request = DownloadManager.Request(fileUri)
+        val filename = if (isPdfFileDownloading) {
+            "${Calendar.getInstance().timeInMillis}.xlsx"
+        } else {
+            "Merchant-Order--${Calendar.getInstance().timeInMillis}.xlsx"
+        }
+
+        val folder = getString(R.string.app_name)
+        downloadFile = File(FileUtils.commonDownloadDirPath().toString() + File.separator, filename)
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            .setAllowedOverRoaming(false)
+            .setDescription("Downloading...") //Download Manager description
+            .setDestinationUri(Uri.fromFile(downloadFile))
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        downloadID = downloadManager.enqueue(request)
+        mContext.toastInfo("Downloading...")
+    }
+
+    private val onDownloadComplete: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            //Fetching the download id received with the broadcast
+            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            //Checking if the received broadcast is for our enqueued download by matching download id
+            if (downloadID == id) {
+                downLoadCompleted()
+            }
+        }
+    }
+
+    private fun downLoadCompleted() {
+        val snackbar = Snackbar.make(binding.root, "Download completed", Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction("Open") {
+            snackbar.dismiss()
+            showDownload()
+        }
+        snackbar.show()
+    }
+
+    private fun showDownload() {
+        val intent: Intent
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val uri = FileProvider.getUriForFile(
+                mContext,
+                "${mContext.packageName}.fileprovider",
+                downloadFile
+            )
+            intent = Intent(Intent.ACTION_VIEW)
+            intent.data = uri
+            intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        } else {
+            intent = Intent(Intent.ACTION_VIEW)
+            if (isPdfFileDownloading) {
+                intent.setDataAndType(Uri.fromFile(downloadFile), "application/pdf")
+            } else {
+                intent.setDataAndType(
+                    Uri.fromFile(downloadFile),
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        val title = "Open File"
+        // Create intent to show chooser
+        val chooser = Intent.createChooser(intent, title)
+
+
+        // Try to invoke the intent.
+        try {
+            startActivity(chooser)
+        } catch (e: ActivityNotFoundException) {
+            // Define what your app should do if no activity can handle the intent.
+            val i = Intent()
+            //try more options to show downloading , retrieving and complete
+            i.action = DownloadManager.ACTION_VIEW_DOWNLOADS
+            startActivity(i)
+        }
     }
 
     companion object {
