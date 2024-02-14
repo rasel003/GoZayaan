@@ -41,9 +41,12 @@ class SettingsViewModel @Inject constructor(
     private val _settings = MutableLiveData<SettingUIModel>()
     val settings: LiveData<SettingUIModel> = _settings
 
+    private val _navigateToLanguageSelector = MutableLiveData<Event<Unit>>()
     private val _navigateToThemeSelector = MutableLiveData<Event<Unit>>()
     val navigateToThemeSelector: LiveData<Event<Unit>>
         get() = _navigateToThemeSelector
+    val navigateToLanguageSelector: LiveData<Event<Unit>>
+        get() = _navigateToLanguageSelector
 
     // Theme setting
     val theme: LiveData<Theme> = liveData {
@@ -79,12 +82,18 @@ class SettingsViewModel @Inject constructor(
             _settings.postValue(SettingUIModel.NightMode(selectedValue))
         }
     }
+
     fun setTheme(theme: Theme) {
         viewModelScope.launch {
             setThemeUseCase(theme)
         }
     }
+
     fun onThemeSettingClicked() {
         _navigateToThemeSelector.value = Event(Unit)
+    }
+
+    fun onLanguageSettingClicked() {
+        _navigateToLanguageSelector.value = Event(Unit)
     }
 }

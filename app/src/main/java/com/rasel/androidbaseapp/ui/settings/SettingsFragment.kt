@@ -156,6 +156,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             ThemeSettingDialogFragment.newInstance()
                 .show(parentFragmentManager, null)
         })
+        viewModel.navigateToLanguageSelector.observe(viewLifecycleOwner, EventObserver {
+            ThemeSettingDialogFragment.newInstance()
+                .show(parentFragmentManager, null)
+        })
     }
 
 
@@ -217,6 +221,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
 
         settingsAdapter.setItemClickListener { selectedSetting ->
             if (selectedSetting.id == 3) {
+                viewModel.onThemeSettingClicked()
+            } else if (selectedSetting.id == 4) {
                 viewModel.onThemeSettingClicked()
             } else {
                 viewModel.setSettings(selectedSetting)
