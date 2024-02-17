@@ -2,7 +2,6 @@ package com.rasel.androidbaseapp.ui.settings
 
 import android.Manifest
 import android.app.DownloadManager
-import android.content.ActivityNotFoundException
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -450,8 +449,44 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         }
         snackbar.show()
     }
+    private fun showDownload(){
+        Timber.tag(TAG).i("Download ID: %s", downloadID)
 
-    private fun showDownload() {
+        // Get file URI
+
+        // Get file URI
+        val dm = mContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val query = DownloadManager.Query()
+        query.setFilterById(downloadID)
+        val c = dm.query(query)
+        if (c.moveToFirst()) {
+            val colIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS)
+            if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(colIndex)) {
+                Timber.tag(TAG).i("Download Complete")
+                Toast.makeText(mContext, "Download Complete", Toast.LENGTH_SHORT).show()
+                val uriString = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))
+                Timber.tag(TAG).i("URI: %s", uriString)
+
+                // Convert file:// URI to content:// URI using FileProvider
+                val fileUri = Uri.parse(uriString)
+                val contentUri = FileProvider.getUriForFile(
+                    mContext,
+                    mContext.applicationContext.packageName + ".fileprovider",
+                    File(fileUri.path)
+                )
+                val intentView = Intent(Intent.ACTION_VIEW)
+                intentView.setDataAndType(contentUri, "application/vnd.ms-excel")
+                intentView.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                startActivity(intentView)
+            } else {
+                Timber.tag(TAG).w("Download Unsuccessful, Status Code: %s", c.getInt(colIndex))
+                Toast.makeText(mContext, "Download Unsuccessful", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+   /* private fun showDownload() {
         val intent: Intent
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             val uri = FileProvider.getUriForFile(
@@ -489,11 +524,13 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             i.action = DownloadManager.ACTION_VIEW_DOWNLOADS
             startActivity(i)
         }
-    }
+    }*/
 
     companion object {
         @JvmStatic
         fun newInstance() = SettingsFragment()
+
+        private const val TAG = "rsl"
     }
 
 
