@@ -1,9 +1,15 @@
 package com.rasel.androidbaseapp.ui.settings
 
 import android.Manifest
+import android.app.DownloadManager
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
@@ -11,7 +17,9 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.FileProvider
 import androidx.core.util.Pair
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -42,13 +50,15 @@ import com.rasel.androidbaseapp.util.observe
 import com.rasel.androidbaseapp.util.permissionGranted
 import com.rasel.androidbaseapp.util.result.EventObserver
 import com.rasel.androidbaseapp.util.showPermissionRequestDialog
+import com.rasel.androidbaseapp.util.toastInfo
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.io.File
 import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
+class SettingsFragment2 : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     Toolbar.OnMenuItemClickListener {
 
     override val viewModel: SettingsViewModel by viewModels()
@@ -70,17 +80,21 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     private var selectedDate: String = ""
 
     private lateinit var mContext: Context
+    private lateinit var downLoadUrl: String
+    private var isPdfFileDownloading: Boolean = false
+    private lateinit var downloadFile: File
+    var downloadID: Long = 0
 
+    private var downloadedFilePath: String? = null
 
     private var requestPermissionLauncher: ActivityResultLauncher<String> =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                /* if (::downLoadUrl.isInitialized) {
-                     downloadFile(downLoadUrl)
-                 }*/
-                downloadFile()
+                if (::downLoadUrl.isInitialized) {
+                    downloadFile(downLoadUrl)
+                }
             }
         }
 
@@ -90,6 +104,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -159,7 +174,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             )
         }
         binding.btnDownload.setOnClickListener {
-            checkPermissionAndDownload()
+            downLoadUrl = "https://filesamples.com/samples/document/xlsx/sample1.xlsx"
+//            checkPermissionAndDownload()
+            downloadFile()
         }
         binding.chipBottomSheet.setOnClickListener {
             val dialog = DialogInsurancePolicy() {
@@ -196,6 +213,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         })
     }
 
+   /* override fun onDestroyView() {
+        super.onDestroyView()
+        unregisterDownloadReceiver()
+    }*/
+
+
     // when activity has toolbar
     /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -231,6 +254,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     }
 
 
+
     private fun logOutFromApp() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.titleLogOut))
@@ -258,16 +282,14 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
                 3 -> {
                     viewModel.onThemeSettingClicked()
                 }
-
                 4 -> {
                     viewModel.onThemeSettingClicked()
                 }
-
                 else -> {
                     viewModel.setSettings(selectedSetting)
                 }
             }
-            Timber.d(selectedSetting.settingLabel)
+            Timber.tag("rsl").d(selectedSetting.settingLabel)
         }
     }
 
@@ -351,6 +373,16 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         dialogForBank.dismiss()
     }
 
+    private fun registerDownloadReceiver() {
+        activity?.registerReceiver(
+            onDownloadComplete,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
+    }
+
+    private fun unregisterDownloadReceiver() {
+        activity?.unregisterReceiver(onDownloadComplete)
+    }
     private fun checkPermissionAndDownload() {
         var customPermission: String = Manifest.permission.READ_EXTERNAL_STORAGE
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
@@ -359,7 +391,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
 
         when {
             requireContext().permissionGranted(customPermission) -> {
-                downloadFile()
+                downloadFile(downLoadUrl)
             }
 
             shouldShowRequestPermissionRationale(customPermission) -> {
@@ -373,39 +405,210 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
 
             else -> {
 //                requestPermissionLauncher.launch(customPermission)
-                downloadFile()
+                downloadFile(downLoadUrl)
             }
         }
     }
 
-    private fun downloadFile() {
-//        val downLoadUrl = "https://filesamples.com/samples/document/xlsx/sample1.xlsx"
-        val downLoadUrl = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-//        val downLoadUrl = "https://file-examples.com/wp-content/storage/2017/02/file_example_XLSX_5000.xlsx"
+    private fun downloadFile(url: String) {
+        val fileUri = Uri.parse(url)
+        val downloadManager =
+            mContext.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
+        val request = DownloadManager.Request(fileUri)
+        val filename = if (isPdfFileDownloading) {
+            "${Calendar.getInstance().timeInMillis}.xlsx"
+        } else {
+            "Merchant-Order--${Calendar.getInstance().timeInMillis}.xlsx"
+        }
 
-        FileUtils.downloadFile(
-            url = downLoadUrl,
-            context = mContext,
-//            fileName = fileName
-        ) { downloadId: Long, extension: String ->
-            onDownLoadCompleted(downloadId, extension)
+        val folder = getString(R.string.app_name)
+        downloadFile = File(FileUtils.commonDownloadDirPath().toString() + File.separator, filename)
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            .setAllowedOverRoaming(false)
+            .setDescription("Downloading...") //Download Manager description
+            .setDestinationUri(Uri.fromFile(downloadFile))
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        downloadID = downloadManager.enqueue(request)
+        mContext.toastInfo("Downloading...")
+    }
+
+    private val onDownloadComplete: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            //Fetching the download id received with the broadcast
+            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            //Checking if the received broadcast is for our enqueued download by matching download id
+            if (downloadID == id) {
+                downLoadCompleted()
+            }
         }
     }
 
-    private fun onDownLoadCompleted(downloadID: Long, extension: String) {
-        val uri = FileUtils.getDownloadedFilePath(downloadID, mContext)
-
+    private fun downLoadCompleted() {
         val snackbar = Snackbar.make(binding.root, "Download completed", Snackbar.LENGTH_INDEFINITE)
         snackbar.setAction("Open") {
             snackbar.dismiss()
-            uri?.let { it1 -> FileUtils.openDownloadedFile(it1, it.context, extension) }
+            showDownload()
         }
         snackbar.show()
     }
+    private fun showDownload(){
+        Timber.tag(TAG).i("Download ID: %s", downloadID)
+
+        // Get file URI
+        val dm = mContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val query = DownloadManager.Query().apply {
+            setFilterById(downloadID)
+        }
+        dm.query(query)?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
+                val localUriIndex = cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI)
+                if (statusIndex != -1 && localUriIndex != -1) {
+                    val status = cursor.getInt(statusIndex)
+                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                        Timber.tag(TAG).i("Download Complete")
+                        Toast.makeText(mContext, "Download Complete", Toast.LENGTH_SHORT).show()
+
+                        val uriString = cursor.getString(localUriIndex)
+                        Timber.tag(TAG).i("URI: $uriString")
+
+                        // Convert file:// URI to content:// URI using FileProvider
+                        val fileUri = Uri.parse(uriString)
+                        val contentUri = FileProvider.getUriForFile(
+                            mContext,
+                            "${mContext.applicationContext.packageName}.fileprovider",
+                            File(fileUri.path!!)
+                        )
+                        val intentView = Intent(Intent.ACTION_VIEW).apply {
+                            setDataAndType(contentUri, "application/vnd.ms-excel")
+                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        }
+                        startActivity(intentView)
+                    } else {
+                        Timber.tag(TAG).w("Download Unsuccessful, Status Code: $status")
+                        Toast.makeText(mContext, "Download Unsuccessful", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(mContext, "Column index not found", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(mContext, "No data found for download ID: $downloadID", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+    }
+
+   /* private fun showDownload() {
+        val intent: Intent
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val uri = FileProvider.getUriForFile(
+                mContext,
+                "${mContext.packageName}.fileprovider",
+                downloadFile
+            )
+            intent = Intent(Intent.ACTION_VIEW)
+            intent.data = uri
+            intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        } else {
+            intent = Intent(Intent.ACTION_VIEW)
+            if (isPdfFileDownloading) {
+                intent.setDataAndType(Uri.fromFile(downloadFile), "application/pdf")
+            } else {
+                intent.setDataAndType(
+                    Uri.fromFile(downloadFile),
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        val title = "Open File"
+        // Create intent to show chooser
+        val chooser = Intent.createChooser(intent, title)
+
+
+        // Try to invoke the intent.
+        try {
+            startActivity(chooser)
+        } catch (e: ActivityNotFoundException) {
+            // Define what your app should do if no activity can handle the intent.
+            val i = Intent()
+            //try more options to show downloading , retrieving and complete
+            i.action = DownloadManager.ACTION_VIEW_DOWNLOADS
+            startActivity(i)
+        }
+    }*/
+
+
+
+    private fun downloadFile() {
+        val url = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+        val fileName = "sample.pdf"
+        val request = DownloadManager.Request(Uri.parse(url))
+            .setTitle(fileName)
+            .setDescription("Downloading")
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            .setAllowedOverMetered(true)
+            .setAllowedOverRoaming(true)
+            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+
+        val downloadManager =
+            requireContext().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        downloadID = downloadManager.enqueue(request)
+
+        // Register BroadcastReceiver to listen for download completion
+        val onComplete = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+                if (id == downloadID) {
+                    // Download completed
+                    downloadedFilePath = getDownloadedFilePath(downloadID)
+                    val snackbar = Snackbar.make(binding.root, "Download Completed", Snackbar.LENGTH_INDEFINITE)
+                    snackbar.setAction("Open") { openDownloadedFile() }
+                    snackbar.show()
+                    context?.unregisterReceiver(this) // unregister BroadcastReceiver
+                }
+            }
+        }
+        requireContext().registerReceiver(
+            onComplete,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
+    }
+
+    private fun getDownloadedFilePath(downloadId: Long): String? {
+        val downloadManager =
+            requireContext().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val query = DownloadManager.Query().setFilterById(downloadId)
+        val cursor = downloadManager.query(query)
+        if (cursor.moveToFirst()) {
+            val columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI)
+            return cursor.getString(columnIndex)
+        }
+        return null
+    }
+
+    private fun openDownloadedFile() {
+        downloadedFilePath?.let { path ->
+            val file = File(Uri.parse(path).path!!)
+            val uri = FileProvider.getUriForFile(
+                requireContext(),
+                requireContext().applicationContext.packageName + ".fileprovider",
+                file
+            )
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, "application/pdf") // Change MIME type accordingly
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            startActivity(intent)
+        }
+    }
+
 
     companion object {
         @JvmStatic
-        fun newInstance() = SettingsFragment()
+        fun newInstance() = SettingsFragment2()
 
         private const val TAG = "rsl"
     }
