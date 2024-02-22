@@ -463,6 +463,7 @@
     <string name="settings_privacy_policy" translation_description="Open link to privacy policy.">Privacy policy</string>
     <string name="settings_oss_licenses" translation_description="Open link to open source licenses.">Open sources licenses</string>
     <string name="settings_theme_title" translation_description="Choose the app theme">Choose theme</string>
+    <string name="settings_language_title" translation_description="Choose the app language">Choose language</string>
     <string name="settings_theme_system" translation_description="Theme option to use the system default">System default</string>
     <string name="settings_theme_light" translation_description="Theme option to use the light theme">Light</string>
     <string name="settings_theme_dark" translation_description="Theme option to use the dark theme">Dark</string>

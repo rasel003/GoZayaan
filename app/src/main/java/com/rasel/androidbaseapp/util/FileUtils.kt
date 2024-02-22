@@ -2,17 +2,23 @@ package com.rasel.androidbaseapp.util
 
 import android.app.DownloadManager
 import android.content.BroadcastReceiver
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.webkit.MimeTypeMap
-import android.net.Uri
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okio.BufferedSink
 import timber.log.Timber
 import java.io.File
+import java.io.IOException
 import java.util.*
 
 object FileUtils {
@@ -64,6 +70,43 @@ object FileUtils {
         }
         return dir
     }
+
+    //creating request-body using uri
+    class RequestBodyFromUri(
+        private val contentResolver: ContentResolver,
+        private val contentUri: Uri
+    ) :
+        RequestBody() {
+        override fun contentType(): MediaType? {
+            val contentType = contentResolver.getType(contentUri) ?: return null
+            return contentType.toMediaTypeOrNull()
+        }
+
+        override fun writeTo(sink: BufferedSink) {
+            try {
+                val inputStream = contentResolver.openInputStream(contentUri)
+                val outputStream = sink.outputStream()
+                val fileLength = inputStream!!.available().toLong()
+                var uploaded = 0L
+                val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+                var n: Int
+                while (-1 != inputStream.read(buffer).also { n = it }) {
+
+                    // update progress on UI thread
+                    outputStream.write(buffer, 0, n)
+                    uploaded += n.toLong()
+                }
+                inputStream.close()
+            } catch (e: IOException) {
+                Timber.tag(TAG).e(e, "writeTo: %s", e.message)
+            }
+        }
+
+        companion object {
+            private const val DEFAULT_BUFFER_SIZE = 2048
+        }
+    }
+
 
     fun getCustomFileChooserIntent(vararg types: String): Intent {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
@@ -157,9 +200,18 @@ object FileUtils {
         return if (fileName.isEmpty() || fileName.endsWith("/")) {
             components.getOrNull(components.size - 2) ?: "unknown"
         } else {
-            "${Calendar.getInstance().timeInMillis}+$fileName"
-//            fileName
+//            "${Calendar.getInstance().timeInMillis}-$fileName"
+            fileName
         }
+    }
+    fun getExtensionByStringHandling(filename: String): Optional<String>? {
+        return Optional.ofNullable(filename)
+            .filter { f: String -> f.contains(".") }
+            .map { f: String ->
+                f.substring(
+                    filename.lastIndexOf(".") + 1
+                )
+            }
     }
 
     fun downloadFile(
@@ -170,8 +222,12 @@ object FileUtils {
     ) {
 
         val uri = Uri.parse(url)
+        val folder: String = "BaseApp"
         val fileNameTemp = fileName.ifEmpty { getFileNameFromUrl(url) }
         val extension = MimeTypeMap.getFileExtensionFromUrl(url)
+
+       val downloadedFile = File( "${commonDownloadDirPath()}${File.separator}$folder${File.separator}", fileNameTemp)
+
 
         val request = DownloadManager.Request(uri)
             .setTitle(fileNameTemp)
@@ -180,7 +236,8 @@ object FileUtils {
             .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
             .setAllowedOverMetered(true)
             .setAllowedOverRoaming(true)
-            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileNameTemp)
+            .setDestinationUri(Uri.fromFile(downloadedFile))
+//            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS , fileNameTemp)
 
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val downloadID = downloadManager.enqueue(request)

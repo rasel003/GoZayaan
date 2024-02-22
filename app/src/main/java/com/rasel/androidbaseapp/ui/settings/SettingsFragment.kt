@@ -162,7 +162,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             checkPermissionAndDownload()
         }
         binding.chipBottomSheet.setOnClickListener {
-            val dialog = DialogInsurancePolicy() {
+            val dialog = DialogInsurancePolicy {
                 Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
             }
             val args = Bundle()
@@ -191,7 +191,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
                 .show(parentFragmentManager, null)
         })
         viewModel.navigateToLanguageSelector.observe(viewLifecycleOwner, EventObserver {
-            ThemeSettingDialogFragment.newInstance()
+            LanguageSettingDialogFragment.newInstance()
                 .show(parentFragmentManager, null)
         })
     }
@@ -260,7 +260,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
                 }
 
                 4 -> {
-                    viewModel.onThemeSettingClicked()
+                    viewModel.onLanguageSettingClicked()
                 }
 
                 else -> {
@@ -350,37 +350,41 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         Toast.makeText(requireContext(), bankData?.bankTitle, Toast.LENGTH_SHORT).show()
         dialogForBank.dismiss()
     }
+   // mnopqrs
 
     private fun checkPermissionAndDownload() {
-        var customPermission: String = Manifest.permission.READ_EXTERNAL_STORAGE
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            customPermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
-        }
-
-        when {
-            requireContext().permissionGranted(customPermission) -> {
-                downloadFile()
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+            downloadFile()
+        }else {
+            var customPermission: String = Manifest.permission.READ_EXTERNAL_STORAGE
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                customPermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
             }
+            when {
+                requireContext().permissionGranted(customPermission) -> {
+                    downloadFile()
+                }
 
-            shouldShowRequestPermissionRationale(customPermission) -> {
-                requireContext().showPermissionRequestDialog(
-                    getString(R.string.permission_title),
-                    getString(R.string.write_permission_request)
-                ) {
+                shouldShowRequestPermissionRationale(customPermission) -> {
+                    requireContext().showPermissionRequestDialog(
+                        getString(R.string.permission_title),
+                        getString(R.string.write_permission_request)
+                    ) {
+                        requestPermissionLauncher.launch(customPermission)
+                    }
+                }
+
+                else -> {
                     requestPermissionLauncher.launch(customPermission)
                 }
             }
-
-            else -> {
-//                requestPermissionLauncher.launch(customPermission)
-                downloadFile()
-            }
         }
+
     }
 
     private fun downloadFile() {
-//        val downLoadUrl = "https://filesamples.com/samples/document/xlsx/sample1.xlsx"
-        val downLoadUrl = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+        val downLoadUrl = "https://filesamples.com/samples/document/xlsx/sample1.xlsx"
+//        val downLoadUrl = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
 //        val downLoadUrl = "https://file-examples.com/wp-content/storage/2017/02/file_example_XLSX_5000.xlsx"
 
         FileUtils.downloadFile(

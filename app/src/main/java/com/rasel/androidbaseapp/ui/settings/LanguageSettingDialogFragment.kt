@@ -25,6 +25,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.data.models.Languages
 import com.rasel.androidbaseapp.data.models.Theme
 import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,17 +35,17 @@ class LanguageSettingDialogFragment : AppCompatDialogFragment() {
 
     private val viewModel: SettingsViewModel by viewModels()
 
-    private lateinit var listAdapter: ArrayAdapter<ThemeHolder>
+    private lateinit var listAdapter: ArrayAdapter<LanguageHolder>
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         listAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_single_choice)
 
         return MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.settings_theme_title)
+                .setTitle(R.string.settings_language_title)
                 .setSingleChoiceItems(listAdapter, 0) { dialog, position ->
                     listAdapter.getItem(position)?.theme?.let {
-                        viewModel.setTheme(it)
+//                        viewModel.setLanguage(it)
                     }
                     dialog.dismiss()
                 }
@@ -55,35 +56,34 @@ class LanguageSettingDialogFragment : AppCompatDialogFragment() {
         super.onCreate(savedInstanceState)
 
         // Note you don't need to use viewLifecycleOwner in DialogFragment.
-        viewModel.availableThemes.observe(this) { themes ->
+        viewModel.availableLanguage.observe(this) { themes ->
             listAdapter.clear()
-            listAdapter.addAll(themes.map { theme -> ThemeHolder(theme, getTitleForTheme(theme)) })
+            listAdapter.addAll(themes.map { theme -> LanguageHolder(theme, getTitleForLanguage(theme)) })
 
-            updateSelectedItem(viewModel.theme.value)
+//            updateSelectedItem(viewModel.theme.value)
         }
 
-        viewModel.theme.observe(this, Observer(::updateSelectedItem))
+//        viewModel.theme.observe(this, Observer(::updateSelectedItem))
     }
 
-    private fun updateSelectedItem(selected: Theme?) {
+    private fun updateSelectedItem(selected: Languages?) {
         val selectedPosition = (0 until listAdapter.count).indexOfFirst { index ->
             listAdapter.getItem(index)?.theme == selected
         }
         (dialog as AlertDialog).listView.setItemChecked(selectedPosition, true)
     }
 
-    private fun getTitleForTheme(theme: Theme) = when (theme) {
-        Theme.LIGHT -> getString(R.string.settings_theme_light)
-        Theme.DARK -> getString(R.string.settings_theme_dark)
-        Theme.SYSTEM -> getString(R.string.settings_theme_system)
-        Theme.BATTERY_SAVER -> getString(R.string.settings_theme_battery)
+    private fun getTitleForLanguage(theme: Languages) = when (theme) {
+        Languages.ENGLISH -> Languages.ENGLISH.name
+        Languages.CHINESE -> Languages.CHINESE.name
+        Languages.BURMESE -> Languages.BURMESE.name
     }
 
     companion object {
         fun newInstance() = LanguageSettingDialogFragment()
     }
 
-    private data class ThemeHolder(val theme: Theme, val title: String) {
+    private data class LanguageHolder(val theme: Languages, val title: String) {
         override fun toString(): String = title
     }
 }

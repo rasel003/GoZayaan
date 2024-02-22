@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
+import com.rasel.androidbaseapp.data.models.Languages
 import com.rasel.androidbaseapp.data.models.Theme
 import com.rasel.androidbaseapp.domain.interactor.GetSettingsUseCase
 import com.rasel.androidbaseapp.domain.interactor.SetThemeUseCase
+import com.rasel.androidbaseapp.domain.interactor.settings.GetAvailableLanguagesUseCase
 import com.rasel.androidbaseapp.domain.interactor.settings.GetAvailableThemesUseCase
 import com.rasel.androidbaseapp.domain.interactor.settings.GetThemeUseCase
 import com.rasel.androidbaseapp.domain.models.Settings
@@ -34,6 +36,7 @@ class SettingsViewModel @Inject constructor(
     private val getSettingsUseCase: GetSettingsUseCase,
     val setThemeUseCase: SetThemeUseCase,
     getAvailableThemesUseCase: GetAvailableThemesUseCase,
+    getAvailableLanguagesUseCase: GetAvailableLanguagesUseCase,
     getThemeUseCase: GetThemeUseCase,
     private val preferencesHelper: PreferenceProvider
 ) : BaseViewModel(contextProvider) {
@@ -57,6 +60,10 @@ class SettingsViewModel @Inject constructor(
     val availableThemes: LiveData<List<Theme>> = liveData {
         emit(getAvailableThemesUseCase(Unit).successOr(emptyList()))
     }
+// Theme setting
+    val availableLanguage: LiveData<List<Languages>> = liveData {
+        emit(getAvailableLanguagesUseCase(Unit).successOr(emptyList()))
+    }
 
     override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         val message = ExceptionHandler.parse(exception)
@@ -66,11 +73,11 @@ class SettingsViewModel @Inject constructor(
     fun getSettings() {
         _settings.postValue(SettingUIModel.Loading)
         launchCoroutineIO {
-            loadCharacters()
+            loadSettings()
         }
     }
 
-    private suspend fun loadCharacters() {
+    private suspend fun loadSettings() {
         getSettingsUseCase(preferencesHelper.isNightMode).collect {
             _settings.postValue(SettingUIModel.Success(it))
         }
