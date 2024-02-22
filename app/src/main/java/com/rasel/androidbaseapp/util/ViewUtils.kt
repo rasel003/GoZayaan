@@ -20,6 +20,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -42,7 +46,7 @@ fun Context.toastColorful(message: String) {
 
         //Gets the actual oval background of the Toast then sets the colour filter
         background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
-      //  background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.BLACK, BlendModeCompat.SRC_IN)
+        //  background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.BLACK, BlendModeCompat.SRC_IN)
 
         //Gets the TextView from the Toast so it can be edited
         findViewById<TextView>(android.R.id.message).apply {
@@ -76,6 +80,7 @@ fun ProgressBar.show() {
 fun ProgressBar.hide() {
     visibility = View.GONE
 }
+
 /**
  * Shorthand extension function to make view gone
  */
@@ -101,7 +106,8 @@ fun View.snackBar(message: String) {
 
 fun Context.isNetworkAvailable(): Boolean {
     val applicationContext = this.applicationContext
-    val connectivityManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager =
+        applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         val nw = connectivityManager.activeNetwork ?: return false
@@ -127,61 +133,6 @@ val options = navOptions {
         popExit = R.anim.slide_out_right
     }
 }
-
-fun String.convertDate(inFormat: String, outFormat: String): String {
-    val sdf = SimpleDateFormat(inFormat, Locale.US)
-    var formattedDate = "N/A"
-    try {
-        val convertedDate = sdf.parse(this) ?: return "N/A"
-        formattedDate = SimpleDateFormat(outFormat, Locale.US).format(convertedDate)
-    } catch (e: ParseException) {
-        e.printStackTrace()
-    }
-    return formattedDate
-}
-
-fun calculateTotalDays(endDate: String, startDate: String, datePattern: String): Int {
-
-    val dateFormat = SimpleDateFormat(datePattern, Locale.US)
-
-    val startD = dateFormat.parse(startDate)
-
-    val endD = dateFormat.parse(endDate)
-
-    return if (startD == null || endD == null) {
-        0
-    } else {
-        val intervalTime = endD.time - startD.time
-
-        val intervalDays = TimeUnit.DAYS.convert(intervalTime, TimeUnit.MILLISECONDS)
-
-        intervalDays.toInt() + 1
-    }
-}
-
-fun Context.getRandomMaterialColor(typeColor: String): Int {
-    var returnColor = Color.GRAY
-    val arrayId = resources.getIdentifier("mdcolor_$typeColor", "array", packageName)
-
-    if (arrayId != 0) {
-        val colors = resources.obtainTypedArray(arrayId)
-        val index = (Math.random() * colors.length()).toInt()
-        returnColor = colors.getColor(index, Color.GRAY)
-        colors.recycle()
-    }
-    return returnColor
-}
-
-@ColorInt
-fun Context.getColorFromAttr(
-    @AttrRes attrColor: Int,
-    typedValue: TypedValue = TypedValue(),
-    resolveRefs: Boolean = true
-): Int {
-    theme.resolveAttribute(attrColor, typedValue, resolveRefs)
-    return typedValue.data
-}
-
 
 fun getDatePickerDialog(
     textView: TextView,
@@ -224,23 +175,76 @@ fun String.capitalizeFirstCharacter(): String {
     return substring(0, 1).toUpperCase() + substring(1)
 }
 
-fun TextInputEditText.disableError(view : TextInputLayout){
+fun TextInputEditText.disableError(view: TextInputLayout) {
 
 }
 
-fun Context.showPermissionRequestDialog(
-    title: String,
-    body: String,
-    callback: () -> Unit
+
+
+fun expandAndCollapseButtonWithRecyclerview(
+    recyclerView: RecyclerView,
+    fab: ExtendedFloatingActionButton
 ) {
-    AlertDialog.Builder(this).also {
-        it.setTitle(title)
-        it.setMessage(body)
-        it.setPositiveButton("Ok") { _, _ ->
-            callback()
+    recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            /*if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+            binding.btnAddPatient.extend();
+        }*/
+            super.onScrollStateChanged(recyclerView, newState)
         }
-    }.create().show()
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            /*if (dy > 0) {
+            binding.fabCreate.shrink();
+        } else {
+            binding.fabCreate.extend();
+        }*/
+
+            // if the recycler view is scrolled
+            // above shrink the FAB
+            if (dy > 10 && fab.isExtended) {
+                fab.shrink()
+            }
+
+            // if the recycler view is scrolled
+            // above extend the FAB
+            if (dy < -10 && !fab.isExtended) {
+                fab.extend()
+            }
+
+            // of the recycler view is at the first
+            // item always extend the FAB
+            if (!recyclerView.canScrollVertically(-1)) {
+                fab.extend()
+            }
+        }
+    })
 }
 
-fun Context.permissionGranted(permission: String) =
-    ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+fun addOrRemoveElevationAndStroke(
+    add: Boolean,
+    containerView: MaterialCardView,
+    mContext: Context?
+) {
+    if (add) {
+        containerView.cardElevation = 4f
+        containerView.strokeColor = ContextCompat.getColor(mContext!!, R.color.white_400)
+        containerView.strokeWidth = 2
+        val shapeAppearanceModel = ShapeAppearanceModel.builder(
+            mContext,
+            R.style.ShapeAppearance_MaterialComponents_MediumComponent,
+            R.style.ShapeAppearance_App_Card_TopRadius
+        ).build()
+        containerView.shapeAppearanceModel = shapeAppearanceModel
+    } else {
+        containerView.cardElevation = 0f
+        containerView.strokeColor = ContextCompat.getColor(mContext!!, R.color.white_color)
+        containerView.strokeWidth = 0
+        val shapeAppearanceModel = ShapeAppearanceModel.builder(
+            mContext,
+            R.style.ShapeAppearance_MaterialComponents_MediumComponent,
+            R.style.ShapeAppearance_App_Image_WithOutRounded
+        ).build()
+        containerView.shapeAppearanceModel = shapeAppearanceModel
+    }
+}

@@ -6,19 +6,34 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.provider.OpenableColumns
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.graphics.drawable.DrawableCompat
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okio.BufferedSink
 import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 object FileUtils {
@@ -34,6 +49,18 @@ object FileUtils {
     const val PPTX = "application/vnd.openxmlformats-officedocument.presentationml.presentation"
     const val IMAGE = "image/*"
     const val AUDIO = "audio/*"
+
+    fun Context.getFileName(uri: Uri): String? = when (uri.scheme) {
+        ContentResolver.SCHEME_CONTENT -> getContentFileName(uri)
+        else -> uri.path?.let(::File)?.name
+    }
+
+    private fun Context.getContentFileName(uri: Uri): String? = runCatching {
+        contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+            cursor.moveToFirst()
+            return@use cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME).let(cursor::getString)
+        }
+    }.getOrNull()
 
     fun commonDocumentDirPath(folderName: String): File {
         val dir: File = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -254,5 +281,321 @@ object FileUtils {
             }
         }
         context.registerReceiver(onComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+    }
+
+    @JvmStatic
+    fun comPressImage(imagePath: String?): File? {
+        var outputFile: File? = null
+        val mImageFile = File(imagePath)
+        val options = BitmapFactory.Options()
+        options.inSampleSize = 4
+        try {
+            val myBitmap =
+                BitmapFactory.decodeStream(FileInputStream(mImageFile), null, options)
+            val baos = ByteArrayOutputStream()
+            myBitmap!!.compress(Bitmap.CompressFormat.PNG, 90, baos)
+            val imageBytes = baos.toByteArray()
+            val compressedBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            // create a new file with these compressed bitmap and saved it to phone memory.
+            outputFile = savePicture(compressedBitmap)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+        return outputFile
+    }
+
+    fun getImageFile(imagePath: String?): File? {
+        var outputFile: File? = null
+        val mImageFile = File(imagePath)
+        val options = BitmapFactory.Options()
+        options.inSampleSize = 4
+        try {
+            val myBitmap =
+                BitmapFactory.decodeStream(FileInputStream(mImageFile), null, options)
+            val baos = ByteArrayOutputStream()
+            myBitmap!!.compress(Bitmap.CompressFormat.PNG, 90, baos)
+            val imageBytes = baos.toByteArray()
+            val compressedBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            // create a new file with these compressed bitmap and saved it to phone memory.
+            outputFile = savePicture(compressedBitmap)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+        return outputFile
+    }
+
+    private fun savePicture(bitmap: Bitmap): File {
+        val mediaStorageDir = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+            "orko_photo"
+        )
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.e("Directory Failed: ", "Failed to Make Dir")
+            }
+        }
+        // Create a media file name
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+        val fileName = "orko_$timeStamp.jpg"
+        val mediaFile = File(mediaStorageDir.path + File.separator + fileName)
+        try {
+            val fos = FileOutputStream(mediaFile)
+            val bo = bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos)
+            //fos.write(imageBytes);
+            //fos.flush();
+            fos.close()
+        } catch (e: IOException) {
+            Log.e("Error", e.message!!)
+        }
+        return mediaFile
+    }
+
+    fun getBlurBitmap(sentBitmap: Bitmap, scale: Float, radius: Int): Bitmap? {
+        var sentBitmap = sentBitmap
+        val width = Math.round(sentBitmap.width * scale)
+        val height = Math.round(sentBitmap.height * scale)
+        sentBitmap = Bitmap.createScaledBitmap(sentBitmap, width, height, true)
+        val bitmap = sentBitmap.copy(sentBitmap.config, true)
+        if (radius < 1) {
+            return null
+        }
+        val w = bitmap.width
+        val h = bitmap.height
+        val pix = IntArray(w * h)
+        bitmap.getPixels(pix, 0, w, 0, 0, w, h)
+        val wm = w - 1
+        val hm = h - 1
+        val wh = w * h
+        val div = radius + radius + 1
+        val r = IntArray(wh)
+        val g = IntArray(wh)
+        val b = IntArray(wh)
+        var rsum: Int
+        var gsum: Int
+        var bsum: Int
+        var x: Int
+        var y: Int
+        var i: Int
+        var p: Int
+        var yp: Int
+        var yi: Int
+        var yw: Int
+        val vmin = IntArray(Math.max(w, h))
+        var divsum = div + 1 shr 1
+        divsum *= divsum
+        val dv = IntArray(256 * divsum)
+        i = 0
+        while (i < 256 * divsum) {
+            dv[i] = i / divsum
+            i++
+        }
+        yi = 0
+        yw = yi
+        val stack = Array(div) {
+            IntArray(
+                3
+            )
+        }
+        var stackpointer: Int
+        var stackstart: Int
+        var sir: IntArray
+        var rbs: Int
+        val r1 = radius + 1
+        var routsum: Int
+        var goutsum: Int
+        var boutsum: Int
+        var rinsum: Int
+        var ginsum: Int
+        var binsum: Int
+        y = 0
+        while (y < h) {
+            bsum = 0
+            gsum = bsum
+            rsum = gsum
+            boutsum = rsum
+            goutsum = boutsum
+            routsum = goutsum
+            binsum = routsum
+            ginsum = binsum
+            rinsum = ginsum
+            i = -radius
+            while (i <= radius) {
+                p = pix[yi + Math.min(wm, Math.max(i, 0))]
+                sir = stack[i + radius]
+                sir[0] = p and 0xff0000 shr 16
+                sir[1] = p and 0x00ff00 shr 8
+                sir[2] = p and 0x0000ff
+                rbs = r1 - Math.abs(i)
+                rsum += sir[0] * rbs
+                gsum += sir[1] * rbs
+                bsum += sir[2] * rbs
+                if (i > 0) {
+                    rinsum += sir[0]
+                    ginsum += sir[1]
+                    binsum += sir[2]
+                } else {
+                    routsum += sir[0]
+                    goutsum += sir[1]
+                    boutsum += sir[2]
+                }
+                i++
+            }
+            stackpointer = radius
+            x = 0
+            while (x < w) {
+                r[yi] = dv[rsum]
+                g[yi] = dv[gsum]
+                b[yi] = dv[bsum]
+                rsum -= routsum
+                gsum -= goutsum
+                bsum -= boutsum
+                stackstart = stackpointer - radius + div
+                sir = stack[stackstart % div]
+                routsum -= sir[0]
+                goutsum -= sir[1]
+                boutsum -= sir[2]
+                if (y == 0) {
+                    vmin[x] = Math.min(x + radius + 1, wm)
+                }
+                p = pix[yw + vmin[x]]
+                sir[0] = p and 0xff0000 shr 16
+                sir[1] = p and 0x00ff00 shr 8
+                sir[2] = p and 0x0000ff
+                rinsum += sir[0]
+                ginsum += sir[1]
+                binsum += sir[2]
+                rsum += rinsum
+                gsum += ginsum
+                bsum += binsum
+                stackpointer = (stackpointer + 1) % div
+                sir = stack[stackpointer % div]
+                routsum += sir[0]
+                goutsum += sir[1]
+                boutsum += sir[2]
+                rinsum -= sir[0]
+                ginsum -= sir[1]
+                binsum -= sir[2]
+                yi++
+                x++
+            }
+            yw += w
+            y++
+        }
+        x = 0
+        while (x < w) {
+            bsum = 0
+            gsum = bsum
+            rsum = gsum
+            boutsum = rsum
+            goutsum = boutsum
+            routsum = goutsum
+            binsum = routsum
+            ginsum = binsum
+            rinsum = ginsum
+            yp = -radius * w
+            i = -radius
+            while (i <= radius) {
+                yi = Math.max(0, yp) + x
+                sir = stack[i + radius]
+                sir[0] = r[yi]
+                sir[1] = g[yi]
+                sir[2] = b[yi]
+                rbs = r1 - Math.abs(i)
+                rsum += r[yi] * rbs
+                gsum += g[yi] * rbs
+                bsum += b[yi] * rbs
+                if (i > 0) {
+                    rinsum += sir[0]
+                    ginsum += sir[1]
+                    binsum += sir[2]
+                } else {
+                    routsum += sir[0]
+                    goutsum += sir[1]
+                    boutsum += sir[2]
+                }
+                if (i < hm) {
+                    yp += w
+                }
+                i++
+            }
+            yi = x
+            stackpointer = radius
+            y = 0
+            while (y < h) {
+
+                // Preserve alpha channel: ( 0xff000000 & pix[yi] )
+                pix[yi] =
+                    -0x1000000 and pix[yi] or (dv[rsum] shl 16) or (dv[gsum] shl 8) or dv[bsum]
+                rsum -= routsum
+                gsum -= goutsum
+                bsum -= boutsum
+                stackstart = stackpointer - radius + div
+                sir = stack[stackstart % div]
+                routsum -= sir[0]
+                goutsum -= sir[1]
+                boutsum -= sir[2]
+                if (x == 0) {
+                    vmin[y] = Math.min(y + r1, hm) * w
+                }
+                p = x + vmin[y]
+                sir[0] = r[p]
+                sir[1] = g[p]
+                sir[2] = b[p]
+                rinsum += sir[0]
+                ginsum += sir[1]
+                binsum += sir[2]
+                rsum += rinsum
+                gsum += ginsum
+                bsum += binsum
+                stackpointer = (stackpointer + 1) % div
+                sir = stack[stackpointer]
+                routsum += sir[0]
+                goutsum += sir[1]
+                boutsum += sir[2]
+                rinsum -= sir[0]
+                ginsum -= sir[1]
+                binsum -= sir[2]
+                yi += w
+                y++
+            }
+            x++
+        }
+        bitmap.setPixels(pix, 0, w, 0, 0, w, h)
+        return bitmap
+    }
+
+    fun tintAllIcons(menu: Menu?, color: Int) {
+        if (menu != null) {
+            for (i in 0 until menu.size()) {
+                val item = menu.getItem(i)
+                tintMenuItemIcon(color, item)
+            }
+        }
+    }
+
+    fun tintMenuItemIcon(color: Int, item: MenuItem) {
+        val drawable = item.icon
+        if (drawable != null) {
+            val wrapped = DrawableCompat.wrap(drawable)
+            drawable.mutate()
+            DrawableCompat.setTint(wrapped, color)
+            item.setIcon(drawable)
+        }
+    }
+
+    fun changeBackArrowColor(context: AppCompatActivity, color: Int) {
+        val res: Int = context.resources.getIdentifier(
+            "abc_ic_ab_back_material",
+            "drawable",
+            context.packageName
+        )
+        if (res == 0) return
+        val upArrow = ContextCompat.getDrawable(context, res)
+        if (upArrow != null) {
+            upArrow.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+            val supportActionBar = context.supportActionBar
+            supportActionBar?.setHomeAsUpIndicator(upArrow)
+        }
     }
 }

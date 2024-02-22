@@ -358,7 +358,8 @@
         <item name="behavior_draggable">false</item>
         <item name="behavior_hideable">false</item>
         <item name="behavior_peekHeight">2000dp</item>
-        <!--        <item name="backgroundTint">@color/transparent</item>-->
+        <item name="behavior_expandedOffset">50dp</item>
+                <item name="backgroundTint">@color/red</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
     </style>
 

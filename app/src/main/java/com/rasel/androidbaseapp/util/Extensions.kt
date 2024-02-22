@@ -19,6 +19,8 @@ package com.rasel.androidbaseapp.util
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -369,17 +371,7 @@ fun <T> MutableCollection<T>.compatRemoveIf(predicate: (T) -> Boolean): Boolean 
     return removed
 }
 
-/** Reads the color attribute from the theme for given [colorAttributeId] */
-fun Context.getColorFromTheme(colorAttributeId: Int): Int {
-    val typedValue = TypedValue()
-    val typedArray: TypedArray =
-        this.obtainStyledAttributes(
-            typedValue.data, intArrayOf(colorAttributeId)
-        )
-    @ColorInt val color = typedArray.getColor(0, 0)
-    typedArray.recycle()
-    return color
-}
+
 
 
 
@@ -471,9 +463,7 @@ fun <T> MutableLiveData<T>.setValueIfNew(newValue: T) {
 
 // endregion
 
-// region ZonedDateTime
-fun ZonedDateTime.toEpochMilli() = this.toInstant().toEpochMilli()
-// endregion
+
 
 /**
  * Helper to force a when statement to assert all options are matched in a when statement.
@@ -547,155 +537,35 @@ fun Activity.changeStatusBarColor(color: Int, isLight: Boolean) {
     WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = isLight
 }
 
-fun convertDate(date: String, inFormat: String?, outFormat: String?): String? {
-    val sdf = SimpleDateFormat(inFormat, Locale.US)
-    var formattedDate: String? = ""
-    try {
-        val convertedDate = sdf.parse(date)
-        formattedDate = if (convertedDate != null) {
-            SimpleDateFormat(outFormat, Locale.US).format(convertedDate)
-        } else return ""
-    } catch (e: ParseException) {
-        Logger.e(TAG, "convertDate: " + e.message, e)
-    } catch (e: NullPointerException) {
-        Logger.e(TAG, "convertDate: " + e.message, e)
-    }
-    return formattedDate
-}
-
-fun getStringFromDate(date: Date, outFormat: String): String {
-    return SimpleDateFormat(outFormat, Locale.US).format(date)
-}
-
-fun getDateFromTimeInMillis(time: Long): Date {
-    val calendar = Calendar.getInstance()
-    calendar.timeInMillis = time
-    return calendar.time
-}
-
-fun getStringDateFromTimeInMillis(time: Long, outFormat: String): String {
-    val calendar = Calendar.getInstance()
-    calendar.timeInMillis = time
-    return SimpleDateFormat(outFormat, Locale.US).format(calendar.time)
-}
-
-fun getDateFromString(dateText: String, inFormat: String?): Date? {
-    val sdf = SimpleDateFormat(inFormat, Locale.US)
-    return try {
-        sdf.parse(dateText)
-    } catch (e: ParseException) {
-        e.printStackTrace()
-        null
-    }
-}
-
-fun getSavedTimeKey(): String {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        LocalDateTime.now().toString()
-    } else {
-        Date().time.toString()
-    }
-}
-
-//checking if last fetched time exceeded the interval time
-fun isFetchNeeded(savedAt: String): Boolean {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        ChronoUnit.MINUTES.between(
-            LocalDateTime.parse(savedAt),
-            LocalDateTime.now()
-        ) >= MINIMUM_INTERVAL_IN_MINUTE_ORDER
-    } else {
-        val interVal = Date().time - savedAt.toLong()
-        interVal >= MINIMUM_INTERVAL_IN_MINUTE_ORDER * 1000 * 60
-    }
-}
-
-
-fun Context.toastL(message: String) {
-    Toasty.info(this, message, Toast.LENGTH_LONG).show()
-}
-
-fun Context.toastSystemL(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-}
-
-fun Context.toastSystemCopy(message: String) {
-    val toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
-    toast.setGravity(Gravity.TOP, 0, 0);
-    toast.show()
-}
-
-fun Context.toastS(message: String) {
-    Toasty.info(this, message, Toast.LENGTH_SHORT).show()
-}
-
-fun Context.toastError(message: String) {
-    Toasty.error(this, message, Toast.LENGTH_SHORT).show()
-}
-
-fun Context.toastWarning(message: String) {
-    Toasty.warning(this, message, Toast.LENGTH_LONG).show()
-}
-
-fun Context.toastInfo(message: String) {
-    Toasty.info(this, message, Toast.LENGTH_SHORT).show()
-}
-
-fun Context.toastLongInfo(message: String) {
-    Toasty.info(this, message, Toast.LENGTH_LONG).show()
-}
-
-fun Context.toastSuccess(message: String) {
-    Toasty.success(this, message, Toast.LENGTH_LONG).show()
-}
-
-fun Context.toastWarningLong(message: String) {
-    Toasty.warning(this, message, Toast.LENGTH_LONG).show()
-}
-
-fun Context.toastSuccessLong(message: String) {
-    Toasty.success(this, message, Toast.LENGTH_LONG).show()
-}
 
 fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
-fun Activity.hideKeyboard() {
-    val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    //Find the currently focused view, so we can grab the correct window token from it.
-    var view = currentFocus
-    //If no view currently has focus, create a new one, just so we can grab a window token from it
-    if (view == null) {
-        view = View(this)
-    }
-    imm.hideSoftInputFromWindow(view.windowToken, 0)
-}
 
-fun View.hideKeyboardInAndroidFragment() {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(windowToken, 0)
-}
-
-fun View.showKeyboardInAndroidFragment() {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.toggleSoftInput(0, 0)
-}
-
-fun Context.getFileName(uri: Uri): String? = when (uri.scheme) {
-    ContentResolver.SCHEME_CONTENT -> getContentFileName(uri)
-    else -> uri.path?.let(::File)?.name
-}
-
-private fun Context.getContentFileName(uri: Uri): String? = runCatching {
-    contentResolver.query(uri, null, null, null, null)?.use { cursor ->
-        cursor.moveToFirst()
-        return@use cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME).let(cursor::getString)
-    }
-}.getOrNull()
 
 fun String.maskNumber(): String {
     return mapIndexed { index, c ->
         if (index > 3 && length - index > 2) "X" else c
     }.joinToString("")
+}
+
+private fun isValidEmail(email: String): Boolean {
+    //String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+    // final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+    //String emailreg = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+
+    //return EMAIL_ADDRESS_PATTERN.matcher(email).matches();
+    val newEmailPattern =
+        "[\\w\\-+.]+(\\.[\\w-_]+)*@[\\w-]+(\\.[\\w\\-_]+)*(\\.[\\w\\-]{2,})+"
+    //String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\-+\\.+[a-z]+";
+    return email.matches(newEmailPattern.toRegex())
+}
+
+fun copyToClipboard(context: Context, copyText: String?) {
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText("Orko Text", copyText)
+    clipboard.setPrimaryClip(clip)
+    Toasty.success(context, "Copied to Clipboard")
 }
 
 

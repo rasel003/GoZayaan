@@ -86,6 +86,18 @@
         <item name="cornerSize">0dp</item>
     </style>
 
+    <style name="ShapeAppearance.App.Card.TopRadius" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSize">0dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.Image.WithOutRounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/zero_radius</item>
+    </style>
+
     <style name="ShapeAppearance.Button" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">rounded</item>
 
