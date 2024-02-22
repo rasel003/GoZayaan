@@ -142,7 +142,6 @@ fun newStaticLayout(
 }
 
 
-
 /**
  * Alternative to Resources.getDimension() for values that are TYPE_FLOAT.
  */
@@ -331,8 +330,10 @@ fun View.requestApplyInsetsWhenAttached() {
     }
 }*/
 
-private fun createStateForView(view: View) = ViewPaddingState(view.paddingLeft,
-    view.paddingTop, view.paddingRight, view.paddingBottom, view.paddingStart, view.paddingEnd)
+private fun createStateForView(view: View) = ViewPaddingState(
+    view.paddingLeft,
+    view.paddingTop, view.paddingRight, view.paddingBottom, view.paddingStart, view.paddingEnd
+)
 
 data class ViewPaddingState(
     val left: Int,
@@ -370,9 +371,6 @@ fun <T> MutableCollection<T>.compatRemoveIf(predicate: (T) -> Boolean): Boolean 
     }
     return removed
 }
-
-
-
 
 
 /** Convenience for callbacks/listeners whose return value indicates an event was consumed. */
@@ -464,7 +462,6 @@ fun <T> MutableLiveData<T>.setValueIfNew(newValue: T) {
 // endregion
 
 
-
 /**
  * Helper to force a when statement to assert all options are matched in a when statement.
  *
@@ -541,7 +538,6 @@ fun Activity.changeStatusBarColor(color: Int, isLight: Boolean) {
 fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
 
-
 fun String.maskNumber(): String {
     return mapIndexed { index, c ->
         if (index > 3 && length - index > 2) "X" else c
@@ -565,7 +561,7 @@ fun copyToClipboard(context: Context, copyText: String?) {
     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip = ClipData.newPlainText("Orko Text", copyText)
     clipboard.setPrimaryClip(clip)
-    Toasty.success(context, "Copied to Clipboard")
+    context.toastSuccess("Copied to Clipboard")
 }
 
 

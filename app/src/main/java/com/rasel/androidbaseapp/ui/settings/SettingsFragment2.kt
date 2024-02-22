@@ -43,9 +43,9 @@ import com.rasel.androidbaseapp.ui.dialog.DialogForBank
 import com.rasel.androidbaseapp.util.DialogInsurancePolicy
 import com.rasel.androidbaseapp.util.FileUtils
 import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
+import com.rasel.androidbaseapp.util.TimeUtils.getStringDateFromTimeInMillis
 import com.rasel.androidbaseapp.util.getDatePicker
 import com.rasel.androidbaseapp.util.getDateRangePicker
-import com.rasel.androidbaseapp.util.getStringDateFromTimeInMillis
 import com.rasel.androidbaseapp.util.observe
 import com.rasel.androidbaseapp.util.permissionGranted
 import com.rasel.androidbaseapp.util.result.EventObserver

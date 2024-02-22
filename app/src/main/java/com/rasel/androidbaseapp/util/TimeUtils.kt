@@ -83,7 +83,23 @@ object TimeUtils {
         return formattedDate
     }
 
-    fun calculateTotalDays(endDate: String, startDate: String, datePattern: String): Int {
+    /* fun convertDate(date: String, inFormat: String?, outFormat: String?): String? {
+        val sdf = SimpleDateFormat(inFormat, Locale.US)
+        var formattedDate: String? = ""
+        try {
+            val convertedDate = sdf.parse(date)
+            formattedDate = if (convertedDate != null) {
+                SimpleDateFormat(outFormat, Locale.US).format(convertedDate)
+            } else return ""
+        } catch (e: ParseException) {
+            Logger.e(TAG, "convertDate: " + e.message, e)
+        } catch (e: NullPointerException) {
+            Logger.e(TAG, "convertDate: " + e.message, e)
+        }
+        return formattedDate
+    }*/
+
+    /*fun calculateTotalDays(endDate: String, startDate: String, datePattern: String): Int {
 
         val dateFormat = SimpleDateFormat(datePattern, Locale.US)
 
@@ -100,7 +116,7 @@ object TimeUtils {
 
             intervalDays.toInt() + 1
         }
-    }
+    }*/
     fun calculateTotalDays(startDate: String?, endDate: String?, format: String?): Int {
         val dateFormat = SimpleDateFormat(format, Locale.US)
         var startD: Date? = null
@@ -118,21 +134,7 @@ object TimeUtils {
         }
     }
 
-    fun convertDate(date: String, inFormat: String?, outFormat: String?): String? {
-        val sdf = SimpleDateFormat(inFormat, Locale.US)
-        var formattedDate: String? = ""
-        try {
-            val convertedDate = sdf.parse(date)
-            formattedDate = if (convertedDate != null) {
-                SimpleDateFormat(outFormat, Locale.US).format(convertedDate)
-            } else return ""
-        } catch (e: ParseException) {
-            Logger.e(TAG, "convertDate: " + e.message, e)
-        } catch (e: NullPointerException) {
-            Logger.e(TAG, "convertDate: " + e.message, e)
-        }
-        return formattedDate
-    }
+
 
     fun getStringFromDate(date: Date, outFormat: String): String {
         return SimpleDateFormat(outFormat, Locale.US).format(date)

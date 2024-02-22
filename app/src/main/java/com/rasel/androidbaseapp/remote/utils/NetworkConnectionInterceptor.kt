@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import com.rasel.androidbaseapp.util.NoInternetException
+import com.rasel.androidbaseapp.util.isNetworkAvailable
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -14,7 +15,7 @@ class NetworkConnectionInterceptor(context: Context
     private val applicationContext = context.applicationContext
 
       override fun intercept(chain: Interceptor.Chain): Response {
-        if(!isNetworkAvailable()) throw NoInternetException("Make sure you have an active data connection")
+        if(!applicationContext.isNetworkAvailable()) throw NoInternetException("Make sure you have an active data connection")
 
         return chain.proceed(chain.request())
 
@@ -29,7 +30,7 @@ class NetworkConnectionInterceptor(context: Context
           builder.addHeader("Accept", "application/json")*/
 
     }
-    private fun isNetworkAvailable(): Boolean {
+   /* private fun isNetworkAvailable(): Boolean {
 
         val connectivityManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -46,7 +47,7 @@ class NetworkConnectionInterceptor(context: Context
             val nwInfo = connectivityManager.activeNetworkInfo ?: return false
             return nwInfo.isConnected
         }
-    }
+    }*/
 
 }
 

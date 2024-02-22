@@ -7,7 +7,7 @@ import android.content.Intent
 class NetworkChangeReceiver : BroadcastReceiver() {
     private var connectionChangeCallback: ConnectionChangeCallback? = null
     override fun onReceive(context: Context, intent: Intent) {
-        val isConnected = NetworkState.isNetworkAvailable(context)
+        val isConnected = context.isNetworkAvailable()
         if (connectionChangeCallback != null) {
             connectionChangeCallback!!.onConnectionChange(isConnected)
         }
