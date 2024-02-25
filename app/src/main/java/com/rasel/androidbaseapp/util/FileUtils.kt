@@ -35,6 +35,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 object FileUtils {
     private const val TAG = "FileUtils"
@@ -332,7 +333,7 @@ object FileUtils {
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
-                Log.e("Directory Failed: ", "Failed to Make Dir")
+                Timber.tag("Directory Failed: ").e("Failed to Make Dir")
             }
         }
         // Create a media file name
@@ -346,15 +347,15 @@ object FileUtils {
             //fos.flush();
             fos.close()
         } catch (e: IOException) {
-            Log.e("Error", e.message!!)
+            Timber.tag("Error").e(e.message!!)
         }
         return mediaFile
     }
 
     fun getBlurBitmap(sentBitmap: Bitmap, scale: Float, radius: Int): Bitmap? {
         var sentBitmap = sentBitmap
-        val width = Math.round(sentBitmap.width * scale)
-        val height = Math.round(sentBitmap.height * scale)
+        val width = (sentBitmap.width * scale).roundToInt()
+        val height = (sentBitmap.height * scale).roundToInt()
         sentBitmap = Bitmap.createScaledBitmap(sentBitmap, width, height, true)
         val bitmap = sentBitmap.copy(sentBitmap.config, true)
         if (radius < 1) {

@@ -382,7 +382,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     }
 
     private fun downloadFile() {
-        val downLoadUrl = "https://filesamples.com/samples/document/xlsx/sample1.xlsx"
+//        val downLoadUrl = "https://filesamples.com/samples/document/xlsx/sample1.xlsx"
+        val downLoadUrl = "https://sample-videos.com/xls/Sample-Spreadsheet-50000-rows.xls"
+
 //        val downLoadUrl = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
 //        val downLoadUrl = "https://file-examples.com/wp-content/storage/2017/02/file_example_XLSX_5000.xlsx"
 
