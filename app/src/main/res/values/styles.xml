@@ -14,7 +14,6 @@
     </style>
 
 
-
     <!--new style attribute-->
 
     <style name="ThemeOverlay.App.ExposedDropdownMenu" parent="">
@@ -49,12 +48,12 @@
     </style>
 
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
-<!--        <item name="android:textColor">?textColorDefault</item>-->
-<!--        <item name="backgroundTint">?attr/colorPrimaryVariant</item>-->
-<!--        <item name="textAllCaps">true</item>-->
-       <!-- <item name="android:stateListAnimator" tools:ignore="NewApi">
-            @animator/shr_next_button_state_list_anim
-        </item>-->
+        <!--        <item name="android:textColor">?textColorDefault</item>-->
+        <!--        <item name="backgroundTint">?attr/colorPrimaryVariant</item>-->
+        <!--        <item name="textAllCaps">true</item>-->
+        <!-- <item name="android:stateListAnimator" tools:ignore="NewApi">
+             @animator/shr_next_button_state_list_anim
+         </item>-->
     </style>
 
     <style name="Widget.App.Button.Submit" parent="Widget.MaterialComponents.Button">
@@ -116,8 +115,6 @@
     </style>
 
 
-
-
     <style name="NavDrawer">
         <!-- color of text and icon when selected-->
         <item name="colorPrimary">@android:color/holo_red_dark</item>
@@ -146,9 +143,7 @@
         <item name="itemIconTint">@color/color_on_surface_emphasis_medium</item>
     </style>
 
-    <style
-        name="Widget.Owl.BottomNavigationView"
-        parent="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+    <style name="Widget.Owl.BottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
         <item name="labelVisibilityMode">selected</item>
         <item name="itemIconTint">@color/bottom_nav_item</item>
         <item name="itemTextColor">@color/bottom_nav_item</item>
@@ -169,7 +164,7 @@
         <item name="android:textAppearance">@style/TextAppearance.App.Body2</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
         <!--  <item name="chipIconTint">@color/brown</item>-->
-<!--        <item name="chipBackgroundColor">?android:colorBackground</item>-->
+        <!--        <item name="chipBackgroundColor">?android:colorBackground</item>-->
         <item name="chipEndPadding">@dimen/chip_padding</item>
         <item name="chipStartPadding">@dimen/chip_padding</item>
         <item name="chipStrokeWidth">1dp</item>
@@ -179,7 +174,7 @@
         <!--  <item name="chipIcon">@drawable/ic_calendar</item>-->
         <!--  <item name="iconStartPadding">8dp</item>-->
         <item name="android:textColor">?android:attr/textColorPrimary</item>
-<!--        <item name="android:textColor">@color/text_color_chip</item>-->
+        <!--        <item name="android:textColor">@color/text_color_chip</item>-->
         <item name="textAllCaps">true</item>
         <!-- <item name="chipIconSize">16dp</item>
          <item name="closeIconTint">?android:attr/textColorPrimary</item>-->
@@ -275,11 +270,11 @@
     </style>
 
     <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
-       <!-- <item name="colorPrimary">@color/owl_yellow_500</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorOnSurface">@color/black</item>
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>-->
+        <!-- <item name="colorPrimary">@color/owl_yellow_500</item>
+         <item name="colorOnPrimary">@color/white</item>
+         <item name="colorOnSurface">@color/black</item>
+         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>-->
     </style>
 
     <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
@@ -341,8 +336,8 @@
 
 
     <style name="Widget.App.Divider.Surface" parent="">
-        <item name="android:background"> @drawable/divider_rectangle </item>
-        <item name="android:backgroundTint" >@color/color_on_surface_divider</item>
+        <item name="android:background">@drawable/divider_rectangle</item>
+        <item name="android:backgroundTint">@color/color_on_surface_divider</item>
     </style>
 
     <!--    implemented using material design system-->
@@ -355,11 +350,12 @@
     </style>
 
     <style name="Widget.App.ModalBottomSheetDialog.FullScreen" parent="Widget.MaterialComponents.BottomSheet.Modal">
-        <item name="behavior_draggable">false</item>
-        <item name="behavior_hideable">false</item>
-        <item name="behavior_peekHeight">2000dp</item>
-        <item name="behavior_expandedOffset">50dp</item>
-                <item name="backgroundTint">@color/red</item>
+        <!--        <item name="behavior_draggable">false</item>-->
+        <!--        <item name="behavior_hideable">false</item>-->
+        <!--        <item name="behavior_peekHeight">2000dp</item>-->
+        <item name="behavior_expandedOffset">100dp</item>
+        <item name="behavior_fitToContents">false</item>
+        <item name="backgroundTint">@color/red</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
     </style>
 
@@ -368,6 +364,7 @@
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
 
     </style>
+
     <style name="ThemeOverlay.App.BottomSheetDialog.FullScreen" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Widget.App.ModalBottomSheetDialog.FullScreen</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
@@ -411,7 +408,6 @@
     </style>
 
 
-
     <!-- Widget styles -->
 
     <style name="Widget.IOSched" parent="@android:style/Widget.Material" />
@@ -423,8 +419,8 @@
 
     <style name="Widget.IOSched.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:paddingEnd">8dp</item>
-<!--        <item name="contentInsetStartWithNavigation">?sessionListKeyline</item>-->
-<!--        <item name="popupTheme">@style/AppTheme.PopupTheme</item>-->
+        <!--        <item name="contentInsetStartWithNavigation">?sessionListKeyline</item>-->
+        <!--        <item name="popupTheme">@style/AppTheme.PopupTheme</item>-->
         <item name="titleTextAppearance">@style/TextAppearance.IOSched.ToolbarTitle</item>
     </style>
 
@@ -444,7 +440,8 @@
     <!-- Filters -->
     <!-- Easier to extend Chip.Choice because it includes some desired color effects. -->
     <style name="Widget.IOSched.FilterChip" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="android:textAppearance">@style/TextAppearance.IOSched.FilterChip.Selectable</item>
+        <item name="android:textAppearance">@style/TextAppearance.IOSched.FilterChip.Selectable
+        </item>
         <item name="chipBackgroundColor">@color/chip_bg</item>
         <item name="chipIcon">@drawable/asld_chip_icon</item>
         <item name="chipIconVisible">true</item>
@@ -482,8 +479,8 @@
         <item name="android:fontFamily">@font/work_sans</item>
         <item name="android:padding">@dimen/schedule_item_padding_vertical</item>
         <item name="android:textColor">?colorPrimary</item>
-<!--        <item name="timeTextSize">@dimen/time_header_time_text_size</item>-->
-<!--        <item name="meridiemTextSize">@dimen/time_header_meridiem_text_size</item>-->
+        <!--        <item name="timeTextSize">@dimen/time_header_time_text_size</item>-->
+        <!--        <item name="meridiemTextSize">@dimen/time_header_meridiem_text_size</item>-->
     </style>
 
     <!--<style name="Widget.IOSched.DayIndicatorDecoration">
@@ -491,24 +488,24 @@
         <item name="insetVertical">8dp</item>
     </style>-->
 
-   <!-- <style name="Widget.IOSched.DaySeparatorDecoration">
-        <item name="android:width">@dimen/day_header_decor_width</item>
-        <item name="android:height">@dimen/day_header_decor_height</item>
-        <item name="android:fontFamily">@font/work_sans</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="android:textSize">@dimen/day_header_text_size</item>
-        <item name="verticalBias">0.67</item>
-    </style>-->
+    <!-- <style name="Widget.IOSched.DaySeparatorDecoration">
+         <item name="android:width">@dimen/day_header_decor_width</item>
+         <item name="android:height">@dimen/day_header_decor_height</item>
+         <item name="android:fontFamily">@font/work_sans</item>
+         <item name="android:textColor">?android:textColorPrimary</item>
+         <item name="android:textSize">@dimen/day_header_text_size</item>
+         <item name="verticalBias">0.67</item>
+     </style>-->
 
     <!-- Agenda -->
-   <!-- <style name="Widget.IOSched.DateHeaders">
-        <item name="android:width">@dimen/day_header_decor_width</item>
-        <item name="android:height">@dimen/day_header_decor_height</item>
-        <item name="android:fontFamily">@font/work_sans</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="android:textSize">@dimen/day_header_text_size</item>
-        <item name="verticalBias">0.67</item>
-    </style>-->
+    <!-- <style name="Widget.IOSched.DateHeaders">
+         <item name="android:width">@dimen/day_header_decor_width</item>
+         <item name="android:height">@dimen/day_header_decor_height</item>
+         <item name="android:fontFamily">@font/work_sans</item>
+         <item name="android:textColor">?android:textColorPrimary</item>
+         <item name="android:textSize">@dimen/day_header_text_size</item>
+         <item name="verticalBias">0.67</item>
+     </style>-->
 
     <!-- Account dialogs -->
     <style name="Widget.IOSched.BorderlessButton.NormalText" parent="@style/Widget.MaterialComponents.Button.TextButton">
@@ -628,20 +625,20 @@
     </style>-->
 
     <!-- Navigation -->
-  <!--  <style name="Widget.IOSched.NavigationBarContentFrameLayout" parent="android:Widget.Material">
-        <item name="navigationBarBorderColor">?attr/ioschedNavigationBarDividerColor</item>
-        <item name="navigationBarBorderSize">1dp</item>
-    </style>-->
+    <!--  <style name="Widget.IOSched.NavigationBarContentFrameLayout" parent="android:Widget.Material">
+          <item name="navigationBarBorderColor">?attr/ioschedNavigationBarDividerColor</item>
+          <item name="navigationBarBorderSize">1dp</item>
+      </style>-->
 
     <style name="Widget.IOSched.NavigationView" parent="@style/Widget.MaterialComponents.NavigationView">
         <item name="itemBackground">@drawable/navigation_item_background</item>
         <item name="itemHorizontalPadding">@dimen/nav_item_horizontal_padding</item>
     </style>
 
-   <!-- <style name="Widget.IOSched.HashtagIoDecoration">
-        <item name="android:drawable">@drawable/hashtag_io19</item>
-        <item name="margin">@dimen/nav_item_horizontal_padding</item>
-    </style>-->
+    <!-- <style name="Widget.IOSched.HashtagIoDecoration">
+         <item name="android:drawable">@drawable/hashtag_io19</item>
+         <item name="margin">@dimen/nav_item_horizontal_padding</item>
+     </style>-->
 
     <!-- Map -->
     <style name="Widget.IOSched.Map" />

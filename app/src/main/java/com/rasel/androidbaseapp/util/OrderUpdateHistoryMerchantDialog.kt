@@ -1,11 +1,15 @@
 package com.rasel.androidbaseapp.util
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.rasel.androidbaseapp.EspressoIdlingResource
 import com.rasel.androidbaseapp.R
@@ -26,10 +30,10 @@ class OrderUpdateHistoryMerchantDialog : BottomSheetDialogFragment() {
         return R.style.ThemeOverlay_App_BottomSheetDialog_FullScreen
     }
 
-   /* override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.ModalBottomSheetDialog2)
-    }*/
+    /* override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setStyle(STYLE_NORMAL, R.style.ModalBottomSheetDialog2)
+     }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +45,7 @@ class OrderUpdateHistoryMerchantDialog : BottomSheetDialogFragment() {
         orderId = arguments?.getString(KEY_ORDER_ID)
 
         orderId?.let {
-            binding.tvOrderId.text = it
+//            binding.tvTitle.text = it
         } ?: kotlin.run {
             dismiss()
         }
@@ -56,8 +60,14 @@ class OrderUpdateHistoryMerchantDialog : BottomSheetDialogFragment() {
 
         }
         binding.recyclerview.adapter = adapter
-        subscribeUi(adapter)
 
+        val bottomSheetBehavior = BottomSheetBehavior.from(requireView().parent as View)
+//        bottomSheetBehavior.expandedOffset = 100 // Set expanded offset to 100 pixels
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//        bottomSheetBehavior.isFitToContents = false
+//        bottomSheetBehavior.expandedOffset = 200.dp
+
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: PlantAdapter) {

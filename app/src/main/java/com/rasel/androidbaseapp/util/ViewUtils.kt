@@ -2,6 +2,7 @@ package com.rasel.androidbaseapp.util
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.net.ConnectivityManager
@@ -169,7 +170,10 @@ fun TextInputEditText.disableError(view: TextInputLayout) {
 
 }
 
-
+val Int.dp: Int
+get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+val Int.px: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
 fun expandAndCollapseButtonWithRecyclerview(
     recyclerView: RecyclerView,
