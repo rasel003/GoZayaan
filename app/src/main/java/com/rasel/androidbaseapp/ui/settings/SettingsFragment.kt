@@ -35,9 +35,8 @@ import com.rasel.androidbaseapp.ui.dialog.DialogForBank
 import com.rasel.androidbaseapp.util.DialogInsurancePolicy
 import com.rasel.androidbaseapp.util.FileUtils
 import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
+import com.rasel.androidbaseapp.util.TimeUtils
 import com.rasel.androidbaseapp.util.TimeUtils.getStringDateFromTimeInMillis
-import com.rasel.androidbaseapp.util.getDatePicker
-import com.rasel.androidbaseapp.util.getDateRangePicker
 import com.rasel.androidbaseapp.util.observe
 import com.rasel.androidbaseapp.util.permissionGranted
 import com.rasel.androidbaseapp.util.result.EventObserver
@@ -275,7 +274,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
         calendar.add(Calendar.DAY_OF_MONTH, -1)
         val yesterday = calendar.timeInMillis
-        dateRangePicker = getDateRangePicker()
+        dateRangePicker = TimeUtils.getDateRangePicker()
             .setSelection(
                 Pair(yesterday, MaterialDatePicker.todayInUtcMilliseconds())
             ).build()
@@ -296,7 +295,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     }
 
     private fun setDateSelection() {
-        datePicker = getDatePicker(isTodaySelected = true, fromNow = true, futureDate = 15)
+        datePicker = TimeUtils.getDatePicker(isTodaySelected = true, fromNow = true, futureDate = 15)
         datePicker.addOnPositiveButtonClickListener {
             selectedDate = getStringDateFromTimeInMillis(it, "yyyy-MM-dd")
             binding.tilDateSelection.editText?.setText(

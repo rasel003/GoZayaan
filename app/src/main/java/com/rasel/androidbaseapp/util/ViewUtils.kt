@@ -125,42 +125,6 @@ val options = navOptions {
     }
 }
 
-fun getDatePickerDialog(
-    textView: TextView,
-    year: Int = Calendar.getInstance().get(Calendar.YEAR),
-    month: Int = Calendar.getInstance().get(Calendar.MONTH),
-    day: Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-): DatePickerDialog {
-
-    val datePickerDialog = DatePickerDialog(
-        textView.context,
-        { view, selectedYear, monthOfYear, dayOfMonth ->
-            val selectedMonth = monthOfYear + 1
-            val selectedDate = "$dayOfMonth/$selectedMonth/$selectedYear"
-            textView.text = selectedDate
-        },
-        year,
-        month,
-        day
-    )
-    datePickerDialog.setOnShowListener {
-        // dpd.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.transparent))
-        // dpd.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundResource(android.R.color.transparent)
-
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)
-            .setTextColor(textView.context.getColorFromAttr(R.attr.colorSecondary))
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)
-            .setTextColor(textView.context.getColorFromAttr(R.attr.colorSecondary))
-
-    }
-    //  dpd.datePicker.minDate = Calendar.getInstance().timeInMillis - 1000
-
-    textView.setOnClickListener {
-        datePickerDialog.show()
-    }
-
-    return datePickerDialog
-}
 
 fun String.capitalizeFirstCharacter(): String {
     return substring(0, 1).uppercase(Locale.ROOT) + substring(1)

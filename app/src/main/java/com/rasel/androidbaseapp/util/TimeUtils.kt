@@ -16,6 +16,7 @@
 
 package com.rasel.androidbaseapp.util
 
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Build
@@ -24,6 +25,12 @@ import android.view.View
 import android.widget.EditText
 import android.widget.NumberPicker
 import android.widget.TextView
+import androidx.core.util.Pair
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.CompositeDateValidator
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.orhanobut.logger.Logger
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.data.models.ConferenceDay
@@ -279,6 +286,115 @@ object TimeUtils {
         }
         cancel.setOnClickListener { v: View? -> d.dismiss() }
         d.show()
+    }
+
+
+    fun getDatePickerDialog(
+        textView: TextView,
+        year: Int = Calendar.getInstance().get(Calendar.YEAR),
+        month: Int = Calendar.getInstance().get(Calendar.MONTH),
+        day: Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+    ): DatePickerDialog {
+
+        val datePickerDialog = DatePickerDialog(
+            textView.context,
+            { view, selectedYear, monthOfYear, dayOfMonth ->
+                val selectedMonth = monthOfYear + 1
+                val selectedDate = "$dayOfMonth/$selectedMonth/$selectedYear"
+                textView.text = selectedDate
+            },
+            year,
+            month,
+            day
+        )
+        datePickerDialog.setOnShowListener {
+            // dpd.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.transparent))
+            // dpd.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundResource(android.R.color.transparent)
+
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)
+                .setTextColor(textView.context.getColorFromAttr(R.attr.colorSecondary))
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)
+                .setTextColor(textView.context.getColorFromAttr(R.attr.colorSecondary))
+
+        }
+        //  dpd.datePicker.minDate = Calendar.getInstance().timeInMillis - 1000
+
+        textView.setOnClickListener {
+            datePickerDialog.show()
+        }
+
+        return datePickerDialog
+    }
+
+    @JvmOverloads
+    fun getDatePicker(
+        fromNow: Boolean = false,
+        futureDate: Int = 0,
+        isTodaySelected: Boolean = true
+    ): MaterialDatePicker<Long> {
+        val calendar = Calendar.getInstance(Locale.getDefault())
+        val constraintsBuilder = CalendarConstraints.Builder()
+        val listValidators = ArrayList<CalendarConstraints.DateValidator>()
+        if (fromNow) {
+            //  CalendarConstraints.DateValidator dateValidatorMin = DateValidatorPointForward.from(calendar.getTimeInMillis());
+            listValidators.add(DateValidatorPointForward.now())
+            constraintsBuilder.setStart(calendar.timeInMillis)
+        }
+        if (futureDate > 0) {
+            calendar.add(Calendar.DATE, futureDate)
+            constraintsBuilder.setEnd(calendar.timeInMillis)
+            val dateValidatorMax: CalendarConstraints.DateValidator =
+                DateValidatorPointBackward.before(calendar.timeInMillis)
+            listValidators.add(dateValidatorMax)
+        }
+        val validators = CompositeDateValidator.allOf(listValidators)
+        constraintsBuilder.setValidator(validators)
+        val builder = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select date")
+            .setCalendarConstraints(constraintsBuilder.build())
+//        .setTheme(R.style.ThemeOverlay_App_DatePicker)
+        if (isTodaySelected) {
+            builder.setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+        }
+        return builder.build()
+    }
+
+    @JvmOverloads
+    fun getDateRangePicker(
+        fromNow: Boolean = false,
+        futureDate: Int = 0,
+        currentMonthSelected: Boolean = true
+    ): MaterialDatePicker.Builder<Pair<Long, Long>> {
+        val calendar = Calendar.getInstance(Locale.getDefault())
+        val constraintsBuilder = CalendarConstraints.Builder()
+        val listValidators = ArrayList<CalendarConstraints.DateValidator>()
+        if (fromNow) {
+            //  CalendarConstraints.DateValidator dateValidatorMin = DateValidatorPointForward.from(calendar.getTimeInMillis());
+            listValidators.add(DateValidatorPointForward.now())
+            constraintsBuilder.setStart(calendar.timeInMillis)
+        }
+        if (futureDate > 0) {
+            calendar.add(Calendar.DATE, futureDate)
+            constraintsBuilder.setEnd(calendar.timeInMillis)
+            val dateValidatorMax: CalendarConstraints.DateValidator =
+                DateValidatorPointBackward.before(calendar.timeInMillis)
+            listValidators.add(dateValidatorMax)
+        }
+        val validators = CompositeDateValidator.allOf(listValidators)
+        constraintsBuilder.setValidator(validators)
+        val builder = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText("Select dates")
+            .setCalendarConstraints(constraintsBuilder.build())
+            .setTheme(R.style.ThemeOverlay_App_DatePicker)
+        if (currentMonthSelected) {
+            builder.setSelection(
+                Pair(
+                    MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                    MaterialDatePicker.todayInUtcMilliseconds()
+                )
+            )
+        }
+        return builder
     }
 
 }
