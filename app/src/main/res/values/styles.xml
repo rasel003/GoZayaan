@@ -240,13 +240,8 @@
 
     <style name="MyDatePicker" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="colorAccent">#ff6d06</item>
-        <item name="android:buttonBarPositiveButtonStyle" tools:targetApi="lollipop">
-            @style/DialogBut
-        </item>
-        <item name="android:buttonBarNegativeButtonStyle" tools:targetApi="lollipop">
-            @style/DialogBut
-        </item>
-
+        <item name="android:buttonBarPositiveButtonStyle" >@style/DialogBut</item>
+        <item name="android:buttonBarNegativeButtonStyle" >@style/DialogBut</item>
     </style>
 
     <style name="DialogBut" parent="Widget.MaterialComponents.Button.TextButton.Dialog">

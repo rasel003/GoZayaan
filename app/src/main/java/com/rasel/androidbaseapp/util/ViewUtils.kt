@@ -163,7 +163,7 @@ fun getDatePickerDialog(
 }
 
 fun String.capitalizeFirstCharacter(): String {
-    return substring(0, 1).toUpperCase() + substring(1)
+    return substring(0, 1).uppercase(Locale.ROOT) + substring(1)
 }
 
 fun TextInputEditText.disableError(view: TextInputLayout) {
@@ -175,6 +175,8 @@ get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 val Int.px: Int
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
+
+// expand or collapse fab with recyclerview
 fun expandAndCollapseButtonWithRecyclerview(
     recyclerView: RecyclerView,
     fab: ExtendedFloatingActionButton
