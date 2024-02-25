@@ -16,6 +16,7 @@ class PreferenceProvider(
         private const val PREF_KEY_LAST_CACHE = "last_cache"
         private const val PREF_KEY_NIGHT_MODE = "night_mode"
         const val PREF_DARK_MODE_ENABLED = "pref_dark_mode"
+        private const val TOKEN_KEY = "jwt_token"
     }
 
     private val appContext = context.applicationContext

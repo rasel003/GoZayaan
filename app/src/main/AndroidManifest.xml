@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App.DayNight">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.MainActivity3"
             android:label="@string/app_name">
 
         </activity>

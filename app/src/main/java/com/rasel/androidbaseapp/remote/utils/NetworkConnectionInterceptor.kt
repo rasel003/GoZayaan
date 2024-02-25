@@ -1,53 +1,47 @@
 package com.rasel.androidbaseapp.remote.utils
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
-import com.rasel.androidbaseapp.util.NoInternetException
+import com.rasel.androidbaseapp.util.TokenManager
 import com.rasel.androidbaseapp.util.isNetworkAvailable
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
-class NetworkConnectionInterceptor(context: Context
+class NetworkConnectionInterceptor @Inject constructor(
+    private val tokenManager: TokenManager,
+    context: Context
 ) : Interceptor {
 
     private val applicationContext = context.applicationContext
 
-      override fun intercept(chain: Interceptor.Chain): Response {
-        if(!applicationContext.isNetworkAvailable()) throw NoInternetException("Make sure you have an active data connection")
+    override fun intercept(chain: Interceptor.Chain): Response {
+       /* if (!applicationContext.isNetworkAvailable()) throw NoInternetException("Make sure you have an active data connection")
+        return chain.proceed(chain.request())*/
 
-        return chain.proceed(chain.request())
+        val token = runBlocking {
+            tokenManager.getToken().first()
+        }
 
-      /*    var request = chain.request()
-          request = if (isNetworkAvailable())
-              request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
-          else
-              request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build()
-        return  chain.proceed(request)*/
+        var request = chain.request()
+        request = if (applicationContext.isNetworkAvailable()) {
+            request.newBuilder()
+                .header("Cache-Control", "public, max-age=" + 5)
+                .header("Authorization", "Bearer $token")
+                .build()
+        } else {
+            request.newBuilder()
+                .header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7)
+                .build()
+        }
+        return chain.proceed(request)
 
-         /* val builder = chain.request().newBuilder()
-          builder.addHeader("Accept", "application/json")*/
+        /* val builder = chain.request().newBuilder()
+         builder.addHeader("Accept", "application/json")*/
 
     }
-   /* private fun isNetworkAvailable(): Boolean {
 
-        val connectivityManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val nw      = connectivityManager.activeNetwork ?: return false
-            val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
-            return when {
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                //for other device how are able to connect with Ethernet
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-                else -> false
-            }
-        } else {
-            val nwInfo = connectivityManager.activeNetworkInfo ?: return false
-            return nwInfo.isConnected
-        }
-    }*/
 
 }
 

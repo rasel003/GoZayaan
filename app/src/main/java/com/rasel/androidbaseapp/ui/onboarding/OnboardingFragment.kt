@@ -30,6 +30,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.viewModels
 import com.rasel.androidbaseapp.databinding.FragmentOnboardingBinding
 import com.rasel.androidbaseapp.ui.MainActivity
+import com.rasel.androidbaseapp.ui.MainActivity3
 import com.rasel.androidbaseapp.util.result.EventObserver
 import com.rasel.androidbaseapp.util.ViewPagerPager
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,7 +81,7 @@ class OnboardingFragment : Fragment() {
 
         onboardingViewModel.navigateToMainActivity.observe(viewLifecycleOwner, EventObserver {
             requireActivity().run {
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, MainActivity3::class.java))
                 finish()
             }
         })
