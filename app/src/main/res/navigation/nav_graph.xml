@@ -73,7 +73,11 @@
         android:id="@+id/nav_settings"
         android:name="com.rasel.androidbaseapp.ui.settings.SettingsFragment"
         android:label="Settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_nav_settings_to_nav_faq"
+            app:destination="@id/nav_faq" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_character_list"
@@ -107,5 +111,10 @@
     <action android:id="@+id/action_global_counter_fragment" app:destination="@id/counter_fragment"/>
     <include app:graph="@navigation/owl_graph" />
     <include app:graph="@navigation/reply_graph" />
+    <fragment
+        android:id="@+id/nav_faq"
+        android:name="com.rasel.androidbaseapp.ui.faq.FaqFragment"
+        tools:layout="@layout/fragment_info_faq"
+        android:label="FaqFragment" />
 
 </navigation>

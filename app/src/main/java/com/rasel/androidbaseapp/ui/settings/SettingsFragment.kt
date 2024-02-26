@@ -225,6 +225,11 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
                 true
             }
 
+            R.id.action_fag -> {
+                val action = SettingsFragmentDirections.actionNavSettingsToNavFaq()
+                findNavController().navigate(action)
+                return true
+            }
             else -> false
         }
     }
@@ -295,7 +300,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     }
 
     private fun setDateSelection() {
-        datePicker = TimeUtils.getDatePicker(isTodaySelected = true, fromNow = true, futureDate = 15)
+        datePicker =
+            TimeUtils.getDatePicker(isTodaySelected = true, fromNow = true, futureDate = 15)
         datePicker.addOnPositiveButtonClickListener {
             selectedDate = getStringDateFromTimeInMillis(it, "yyyy-MM-dd")
             binding.tilDateSelection.editText?.setText(
@@ -349,12 +355,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         Toast.makeText(requireContext(), bankData?.bankTitle, Toast.LENGTH_SHORT).show()
         dialogForBank.dismiss()
     }
-   // mnopqrs
+    // mnopqrs
 
     private fun checkPermissionAndDownload() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             downloadFile()
-        }else {
+        } else {
             var customPermission: String = Manifest.permission.READ_EXTERNAL_STORAGE
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 customPermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
