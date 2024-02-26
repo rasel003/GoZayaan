@@ -1,7 +1,7 @@
 package com.rasel.androidbaseapp.remote.utils
 
 import android.content.Context
-import com.rasel.androidbaseapp.util.TokenManager
+import com.rasel.androidbaseapp.cache.preferences.TokenManager
 import com.rasel.androidbaseapp.util.isNetworkAvailable
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

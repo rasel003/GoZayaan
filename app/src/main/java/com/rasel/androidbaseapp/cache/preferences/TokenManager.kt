@@ -1,4 +1,4 @@
-package com.rasel.androidbaseapp.util
+package com.rasel.androidbaseapp.cache.preferences
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit

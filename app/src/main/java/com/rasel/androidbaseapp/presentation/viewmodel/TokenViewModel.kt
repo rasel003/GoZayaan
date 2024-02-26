@@ -3,7 +3,7 @@ package com.rasel.androidbaseapp.presentation.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rasel.androidbaseapp.util.TokenManager
+import com.rasel.androidbaseapp.cache.preferences.TokenManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

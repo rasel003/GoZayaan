@@ -16,14 +16,12 @@ import com.rasel.androidbaseapp.remote.api.MainApiService
 import com.rasel.androidbaseapp.remote.repository.CharacterRemoteImp
 import com.rasel.androidbaseapp.remote.repository.LocalizationRemoteImp
 import com.rasel.androidbaseapp.util.AuthAuthenticator
-import com.rasel.androidbaseapp.util.TokenManager
+import com.rasel.androidbaseapp.cache.preferences.TokenManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
 import javax.inject.Singleton
 
 
