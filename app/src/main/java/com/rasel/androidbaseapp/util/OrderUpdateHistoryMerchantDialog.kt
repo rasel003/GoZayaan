@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -52,6 +53,13 @@ class OrderUpdateHistoryMerchantDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Pad the bottom of the ScrollView so that it scrolls up above the nav bar
+        view.doOnApplyWindowInsets { v, insets, padding ->
+            v.updatePaddingRelative(
+                bottom = padding.bottom + insets.systemWindowInsetBottom + 190.dp
+            )
+        }
 
         val adapter = PlantAdapter {
 

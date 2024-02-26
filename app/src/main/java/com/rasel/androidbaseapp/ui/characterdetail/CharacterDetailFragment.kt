@@ -13,6 +13,7 @@ import com.rasel.androidbaseapp.presentation.viewmodel.Bookmark
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterDetailUIModel
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterDetailViewModel
 import com.rasel.androidbaseapp.util.observe
+import com.rasel.androidbaseapp.util.setResizableText
 import com.rasel.androidbaseapp.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -34,6 +35,8 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Bas
         observe(viewModel.getCharacter(), ::onViewStateChange)
         viewModel.getCharacterDetail(args.characterId)
         setUiChangeListeners()
+
+        binding.tvCharacterDetails.setResizableText(getString(R.string.faq_after_dark_program_description), 4, true)
     }
 
     private fun setUiChangeListeners() {

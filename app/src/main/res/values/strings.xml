@@ -556,6 +556,8 @@
     <string name="starting_soon" translation_description="displayed as subtext of session title" translatable="false">Session is starting soon!</string>
     <string name="please_rate_session" translation_description="displayed as subtext of session title for a notification to ask the user to rate the session [CHAR_LIMIT=50]">Please rate session</string>
     <string name="shr_error_password">Password must contain at least 8 characters\n</string>
+    <string name="resizable_text_read_more">... read more</string>
+    <string name="resizable_text_read_less">read less</string>
 
 
 </resources>

@@ -9,8 +9,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageViewCharacter"
-        android:layout_width="200sp"
-        android:layout_height="200dp"
+        android:layout_width="100sp"
+        android:layout_height="100dp"
         android:layout_marginTop="16dp"
         app:cornerFamily="rounded"
         app:cornerSize="10%"
@@ -49,8 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingBottom="25dp"
-                android:textAppearance="?attr/textAppearanceHeadline3"
+                android:textAppearance="?attr/textAppearanceHeadline5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -60,6 +59,7 @@
                 android:id="@+id/textViewGenderLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/character_gender_label"
                 android:textAppearance="?attr/textAppearanceBody1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +70,7 @@
                 android:id="@+id/textViewSpeciesLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/character_species_label"
                 android:textAppearance="?attr/textAppearanceBody1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -141,5 +142,19 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCharacterDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_normal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginEnd="16dp"
+        android:lineSpacingExtra="2dp"
+        tools:text="@string/faq_after_dark_program_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
