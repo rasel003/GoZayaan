@@ -555,6 +555,7 @@
     <string name="session_feedback_notifications" translation_description="Title of notification channel for asking user to rate a session. [CHAR_LIMIT=50]">Session feedback</string>
     <string name="starting_soon" translation_description="displayed as subtext of session title" translatable="false">Session is starting soon!</string>
     <string name="please_rate_session" translation_description="displayed as subtext of session title for a notification to ask the user to rate the session [CHAR_LIMIT=50]">Please rate session</string>
+    <string name="shr_error_password">Password must contain at least 8 characters\n</string>
 
 
 </resources>
