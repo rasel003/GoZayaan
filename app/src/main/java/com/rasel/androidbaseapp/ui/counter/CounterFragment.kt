@@ -22,6 +22,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.rasel.androidbaseapp.databinding.FragmentCounterBinding
+import java.time.Duration
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.TemporalUnit
 
 /**
  * A [Fragment] that displays a list of emails.
@@ -41,4 +49,27 @@ class CounterFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val internationalDateTime = "2024-02-25T00:05:50Z"
+
+        val timestampInstant = Instant.parse(internationalDateTime)
+        val articlePublishedZonedTime = ZonedDateTime.ofInstant(timestampInstant, ZoneId.systemDefault())
+        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+
+        // Get current Instant
+        val currentZonedTime = ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault())
+        //Convert current Instant to local time zone
+        val gapInDays = Duration.between(currentZonedTime, articlePublishedZonedTime).toDays()
+
+
+        //Find difference in current and published date of article
+        val finalDate = when (gapInDays) {
+            0L -> "Today"
+            1L -> "Yesterday"
+            else -> articlePublishedZonedTime.format(dateFormatter)
+        }
+        binding.tvLocalFormat.text = "$internationalDateTime\n = $finalDate"
+    }
 }

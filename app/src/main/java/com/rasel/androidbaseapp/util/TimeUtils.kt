@@ -46,10 +46,14 @@ object TimeUtils {
 
     private const val TAG = "TimeUtils"
 
+    /* const val CONFERENCE_DAY1_END = "2024-02-07T22:00:01-07:00"
+    const val CONFERENCE_DAY1_START = "2024-02-07T07:00:00-07:00"
+     ZonedDateTime.parse(CONFERENCE_DAY3_START)  */
+
 
     val CONFERENCE_DAY1_END = ZonedDateTime.now().plusDays(1L).plusHours(22)
     val CONFERENCE_DAY1_START = ZonedDateTime.now().plusDays(1L)
-    val CONFERENCE_DAY2_END =ZonedDateTime.now().plusDays(2L).plusHours(22)
+    val CONFERENCE_DAY2_END = ZonedDateTime.now().plusDays(2L).plusHours(22)
     val CONFERENCE_DAY2_START = ZonedDateTime.now().plusDays(2L)
     val CONFERENCE_DAY3_END = ZonedDateTime.now().plusDays(3L).plusHours(22)
     val CONFERENCE_DAY3_START = ZonedDateTime.now().plusDays(3L)
