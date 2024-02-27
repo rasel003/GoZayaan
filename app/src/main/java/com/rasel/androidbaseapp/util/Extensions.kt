@@ -21,6 +21,7 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Typeface
 import android.net.wifi.WifiConfiguration
@@ -48,7 +49,9 @@ import androidx.annotation.DimenRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.ParcelCompat
 import androidx.core.text.HtmlCompat
@@ -159,6 +162,17 @@ fun String.wrapInQuotes(): String {
         formattedConfigString = "$formattedConfigString\""
     }
     return formattedConfigString
+}
+
+// Helper function for calling a share functionality.
+// Should be used when user presses a share button/menu item.
+fun String.createShareIntent(activity: Activity) {
+    val shareIntent = ShareCompat.IntentBuilder.from(activity)
+        .setText(this)
+        .setType("text/plain")
+        .createChooserIntent()
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+    activity.startActivity(shareIntent)
 }
 
 fun String.unwrapQuotes(): String {
@@ -598,7 +612,9 @@ fun TextView.setResizableText(
     }
     val charactersAtLineEnd = textLayout.getLineEnd(maxLines - 1)
     val suffixText =
-        if (viewMore) resources.getString(R.string.resizable_text_read_more) else resources.getString(R.string.resizable_text_read_less)
+        if (viewMore) resources.getString(R.string.resizable_text_read_more) else resources.getString(
+            R.string.resizable_text_read_less
+        )
     var charactersToTake = charactersAtLineEnd - suffixText.length / 2 // Good enough first guess
     if (charactersToTake <= 0) {
         // Happens when text is empty
@@ -627,7 +643,10 @@ fun TextView.setResizableText(
         return
     }
     val lastHasNewLine =
-        adjustedText.substring(textLayout.getLineStart(maxLines - 1), textLayout.getLineEnd(maxLines - 1))
+        adjustedText.substring(
+            textLayout.getLineStart(maxLines - 1),
+            textLayout.getLineEnd(maxLines - 1)
+        )
             .contains("\n")
     var linedText = if (lastHasNewLine) {
         val charactersPerLine =
@@ -636,7 +655,10 @@ fun TextView.setResizableText(
             "\u00A0".repeat(charactersPerLine.roundToInt()) // non breaking space, will not be thrown away by HTML parser
         charactersToTake += lineOfSpaces.length - 1
         adjustedText.take(textLayout.getLineStart(maxLines - 1)) +
-                adjustedText.substring(textLayout.getLineStart(maxLines - 1), textLayout.getLineEnd(maxLines - 1))
+                adjustedText.substring(
+                    textLayout.getLineStart(maxLines - 1),
+                    textLayout.getLineEnd(maxLines - 1)
+                )
                     .replace("\n", lineOfSpaces) +
                 adjustedText.substring(textLayout.getLineEnd(maxLines - 1))
     } else {
@@ -704,15 +726,20 @@ private fun TextView.addClickablePartTextResizable(
     if (clickableText != null) {
         builder.append(clickableText)
         val startIndexOffset = if (viewMore) 4 else 0 // Do not highlight the 3 dots and the space
-        builder.setSpan(object : NoUnderlineClickSpan(context) {
-            override fun onClick(widget: View) {
-                if (viewMore) {
-                    setResizableText(fullText, maxLines, false, applyExtraHighlights)
-                } else {
-                    setResizableText(fullText, maxLines, true, applyExtraHighlights)
+        builder.setSpan(
+            object : NoUnderlineClickSpan(context) {
+                override fun onClick(widget: View) {
+                    if (viewMore) {
+                        setResizableText(fullText, maxLines, false, applyExtraHighlights)
+                    } else {
+                        setResizableText(fullText, maxLines, true, applyExtraHighlights)
+                    }
                 }
-            }
-        }, builder.indexOf(clickableText) + startIndexOffset, builder.indexOf(clickableText) + clickableText.length, 0)
+            },
+            builder.indexOf(clickableText) + startIndexOffset,
+            builder.indexOf(clickableText) + clickableText.length,
+            0
+        )
     }
     if (applyExtraHighlights != null) {
         return applyExtraHighlights(builder)

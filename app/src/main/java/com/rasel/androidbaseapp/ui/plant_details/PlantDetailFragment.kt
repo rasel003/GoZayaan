@@ -1,4 +1,3 @@
-
 package com.rasel.androidbaseapp.ui.plant_details
 
 import android.Manifest
@@ -15,9 +14,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -26,6 +27,7 @@ import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.databinding.FragmentPlantDetailBinding
 import com.rasel.androidbaseapp.ui.plant_details.PlantDetailFragment.Callback
+import com.rasel.androidbaseapp.util.createShareIntent
 import com.rasel.androidbaseapp.util.permissionGranted
 import com.rasel.androidbaseapp.util.showPermissionRequestDialog
 import com.rasel.androidbaseapp.util.toast
@@ -47,23 +49,23 @@ class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var downloadedBitmap: Bitmap
 
-   /* @Inject
-    lateinit var plantDetailViewModelFactory: PlantDetailViewModel.AssistedFactory
+    /* @Inject
+     lateinit var plantDetailViewModelFactory: PlantDetailViewModel.AssistedFactory
 
-    private val plantDetailViewModel: PlantDetailViewModel by viewModels {
-        PlantDetailViewModel.provideFactory(
-            plantDetailViewModelFactory,
-            args.plantId
-        )
-    }*/
+     private val plantDetailViewModel: PlantDetailViewModel by viewModels {
+         PlantDetailViewModel.provideFactory(
+             plantDetailViewModelFactory,
+             args.plantId
+         )
+     }*/
 
     private lateinit var binding: FragmentPlantDetailBinding
-    private val plantDetailViewModel: PlantDetailViewModel by viewModels ()
+    private val plantDetailViewModel: PlantDetailViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding =  FragmentPlantDetailBinding.bind(view).apply {
+        binding = FragmentPlantDetailBinding.bind(view).apply {
             viewModel = plantDetailViewModel
             lifecycleOwner = viewLifecycleOwner
             callback = Callback { plant ->
@@ -80,28 +82,27 @@ class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
             var isToolbarShown = false
 
             // scroll change listener begins at Y = 0 when image is fully collapsed
-            /* plantDetailScrollview.setOnScrollChangeListener(
-                 NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+            plantDetailScrollview.setOnScrollChangeListener(
+                NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
 
-                     // User scrolled past image to height of toolbar and the title text is
-                     // underneath the toolbar, so the toolbar should be shown.
-                     val shouldShowToolbar = scrollY > toolbar.height
+                    // User scrolled past image to height of toolbar and the title text is
+                    // underneath the toolbar, so the toolbar should be shown.
+                    val shouldShowToolbar = scrollY > toolbar.height
 
-                     // The new state of the toolbar differs from the previous state; update
-                     // appbar and toolbar attributes.
-                     if (isToolbarShown != shouldShowToolbar) {
-                         isToolbarShown = shouldShowToolbar
+                    // The new state of the toolbar differs from the previous state; update
+                    // appbar and toolbar attributes.
+                    if (isToolbarShown != shouldShowToolbar) {
+                        isToolbarShown = shouldShowToolbar
 
-                         // Use shadow animator to add elevation if toolbar is shown
-                         appbar.isActivated = shouldShowToolbar
+                        // Use shadow animator to add elevation if toolbar is shown
+                        appbar.isActivated = shouldShowToolbar
 
-                         // Show the plant name if toolbar is shown
-                         toolbarLayout.isTitleEnabled = shouldShowToolbar
-                     }
-                 }
-             )
- */
-            /*toolbar.setNavigationOnClickListener { view ->
+                        // Show the plant name if toolbar is shown
+                        toolbarLayout.isTitleEnabled = shouldShowToolbar
+                    }
+                }
+            )
+            toolbar.setNavigationOnClickListener { view ->
                 view.findNavController().navigateUp()
             }
 
@@ -111,39 +112,43 @@ class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
                         createShareIntent()
                         true
                     }
+
                     else -> false
                 }
-            }*/
+            }
         }
 
         setPermissionCallback()
 //        imageLoader = Coil.imageLoader(requireContext())
     }
 
-    private fun getBitmapFromUrl(mediaDownloadURL : String) = viewLifecycleOwner.lifecycleScope.launch {
-        // binding.progressbar.visible(true)
-        if (mediaDownloadURL.isNotEmpty()) {
-           /* val request = ImageRequest.Builder(requireContext())
-                .data(mediaDownloadURL)
-                .build()
-            downloadedBitmap = (imageLoader.execute(request).drawable as BitmapDrawable).bitmap*/
-            downloadedBitmap = plantDetailViewModel.loadImageAsync(mediaDownloadURL)
+    private fun getBitmapFromUrl(mediaDownloadURL: String) =
+        viewLifecycleOwner.lifecycleScope.launch {
+            // binding.progressbar.visible(true)
+            if (mediaDownloadURL.isNotEmpty()) {
+                /* val request = ImageRequest.Builder(requireContext())
+                     .data(mediaDownloadURL)
+                     .build()
+                 downloadedBitmap = (imageLoader.execute(request).drawable as BitmapDrawable).bitmap*/
+                downloadedBitmap = plantDetailViewModel.loadImageAsync(mediaDownloadURL)
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                checkPermissionAndSaveBitmap()
-            }else {
-                saveMediaToStorage(downloadedBitmap)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    checkPermissionAndSaveBitmap()
+                } else {
+                    saveMediaToStorage(downloadedBitmap)
+                }
+            } else {
+                requireContext().toast("No Media Downloaded")
             }
-        } else {
-            requireContext().toast("No Media Downloaded")
         }
-    }
+
     private fun checkPermissionAndSaveBitmap() {
         //  binding.progressbar.visible(false)
         when {
             requireContext().permissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
                 saveMediaToStorage(downloadedBitmap)
             }
+
             shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
                 requireContext().showPermissionRequestDialog(
                     getString(R.string.permission_title),
@@ -152,6 +157,7 @@ class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
                     requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 }
             }
+
             else -> {
                 requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
@@ -159,7 +165,8 @@ class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
     }
 
     private fun setPermissionCallback() {
-        requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+        requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
                 if (isGranted) {
                     if (::downloadedBitmap.isInitialized) {
                         saveMediaToStorage(downloadedBitmap)
@@ -181,11 +188,13 @@ class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
                         Environment.DIRECTORY_PICTURES
                     )
                 }
-                val imageUri: Uri? = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                val imageUri: Uri? =
+                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
                 fos = imageUri?.let { resolver.openOutputStream(it) }
             }
         } else {
-            val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            val imagesDir =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
             val image = File(imagesDir, filename)
             fos = FileOutputStream(image)
         }
@@ -197,7 +206,8 @@ class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
 
     private fun navigateToGallery() {
         plantDetailViewModel.plant?.value?.let { plant ->
-            val direction = PlantDetailFragmentDirections.actionPlantDetailFragmentToGalleryFragment(plant.name)
+            val direction =
+                PlantDetailFragmentDirections.actionPlantDetailFragmentToGalleryFragment(plant.name)
             findNavController().navigate(direction)
         }
     }
@@ -213,12 +223,7 @@ class PlantDetailFragment : Fragment(R.layout.fragment_plant_detail) {
                 getString(R.string.share_text_plant, plant.name)
             }
         }
-        val shareIntent = ShareCompat.IntentBuilder.from(requireActivity())
-            .setText(shareText)
-            .setType("text/plain")
-            .createChooserIntent()
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-        startActivity(shareIntent)
+        shareText.createShareIntent(requireActivity())
     }
 
     // FloatingActionButtons anchored to AppBarLayouts have their visibility controlled by the scroll position.
