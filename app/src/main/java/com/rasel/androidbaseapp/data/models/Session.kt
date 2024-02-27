@@ -16,7 +16,7 @@
 
 package com.rasel.androidbaseapp.data.models
 
-import org.threeten.bp.ZonedDateTime
+import java.time.ZonedDateTime
 
 typealias SessionId = String
 

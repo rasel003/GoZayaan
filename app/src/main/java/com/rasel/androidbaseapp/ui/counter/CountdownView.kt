@@ -15,9 +15,9 @@ import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.LottieCompositionFactory
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.util.TimeUtils
-import org.threeten.bp.Duration
-import org.threeten.bp.ZonedDateTime
 import timber.log.Timber
+import java.time.Duration
+import java.time.ZonedDateTime
 import kotlin.properties.ObservableProperty
 import kotlin.reflect.KProperty
 
@@ -92,14 +92,26 @@ class CountdownView @JvmOverloads constructor(
                     val countdown = Countdown.until(conferenceStart)
                     if (countdown != null) {
                         val res = context.resources
-                        event.text.add(res.getQuantityString(
-                            R.plurals.duration_days, countdown.days, countdown.days))
-                        event.text.add(res.getQuantityString(
-                            R.plurals.duration_hours, countdown.hours, countdown.hours))
-                        event.text.add(res.getQuantityString(
-                            R.plurals.duration_minutes, countdown.minutes, countdown.minutes))
-                        event.text.add(res.getQuantityString(
-                            R.plurals.duration_seconds, countdown.seconds, countdown.seconds))
+                        event.text.add(
+                            res.getQuantityString(
+                                R.plurals.duration_days, countdown.days, countdown.days
+                            )
+                        )
+                        event.text.add(
+                            res.getQuantityString(
+                                R.plurals.duration_hours, countdown.hours, countdown.hours
+                            )
+                        )
+                        event.text.add(
+                            res.getQuantityString(
+                                R.plurals.duration_minutes, countdown.minutes, countdown.minutes
+                            )
+                        )
+                        event.text.add(
+                            res.getQuantityString(
+                                R.plurals.duration_seconds, countdown.seconds, countdown.seconds
+                            )
+                        )
                     }
                     true
                 }

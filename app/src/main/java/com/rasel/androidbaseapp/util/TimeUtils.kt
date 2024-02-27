@@ -31,13 +31,13 @@ import com.google.android.material.datepicker.CompositeDateValidator
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.orhanobut.logger.Logger
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.data.models.ConferenceDay
-import org.threeten.bp.ZonedDateTime
+import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -46,26 +46,29 @@ object TimeUtils {
 
     private const val TAG = "TimeUtils"
 
-    const val CONFERENCE_DAY1_END = "2024-02-07T22:00:01-07:00"
-    const val CONFERENCE_DAY1_START = "2024-02-07T07:00:00-07:00"
-    const val CONFERENCE_DAY2_END = "2024-02-08T22:00:01-07:00"
-    const val CONFERENCE_DAY2_START = "2024-02-08T08:00:00-07:00"
-    const val CONFERENCE_DAY3_END = "2024-02-09T22:00:00-07:00"
-    const val CONFERENCE_DAY3_START = "2024-02-09T08:00:00-07:00"
+
+    val CONFERENCE_DAY1_END = ZonedDateTime.now().plusDays(1L).plusHours(22)
+    val CONFERENCE_DAY1_START = ZonedDateTime.now().plusDays(1L)
+    val CONFERENCE_DAY2_END =ZonedDateTime.now().plusDays(2L).plusHours(22)
+    val CONFERENCE_DAY2_START = ZonedDateTime.now().plusDays(2L)
+    val CONFERENCE_DAY3_END = ZonedDateTime.now().plusDays(3L).plusHours(22)
+    val CONFERENCE_DAY3_START = ZonedDateTime.now().plusDays(3L)
+
+    val current: ZonedDateTime = ZonedDateTime.now().plusDays(1L)
 
 
     val ConferenceDays = listOf(
         ConferenceDay(
-            ZonedDateTime.parse(CONFERENCE_DAY1_START),
-            ZonedDateTime.parse(CONFERENCE_DAY1_END)
+            CONFERENCE_DAY1_START,
+            CONFERENCE_DAY1_END
         ),
         ConferenceDay(
-            ZonedDateTime.parse(CONFERENCE_DAY2_START),
-            ZonedDateTime.parse(CONFERENCE_DAY2_END)
+            CONFERENCE_DAY2_START,
+            CONFERENCE_DAY2_END
         ),
         ConferenceDay(
-            ZonedDateTime.parse(CONFERENCE_DAY3_START),
-            ZonedDateTime.parse(CONFERENCE_DAY3_END)
+            CONFERENCE_DAY3_START,
+            CONFERENCE_DAY3_END
         )
     )
 
@@ -142,7 +145,6 @@ object TimeUtils {
     }
 
 
-
     fun getStringFromDate(date: Date, outFormat: String): String {
         return SimpleDateFormat(outFormat, Locale.US).format(date)
     }
@@ -183,7 +185,7 @@ object TimeUtils {
                 return calendar.time
             }
         } catch (e: ParseException) {
-            Log.e(TAG, "convertTo_24HourTime: " + e.message, e)
+            Timber.tag(TAG).e(e, "convertTo_24HourTime: %s", e.message)
         }
         return null
     }
@@ -261,7 +263,6 @@ object TimeUtils {
             interVal >= MINIMUM_INTERVAL_IN_MINUTE_ORDER * 1000 * 60
         }
     }
-
 
 
     @JvmStatic
