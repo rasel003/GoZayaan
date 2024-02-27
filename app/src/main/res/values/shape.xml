@@ -37,9 +37,7 @@
         <item name="cornerSizeBottomLeft">@dimen/button_corner_radius</item>
     </style>
 
-    <style
-        name="ShapeAppearance.Sunflower.FAB"
-        parent="ShapeAppearance.MaterialComponents.SmallComponent" />
+    <style name="ShapeAppearance.Sunflower.FAB" parent="ShapeAppearance.MaterialComponents.SmallComponent" />
 
 
     <style name="ShapeAppearance.PaperflyGo.Button.Submit" parent="ShapeAppearance.MaterialComponents">
@@ -91,6 +89,11 @@
         <item name="cornerSizeTopLeft">16dp</item>
         <item name="cornerSizeTopRight">16dp</item>
         <item name="cornerSize">0dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.Card.WithOutRounded" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/zero_radius</item>
     </style>
 
     <style name="ShapeAppearance.App.Image.WithOutRounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
