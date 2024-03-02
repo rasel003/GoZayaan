@@ -19,9 +19,9 @@ buildscript {
         espressoVersion = '3.5.1'
         fragmentVersion = '1.6.2'
         glideVersion = '4.16.0'
-        gradleVersion = '8.2.2'
+        gradleVersion = '8.3.0'
         gsonVersion = '2.10.1'
-        hiltVersion = '2.50'
+        hiltVersion = '2.51'
         hiltViewModelVersion = '1.2.0'
         junitVersion = '4.13.2'
         kotlinVersion = '1.6.10'
@@ -47,7 +47,7 @@ buildscript {
         fragment_version = "1.6.2"
         runnerVersion = '1.5.2'
         testExtJunit = '1.1.5'
-        truthVersion = '1.4.1'
+        truthVersion = '1.4.2'
     }
 
     repositories {

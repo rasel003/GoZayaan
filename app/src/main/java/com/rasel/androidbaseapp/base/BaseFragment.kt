@@ -1,14 +1,22 @@
 package com.rasel.androidbaseapp.base
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.core.dialog.dismissLoadingDialog
 import com.rasel.androidbaseapp.core.dialog.showLoadingDialog
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
+import com.rasel.androidbaseapp.util.getColorFromAttr
+import com.rasel.androidbaseapp.util.getColorFromTheme
+import com.rasel.androidbaseapp.util.setStatusBarColor
 import com.rasel.androidbaseapp.util.showSnackBar
 import timber.log.Timber
 
@@ -18,6 +26,13 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
     protected abstract val viewModel: ViewModel
 
     abstract fun getViewBinding(): VB
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+//        activity?.setStatusBarColor(context?.getColorFromAttr(R.attr.colorPrimary)!!)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +47,9 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observerEvents()
+
+//        setSystemBarIconColor()
+
     }
 
     private fun observerEvents() {
@@ -69,5 +87,25 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
         dismissLoadingDialog()
         Timber.e(message)
         showSnackBar(binding.root, message)
+    }
+
+    fun disableEdgeToEdge(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+            activity?.window?.setDecorFitsSystemWindows(false)
+        }else {
+            activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+        }
+    }
+
+    fun setSystemBarIconColor(
+        isDarkStatusBar: Boolean = true,
+        isDarkNavigationBar: Boolean = true
+    ) {
+        activity?.window?.let {
+            val windowInsetsController = WindowCompat.getInsetsController(it, requireView())
+            windowInsetsController.isAppearanceLightNavigationBars = isDarkNavigationBar
+            windowInsetsController.isAppearanceLightStatusBars = isDarkStatusBar
+        }
+
     }
 }
