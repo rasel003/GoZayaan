@@ -1,39 +1,34 @@
 package com.rasel.androidbaseapp.ui.gallery
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.databinding.FragmentGalleryBinding
+import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class GalleryFragment : Fragment() {
+class GalleryFragment  : BaseFragment<FragmentGalleryBinding, BaseViewModel>() {
 
     private val adapter = GalleryAdapter()
     private val args: GalleryFragmentArgs by navArgs()
     private var searchJob: Job? = null
-    private val viewModel: GalleryViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentGalleryBinding.inflate(inflater, container, false)
-        context ?: return binding.root
+    override fun getViewBinding(): FragmentGalleryBinding = FragmentGalleryBinding.inflate(layoutInflater)
+
+    override val viewModel: GalleryViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.photoList.adapter = adapter
         search(args.plantName)
-
-        return binding.root
     }
 
     private fun search(query: String) {
