@@ -15,11 +15,21 @@
             app:destination="@id/nav_gallery" />
     </fragment>
 
+    <!--  <fragment
+          android:id="@+id/nav_gallery"
+          android:name="com.rasel.androidbaseapp.ui.gallery.GalleryFragment"
+          android:label="@string/menu_gallery"
+          tools:layout="@layout/fragment_gallery" />-->
+
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.rasel.androidbaseapp.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:label="@string/plant_details_title"
+        tools:layout="@layout/fragment_gallery">
+        <argument
+            android:name="plantName"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -48,7 +58,7 @@
 
         <action
             android:id="@+id/action_plant_detail_fragment_to_gallery_fragment"
-            app:destination="@id/gallery_fragment"
+            app:destination="@id/nav_gallery"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -60,20 +70,12 @@
 
     </fragment>
 
-    <fragment
-        android:id="@+id/gallery_fragment"
-        android:name="com.rasel.androidbaseapp.ui.gallery.GalleryFragment"
-        android:label="@string/plant_details_title"
-        tools:layout="@layout/fragment_gallery">
-        <argument
-            android:name="plantName"
-            app:argType="string" />
-    </fragment>
+
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.rasel.androidbaseapp.ui.settings.SettingsFragment"
         android:label="Settings"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_nav_settings_to_nav_faq"
             app:destination="@id/nav_faq" />
@@ -100,21 +102,24 @@
     </fragment>
 
 
-
     <fragment
         android:id="@+id/counter_fragment"
         android:name="com.rasel.androidbaseapp.ui.counter.CounterFragment"
-        tools:layout="@layout/fragment_counter"
-        android:label="CounterFragment" />
+        android:label="CounterFragment"
+        tools:layout="@layout/fragment_counter" />
 
-    <action android:id="@+id/action_global_nav_home" app:destination="@id/nav_home"/>
-    <action android:id="@+id/action_global_counter_fragment" app:destination="@id/counter_fragment"/>
+    <action
+        android:id="@+id/action_global_nav_home"
+        app:destination="@id/nav_home" />
+    <action
+        android:id="@+id/action_global_counter_fragment"
+        app:destination="@id/counter_fragment" />
     <include app:graph="@navigation/owl_graph" />
     <include app:graph="@navigation/reply_graph" />
     <fragment
         android:id="@+id/nav_faq"
         android:name="com.rasel.androidbaseapp.ui.faq.FaqFragment"
-        tools:layout="@layout/fragment_info_faq"
-        android:label="FaqFragment" />
+        android:label="FaqFragment"
+        tools:layout="@layout/fragment_info_faq" />
 
 </navigation>
