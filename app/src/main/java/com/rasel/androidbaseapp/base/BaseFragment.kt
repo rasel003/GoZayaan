@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
@@ -82,6 +83,10 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
         if (isLoading) showLoadingDialog() else dismissLoadingDialog()
     }
 
+  protected  fun handleLoading(progressCircular: ProgressBar, isLoading: Boolean) {
+        progressCircular.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
     protected open fun handleErrorMessage(message: String?) {
         if (message.isNullOrBlank()) return
         dismissLoadingDialog()
@@ -89,10 +94,10 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
         showSnackBar(binding.root, message)
     }
 
-    fun disableEdgeToEdge(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+    fun disableEdgeToEdge() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             activity?.window?.setDecorFitsSystemWindows(false)
-        }else {
+        } else {
             activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
         }
     }

@@ -8,10 +8,12 @@ import com.rasel.androidbaseapp.cache.dao.PlantDao
 import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.data.models.UnsplashPhoto
 import com.rasel.androidbaseapp.remote.api.MyApi
+import com.rasel.androidbaseapp.remote.models.UnsplashSearchResponse
 import com.rasel.androidbaseapp.remote.utils.SafeApiCall
 import com.rasel.androidbaseapp.ui.gallery.UnsplashPagingSource
 import com.rasel.androidbaseapp.util.KEY_DASHBOARD_LAST_SAVED
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
@@ -37,7 +39,12 @@ class HomeRepository @Inject constructor(
     fun getPlantsWithGrowZoneNumber(growZoneNumber: Int) =
         plantDao.getPlantsWithGrowZoneNumber(growZoneNumber)
 
-   suspend fun getDataFromUnSplash(query: String) = apiRequest { api.getDataFromUnSplash(query) }
+    suspend fun getDataFromUnSplash(query: String) = apiRequest { api.getDataFromUnSplash(query) }
+    suspend fun getDataFromUnSplash2(query: String): Flow<UnsplashSearchResponse> = flow {
+        val response = api.getDataFromUnSplash2(query)
+        emit(response)
+    }
+
 
     suspend fun getPostList() = apiRequest { api.getPostList() }
 

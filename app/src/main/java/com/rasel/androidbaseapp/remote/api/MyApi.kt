@@ -62,7 +62,7 @@ interface MyApi {
       ): Call<LeaveHistoryResponse>*/
 
 
-    @GET("search/photos")
+    @GET("https://api.unsplash.com/search/photos")
     suspend fun searchPhotos(
         @Query("query") query: String,
         @Query("page") page: Int,
@@ -70,13 +70,20 @@ interface MyApi {
         @Query("client_id") clientId: String = BuildConfig.UNSPLASH_ACCESS_KEY
     ): UnsplashSearchResponse
 
-    @GET("search/photos")
+    @GET("https://api.unsplash.com/search/photos")
     suspend fun getDataFromUnSplash(
         @Query("query") query: String,
         @Query("page") page: Int = 1,
         @Query("per_page") perPage: Int = 100,
         @Query("client_id") clientId: String = BuildConfig.UNSPLASH_ACCESS_KEY
     ): Response<UnsplashSearchResponse>
+  @GET("https://api.unsplash.com/search/photos")
+    suspend fun getDataFromUnSplash2(
+        @Query("query") query: String,
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 100,
+        @Query("client_id") clientId: String = BuildConfig.UNSPLASH_ACCESS_KEY
+    ): UnsplashSearchResponse
 
     @GET("https://jsonplaceholder.typicode.com/posts")
     suspend fun getPostList(): List<PostItem>
