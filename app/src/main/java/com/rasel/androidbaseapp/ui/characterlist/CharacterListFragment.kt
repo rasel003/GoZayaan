@@ -2,6 +2,7 @@ package com.rasel.androidbaseapp.ui.characterlist
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -34,7 +35,8 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
         // Pad the bottom of the ScrollView so that it scrolls up above the nav bar
         view.doOnApplyWindowInsets { v, insets, padding ->
             v.updatePaddingRelative(
-                top = padding.top + insets.systemWindowInsetTop
+                top = padding.top + insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
+//                top = padding.top + insets.systemWindowInsetTop
             )
         }
         val isFavorite = (findNavController().currentDestination?.label == getString(R.string.menu_favorites))

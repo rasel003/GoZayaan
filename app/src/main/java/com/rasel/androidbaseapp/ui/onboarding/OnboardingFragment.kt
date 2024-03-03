@@ -29,10 +29,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.viewModels
 import com.rasel.androidbaseapp.databinding.FragmentOnboardingBinding
-import com.rasel.androidbaseapp.ui.MainActivity
 import com.rasel.androidbaseapp.ui.MainActivity3
-import com.rasel.androidbaseapp.util.result.EventObserver
 import com.rasel.androidbaseapp.util.ViewPagerPager
+import com.rasel.androidbaseapp.util.result.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val AUTO_ADVANCE_DELAY = 6_000L

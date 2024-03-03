@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.util.doOnApplyWindowInsets
@@ -44,7 +45,7 @@ class OnboardingActivity : AppCompatActivity() {
 
         val container: FrameLayout = findViewById(R.id.fragment_container)
         container.doOnApplyWindowInsets { v, insets, padding ->
-            v.updatePadding(top = padding.top + insets.systemWindowInsetTop)
+            v.updatePadding(top = padding.top + insets.getInsets(WindowInsetsCompat.Type.systemBars()).top)
         }
 
         if (savedInstanceState == null) {

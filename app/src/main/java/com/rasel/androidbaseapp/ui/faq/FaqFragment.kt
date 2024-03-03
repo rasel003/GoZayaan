@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.Fragment
 import com.rasel.androidbaseapp.R
@@ -43,8 +44,8 @@ class FaqFragment : Fragment() {
         // Pad the bottom of the ScrollView so that it scrolls up above the nav bar
         view.doOnApplyWindowInsets { v, insets, padding ->
             v.updatePaddingRelative(
-                top = padding.top + insets.systemWindowInsetTop,
-                bottom = padding.bottom + insets.systemWindowInsetBottom
+                top = padding.top + insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+                bottom = padding.bottom + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
             )
         }
     }
