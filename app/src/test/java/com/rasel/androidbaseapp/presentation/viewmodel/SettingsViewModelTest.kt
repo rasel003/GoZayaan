@@ -6,6 +6,10 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.rasel.androidbaseapp.cache.preferences.PreferenceProvider
 import com.rasel.androidbaseapp.domain.interactor.GetSettingsUseCase
+import com.rasel.androidbaseapp.domain.interactor.SetThemeUseCase
+import com.rasel.androidbaseapp.domain.interactor.settings.GetAvailableLanguagesUseCase
+import com.rasel.androidbaseapp.domain.interactor.settings.GetAvailableThemesUseCase
+import com.rasel.androidbaseapp.domain.interactor.settings.GetThemeUseCase
 import com.rasel.androidbaseapp.fakes.FakePresentationData
 import com.rasel.androidbaseapp.utils.PresentationBaseTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,6 +33,18 @@ class SettingsViewModelTest : PresentationBaseTest() {
     lateinit var settingsUseCase: GetSettingsUseCase
 
     @Mock
+    lateinit var setThemeUseCase: SetThemeUseCase
+
+    @Mock
+    lateinit var getAvailableThemesUseCase: GetAvailableThemesUseCase
+
+    @Mock
+    lateinit var getAvailableLanguagesUseCase: GetAvailableLanguagesUseCase
+
+    @Mock
+    lateinit var getThemeUseCase: GetThemeUseCase
+
+    @Mock
     lateinit var preferencesHelper: PreferenceProvider
 
     @Mock
@@ -39,44 +55,53 @@ class SettingsViewModelTest : PresentationBaseTest() {
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        sut = SettingsViewModel(dispatcher, settingsUseCase, preferencesHelper)
+        sut = SettingsViewModel(
+            contextProvider = dispatcher,
+            getSettingsUseCase = settingsUseCase,
+            setThemeUseCase = setThemeUseCase,
+            getAvailableThemesUseCase = getAvailableThemesUseCase,
+            getAvailableLanguagesUseCase = getAvailableLanguagesUseCase,
+            getThemeUseCase = getThemeUseCase,
+            preferencesHelper = preferencesHelper
+        )
         sut.settings.observeForever(observer)
     }
 
     @Test
     fun `get settings with night mode on should return settings list from use-case`() = runTest {
-            // Arrange (Given)
-            val isNightMode = true
-            `when`(preferencesHelper.isNightMode).thenReturn(isNightMode)
-            val settings = FakePresentationData.getSettings(7)
-            `when`(settingsUseCase(isNightMode)).thenReturn(flowOf(settings))
+        // Arrange (Given)
+        val isNightMode = true
+        `when`(preferencesHelper.isNightMode).thenReturn(isNightMode)
+        val settings = FakePresentationData.getSettings(7)
+        `when`(settingsUseCase(isNightMode)).thenReturn(flowOf(settings))
 
-            // Act (When)
-            sut.getSettings()
+        // Act (When)
+        sut.getSettings()
 
-            // Assert (Then)
-            verify(observer).onChanged(SettingUIModel.Loading)
-            verify(observer).onChanged(SettingUIModel.Success(settings))
-        }
+        // Assert (Then)
+        verify(observer).onChanged(SettingUIModel.Loading)
+        verify(observer).onChanged(SettingUIModel.Success(settings))
+    }
 
     @Test
     fun `get settings with night mode off should return settings list from use-case`() = runTest {
-            // Arrange (Given)
-            val isNightMode = false
-            `when`(preferencesHelper.isNightMode).thenReturn(isNightMode)
-            val settings = FakePresentationData.getSettings(7)
-            `when`(settingsUseCase(isNightMode)).thenReturn(flowOf(settings))
+        // Arrange (Given)
+        val isNightMode = false
+        `when`(preferencesHelper.isNightMode).thenReturn(isNightMode)
+        val settings = FakePresentationData.getSettings(7)
+        `when`(settingsUseCase(isNightMode)).thenReturn(flowOf(settings))
 
-            // Act (When)
-            sut.getSettings()
+        // Act (When)
+        sut.getSettings()
 
-            // Assert (Then)
-            verify(observer).onChanged(SettingUIModel.Loading)
-            verify(observer).onChanged(SettingUIModel.Success(settings))
-        }
+        // Assert (Then)
+        verify(observer).onChanged(SettingUIModel.Loading)
+        verify(observer).onChanged(SettingUIModel.Success(settings))
+    }
 
     @Test
-    fun `get settings with night mode on should return settings list empty from use-case`() = runTest {
+    fun `get settings with night mode on should return settings list empty from use-case`() =
+        runTest {
             // Arrange (Given)
             val isNightMode = false
             `when`(preferencesHelper.isNightMode).thenReturn(isNightMode)
@@ -93,34 +118,34 @@ class SettingsViewModelTest : PresentationBaseTest() {
 
     @Test
     fun `get settings with night mode on should return error from use-case`() = runTest {
-            // Arrange (Given)
-            val isNightMode = true
-            `when`(preferencesHelper.isNightMode).thenReturn(isNightMode)
-            val errorMessage = "Internal server error"
-            whenever(settingsUseCase(isNightMode)) doAnswer { throw IOException(errorMessage) }
+        // Arrange (Given)
+        val isNightMode = true
+        `when`(preferencesHelper.isNightMode).thenReturn(isNightMode)
+        val errorMessage = "Internal server error"
+        whenever(settingsUseCase(isNightMode)) doAnswer { throw IOException(errorMessage) }
 
-            // Act (When)
-            sut.getSettings()
+        // Act (When)
+        sut.getSettings()
 
-            // Assert (Then)
-            verify(observer).onChanged(SettingUIModel.Loading)
-            verify(observer).onChanged(SettingUIModel.Error(errorMessage))
-        }
+        // Assert (Then)
+        verify(observer).onChanged(SettingUIModel.Loading)
+        verify(observer).onChanged(SettingUIModel.Error(errorMessage))
+    }
 
     @Test
     fun `set settings with night mode on should return night mode on from use-case`() = runTest {
-            // Arrange (Given)
-            val nightMode = true
-            val setting = FakePresentationData.getSettings(1)[0]
-            setting.selectedValue = nightMode
+        // Arrange (Given)
+        val nightMode = true
+        val setting = FakePresentationData.getSettings(1)[0]
+        setting.selectedValue = nightMode
 
-            // Act (When)
-            sut.setSettings(setting)
+        // Act (When)
+        sut.setSettings(setting)
 
-            // Assert (Then)
-            verify(preferencesHelper).isNightMode = nightMode
-            verify(observer).onChanged(SettingUIModel.NightMode(nightMode))
-        }
+        // Assert (Then)
+        verify(preferencesHelper).isNightMode = nightMode
+        verify(observer).onChanged(SettingUIModel.NightMode(nightMode))
+    }
 
     @Test
     fun `set settings with night mode off should return night mode off from use-case`() = runTest {
