@@ -2,35 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="a_test_isListFragmentVisible_onAppLaunch()">
+      <entry key="CharacterCacheImpTest">
         <State />
       </entry>
-      <entry key="a_test_isListFragmentVisible_onAppLaunch2()">
+      <entry key="Tests in 'com.rasel.androidbaseapp'">
         <State />
       </entry>
       <entry key="app">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="SERIAL_NUMBER" />
-                  <value value="8d3e949b" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-03-02T07:06:50.537591800Z" />
-        </State>
-      </entry>
-      <entry key="on_view_click_go_next_page()">
         <State />
       </entry>
-      <entry key="test_backNavigation_toMovieListFragment()">
-        <State />
-      </entry>
-      <entry key="test_backNavigation_toPlantListFragment()">
+      <entry key="testGetProducts_EmptyList()">
         <State />
       </entry>
     </value>

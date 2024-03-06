@@ -1,7 +1,6 @@
 package com.rasel.androidbaseapp.ui.plant_list
 
 import android.view.View
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +37,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.lang.Thread.sleep
 import java.util.concurrent.TimeoutException
-import kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf.Expression
 
 
 @MediumTest

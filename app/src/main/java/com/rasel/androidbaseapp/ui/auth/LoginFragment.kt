@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.data.models.signin.Auth

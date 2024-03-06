@@ -16,6 +16,7 @@
 
 package com.rasel.androidbaseapp.ui.gallery
 
+/*
 import com.android.example.paging.pagingwithnetwork.reddit.vo.RedditPost
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -37,4 +38,4 @@ class PostFactory {
         )
         return post
     }
-}
+}*/

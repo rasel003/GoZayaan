@@ -1,6 +1,7 @@
 package com.rasel.androidbaseapp.data.repositories
 
 import android.content.Context
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.rasel.androidbaseapp.cache.dao.PlantDao
 import com.rasel.androidbaseapp.remote.api.MyApi
@@ -16,20 +17,28 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyString
+import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnit
+import org.mockito.junit.MockitoJUnitRunner
 import javax.inject.Inject
 
 @MediumTest
 @HiltAndroidTest
 @ExperimentalCoroutinesApi
+@RunWith(AndroidJUnit4::class)
 class HomeRepositoryTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    @Inject
+    @get:Rule
+    var rr = MockitoJUnit.rule()
+
+    @Mock
     lateinit var myApi: MyApi
 
     @Inject
@@ -37,8 +46,6 @@ class HomeRepositoryTest {
 
     @Inject
     lateinit var preferenceProvider: PreferenceProvider
-
-    protected lateinit var context: Context
 
     @Before
     fun setUp() {
