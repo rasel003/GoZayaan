@@ -3,9 +3,12 @@ package com.rasel.androidbaseapp.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.databinding.FragmentHomeBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
+import com.rasel.androidbaseapp.ui.email.EmailFragment
+import com.rasel.androidbaseapp.util.SpringAddItemAnimator
 import com.rasel.androidbaseapp.util.observe
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +25,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, BaseViewModel>() {
 
 //        binding = FragmentHomeBinding.bind(view)
 
-        adapter = HomeAdapter()
+        adapter = HomeAdapter(MAX_GRID_SPANS)
+        // Set up the staggered/masonry grid recycler
+        binding.photoList.layoutManager = GridLayoutManager(
+            requireContext(),
+            EmailFragment.MAX_GRID_SPANS
+        ).apply {
+            spanSizeLookup = adapter.variableSpanSizeLookup
+        }
         binding.photoList.adapter = adapter
 
         viewModel.getDataFromUnSplash()
@@ -52,5 +62,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, BaseViewModel>() {
                 }
             }
         }
+    }
+
+    companion object {
+        const val MAX_GRID_SPANS = 3
     }
 }

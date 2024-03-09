@@ -2,18 +2,20 @@ package com.rasel.androidbaseapp.data
 
 import com.rasel.androidbaseapp.data.repository.HomeDataSource
 import com.rasel.androidbaseapp.data.source.HomeDataSourceFactory
-import com.rasel.androidbaseapp.data.source.HomeRemoteDataSource
+import com.rasel.androidbaseapp.fakes.FakeValueFactory
 import com.rasel.androidbaseapp.remote.models.PostItem
 import com.rasel.androidbaseapp.remote.utils.Resource
+import com.rasel.androidbaseapp.util.NetworkResult
 import com.rasel.androidbaseapp.utils.DataBaseTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
@@ -49,9 +51,15 @@ class HomeRepositoryTest : DataBaseTest() {
     @Test
     fun testGetProducts_expectedProductList() = runTest {
         val productList = listOf(
-            PostItem(1, "Prod 1", ArgumentMatchers.anyString(), ArgumentMatchers.anyInt()),
-            PostItem(2, ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyInt())
+            PostItem(1, "Prod 1", FakeValueFactory.randomString(), FakeValueFactory.randomInt()),
+            PostItem(
+                2,
+                FakeValueFactory.randomString(),
+                FakeValueFactory.randomString(),
+                FakeValueFactory.randomInt()
+            )
         )
+        Mockito.`when`(dataSourceFactory.getRemoteDataSource()).thenReturn(dataSource)
         Mockito.`when`(dataSource.getPostList()).thenReturn(Resource.Success(productList))
 
         val result = sut.getPostList()
@@ -60,14 +68,13 @@ class HomeRepositoryTest : DataBaseTest() {
         Assert.assertEquals("Prod 1", result.value[0].title)
     }
 
-    /*  @Test
+      @Test
       fun testGetProducts_expectedError() = runTest {
-          Mockito.`when`(myApi.getPostList())
+          Mockito.`when`(dataSource.getPostList())
               .thenReturn(Response.error(401, "Unauthorized".toResponseBody()))
 
-          val sut = LocalizationRepository(myApi)
           val result = sut.getProducts()
           Assert.assertEquals(true, result is NetworkResult.Error)
           Assert.assertEquals("Something went wrong", result.message)
-      }*/
+      }
 }

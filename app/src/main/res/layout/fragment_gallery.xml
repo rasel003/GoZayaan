@@ -40,7 +40,7 @@
                 android:layout_marginTop="@dimen/margin_normal"
                 android:layout_weight="1"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
+                app:spanCount="2"
                 tools:context="com.google.samples.apps.sunflower.GardenActivity"
                 tools:listitem="@layout/list_item_photo" />
 

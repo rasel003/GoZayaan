@@ -91,7 +91,11 @@
         <item name="cornerSize">0dp</item>
     </style>
 
-    <style name="ShapeAppearance.App.Card.WithOutRounded" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearance.App.Card.4_percent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/zero_radius</item>
+    </style>
+  <style name="ShapeAppearance.App.Card.WithOutRounded" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/zero_radius</item>
     </style>

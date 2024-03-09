@@ -21,7 +21,7 @@
             android:paddingEnd="@dimen/card_side_margin"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="@integer/grid_columns"
-            tools:listitem="@layout/list_item_photo" />
+            tools:listitem="@layout/list_item_home" />
 
         <ProgressBar
             android:id="@+id/progress_circular"
