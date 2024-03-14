@@ -7,7 +7,11 @@ import android.graphics.Color
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
+import androidx.media3.ui.PlayerView
 
 internal fun Activity.showSnackBar(view: View, message: String) {
     /*Snackbar.make(view, message, Snackbar.LENGTH_LONG).apply {
@@ -67,4 +71,13 @@ fun Activity.fullScreenOn() {
             or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             or View.SYSTEM_UI_FLAG_FULLSCREEN
             or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+}
+
+fun Activity.hideSystemUi(view: PlayerView) {
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+    WindowInsetsControllerCompat(window, view).let { controller ->
+        controller.hide(WindowInsetsCompat.Type.systemBars())
+        controller.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+    }
 }
