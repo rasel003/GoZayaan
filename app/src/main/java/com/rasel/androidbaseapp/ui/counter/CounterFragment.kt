@@ -16,10 +16,16 @@
 
 package com.rasel.androidbaseapp.ui.counter
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MimeTypes
@@ -48,6 +54,38 @@ class CounterFragment : Fragment() {
     private var playWhenReady = true
     private var mediaItemIndex = 0
     private var playbackPosition = 0L
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val window = requireActivity().window
+
+        val windowInsetsController =
+            WindowCompat.getInsetsController(window, window.decorView)
+        // Configure the behavior of the hidden system bars.
+        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+
+        // Add a listener to update the behavior of the toggle fullscreen button when
+        // the system bars are hidden or revealed.
+        window.decorView.setOnApplyWindowInsetsListener { view, windowInsets ->
+            // You can hide the caption bar even when the other system bars are visible.
+            // To account for this, explicitly check the visibility of navigationBars()
+            // and statusBars() rather than checking the visibility of systemBars().
+            if (windowInsets.isVisible(WindowInsetsCompat.Type.navigationBars())
+                || windowInsets.isVisible(WindowInsetsCompat.Type.statusBars())) {
+                binding.tvLocalFormat.setOnClickListener {
+                    // Hide both the status bar and the navigation bar.
+                    windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+                }
+            } else {
+                binding.tvLocalFormat.setOnClickListener {
+                    // Show both the status bar and the navigation bar.
+                    windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
+                }
+            }
+            view.onApplyWindowInsets(windowInsets)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -93,7 +131,12 @@ class CounterFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        activity?.hideSystemUi(binding.videoView)
+//        activity?.hideSystemUi(binding.videoView)
+
+        // This example uses decor view, but you can use any visible view.
+        /*activity?.window?.decorView?.apply {
+            systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
+        }*/
         if (player == null) {
             initializePlayer()
         }
