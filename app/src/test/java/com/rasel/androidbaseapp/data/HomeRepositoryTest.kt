@@ -6,6 +6,7 @@ import com.rasel.androidbaseapp.fakes.FakeValueFactory
 import com.rasel.androidbaseapp.remote.models.PostItem
 import com.rasel.androidbaseapp.remote.utils.Resource
 import com.rasel.androidbaseapp.util.NetworkResult
+import com.rasel.androidbaseapp.util.NoInternetException
 import com.rasel.androidbaseapp.utils.DataBaseTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -19,6 +20,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
+import java.net.ConnectException
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
@@ -70,11 +72,11 @@ class HomeRepositoryTest : DataBaseTest() {
 
       @Test
       fun testGetProducts_expectedError() = runTest {
-          Mockito.`when`(dataSource.getPostList())
-              .thenReturn(Response.error(401, "Unauthorized".toResponseBody()))
+          Mockito.`when`(dataSourceFactory.getRemoteDataSource()).thenReturn(dataSource)
+          Mockito.`when`(dataSource.getPostList()).thenReturn(Resource.Failure(false, null, "Connection Exception"))
 
-          val result = sut.getProducts()
-          Assert.assertEquals(true, result is NetworkResult.Error)
-          Assert.assertEquals("Something went wrong", result.message)
+          val result = sut.getPostList()
+          Assert.assertEquals(true, result is Resource.Failure)
+          Assert.assertEquals("Connection Exception", (result as Resource.Failure).errorBody)
       }
 }
