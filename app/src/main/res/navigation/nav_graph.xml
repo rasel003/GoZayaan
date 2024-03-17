@@ -67,6 +67,11 @@
         <argument
             android:name="plantId"
             app:argType="string" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:action="ACTION_VIEW"
+            app:uri="www.example.com/{plantId}" />
+<!--            app:mimeType="text/html"-->
 
     </fragment>
 

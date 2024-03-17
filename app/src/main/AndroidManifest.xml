@@ -21,10 +21,21 @@
         android:theme="@style/Theme.App.DayNight">
 
         <activity
-            android:name=".ui.MainActivity" />
+            android:name=".ui.MainActivity"
+            android:exported="true">
 
-        <activity
-            android:name=".ui.SignUpActivity" />
+            <!--            <intent-filter android:autoVerify="true">-->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data android:host="www.example.com" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.SignUpActivity" />
 
         <activity
             android:name=".ui.onboarding.OnboardingActivity"
