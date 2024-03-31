@@ -1,10 +1,10 @@
-package com.rasel.androidbaseapp.ui
+package com.rasel.androidbaseapp.ui.image_slider
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.RequestManager
 import com.rasel.androidbaseapp.databinding.ItemImageSliderBinding
-import com.rasel.androidbaseapp.ui.ImageSliderAdapter.SliderAdapterVH
+import com.rasel.androidbaseapp.ui.image_slider.ImageSliderAdapter.SliderAdapterVH
 import com.smarteist.autoimageslider.SliderViewAdapter
 
 class ImageSliderAdapter(
