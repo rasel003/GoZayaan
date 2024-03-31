@@ -32,6 +32,7 @@ import com.rasel.androidbaseapp.presentation.viewmodel.SettingUIModel
 import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
 import com.rasel.androidbaseapp.ui.dialog.BankData
 import com.rasel.androidbaseapp.ui.dialog.DialogForBank
+import com.rasel.androidbaseapp.ui.image_slider.ImageSliderFragmentDirections
 import com.rasel.androidbaseapp.util.DialogInsurancePolicy
 import com.rasel.androidbaseapp.util.FileUtils
 import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
@@ -225,11 +226,18 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
                 true
             }
 
+            R.id.action_image_slider -> {
+                val action = ImageSliderFragmentDirections.actionGlobalNavImageSliderFragment()
+                findNavController().navigate(action)
+                return true
+            }
+
             R.id.action_fag -> {
                 val action = SettingsFragmentDirections.actionNavSettingsToNavFaq()
                 findNavController().navigate(action)
                 return true
             }
+
             else -> false
         }
     }

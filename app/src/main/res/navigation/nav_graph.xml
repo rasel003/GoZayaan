@@ -71,7 +71,7 @@
             android:id="@+id/deepLink"
             app:action="ACTION_VIEW"
             app:uri="www.example.com/{plantId}" />
-<!--            app:mimeType="text/html"-->
+        <!--            app:mimeType="text/html"-->
 
     </fragment>
 
@@ -113,18 +113,30 @@
         android:label="CounterFragment"
         tools:layout="@layout/fragment_counter" />
 
+    <fragment
+        android:id="@+id/nav_faq"
+        android:name="com.rasel.androidbaseapp.ui.faq.FaqFragment"
+        android:label="FaqFragment"
+        tools:layout="@layout/fragment_info_faq" />
+    <fragment
+        android:id="@+id/nav_image_slider_fragment"
+        android:name="com.rasel.androidbaseapp.ui.image_slider.ImageSliderFragment"
+        android:label="ImageSliderFragment"
+        tools:layout="@layout/fragment_image_slider" />
+
     <action
         android:id="@+id/action_global_nav_home"
         app:destination="@id/nav_home" />
     <action
         android:id="@+id/action_global_counter_fragment"
         app:destination="@id/counter_fragment" />
+    <action
+        android:id="@+id/action_global_nav_image_slider_fragment"
+        app:destination="@id/nav_image_slider_fragment" />
+
+
     <include app:graph="@navigation/owl_graph" />
     <include app:graph="@navigation/reply_graph" />
-    <fragment
-        android:id="@+id/nav_faq"
-        android:name="com.rasel.androidbaseapp.ui.faq.FaqFragment"
-        android:label="FaqFragment"
-        tools:layout="@layout/fragment_info_faq" />
+
 
 </navigation>

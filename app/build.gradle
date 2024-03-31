@@ -81,6 +81,9 @@ dependencies {
     //  for logging and debug
       implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
+    //SliderView
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+
     //for logging and debug
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'androidx.core:core-ktx:1.12.0'
@@ -131,7 +134,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3Version"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
-    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.10.0'
     //Moshi
     implementation 'com.squareup.moshi:moshi-kotlin:1.15.1'
 
