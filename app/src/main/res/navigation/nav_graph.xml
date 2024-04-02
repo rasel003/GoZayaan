@@ -124,6 +124,12 @@
         android:label="ImageSliderFragment"
         tools:layout="@layout/fragment_image_slider" />
 
+    <fragment
+        android:id="@+id/withScrollViewFragment"
+        android:name="com.rasel.androidbaseapp.ui.scrolling_tab.WithScrollViewFragment"
+        android:label="WithScrollViewFragment"
+        tools:layout="@layout/fragment_with_scroll_view" />
+
     <action
         android:id="@+id/action_global_nav_home"
         app:destination="@id/nav_home" />
@@ -133,6 +139,9 @@
     <action
         android:id="@+id/action_global_nav_image_slider_fragment"
         app:destination="@id/nav_image_slider_fragment" />
+    <action
+        android:id="@+id/action_global_withScrollViewFragment"
+        app:destination="@id/withScrollViewFragment" />
 
 
     <include app:graph="@navigation/owl_graph" />

@@ -18,6 +18,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_scroll_view"
+        android:orderInCategory="100"
+        android:title="Scroll View"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_logOut"
         android:orderInCategory="100"
         android:title="@string/action_logOut"
