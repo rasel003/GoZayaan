@@ -2,6 +2,8 @@ package com.rasel.androidbaseapp.ui.image_slider
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.bumptech.glide.RequestManager
@@ -12,6 +14,7 @@ import com.smarteist.autoimageslider.SliderAnimations
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import com.rasel.androidbaseapp.ui.image_slider.MyAdapter.MyItem
+import com.rasel.androidbaseapp.util.doOnApplyWindowInsets
 
 /**
  * A fragment representing a single Plant detail screen.
@@ -28,6 +31,14 @@ class ImageSliderFragment : Fragment(R.layout.fragment_image_slider) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentImageSliderBinding.bind(view)
+
+        // Pad the bottom of the ScrollView so that it scrolls up above the nav bar
+        view.doOnApplyWindowInsets { v, insets, padding ->
+            v.updatePaddingRelative(
+                top = padding.top + insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+                bottom = padding.bottom + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+            )
+        }
 
         val imageSliderAdapter = ImageSliderAdapter(glide)
         imageSliderAdapter.addItem("https://cdn.paperfly.com.bd/merchant/assets/merchant_dashboard_slide_1.png")
@@ -57,6 +68,13 @@ class ImageSliderFragment : Fragment(R.layout.fragment_image_slider) {
         val myPagerAdapter = MyPagerAdapter(glide, LIST_ITEMS)
         binding.pager.adapter = myPagerAdapter
         binding.pagerPageIndicator attachTo binding.pager
+
+        /*binding.leftBtn.setOnClickListener {
+            binding.pager.arrowScroll(View.FOCUS_LEFT)
+        }
+        binding.rightBtn.setOnClickListener {
+            binding.pager.arrowScroll(View.FOCUS_RIGHT)
+        }*/
 
         // Manual
         binding.manualPageIndicator.count = 50
