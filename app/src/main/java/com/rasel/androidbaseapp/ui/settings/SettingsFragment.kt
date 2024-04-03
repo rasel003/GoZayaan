@@ -36,7 +36,7 @@ import com.rasel.androidbaseapp.ui.image_slider.ImageSliderFragmentDirections
 import com.rasel.androidbaseapp.ui.scrolling_tab.WithScrollViewFragmentDirections
 import com.rasel.androidbaseapp.util.DialogInsurancePolicy
 import com.rasel.androidbaseapp.util.FileUtils
-import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
+import com.rasel.androidbaseapp.util.FullScreenBottomSheetDialog
 import com.rasel.androidbaseapp.util.TimeUtils
 import com.rasel.androidbaseapp.util.TimeUtils.getStringDateFromTimeInMillis
 import com.rasel.androidbaseapp.util.observe
@@ -149,7 +149,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         }
 
         binding.chipFullScreenBottomSheet.setOnClickListener {
-            OrderUpdateHistoryMerchantDialog.display(
+            FullScreenBottomSheetDialog.display(
                 childFragmentManager, "history",
                 "it1"
             )

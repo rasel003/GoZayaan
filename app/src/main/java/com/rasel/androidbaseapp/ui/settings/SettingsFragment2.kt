@@ -42,7 +42,7 @@ import com.rasel.androidbaseapp.ui.dialog.BankData
 import com.rasel.androidbaseapp.ui.dialog.DialogForBank
 import com.rasel.androidbaseapp.util.DialogInsurancePolicy
 import com.rasel.androidbaseapp.util.FileUtils
-import com.rasel.androidbaseapp.util.OrderUpdateHistoryMerchantDialog
+import com.rasel.androidbaseapp.util.FullScreenBottomSheetDialog
 import com.rasel.androidbaseapp.util.TimeUtils
 import com.rasel.androidbaseapp.util.TimeUtils.getStringDateFromTimeInMillis
 import com.rasel.androidbaseapp.util.observe
@@ -162,7 +162,7 @@ class SettingsFragment2 : BaseFragment<FragmentSettingsBinding, BaseViewModel>()
         }
 
         binding.chipFullScreenBottomSheet.setOnClickListener {
-            OrderUpdateHistoryMerchantDialog.display(
+            FullScreenBottomSheetDialog.display(
                 childFragmentManager, "history",
                 "it1"
             )

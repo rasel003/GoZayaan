@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class OrderUpdateHistoryMerchantDialog : BottomSheetDialogFragment() {
+class FullScreenBottomSheetDialog : BottomSheetDialogFragment() {
     private var orderId: String? = null
     private lateinit var binding: DialogOrderUpdateHistoryMerchantBinding
     val viewModel: PlantListViewModel by viewModels()
@@ -68,7 +68,7 @@ class OrderUpdateHistoryMerchantDialog : BottomSheetDialogFragment() {
 
         val bottomSheetBehavior = BottomSheetBehavior.from(requireView().parent as View)
 //        bottomSheetBehavior.expandedOffset = 100 // Set expanded offset to 100 pixels
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 //        bottomSheetBehavior.isFitToContents = false
 //        bottomSheetBehavior.expandedOffset = 200.dp
 
@@ -86,7 +86,7 @@ class OrderUpdateHistoryMerchantDialog : BottomSheetDialogFragment() {
 
         const val KEY_ORDER_ID = ""
         fun display(fragmentManager: FragmentManager, tag: String, orderId: String) {
-            val dialog = OrderUpdateHistoryMerchantDialog()
+            val dialog = FullScreenBottomSheetDialog()
             val bundle = Bundle()
             bundle.putString(KEY_ORDER_ID, orderId)
             dialog.arguments = bundle
