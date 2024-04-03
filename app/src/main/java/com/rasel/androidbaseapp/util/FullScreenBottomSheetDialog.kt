@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -11,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.rasel.androidbaseapp.EspressoIdlingResource
 import com.rasel.androidbaseapp.R
-import com.rasel.androidbaseapp.databinding.DialogOrderUpdateHistoryMerchantBinding
+import com.rasel.androidbaseapp.databinding.DialogFullScreenBottomSheetBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.PlantListViewModel
 import com.rasel.androidbaseapp.ui.plant_list.PlantAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FullScreenBottomSheetDialog : BottomSheetDialogFragment() {
     private var orderId: String? = null
-    private lateinit var binding: DialogOrderUpdateHistoryMerchantBinding
+    private lateinit var binding: DialogFullScreenBottomSheetBinding
     val viewModel: PlantListViewModel by viewModels()
 
 
@@ -38,7 +39,7 @@ class FullScreenBottomSheetDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DialogOrderUpdateHistoryMerchantBinding.inflate(inflater, container, false)
+        binding = DialogFullScreenBottomSheetBinding.inflate(inflater, container, false)
 
         orderId = arguments?.getString(KEY_ORDER_ID)
 
@@ -57,7 +58,7 @@ class FullScreenBottomSheetDialog : BottomSheetDialogFragment() {
         // Pad the bottom of the ScrollView so that it scrolls up above the nav bar
         view.doOnApplyWindowInsets { v, insets, padding ->
             v.updatePaddingRelative(
-                bottom = padding.bottom + insets.systemWindowInsetBottom + 190.dp
+                bottom = padding.bottom + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom + 190.dp
             )
         }
 
