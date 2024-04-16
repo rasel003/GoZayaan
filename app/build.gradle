@@ -158,6 +158,8 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer-dash:$mediaVersion"
 
 
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:32.8.1')
 

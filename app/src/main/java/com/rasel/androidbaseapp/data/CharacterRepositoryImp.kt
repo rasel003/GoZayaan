@@ -6,6 +6,8 @@ import com.rasel.androidbaseapp.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import com.rasel.androidbaseapp.domain.models.Character
+import kotlinx.coroutines.Delay
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class CharacterRepositoryImp @Inject constructor(
@@ -14,6 +16,7 @@ class CharacterRepositoryImp @Inject constructor(
 ) : CharacterRepository {
 
     override suspend fun getCharacters(): Flow<List<Character>> = flow {
+        delay(6000)
         val isCached = dataSourceFactory.getCacheDataSource().isCached()
         val characterList =
             dataSourceFactory.getDataStore(isCached).getCharacters().map { characterEntity ->

@@ -83,7 +83,7 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
         if (isLoading) showLoadingDialog() else dismissLoadingDialog()
     }
 
-  protected  fun handleLoading(progressCircular: ProgressBar, isLoading: Boolean) {
+    protected fun handleLoading(progressCircular: ProgressBar, isLoading: Boolean) {
         progressCircular.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 

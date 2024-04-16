@@ -75,4 +75,18 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
             else -> {}
         }
     }
+
+    override fun handleLoading(isLoading: Boolean) {
+//        super.handleLoading(isLoading)
+
+        if(isLoading){
+            binding.recyclerViewCharacters.visibility = View.GONE
+            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout.startShimmerAnimation()
+        }else {
+            binding.recyclerViewCharacters.visibility = View.VISIBLE
+            binding.shimmerFrameLayout.stopShimmerAnimation()
+            binding.shimmerFrameLayout.visibility = View.GONE
+        }
+    }
 }
