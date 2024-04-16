@@ -76,11 +76,22 @@ class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListe
 
         mContext = this
 
+        if (savedInstanceState != null) {
+            currentPosition = savedInstanceState.getInt(KEY_CURRENT_POSITION, 0)
+            // Return here to prevent adding additional GridFragments when changing orientation.
+            return
+        }
+
         mainActivityViewModel.theme.observe(this, Observer(::updateForTheme))
 
         //network change callback to track network state
         networkChangeReceiver = NetworkChangeReceiver()
         networkChangeReceiver.setConnectionChangeCallback(this)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_CURRENT_POSITION, currentPosition)
     }
 
     override fun onStart() {
@@ -122,5 +133,17 @@ class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListe
 
     override fun onConnectionChange(isConnected: Boolean) {
         mContext.toastSuccess("Network isConnected : $isConnected")
+    }
+
+    companion object {
+
+        /**
+         * Holds the current image position to be shared between the grid and the pager fragments. This
+         * position updated when a grid item is clicked, or when paging the pager.
+         *
+         * In this demo app, the position always points to an image index at the [ ] class.
+         */
+       public var currentPosition = 0
+        private const val KEY_CURRENT_POSITION = "com.google.samples.gridtopager.key.currentPosition"
     }
 }

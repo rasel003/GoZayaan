@@ -130,6 +130,21 @@
         android:label="WithScrollViewFragment"
         tools:layout="@layout/fragment_with_scroll_view" />
 
+    <fragment
+        android:id="@+id/gridFragment"
+        android:name="com.rasel.androidbaseapp.ui.image_slider.GridFragment"
+        android:label="GridFragment"
+        tools:layout="@layout/fragment_grid" >
+        <action
+            android:id="@+id/action_gridFragment_to_imageFragment"
+            app:destination="@id/imageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="com.rasel.androidbaseapp.ui.image_slider.ImageFragment"
+        android:label="ImageFragment"
+        tools:layout="@layout/fragment_image" />
+
     <action
         android:id="@+id/action_global_nav_home"
         app:destination="@id/nav_home" />
@@ -142,10 +157,14 @@
     <action
         android:id="@+id/action_global_withScrollViewFragment"
         app:destination="@id/withScrollViewFragment" />
+    <action
+        android:id="@+id/action_global_gridFragment"
+        app:destination="@id/gridFragment" />
 
 
     <include app:graph="@navigation/owl_graph" />
     <include app:graph="@navigation/reply_graph" />
+
 
 
 </navigation>
