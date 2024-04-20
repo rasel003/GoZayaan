@@ -44,10 +44,10 @@ public class ImagePagerFragment extends Fragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     viewPager = (ViewPager) inflater.inflate(R.layout.fragment_pager, container, false);
     viewPager.setAdapter(new ImagePagerAdapter(this));
+
     // Set the current position and add a listener that will update the selection coordinator when
     // paging the images.
     viewPager.setCurrentItem(MainActivity.Companion.getCurrentPosition());

@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -38,7 +39,9 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * A fragment for displaying a grid of images.
  */
-class GridAdapter(fragment: Fragment) : RecyclerView.Adapter<ImageViewHolder>() {
+class GridAdapter( fragment: Fragment,
+   private val onItemSelected: (transitionView: View, transitionName: String) -> Unit
+) : RecyclerView.Adapter<ImageViewHolder>() {
     /**
      * A listener that is attached to all ViewHolders to handle image loading events and clicks.
      */
@@ -75,7 +78,7 @@ class GridAdapter(fragment: Fragment) : RecyclerView.Adapter<ImageViewHolder>() 
     /**
      * Default [ViewHolderListener] implementation.
      */
-    private class ViewHolderListenerImpl internal constructor(private val fragment: Fragment) :
+    inner class ViewHolderListenerImpl(private val fragment: Fragment) :
         ViewHolderListener {
         private val enterTransitionStarted: AtomicBoolean = AtomicBoolean()
 
@@ -102,11 +105,21 @@ class GridAdapter(fragment: Fragment) : RecyclerView.Adapter<ImageViewHolder>() 
             // Update the position.
             currentPosition = position
 
+
+           // ViewCompat.setTransitionName(view, view.context.getString(R.string.transition_image))
+
+
+
             // Exclude the clicked card from the exit transition (e.g. the card will disappear immediately
             // instead of fading out with the rest to prevent an overlapping animation of fade and move).
-            /*(fragment.getExitTransition() as TransitionSet?)!!.excludeTarget(view, true)
+            (fragment.getExitTransition() as TransitionSet?)!!.excludeTarget(view, true)
             val transitioningView = view.findViewById<ImageView>(R.id.card_image)
-            fragment.fragmentManager
+
+
+            onItemSelected.invoke(transitioningView, transitioningView.transitionName)
+
+
+           /* fragment.fragmentManager
                 .beginTransaction()
                 .setReorderingAllowed(true) // Optimize for shared element transition
                 .addSharedElement(transitioningView, transitioningView.transitionName)

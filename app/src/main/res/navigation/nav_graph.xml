@@ -134,16 +134,17 @@
         android:id="@+id/gridFragment"
         android:name="com.rasel.androidbaseapp.ui.image_slider.GridFragment"
         android:label="GridFragment"
-        tools:layout="@layout/fragment_grid" >
+        tools:layout="@layout/fragment_grid">
         <action
-            android:id="@+id/action_gridFragment_to_imageFragment"
-            app:destination="@id/imageFragment" />
+            android:id="@+id/action_gridFragment_to_ImagePagerFragment"
+            app:destination="@id/ImagePagerFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/imageFragment"
-        android:name="com.rasel.androidbaseapp.ui.image_slider.ImageFragment"
+        android:id="@+id/ImagePagerFragment"
+        android:name="com.rasel.androidbaseapp.ui.image_slider.ImagePagerFragment"
         android:label="ImageFragment"
-        tools:layout="@layout/fragment_image" />
+        tools:layout="@layout/fragment_pager" />
 
     <action
         android:id="@+id/action_global_nav_home"
@@ -164,7 +165,6 @@
 
     <include app:graph="@navigation/owl_graph" />
     <include app:graph="@navigation/reply_graph" />
-
 
 
 </navigation>
