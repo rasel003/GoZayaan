@@ -16,7 +16,7 @@ class CharacterRepositoryImp @Inject constructor(
 ) : CharacterRepository {
 
     override suspend fun getCharacters(): Flow<List<Character>> = flow {
-        delay(6000)
+//        delay(6000)
         val isCached = dataSourceFactory.getCacheDataSource().isCached()
         val characterList =
             dataSourceFactory.getDataStore(isCached).getCharacters().map { characterEntity ->

@@ -3,13 +3,16 @@ package com.rasel.androidbaseapp.ui.characterlist
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.databinding.FragmentCharacterListBinding
+import com.rasel.androidbaseapp.domain.models.Character
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterListViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterUIModel
@@ -19,7 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseViewModel>() {
+class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseViewModel>(),
+    CharacterAdapter.ClickListener {
 
     override fun getViewBinding(): FragmentCharacterListBinding =
         FragmentCharacterListBinding.inflate(layoutInflater)
@@ -39,10 +43,16 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
 //                top = padding.top + insets.systemWindowInsetTop
             )
         }
-        val isFavorite = (findNavController().currentDestination?.label == getString(R.string.menu_favorites))
+        val isFavorite =
+            (findNavController().currentDestination?.label == getString(R.string.menu_favorites))
         viewModel.getCharacters(isFavorite)
         observe(viewModel.getCharacters(), ::onViewStateChange)
         initRecyclerView()
+
+        /*postponeEnterTransition()
+        binding.recyclerViewCharacters.doOnPreDraw {
+            startPostponedEnterTransition()
+        }*/
     }
 
     private fun initRecyclerView() {
@@ -51,12 +61,9 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
             layoutManager = LinearLayoutManager(requireContext())
         }
 
+        characterAdapter.setUpListener(this)
         characterAdapter.setItemClickListener { character ->
-            findNavController().navigate(
-                CharacterListFragmentDirections.actionCharacterListFragmentToCharacterDetailFragment(
-                    character.id.toLong()
-                )
-            )
+
         }
     }
 
@@ -79,14 +86,27 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
     override fun handleLoading(isLoading: Boolean) {
 //        super.handleLoading(isLoading)
 
-        if(isLoading){
+        if (isLoading) {
             binding.recyclerViewCharacters.visibility = View.GONE
             binding.shimmerFrameLayout.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmerAnimation()
-        }else {
+        } else {
             binding.recyclerViewCharacters.visibility = View.VISIBLE
             binding.shimmerFrameLayout.stopShimmerAnimation()
             binding.shimmerFrameLayout.visibility = View.GONE
         }
+    }
+
+    override fun onItemSelected(
+        character: Character,
+        transitionView: View,
+        transitionName: String
+    ) {
+        val action =
+            CharacterListFragmentDirections.actionCharacterListFragmentToCharacterDetailFragment(
+                character.id.toLong()
+            )
+        val extra = FragmentNavigatorExtras(transitionView to transitionName)
+        findNavController().navigate(action, extra)
     }
 }

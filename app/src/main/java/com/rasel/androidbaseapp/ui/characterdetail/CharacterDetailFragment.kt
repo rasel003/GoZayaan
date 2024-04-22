@@ -1,6 +1,7 @@
 package com.rasel.androidbaseapp.ui.characterdetail
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -16,6 +17,7 @@ import com.rasel.androidbaseapp.util.observe
 import com.rasel.androidbaseapp.util.setResizableText
 import com.rasel.androidbaseapp.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,6 +31,15 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Bas
 
     @Inject
     lateinit var glide: RequestManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = transition
+        sharedElementReturnTransition = transition
+
+//        postponeEnterTransition(2200, TimeUnit.MILLISECONDS)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -18,6 +18,7 @@
             android:layout_width="100sp"
             android:layout_height="100dp"
             android:layout_marginTop="16dp"
+            android:transitionName="@string/transition_image"
             app:cornerFamily="rounded"
             app:marginTopSystemWindowInsets="@{true}"
             app:cornerSize="10%"
