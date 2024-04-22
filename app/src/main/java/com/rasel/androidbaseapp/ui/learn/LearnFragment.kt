@@ -27,7 +27,7 @@ import androidx.navigation.fragment.navArgs
 import com.materialstudies.owl.model.CourseRepo
 import com.materialstudies.owl.model.courses
 import com.rasel.androidbaseapp.ui.lessons.LessonsSheetFragment
-import com.materialstudies.owl.util.transition.DiagonalSlide
+import com.rasel.androidbaseapp.util.transition.DiagonalSlide
 import com.rasel.androidbaseapp.util.transition.MaterialContainerTransition
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.FragmentLearnBinding

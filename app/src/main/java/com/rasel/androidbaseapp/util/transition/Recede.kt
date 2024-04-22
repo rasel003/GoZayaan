@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.materialstudies.owl.util.transition
+package com.rasel.androidbaseapp.util.transition
 
 import android.animation.Animator
 import android.animation.ObjectAnimator

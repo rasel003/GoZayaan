@@ -59,6 +59,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, BaseViewModel>() {
                 handleLoading( binding.progressCircular, false)
                 event.data.let {
                     adapter.submitList(it.results)
+                  val small =  it.results.map { it.urls.small }
                 }
             }
         }
