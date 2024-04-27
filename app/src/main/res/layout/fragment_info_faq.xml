@@ -32,6 +32,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:text="Continue and show BottomSheet"
+            android:layout_height="wrap_content"/>
+
         <com.rasel.androidbaseapp.views.CollapsibleCard
             android:id="@+id/faq_when_and_where_title"
             android:layout_width="match_parent"

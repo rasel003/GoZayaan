@@ -20,23 +20,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.base.BaseFragment
+import com.rasel.androidbaseapp.databinding.FragmentInfoFaqBinding
+import com.rasel.androidbaseapp.databinding.FragmentSettingsBinding
+import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
+import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
+import com.rasel.androidbaseapp.ui.nav.NavigationModel
+import com.rasel.androidbaseapp.ui.settings.SettingsFragment.Companion.MY_KEY
 import com.rasel.androidbaseapp.util.doOnApplyWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
-class FaqFragment : Fragment() {
+class FaqFragment : BaseFragment<FragmentInfoFaqBinding, BaseViewModel>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_info_faq, container, false)
-    }
+    override val viewModel: SettingsViewModel by viewModels()
+
+    override fun getViewBinding(): FragmentInfoFaqBinding = FragmentInfoFaqBinding.inflate(layoutInflater)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,6 +55,32 @@ class FaqFragment : Fragment() {
                 top = padding.top + insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
                 bottom = padding.bottom + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
             )
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            nonInboxOnBackCallback
+        )
+
+       binding.btnContinue.setOnClickListener {
+           setResultAndFinish(isResultSet = true)
+       }
+    }
+
+    // An on back pressed callback that handles replacing any non-Inbox HomeFragment with inbox
+    // on back pressed.
+    private val nonInboxOnBackCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            Timber.tag("rsl").d("handleOnBackPressed : ")
+
+            setResultAndFinish(isResultSet = false)
+        }
+    }
+
+    private fun setResultAndFinish( isResultSet : Boolean) {
+        findNavController().apply {
+            previousBackStackEntry?.savedStateHandle?.set(MY_KEY, isResultSet)
+            popBackStack()
         }
     }
 }

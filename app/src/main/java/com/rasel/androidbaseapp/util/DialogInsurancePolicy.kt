@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.DialogInsurancePolicyBinding
 
-class DialogInsurancePolicy(
-    private var onItemClicked: (() -> Unit)
-) : BottomSheetDialogFragment() {
+class DialogInsurancePolicy : BottomSheetDialogFragment() {
 
 //    private lateinit var mBehavior: BottomSheetBehavior<View>
     lateinit var binding: DialogInsurancePolicyBinding
@@ -33,7 +32,10 @@ class DialogInsurancePolicy(
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DialogInsurancePolicyBinding.inflate(inflater, container, false)
 //        mBehavior = BottomSheetBehavior.from(binding.root)
-
+        binding.btnContinue.setOnClickListener {
+            val action = DialogInsurancePolicyDirections.actionDialogInsurancePolicyToNavFaq()
+            findNavController().navigate(action)
+        }
         return binding.root
     }
 
@@ -45,9 +47,9 @@ class DialogInsurancePolicy(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnContinue.setOnClickListener {
+        /*binding.btnContinue.setOnClickListener {
             onItemClicked()
             dismiss()
-        }
+        }*/
     }
 }

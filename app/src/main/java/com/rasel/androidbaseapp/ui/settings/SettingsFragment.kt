@@ -106,6 +106,18 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
 
 //        registerDownloadReceiver()
 
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(MY_KEY)?.observe(viewLifecycleOwner) {
+            // get your result here
+            // show Dialog B again if you like ?
+
+            Timber.tag("rsl").d("result value : $it")
+
+            if(it){
+                val action = SettingsFragmentDirections.actionNavSettingsToDialogInsurancePolicy()
+                findNavController().navigate(action)
+            }
+        }
+
         val sentences = listOf(
             "The quick brown fox jumps over the lazy dog.",
             "Lorem ipsum dolor sit amet, consecrate disciplining elite.",
@@ -165,13 +177,16 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             checkPermissionAndDownload()
         }
         binding.chipBottomSheet.setOnClickListener {
-            val dialog = DialogInsurancePolicy {
+            /*val dialog = DialogInsurancePolicy {
                 Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
             }
             val args = Bundle()
             args.putBoolean("is_update", false)
             dialog.arguments = args
-            dialog.show(parentFragmentManager, "insurance_dialog")
+            dialog.show(parentFragmentManager, "insurance_dialog")*/
+
+            val action = SettingsFragmentDirections.actionNavSettingsToDialogInsurancePolicy()
+            findNavController().navigate(action)
         }
         setDateRangeSelection()
         setDateSelection()
@@ -244,8 +259,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             }
 
             R.id.action_fag -> {
-                val action = SettingsFragmentDirections.actionNavSettingsToNavFaq()
-                findNavController().navigate(action)
+               /* val action = SettingsFragmentDirections.actionNavSettingsToNavFaq()
+                findNavController().navigate(action)*/
                 return true
             }
 
@@ -436,6 +451,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     companion object {
         @JvmStatic
         fun newInstance() = SettingsFragment()
+
+        public const val MY_KEY = "reselt_check"
 
         private const val TAG = "rsl"
     }

@@ -1,5 +1,6 @@
 package com.rasel.androidbaseapp.data
 
+import android.util.Log
 import com.rasel.androidbaseapp.data.mapper.CharacterMapper
 import com.rasel.androidbaseapp.data.source.CharacterDataSourceFactory
 import com.rasel.androidbaseapp.domain.repository.CharacterRepository
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.flow
 import com.rasel.androidbaseapp.domain.models.Character
 import kotlinx.coroutines.Delay
 import kotlinx.coroutines.delay
+import timber.log.Timber
 import javax.inject.Inject
 
 class CharacterRepositoryImp @Inject constructor(
@@ -15,7 +17,10 @@ class CharacterRepositoryImp @Inject constructor(
     private val characterMapper: CharacterMapper,
 ) : CharacterRepository {
 
+    private val TAG = "CharacterRepositoryImp"
     override suspend fun getCharacters(): Flow<List<Character>> = flow {
+
+        Timber.tag(TAG).d("getCharacters: get called")
 //        delay(6000)
         val isCached = dataSourceFactory.getCacheDataSource().isCached()
         val characterList =

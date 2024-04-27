@@ -178,13 +178,13 @@ class SettingsFragment2 : BaseFragment<FragmentSettingsBinding, BaseViewModel>()
             downloadFile()
         }
         binding.chipBottomSheet.setOnClickListener {
-            val dialog = DialogInsurancePolicy() {
+           /* val dialog = DialogInsurancePolicy() {
                 Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
             }
             val args = Bundle()
             args.putBoolean("is_update", false)
             dialog.arguments = args
-            dialog.show(parentFragmentManager, "insurance_dialog")
+            dialog.show(parentFragmentManager, "insurance_dialog")*/
         }
         setDateRangeSelection()
         setDateSelection()
