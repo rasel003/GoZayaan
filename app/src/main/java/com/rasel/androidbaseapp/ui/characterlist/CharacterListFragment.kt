@@ -16,6 +16,8 @@ import com.rasel.androidbaseapp.domain.models.Character
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterListViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterUIModel
+import com.rasel.androidbaseapp.util.JarvisLoader
+import com.rasel.androidbaseapp.util.LoadingUtils
 import com.rasel.androidbaseapp.util.doOnApplyWindowInsets
 import com.rasel.androidbaseapp.util.observe
 import dagger.hilt.android.AndroidEntryPoint
@@ -87,13 +89,17 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
 //        super.handleLoading(isLoading)
 
         if (isLoading) {
-            binding.recyclerViewCharacters.visibility = View.GONE
+            LoadingUtils.showDialog(context, true)
+            /*binding.recyclerViewCharacters.visibility = View.GONE
             binding.shimmerFrameLayout.visibility = View.VISIBLE
-            binding.shimmerFrameLayout.startShimmerAnimation()
+            binding.shimmerFrameLayout.startShimmerAnimation()*/
         } else {
-            binding.recyclerViewCharacters.visibility = View.VISIBLE
+          /*  binding.recyclerViewCharacters.visibility = View.VISIBLE
             binding.shimmerFrameLayout.stopShimmerAnimation()
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout.visibility = View.GONE*/
+
+            LoadingUtils.hideDialog()
+
         }
     }
 
