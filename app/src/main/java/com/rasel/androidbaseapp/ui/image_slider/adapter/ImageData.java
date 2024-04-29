@@ -24,7 +24,7 @@ import com.rasel.androidbaseapp.R;
 /**
  * Holds the image resource references used by the grid and the pager fragments.
  */
-abstract class ImageData {
+/*abstract class ImageData {
 
   // Image assets (free for commercial use, no attribution required, from pixabay.com)
   @DrawableRes
@@ -46,4 +46,4 @@ abstract class ImageData {
       R.drawable.paris_4
   };
 
-}
+}*/

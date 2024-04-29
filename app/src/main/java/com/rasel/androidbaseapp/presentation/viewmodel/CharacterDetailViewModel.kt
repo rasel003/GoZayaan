@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import javax.inject.Inject
 import com.rasel.androidbaseapp.domain.models.Character
+import timber.log.Timber
 
 private const val TAG = "CharacterDetailVM"
 
@@ -49,6 +50,7 @@ class CharacterDetailViewModel @Inject constructor(
     }
 
     fun getCharacterDetail(characterId: Long) {
+        Timber.tag("rsl").d("getCharacterDetail called")
         _character.postValue(CharacterDetailUIModel.Loading)
         launchCoroutineIO {
             loadCharacter(characterId)

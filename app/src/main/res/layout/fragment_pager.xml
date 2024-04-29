@@ -14,9 +14,16 @@
   ~ limitations under the License.
   -->
 
-<androidx.viewpager.widget.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/view_pager"
-    android:layout_width="match_parent"
-    tools:background="@tools:sample/avatars"
-    android:layout_height="match_parent" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        tools:background="@tools:sample/avatars"
+        android:layout_height="match_parent" />
+</layout>

@@ -21,7 +21,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -31,6 +30,8 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.data.models.TitleAndId
+import com.rasel.androidbaseapp.databinding.ImageCardBinding
 import com.rasel.androidbaseapp.ui.MainActivity.Companion.currentPosition
 import com.rasel.androidbaseapp.ui.image_slider.ImagePagerFragment
 import com.rasel.androidbaseapp.ui.image_slider.adapter.GridAdapter.ImageViewHolder
@@ -39,9 +40,13 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * A fragment for displaying a grid of images.
  */
-class GridAdapter( fragment: Fragment,
-   private val onItemSelected: (transitionView: View, transitionName: String) -> Unit
+class GridAdapter(
+    fragment: Fragment,
+    private val onItemSelected: (transitionView: View, transitionName: String) -> Unit
 ) : RecyclerView.Adapter<ImageViewHolder>() {
+
+    private val dataList = mutableListOf<TitleAndId>()
+
     /**
      * A listener that is attached to all ViewHolders to handle image loading events and clicks.
      */
@@ -62,9 +67,8 @@ class GridAdapter( fragment: Fragment,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.image_card, parent, false)
-        return ImageViewHolder(view, requestManager, viewHolderListener)
+        val binding = ImageCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ImageViewHolder(binding, requestManager, viewHolderListener)
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
@@ -72,7 +76,13 @@ class GridAdapter( fragment: Fragment,
     }
 
     override fun getItemCount(): Int {
-        return ImageData.IMAGE_DRAWABLES.size
+        return dataList.size
+    }
+
+    fun submitData(data: List<TitleAndId>) {
+        dataList.clear()
+        dataList.addAll(data)
+        notifyDataSetChanged()
     }
 
     /**
@@ -105,10 +115,7 @@ class GridAdapter( fragment: Fragment,
             // Update the position.
             currentPosition = position
 
-
-           // ViewCompat.setTransitionName(view, view.context.getString(R.string.transition_image))
-
-
+            // ViewCompat.setTransitionName(view, view.context.getString(R.string.transition_image))
 
             // Exclude the clicked card from the exit transition (e.g. the card will disappear immediately
             // instead of fading out with the rest to prevent an overlapping animation of fade and move).
@@ -119,31 +126,29 @@ class GridAdapter( fragment: Fragment,
             onItemSelected.invoke(transitioningView, transitioningView.transitionName)
 
 
-           /* fragment.fragmentManager
-                .beginTransaction()
-                .setReorderingAllowed(true) // Optimize for shared element transition
-                .addSharedElement(transitioningView, transitioningView.transitionName)
-                .replace(
-                    R.id.fragment_container, ImagePagerFragment(), ImagePagerFragment::class.java
-                        .simpleName
-                )
-                .addToBackStack(null)
-                .commit()*/
+            /* fragment.fragmentManager
+                 .beginTransaction()
+                 .setReorderingAllowed(true) // Optimize for shared element transition
+                 .addSharedElement(transitioningView, transitioningView.transitionName)
+                 .replace(
+                     R.id.fragment_container, ImagePagerFragment(), ImagePagerFragment::class.java
+                         .simpleName
+                 )
+                 .addToBackStack(null)
+                 .commit()*/
         }
     }
 
     /**
      * ViewHolder for the grid's images.
      */
-    class ImageViewHolder(
-        itemView: View, private val requestManager: RequestManager,
+    inner class ImageViewHolder(
+        private val binding: ImageCardBinding, private val requestManager: RequestManager,
         private val viewHolderListener: ViewHolderListener
-    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        private val image: ImageView
+    ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
-            image = itemView.findViewById(R.id.card_image)
-            itemView.findViewById<View>(R.id.card_view).setOnClickListener(this)
+            binding.cardView.setOnClickListener(this)
         }
 
         /**
@@ -153,22 +158,25 @@ class GridAdapter( fragment: Fragment,
          * later.
          */
         fun onBind() {
-            val adapterPosition = adapterPosition
+            val adapterPosition = bindingAdapterPosition
             setImage(adapterPosition)
             // Set the string value of the image resource as the unique transition name for the view.
-            image.transitionName = ImageData.IMAGE_DRAWABLES[adapterPosition].toString()
+//            binding.cardImage.transitionName = ImageData.IMAGE_DRAWABLES[adapterPosition].toString()
+            binding.cardImage.transitionName =
+                dataList[adapterPosition].id.toString()
         }
 
-        fun setImage(adapterPosition: Int) {
+        private fun setImage(adapterPosition: Int) {
             // Load the image with Glide to prevent OOM error when the image drawables are very large.
             requestManager
-                .load(ImageData.IMAGE_DRAWABLES[adapterPosition])
+//                .load(ImageData.IMAGE_DRAWABLES[adapterPosition])
+                .load(dataList[adapterPosition].title)
                 .listener(object : RequestListener<Drawable?> {
                     override fun onLoadFailed(
                         e: GlideException?, model: Any?,
                         target: Target<Drawable?>, isFirstResource: Boolean
                     ): Boolean {
-                        viewHolderListener.onLoadCompleted(image, adapterPosition)
+                        viewHolderListener.onLoadCompleted(binding.cardImage, adapterPosition)
                         return false
                     }
 
@@ -179,16 +187,16 @@ class GridAdapter( fragment: Fragment,
                         dataSource: DataSource,
                         isFirstResource: Boolean
                     ): Boolean {
-                        viewHolderListener.onLoadCompleted(image, adapterPosition)
+                        viewHolderListener.onLoadCompleted(binding.cardImage, adapterPosition)
                         return false
                     }
                 })
-                .into(image)
+                .into(binding.cardImage)
         }
 
         override fun onClick(view: View) {
             // Let the listener start the ImagePagerFragment.
-            viewHolderListener.onItemClicked(view, adapterPosition)
+            viewHolderListener.onItemClicked(view, bindingAdapterPosition)
         }
     }
 }

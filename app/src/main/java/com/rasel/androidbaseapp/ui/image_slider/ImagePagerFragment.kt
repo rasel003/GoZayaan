@@ -13,89 +13,82 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.rasel.androidbaseapp.ui.image_slider
 
-package com.rasel.androidbaseapp.ui.image_slider;
-
-import android.os.Bundle;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.Nullable;
-import androidx.core.app.SharedElementCallback;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
-import com.rasel.androidbaseapp.ui.MainActivity;
-import com.rasel.androidbaseapp.ui.image_slider.adapter.ImagePagerAdapter;
-import com.rasel.androidbaseapp.R;
-
-import java.util.List;
-import java.util.Map;
+import android.os.Bundle
+import android.transition.TransitionInflater
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.app.SharedElementCallback
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
+import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.databinding.FragmentPagerBinding
+import com.rasel.androidbaseapp.ui.MainActivity.Companion.currentPosition
+import com.rasel.androidbaseapp.ui.image_slider.adapter.ImagePagerAdapter
+import com.rasel.androidbaseapp.util.FakeValueFactory
 
 /**
  * A fragment for displaying a pager of images.
  */
-public class ImagePagerFragment extends Fragment {
+class ImagePagerFragment : Fragment() {
+    private lateinit var binding: FragmentPagerBinding
 
-  private ViewPager viewPager;
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentPagerBinding.inflate(inflater, container, false)
+//        viewPager = inflater.inflate(R.layout.fragment_pager, container, false) as ViewPager
 
-  @Nullable
-  @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    viewPager = (ViewPager) inflater.inflate(R.layout.fragment_pager, container, false);
-    viewPager.setAdapter(new ImagePagerAdapter(this));
+        val data = FakeValueFactory.getImageList(isRandom = false)
 
-    // Set the current position and add a listener that will update the selection coordinator when
-    // paging the images.
-    viewPager.setCurrentItem(MainActivity.Companion.getCurrentPosition());
-    viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-      @Override
-      public void onPageSelected(int position) {
-        MainActivity.Companion.setCurrentPosition(position);
-      }
-    });
+        binding.viewPager.setAdapter(ImagePagerAdapter(this, data))
 
-    prepareSharedElementTransition();
+        // Set the current position and add a listener that will update the selection coordinator when
+        // paging the images.
+        binding.viewPager.setCurrentItem(currentPosition)
+        binding.viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                currentPosition = position
+            }
+        })
+        prepareSharedElementTransition()
 
-    // Avoid a postponeEnterTransition on orientation change, and postpone only of first creation.
-    if (savedInstanceState == null) {
-      postponeEnterTransition();
+        // Avoid a postponeEnterTransition on orientation change, and postpone only of first creation.
+        if (savedInstanceState == null) {
+            postponeEnterTransition()
+        }
+        return binding.viewPager
     }
 
-    return viewPager;
-  }
+    /**
+     * Prepares the shared element transition from and back to the grid fragment.
+     */
+    private fun prepareSharedElementTransition() {
+        val transition = TransitionInflater.from(context)
+            .inflateTransition(R.transition.image_shared_element_transition)
+        sharedElementEnterTransition = transition
 
-  /**
-   * Prepares the shared element transition from and back to the grid fragment.
-   */
-  private void prepareSharedElementTransition() {
-    Transition transition =
-        TransitionInflater.from(getContext())
-            .inflateTransition(R.transition.image_shared_element_transition);
-    setSharedElementEnterTransition(transition);
+        // A similar mapping is set at the GridFragment with a setExitSharedElementCallback.
+        setEnterSharedElementCallback(
+            object : SharedElementCallback() {
+                override fun onMapSharedElements(
+                    names: List<String>,
+                    sharedElements: MutableMap<String, View>
+                ) {
+                    // Locate the image view at the primary fragment (the ImageFragment that is currently
+                    // visible). To locate the fragment, call instantiateItem with the selection position.
+                    // At this stage, the method will simply return the fragment at the position and will
+                    // not create a new one.
+                    val currentFragment = binding.viewPager.adapter?.instantiateItem(binding.viewPager, currentPosition) as Fragment
+                    val view = currentFragment.view ?: return
 
-    // A similar mapping is set at the GridFragment with a setExitSharedElementCallback.
-    setEnterSharedElementCallback(
-        new SharedElementCallback() {
-          @Override
-          public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
-            // Locate the image view at the primary fragment (the ImageFragment that is currently
-            // visible). To locate the fragment, call instantiateItem with the selection position.
-            // At this stage, the method will simply return the fragment at the position and will
-            // not create a new one.
-            Fragment currentFragment = (Fragment) viewPager.getAdapter()
-                .instantiateItem(viewPager, MainActivity.Companion.getCurrentPosition());
-            View view = currentFragment.getView();
-            if (view == null) {
-              return;
-            }
-
-            // Map the first shared element name to the child ImageView.
-            sharedElements.put(names.get(0), view.findViewById(R.id.image));
-          }
-        });
-  }
+                    // Map the first shared element name to the child ImageView.
+                    sharedElements[names[0]] = view.findViewById(R.id.image)
+                }
+            })
+    }
 }

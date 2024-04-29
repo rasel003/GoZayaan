@@ -3,7 +3,6 @@ package com.rasel.androidbaseapp.ui.characterlist
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.doOnPreDraw
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -16,7 +15,6 @@ import com.rasel.androidbaseapp.domain.models.Character
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterListViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterUIModel
-import com.rasel.androidbaseapp.util.JarvisLoader
 import com.rasel.androidbaseapp.util.LoadingUtils
 import com.rasel.androidbaseapp.util.doOnApplyWindowInsets
 import com.rasel.androidbaseapp.util.observe
@@ -34,6 +32,7 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
 
     @Inject
     lateinit var characterAdapter: CharacterAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

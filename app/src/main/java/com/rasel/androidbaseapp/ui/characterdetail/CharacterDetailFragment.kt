@@ -4,20 +4,21 @@ import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.rasel.androidbaseapp.base.BaseFragment
 import com.bumptech.glide.RequestManager
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.databinding.FragmentCharacterDetailBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.Bookmark
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterDetailUIModel
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterDetailViewModel
+import com.rasel.androidbaseapp.ui.image_slider.GridFragmentDirections
 import com.rasel.androidbaseapp.util.observe
 import com.rasel.androidbaseapp.util.setResizableText
 import com.rasel.androidbaseapp.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -48,6 +49,11 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Bas
         setUiChangeListeners()
 
         binding.tvCharacterDetails.setResizableText(getString(R.string.faq_after_dark_program_description), 4, true)
+
+        binding.galleryView.setOnClickListener {
+            val action = GridFragmentDirections.actionGlobalGridFragment()
+            findNavController().navigate(action)
+        }
     }
 
     private fun setUiChangeListeners() {
