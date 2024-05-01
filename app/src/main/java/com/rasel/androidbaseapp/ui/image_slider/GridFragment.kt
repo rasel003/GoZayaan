@@ -68,7 +68,7 @@ class GridFragment : BaseFragment<FragmentGridBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val data = FakeValueFactory.getImageList(isRandom = false)
-        adapter.submitData(data)
+        adapter.submitList(data)
         scrollToPosition()
     }
 

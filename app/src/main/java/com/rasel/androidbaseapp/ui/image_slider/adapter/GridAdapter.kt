@@ -22,6 +22,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -31,6 +33,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.data.models.TitleAndId
+import com.rasel.androidbaseapp.data.models.UnsplashPhoto
 import com.rasel.androidbaseapp.databinding.ImageCardBinding
 import com.rasel.androidbaseapp.ui.MainActivity.Companion.currentPosition
 import com.rasel.androidbaseapp.ui.image_slider.ImagePagerFragment
@@ -43,9 +46,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 class GridAdapter(
     fragment: Fragment,
     private val onItemSelected: (transitionView: View, transitionName: String) -> Unit
-) : RecyclerView.Adapter<ImageViewHolder>() {
+) : ListAdapter<TitleAndId, ImageViewHolder>(TitleAndIdDiffCallback()) {
 
-    private val dataList = mutableListOf<TitleAndId>()
 
     /**
      * A listener that is attached to all ViewHolders to handle image loading events and clicks.
@@ -73,16 +75,6 @@ class GridAdapter(
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         holder.onBind()
-    }
-
-    override fun getItemCount(): Int {
-        return dataList.size
-    }
-
-    fun submitData(data: List<TitleAndId>) {
-        dataList.clear()
-        dataList.addAll(data)
-        notifyDataSetChanged()
     }
 
     /**
@@ -163,14 +155,14 @@ class GridAdapter(
             // Set the string value of the image resource as the unique transition name for the view.
 //            binding.cardImage.transitionName = ImageData.IMAGE_DRAWABLES[adapterPosition].toString()
             binding.cardImage.transitionName =
-                dataList[adapterPosition].id.toString()
+                getItem(adapterPosition).id.toString()
         }
 
         private fun setImage(adapterPosition: Int) {
             // Load the image with Glide to prevent OOM error when the image drawables are very large.
             requestManager
 //                .load(ImageData.IMAGE_DRAWABLES[adapterPosition])
-                .load(dataList[adapterPosition].title)
+                .load(getItem(adapterPosition).title)
                 .listener(object : RequestListener<Drawable?> {
                     override fun onLoadFailed(
                         e: GlideException?, model: Any?,
@@ -198,5 +190,16 @@ class GridAdapter(
             // Let the listener start the ImagePagerFragment.
             viewHolderListener.onItemClicked(view, bindingAdapterPosition)
         }
+    }
+}
+
+private class TitleAndIdDiffCallback : DiffUtil.ItemCallback<TitleAndId>() {
+
+    override fun areItemsTheSame(oldItem: TitleAndId, newItem: TitleAndId): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: TitleAndId, newItem: TitleAndId): Boolean {
+        return oldItem.title == newItem.title
     }
 }

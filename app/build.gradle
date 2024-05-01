@@ -74,7 +74,7 @@ android {
 
 dependencies {
 
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation 'androidx.datastore:datastore-preferences:1.1.0'
     implementation "androidx.preference:preference-ktx:$rootProject.preferenceVersion"
     implementation "com.android.support:multidex:$rootProject.multidexVersion"
 
@@ -87,14 +87,14 @@ dependencies {
 
     //for logging and debug
     implementation 'com.orhanobut:logger:2.2.0'
-    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.core:core-ktx:1.13.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
     implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'
 
     compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$rootProject.assistedInjectVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
-    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
+    implementation "androidx.core:core-ktx:1.13.0"
     implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
 
     // ViewModel and LiveData
@@ -158,7 +158,7 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer-dash:$mediaVersion"
 
 
-    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+    implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
 
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:32.8.1')
