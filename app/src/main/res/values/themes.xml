@@ -132,4 +132,9 @@
     <style name="ThemeOverlay.Owl.TransitionShapeAppearance.Small" parent="">
         <item name="transitionShapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
     </style>
+
+    <style name="ThemeOverlay.IOSched.Dark" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="colorPrimary">@color/carolina_blue</item>
+        <item name="colorPrimaryDark">@color/cornflower_blue</item>
+    </style>
 </resources>

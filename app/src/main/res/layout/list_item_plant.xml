@@ -13,7 +13,7 @@
             type="com.rasel.androidbaseapp.cache.entities.Plant"/>
     </data>
 
-    <com.rasel.androidbaseapp.views.MaskedCardView
+    <com.rasel.androidbaseapp.core.components.MaskedCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/card_side_margin"
@@ -57,6 +57,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.rasel.androidbaseapp.views.MaskedCardView>
+    </com.rasel.androidbaseapp.core.components.MaskedCardView>
 
 </layout>

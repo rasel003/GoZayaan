@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.rasel.androidbaseapp.views
+package com.rasel.androidbaseapp.core.components
 
 import android.content.Context
 import android.os.Parcel

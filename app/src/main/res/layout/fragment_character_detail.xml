@@ -177,5 +177,26 @@
             app:layout_constraintTop_toBottomOf="@id/cardViewImage"
             tools:text="@string/faq_after_dark_program_description" />
 
+        <com.rasel.androidbaseapp.core.components.CustomView
+            android:id="@+id/customView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:background="#f00"
+            app:image="@drawable/ic_agenda_meal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:text="Android" />
+
+        <com.rasel.androidbaseapp.core.components.CustomView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0f0"
+            app:image="@drawable/ic_arrow_drop_up"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewCharacter"
+            app:layout_constraintStart_toEndOf="@+id/customView"
+            app:layout_constraintTop_toTopOf="@id/customView"
+            app:text="ADB" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

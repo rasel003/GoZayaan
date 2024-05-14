@@ -1,4 +1,4 @@
-package com.rasel.androidbaseapp.views
+package com.rasel.androidbaseapp.core.components
 
 import android.annotation.SuppressLint
 import android.content.Context

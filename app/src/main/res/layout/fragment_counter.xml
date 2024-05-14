@@ -20,7 +20,7 @@
         android:layout_height="match_parent">
 
         <!-- TODO remove countdownVisibility method -->
-        <com.rasel.androidbaseapp.ui.counter.CountdownView
+        <com.rasel.androidbaseapp.core.components.CountdownView
             android:id="@+id/counterView"
             android:layout_width="0dp"
             android:layout_height="@dimen/countdown_height"
