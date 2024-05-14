@@ -35,7 +35,7 @@ abstract class BaseViewModel(val contextProvider: CoroutineContextProvider) : Vi
     protected fun <T> baseRequest(liveData: MutableLiveData<T>, errorHandler: CoroutinesErrorHandler, request: () -> Flow<T>) {
         mJob = viewModelScope.launch(Dispatchers.IO + CoroutineExceptionHandler { _, error ->
             viewModelScope.launch(Dispatchers.Main) {
-                errorHandler.onError(error.localizedMessage ?: "Error occured! Please try again.")
+                errorHandler.onError(error.localizedMessage ?: "Error occurred! Please try again.")
             }
         }){
             request().collect {

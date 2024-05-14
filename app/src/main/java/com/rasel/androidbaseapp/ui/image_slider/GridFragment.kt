@@ -15,6 +15,7 @@
  */
 package com.rasel.androidbaseapp.ui.image_slider
 
+import android.content.Context
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -29,11 +30,15 @@ import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.databinding.FragmentGridBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
-import com.rasel.androidbaseapp.presentation.viewmodel.CharacterDetailViewModel
+import com.rasel.androidbaseapp.presentation.viewmodel.CoroutinesErrorHandler
+import com.rasel.androidbaseapp.presentation.viewmodel.GalleryUIModel
+import com.rasel.androidbaseapp.presentation.viewmodel.GalleryViewModel
 import com.rasel.androidbaseapp.ui.MainActivity.Companion.currentPosition
 import com.rasel.androidbaseapp.ui.image_slider.adapter.GridAdapter
-import com.rasel.androidbaseapp.util.FakeValueFactory
+import com.rasel.androidbaseapp.util.ApiResponse
+import com.rasel.androidbaseapp.util.observe
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 /**
  * A fragment for displaying a grid of images.
@@ -44,7 +49,64 @@ class GridFragment : BaseFragment<FragmentGridBinding, BaseViewModel>() {
     override fun getViewBinding(): FragmentGridBinding = FragmentGridBinding.inflate(layoutInflater)
 
     private lateinit var adapter: GridAdapter
-    override val viewModel: CharacterDetailViewModel by viewModels()
+    override val viewModel: GalleryViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.tag(TAG).d("onCreate 2: ")
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        Timber.tag(TAG).d("onAttach 2: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.tag(TAG).d("onPause 2: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.tag(TAG).d("onStop 2: ")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Timber.tag(TAG).d("onDestroyView 2: ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.tag(TAG).d("onDestroy 2: ")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Timber.tag(TAG).d("onDetach 2: ")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Timber.tag(TAG).d("onStart 2: ")
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        Timber.tag(TAG).d("onViewStateRestored 2: ")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Timber.tag(TAG).d("onSaveInstanceState 2: ")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.tag(TAG).d("onResume 2: ")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,15 +124,47 @@ class GridFragment : BaseFragment<FragmentGridBinding, BaseViewModel>() {
         binding.recyclerView.setAdapter(adapter)
         prepareTransitions()
         postponeEnterTransition()
+
+        Timber.tag(TAG).d("onCreateView: ")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val data = FakeValueFactory.getImageList(isRandom = false)
-        adapter.submitList(data)
-        scrollToPosition()
+        Timber.tag(TAG).d("onViewCreated: ")
+
+       /* viewModel.getImageList2()
+        observe(viewModel.getImageList(), ::onViewStateChange)*/
+
+       /* viewLifecycleOwner.lifecycle.addObserver(object : LifecycleEventObserver {
+            override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                if (event == Lifecycle.Event.ON_RESUME) {
+
+                }
+            }
+        })*/
+
+        viewModel.getUserInfo(object : CoroutinesErrorHandler {
+            override fun onError(message: String) {
+//                binding.tvError.text = "Error! $message"
+            }
+        })
+        viewModel.userInfoResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is ApiResponse.Failure -> {
+//                    binding.tvError.text = it.errorMessage
+                }
+                ApiResponse.Loading -> {
+//                    binding.tvError.text = "Loading"
+                }
+                is ApiResponse.Success -> {
+                    adapter.submitList(it.data)
+                    scrollToPosition()
+                }
+            }
+        }
     }
+
 
     /**
      * Scrolls the recycler view to show the last viewed item in the grid. This is important when
@@ -128,5 +222,26 @@ class GridFragment : BaseFragment<FragmentGridBinding, BaseViewModel>() {
                         selectedViewHolder.itemView.findViewById(R.id.card_image)
                 }
             })
+    }
+
+    private fun onViewStateChange(event: GalleryUIModel) {
+//        if (event.isRedelivered) return
+        when (event) {
+            is GalleryUIModel.Error -> handleErrorMessage(event.error)
+            is GalleryUIModel.Loading -> handleLoading(true)
+            is GalleryUIModel.Success -> {
+                handleLoading(false)
+                event.data.let {
+                    adapter.submitList(it)
+                    scrollToPosition()
+                }
+            }
+
+            else -> {}
+        }
+    }
+
+    companion object {
+        private const val TAG = "rsl"
     }
 }
