@@ -19,7 +19,7 @@ package com.rasel.androidbaseapp.ui.common
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
-import com.materialstudies.reply.data.EmailAttachment
+import com.rasel.androidbaseapp.data.models.EmailAttachment
 
 /**
  * Generic RecyclerView.ViewHolder which is able to bind layouts which expose a variable

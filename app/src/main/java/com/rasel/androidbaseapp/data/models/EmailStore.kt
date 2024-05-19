@@ -19,9 +19,9 @@ package com.rasel.androidbaseapp.data.models
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import com.materialstudies.reply.data.EmailAttachment
 import com.materialstudies.reply.ui.home.Mailbox
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.util.FakeValueFactory
 
 /**
  * A static data store of [Email]s.
@@ -65,39 +65,39 @@ object EmailStore {
             "Bonjour from Paris",
             "Here are some great shots from my trip...",
             listOf(
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_4, "Street with bike in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_4, "Street with bike in Paris"),
-                EmailAttachment(R.drawable.paris_4, "Street with bike in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_3, "City street in Paris"),
-                EmailAttachment(R.drawable.paris_3, "City street in Paris"),
-                EmailAttachment(R.drawable.paris_3, "City street in Paris"),
-                EmailAttachment(R.drawable.paris_3, "City street in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_2, "Bridge in Paris at night"),
-                EmailAttachment(R.drawable.paris_2, "Bridge in Paris at night"),
-                EmailAttachment(R.drawable.paris_1, "Bridge in Paris"),
-                EmailAttachment(R.drawable.paris_2, "Bridge in Paris at night"),
-                EmailAttachment(R.drawable.paris_2, "Bridge in Paris at night"),
-                EmailAttachment(R.drawable.paris_3, "City street in Paris"),
-                EmailAttachment(R.drawable.paris_2, "Bridge in Paris at night"),
-                EmailAttachment(R.drawable.paris_3, "City street in Paris"),
-                EmailAttachment(R.drawable.paris_3, "City street in Paris"),
-                EmailAttachment(R.drawable.paris_3, "City street in Paris"),
-                EmailAttachment(R.drawable.paris_4, "Street with bike in Paris"),
-                EmailAttachment(R.drawable.paris_4, "Street with bike in Paris"),
-                EmailAttachment(R.drawable.paris_4, "Street with bike in Paris")
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Street with bike in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Street with bike in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Street with bike in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "City street in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "City street in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "City street in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "City street in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris at night"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris at night"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris at night"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris at night"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "City street in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Bridge in Paris at night"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "City street in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "City street in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "City street in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Street with bike in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Street with bike in Paris"),
+                EmailAttachment(FakeValueFactory.getFixedImageList().random(), "Street with bike in Paris")
             ),
             true
         ),

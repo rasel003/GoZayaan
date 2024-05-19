@@ -1,4 +1,4 @@
-package com.materialstudies.owl.ui.lessons
+package com.rasel.androidbaseapp.ui.lessons
 
 import android.content.Context
 import android.util.AttributeSet

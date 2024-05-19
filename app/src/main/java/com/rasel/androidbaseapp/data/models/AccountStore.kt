@@ -19,6 +19,7 @@ package com.rasel.androidbaseapp.data.models
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.util.FakeValueFactory
 
 /**
  * An static data store of [Account]s. This includes both [Account]s owned by the current user and
@@ -34,7 +35,7 @@ object AccountStore {
             "Hansen",
             "hikingfan@gmail.com",
             "hkngfan@outside.com",
-            R.drawable.avatar_10,
+            FakeValueFactory.getFixedImageList().random(),
             true
         ),
         Account(
@@ -44,7 +45,7 @@ object AccountStore {
             "H",
             "jeffersonloveshiking@gmail.com",
             "jeffersonloveshiking@work.com",
-            R.drawable.avatar_2
+            FakeValueFactory.getFixedImageList().random()
         ),
         Account(
             3L,
@@ -53,7 +54,7 @@ object AccountStore {
             "Hansen",
             "jeffersonc@google.com",
             "jeffersonc@gmail.com",
-            R.drawable.avatar_9
+            FakeValueFactory.getFixedImageList().random()
         )
     )
 
@@ -65,7 +66,7 @@ object AccountStore {
             "Alvarez",
             "tracealvie@gmail.com",
             "tracealvie@gravity.com",
-            R.drawable.avatar_1
+            FakeValueFactory.getFixedImageList().random()
         ),
         Account(
             5L,
@@ -74,7 +75,7 @@ object AccountStore {
             "Trabucco",
             "atrabucco222@gmail.com",
             "atrabucco222@work.com",
-            R.drawable.avatar_3
+            FakeValueFactory.getFixedImageList().random()
         ),
         Account(
             6L,
@@ -83,7 +84,7 @@ object AccountStore {
             "Connors",
             "aliconnors@gmail.com",
             "aliconnors@android.com",
-            R.drawable.avatar_5
+            FakeValueFactory.getFixedImageList().random()
         ),
         Account(
             7L,
@@ -92,7 +93,7 @@ object AccountStore {
             "Williams",
             "albertowilliams124@gmail.com",
             "albertowilliams124@chromeos.com",
-            R.drawable.avatar_0
+            FakeValueFactory.getFixedImageList().random()
         ),
         Account(
             8L,
@@ -101,7 +102,7 @@ object AccountStore {
             "Alen",
             "alen13@gmail.com",
             "alen13@mountainview.gov",
-            R.drawable.avatar_7
+            FakeValueFactory.getFixedImageList().random()
         ),
         Account(
             9L,
@@ -110,7 +111,7 @@ object AccountStore {
             "Express",
             "express@google.com",
             "express@gmail.com",
-            R.drawable.avatar_express
+            FakeValueFactory.getFixedImageList().random()
         ),
         Account(
             10L,
@@ -119,7 +120,7 @@ object AccountStore {
             "Adams",
             "sandraadams@gmail.com",
             "sandraadams@textera.com",
-            R.drawable.avatar_2
+            FakeValueFactory.getFixedImageList().random()
         ),
         Account(
             11L,
@@ -128,7 +129,7 @@ object AccountStore {
             "Hansen",
             "trevorhandsen@gmail.com",
             "trevorhandsen@express.com",
-            R.drawable.avatar_8
+            FakeValueFactory.getFixedImageList().random()
         ),
         Account(
             12L,
@@ -137,7 +138,7 @@ object AccountStore {
             "Holt",
             "sholt@gmail.com",
             "sholt@art.com",
-            R.drawable.avatar_6
+            FakeValueFactory.getFixedImageList().random()
         ),
         Account(
             13L,
@@ -146,7 +147,7 @@ object AccountStore {
             "Hawkins",
             "fhawkank@gmail.com",
             "fhawkank@thisisme.com",
-            R.drawable.avatar_4
+            FakeValueFactory.getFixedImageList().random()
         )
     )
 

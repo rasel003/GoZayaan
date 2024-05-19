@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.materialstudies.reply.data
-
-import androidx.annotation.DrawableRes
+package com.rasel.androidbaseapp.data.models
 
 data class EmailAttachment(
-    @DrawableRes val resId: Int,
+    val imagePath: String,
     val contentDesc: String
 )

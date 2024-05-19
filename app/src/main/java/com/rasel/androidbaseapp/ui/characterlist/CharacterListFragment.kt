@@ -19,6 +19,7 @@ import com.rasel.androidbaseapp.util.LoadingUtils
 import com.rasel.androidbaseapp.util.doOnApplyWindowInsets
 import com.rasel.androidbaseapp.util.observe
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,11 +45,12 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
 //                top = padding.top + insets.systemWindowInsetTop
             )
         }
-        val isFavorite =
-            (findNavController().currentDestination?.label == getString(R.string.menu_favorites))
-        viewModel.getCharacters(isFavorite)
-        observe(viewModel.getCharacters(), ::onViewStateChange)
+        if (characterAdapter.itemCount < 1) {
+            val isFavorite = (findNavController().currentDestination?.label == getString(R.string.menu_favorites))
+            viewModel.getCharacters(isFavorite)
+        }
         initRecyclerView()
+        observe(viewModel.getCharacters(), ::onViewStateChange)
 
         /*postponeEnterTransition()
         binding.recyclerViewCharacters.doOnPreDraw {
@@ -76,6 +78,7 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
             is CharacterUIModel.Success -> {
                 handleLoading(false)
                 event.data.let {
+                    Timber.d("Fetched character list")
                     characterAdapter.list = it
                 }
             }
@@ -93,9 +96,9 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
             binding.shimmerFrameLayout.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmerAnimation()*/
         } else {
-          /*  binding.recyclerViewCharacters.visibility = View.VISIBLE
-            binding.shimmerFrameLayout.stopShimmerAnimation()
-            binding.shimmerFrameLayout.visibility = View.GONE*/
+            /*  binding.recyclerViewCharacters.visibility = View.VISIBLE
+              binding.shimmerFrameLayout.stopShimmerAnimation()
+              binding.shimmerFrameLayout.visibility = View.GONE*/
 
             LoadingUtils.hideDialog()
 

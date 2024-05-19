@@ -20,8 +20,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.materialstudies.reply.data.EmailAttachment
-import com.rasel.androidbaseapp.ui.common.EmailAttachmentViewHolder
+import com.rasel.androidbaseapp.data.models.EmailAttachment
 
 /**
  * Generic RecyclerView.Adapter to display [EmailAttachment]s.

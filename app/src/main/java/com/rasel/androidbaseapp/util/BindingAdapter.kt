@@ -43,10 +43,12 @@ import com.rasel.androidbaseapp.R
     "popupElevationOverlay"
 )
 fun Spinner.bindPopupElevationOverlay(popupElevationOverlay: Float) {
-    setPopupBackgroundDrawable(ColorDrawable(
-        ElevationOverlayProvider(context)
-            .compositeOverlayWithThemeSurfaceColorIfNeeded(popupElevationOverlay)
-    ))
+    setPopupBackgroundDrawable(
+        ColorDrawable(
+            ElevationOverlayProvider(context)
+                .compositeOverlayWithThemeSurfaceColorIfNeeded(popupElevationOverlay)
+        )
+    )
 }
 
 @BindingAdapter(
@@ -86,15 +88,15 @@ fun TextView.bindDrawables(
     requireAll = false
 )
 fun Chip.bindGlideChipSrc(
-    @DrawableRes drawableRes: Int?,
+    imagePath: String?,
     centerCrop: Boolean = false,
     circularCrop: Boolean = false
 ) {
-    if (drawableRes == null) return
+    if (imagePath == null) return
 
     createGlideRequest(
         context,
-        drawableRes,
+        imagePath,
         centerCrop,
         circularCrop
     ).listener(object : RequestListener<Drawable> {
@@ -128,15 +130,15 @@ fun Chip.bindGlideChipSrc(
     requireAll = false
 )
 fun ImageView.bindGlideSrc(
-    @DrawableRes drawableRes: Int?,
+    imagePath: String?,
     centerCrop: Boolean = false,
     circularCrop: Boolean = false
 ) {
-    if (drawableRes == null) return
+    if (imagePath == null) return
 
     createGlideRequest(
         context,
-        drawableRes,
+        imagePath,
         centerCrop,
         circularCrop
     ).into(this)
@@ -144,11 +146,11 @@ fun ImageView.bindGlideSrc(
 
 private fun createGlideRequest(
     context: Context,
-    @DrawableRes src: Int,
+    imagePath: String,
     centerCrop: Boolean,
     circularCrop: Boolean
 ): RequestBuilder<Drawable> {
-    val req = Glide.with(context).load(src)
+    val req = Glide.with(context).load(imagePath)
     if (centerCrop) req.centerCrop()
     if (circularCrop) req.circleCrop()
     return req
@@ -167,8 +169,8 @@ fun View.bindGoneIf(gone: Boolean) {
 fun View.bindLayoutFullscreen(previousFullscreen: Boolean, fullscreen: Boolean) {
     if (previousFullscreen != fullscreen && fullscreen) {
         systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
     }
 }
 
@@ -287,7 +289,6 @@ private fun recordInitialMarginForView(view: View): InitialMargin {
 private fun recordInitialHeightForView(view: View): Int {
     return view.layoutParams.height
 }
-
 
 
 @BindingAdapter("srcUrl", "circleCrop", "placeholder", "loadListener", requireAll = false)

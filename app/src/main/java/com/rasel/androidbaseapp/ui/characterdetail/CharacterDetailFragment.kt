@@ -40,6 +40,7 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Bas
         sharedElementReturnTransition = transition
 
 //        postponeEnterTransition(2200, TimeUnit.MILLISECONDS)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

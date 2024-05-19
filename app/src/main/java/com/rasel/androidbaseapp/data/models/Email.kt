@@ -17,7 +17,6 @@
 package com.rasel.androidbaseapp.data.models
 
 import androidx.recyclerview.widget.DiffUtil
-import com.materialstudies.reply.data.EmailAttachment
 import com.materialstudies.reply.ui.home.Mailbox
 
 /**

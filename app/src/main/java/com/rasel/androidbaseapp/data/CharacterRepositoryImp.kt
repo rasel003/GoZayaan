@@ -17,7 +17,7 @@ class CharacterRepositoryImp @Inject constructor(
     private val characterMapper: CharacterMapper,
 ) : CharacterRepository {
 
-    private val TAG = "CharacterRepositoryImp"
+    private val TAG = "rsl"
     override suspend fun getCharacters(): Flow<List<Character>> = flow {
 
         Timber.tag(TAG).d("getCharacters: get called")

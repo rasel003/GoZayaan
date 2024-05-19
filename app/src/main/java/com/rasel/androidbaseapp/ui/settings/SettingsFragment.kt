@@ -11,6 +11,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.util.Pair
 import androidx.fragment.app.activityViewModels
@@ -18,6 +19,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -210,6 +212,41 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             LanguageSettingDialogFragment.newInstance()
                 .show(parentFragmentManager, null)
         })
+
+        dfdk()
+    }
+
+    private fun dfdk(){
+
+        binding.fab.setOnClickListener {
+            val dialog: AppCompatDialog = MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Dialog Title")
+                .setMessage("This is the dialog content.")
+                .setPositiveButton("OK") { dialog, which ->
+                    // Handle positive button click
+                }
+                .setNegativeButton("Cancel") { dialog, which ->
+                    // Handle negative button click
+                    dialog.dismiss()
+                }
+                .create()
+
+            // Optional: Set anchor view for bottom sheet like behavior
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                dialog.behavior = BottomSheetBehavior.from(dialog.window.decorView.findViewById(R.id.content))
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val bottomSheetBehavior = dialog.getBehavior<BottomSheetBehavior<View>>()
+                if (bottomSheetBehavior != null) {
+                    bottomSheetBehavior.peekHeight = peekHeight // Optional: Set peek height for bottom sheet
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED // Optional: Set initial state
+                }
+            }*/
+
+
+            dialog.show()
+        }
+
     }
 
     // when activity has toolbar

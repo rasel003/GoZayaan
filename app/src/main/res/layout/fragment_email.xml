@@ -111,7 +111,7 @@
                     app:layout_constraintTop_toTopOf="@id/sender_text_view"
                     app:layout_constraintBottom_toBottomOf="@+id/recipient_text_view"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:src="@drawable/avatar_3" />
+                    tools:src="@tools:sample/avatars" />
 
                 <TextView
                     android:id="@+id/body_text_view"

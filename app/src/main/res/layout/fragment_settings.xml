@@ -117,8 +117,8 @@
                     android:id="@+id/chipHome"
                     style="@style/Widget.App.Chip"
                     android:layout_width="wrap_content"
-                    android:checked="true"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:text="Home" />
 
                 <com.google.android.material.button.MaterialButton
@@ -166,8 +166,8 @@
                     android:id="@+id/chipBottomSheet"
                     style="@style/Widget.App.Chip.Green"
                     android:layout_width="wrap_content"
-                    android:checked="true"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:padding="5dp"
                     android:text="Bottom Sheet" />
 
@@ -220,7 +220,38 @@
 
             </com.google.android.material.chip.ChipGroup>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutRoomType"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/white_400"
+                app:layout_constraintBottom_toTopOf="@id/fab">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="@string/fab_compose_email_content_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/asl_edit_reply" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <fragment
+            android:id="@+id/lessons_sheet"
+            android:name="com.rasel.androidbaseapp.ui.settings.RoomTypeSheetFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_room_type_sheet" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
