@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.databinding.FragmentGalleryBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
+import com.rasel.androidbaseapp.ui.settings.SettingsFragment
 import com.rasel.androidbaseapp.util.asMergedLoadStates
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -18,21 +20,31 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class GalleryFragment : BaseFragment<FragmentGalleryBinding, BaseViewModel>() {
 
-    private val adapter = GalleryAdapter()
-    private val args: GalleryFragmentArgs by navArgs()
+    private lateinit var adapter: GalleryAdapter
+
+    //    private val args: GalleryFragmentArgs by navArgs()
     private var searchJob: Job? = null
 
     override fun getViewBinding(): FragmentGalleryBinding =
         FragmentGalleryBinding.inflate(layoutInflater)
 
     override val viewModel: GalleryViewModel by viewModels()
+    private val searchRequestViewModel: SearchRequestViewModel by activityViewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        adapter = GalleryAdapter {
+            val action = GalleryFragmentDirections.actionNavGalleryToGridFragment()
+            findNavController().navigate(action)
+        }
+
 
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collect { loadStates ->
@@ -53,6 +65,20 @@ class GalleryFragment : BaseFragment<FragmentGalleryBinding, BaseViewModel>() {
             header = PostsLoadStateAdapter(adapter),
             footer = PostsLoadStateAdapter(adapter)
         )
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(SettingsFragment.MY_KEY)?.observe(viewLifecycleOwner) {
+            // get your result here
+            // show Dialog B again if you like ?
+
+            Timber.tag("rsl").d("result value : $it")
+
+            if(it){
+                searchRequestViewModel.shouldWaitForNewUpdate = true
+                val action = GalleryFragmentDirections.actionNavGalleryToDialogInsurancePolicy()
+                findNavController().navigate(action)
+            }
+        }
+
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow
                 // Use a state-machine to track LoadStates such that we only transition to
@@ -64,11 +90,25 @@ class GalleryFragment : BaseFragment<FragmentGalleryBinding, BaseViewModel>() {
                 // Only react to cases where REFRESH completes i.e., NotLoading.
                 .filter { it.refresh is LoadState.NotLoading }
                 // Scroll to top is synchronous with UI updates, even if remote load was triggered.
-                .collect { binding.photoList.scrollToPosition(0) }
+                .collect { /*binding.photoList.scrollToPosition(0)*/ }
         }
 
-        search(args.plantName)
-        initSearch()
+        searchRequestViewModel.searchQuery.observe(viewLifecycleOwner) {
+            binding.btnCurrentQuery.text = it.search
+            //        search(args.plantName)
+            if (adapter.itemCount == 0 || !searchRequestViewModel.shouldWaitForNewUpdate) {
+                search(it.search)
+                initSearch()
+            }
+        }
+
+        binding.btnCurrentQuery.setOnClickListener {
+            searchRequestViewModel.cloneSearchQuery.value = searchRequestViewModel.searchQuery.value
+
+            val action = GalleryFragmentDirections.actionNavGalleryToDialogInsurancePolicy()
+            findNavController().navigate(action)
+        }
+
     }
 
     private fun initSearch() {

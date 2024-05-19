@@ -24,6 +24,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.rasel.androidbaseapp.R
@@ -32,6 +33,7 @@ import com.rasel.androidbaseapp.databinding.FragmentInfoFaqBinding
 import com.rasel.androidbaseapp.databinding.FragmentSettingsBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.SettingsViewModel
+import com.rasel.androidbaseapp.ui.gallery.SearchRequestViewModel
 import com.rasel.androidbaseapp.ui.nav.NavigationModel
 import com.rasel.androidbaseapp.ui.settings.SettingsFragment.Companion.MY_KEY
 import com.rasel.androidbaseapp.util.doOnApplyWindowInsets
@@ -42,8 +44,11 @@ import timber.log.Timber
 class FaqFragment : BaseFragment<FragmentInfoFaqBinding, BaseViewModel>() {
 
     override val viewModel: SettingsViewModel by viewModels()
+    private val searchRequestViewModel: SearchRequestViewModel by activityViewModels()
 
-    override fun getViewBinding(): FragmentInfoFaqBinding = FragmentInfoFaqBinding.inflate(layoutInflater)
+
+    override fun getViewBinding(): FragmentInfoFaqBinding =
+        FragmentInfoFaqBinding.inflate(layoutInflater)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,9 +67,17 @@ class FaqFragment : BaseFragment<FragmentInfoFaqBinding, BaseViewModel>() {
             nonInboxOnBackCallback
         )
 
-       binding.btnContinue.setOnClickListener {
-           setResultAndFinish(isResultSet = true)
-       }
+        binding.btnContinue.setOnClickListener {
+            Timber.tag("rsl").d("fag : ${searchRequestViewModel.cloneSearchQuery.value}")
+
+            searchRequestViewModel.cloneSearchQuery.value =
+                searchRequestViewModel.cloneSearchQuery.value?.copy(search = binding.input.text.toString())
+
+            Timber.tag("rsl").d("fag : ${searchRequestViewModel.cloneSearchQuery.value}")
+
+
+            setResultAndFinish(isResultSet = true)
+        }
     }
 
     // An on back pressed callback that handles replacing any non-Inbox HomeFragment with inbox
@@ -77,7 +90,7 @@ class FaqFragment : BaseFragment<FragmentInfoFaqBinding, BaseViewModel>() {
         }
     }
 
-    private fun setResultAndFinish( isResultSet : Boolean) {
+    private fun setResultAndFinish(isResultSet: Boolean) {
         findNavController().apply {
             previousBackStackEntry?.savedStateHandle?.set(MY_KEY, isResultSet)
             popBackStack()

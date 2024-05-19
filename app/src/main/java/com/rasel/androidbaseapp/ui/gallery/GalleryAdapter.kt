@@ -3,6 +3,7 @@ package com.rasel.androidbaseapp.ui.gallery
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -14,7 +15,9 @@ import com.rasel.androidbaseapp.databinding.ListItemPhotoBinding
  * Adapter for the [RecyclerView] in [GalleryFragment].
  */
 
-class GalleryAdapter : PagingDataAdapter<UnsplashPhoto, GalleryAdapter.GalleryViewHolder>(GalleryDiffCallback()) {
+class GalleryAdapter(
+    private val onItemSelected: () -> Unit
+) : PagingDataAdapter<UnsplashPhoto, GalleryAdapter.GalleryViewHolder>(GalleryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         return GalleryViewHolder(
@@ -33,16 +36,17 @@ class GalleryAdapter : PagingDataAdapter<UnsplashPhoto, GalleryAdapter.GalleryVi
         }
     }
 
-    class GalleryViewHolder(
+   inner class GalleryViewHolder(
         private val binding: ListItemPhotoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener { view ->
-                binding.photo?.let { photo ->
+               /* binding.photo?.let { photo ->
                     val uri = Uri.parse(photo.user.attributionUrl)
                     val intent = Intent(Intent.ACTION_VIEW, uri)
                     view.context.startActivity(intent)
-                }
+                }*/
+                onItemSelected()
             }
         }
 

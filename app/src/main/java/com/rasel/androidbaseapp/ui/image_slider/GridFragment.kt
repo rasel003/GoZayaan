@@ -111,6 +111,7 @@ class GridFragment : BaseFragment<FragmentGridBinding, BaseViewModel>() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Timber.tag(TAG).d("onCreateView: ")
         binding = FragmentGridBinding.inflate(inflater, container, false)
 //        recyclerView = inflater.inflate(R.layout.fragment_grid, container, false) as RecyclerView
         adapter = GridAdapter(this) { transitionView: View, transitionName: String ->
@@ -125,7 +126,6 @@ class GridFragment : BaseFragment<FragmentGridBinding, BaseViewModel>() {
         prepareTransitions()
         postponeEnterTransition()
 
-        Timber.tag(TAG).d("onCreateView: ")
         return binding.root
     }
 

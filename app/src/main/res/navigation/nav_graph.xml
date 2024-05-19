@@ -29,6 +29,12 @@
         <argument
             android:name="plantName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_nav_gallery_to_gridFragment"
+            app:destination="@id/gridFragment" />
+        <action
+            android:id="@+id/action_nav_gallery_to_dialogInsurancePolicy"
+            app:destination="@id/dialogInsurancePolicy" />
     </fragment>
 
     <fragment

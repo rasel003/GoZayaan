@@ -15,7 +15,7 @@ class GalleryRepositoryImp @Inject constructor(
 
     suspend fun getImageList(): Flow<List<TitleAndId>> = flow {
 
-        Timber.tag(TAG).d("GalleryRepositoryImp getImageList: get called")
+//        Timber.tag(TAG).d("GalleryRepositoryImp getImageList: get called")
         val data = FakeValueFactory.getImageList(isRandom = false)
 
         emit(data)
@@ -23,7 +23,7 @@ class GalleryRepositoryImp @Inject constructor(
 
     fun getImageList2() : Flow<ApiResponse<List<TitleAndId>>> =  flow  {
 
-        Timber.tag(TAG).d("GalleryRepositoryImp getImageList: get called again")
+//        Timber.tag(TAG).d("GalleryRepositoryImp getImageList: get called again")
         val data = FakeValueFactory.getImageList(isRandom = false)
 
 

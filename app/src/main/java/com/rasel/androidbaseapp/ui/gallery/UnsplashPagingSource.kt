@@ -1,9 +1,11 @@
 package com.rasel.androidbaseapp.ui.gallery
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.rasel.androidbaseapp.remote.api.MyApi
 import com.rasel.androidbaseapp.data.models.UnsplashPhoto
+import timber.log.Timber
 
 private const val UNSPLASH_STARTING_PAGE_INDEX = 0
 
@@ -17,6 +19,10 @@ class UnsplashPagingSource(
         return try {
             val response = api.searchPhotos(query, page, params.loadSize)
             val photos = response.results
+
+            Timber.tag("rsl").d("api called query: $query, page: $page, params: $params")
+            Timber.tag("rsl").d("response: ${response.results.map { it.urls.small }}")
+
             LoadResult.Page(
                 data = photos,
                 prevKey = if (page == UNSPLASH_STARTING_PAGE_INDEX) null else page - 1,

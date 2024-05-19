@@ -1,9 +1,11 @@
 package com.rasel.androidbaseapp.ui.gallery
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.rasel.androidbaseapp.data.HomeRepository
+import com.rasel.androidbaseapp.data.models.SearchRequestParam
 import com.rasel.androidbaseapp.data.models.UnsplashPhoto
 import com.rasel.androidbaseapp.presentation.utils.CoroutineContextProvider
 import com.rasel.androidbaseapp.presentation.utils.ExceptionHandler
@@ -15,25 +17,22 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class GalleryViewModel @Inject constructor(
+class SearchRequestViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val repository: HomeRepository
 ) : BaseViewModel(contextProvider) {
-    private var currentQueryValue: String? = null
-    private var currentSearchResult: Flow<PagingData<UnsplashPhoto>>? = null
+
+    var shouldWaitForNewUpdate: Boolean = false
+    var searchQuery: MutableLiveData<SearchRequestParam> = MutableLiveData()
+    var cloneSearchQuery: MutableLiveData<SearchRequestParam> = MutableLiveData()
+
+    init {
+        searchQuery.value = SearchRequestParam(search = "Beautiful Girl", page = 0)
+    }
 
     override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         val message = ExceptionHandler.parse(exception)
 //        _characterList.postValue(CharacterUIModel.Error(exception.message ?: "Error"))
-    }
-
-    fun searchPictures(queryString: String): Flow<PagingData<UnsplashPhoto>> {
-        currentQueryValue = queryString
-        val newResult: Flow<PagingData<UnsplashPhoto>> =
-            repository.getSearchResultStream(queryString)
-                .cachedIn(viewModelScope)
-        currentSearchResult = newResult
-        return newResult
     }
 
     override fun onCleared() {
