@@ -88,7 +88,7 @@ dependencies {
     //for logging and debug
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0'
     implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'
 
     compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$rootProject.assistedInjectVersion"
@@ -180,14 +180,14 @@ dependencies {
     androidTestImplementation "androidx.work:work-testing:$rootProject.workVersion"
     androidTestImplementation "com.google.truth:truth:$rootProject.truthVersion"
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
-    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0'
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1'
     androidTestImplementation "com.google.dagger:hilt-android-testing:$rootProject.hiltVersion"
     androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.navigationVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
     androidTestImplementation 'androidx.test:core:1.5.0'
     androidTestImplementation "junit:junit:4.13.2"
     androidTestImplementation 'com.linkedin.dexmaker:dexmaker-mockito:2.28.3'
-    androidTestImplementation 'org.mockito:mockito-core:5.11.0'
+    androidTestImplementation 'org.mockito:mockito-core:5.12.0'
 //    androidTestImplementation 'org.mockito:mockito-android:2.24.5'
 //    androidTestImplementation 'org.robolectric:robolectric:4.5.1'
 
@@ -196,9 +196,9 @@ dependencies {
     testImplementation 'androidx.test:runner:1.5.2'
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.12.0'
     testImplementation "androidx.arch.core:core-testing:2.2.0"
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1'
     testImplementation 'org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.71'
-    testImplementation 'org.mockito:mockito-core:5.11.0'
+    testImplementation 'org.mockito:mockito-core:5.12.0'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     testImplementation 'androidx.test:core:1.5.0'
     testImplementation 'androidx.test.ext:junit:1.1.5'
