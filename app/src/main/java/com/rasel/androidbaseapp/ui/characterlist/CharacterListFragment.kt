@@ -61,7 +61,6 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
     private fun initRecyclerView() {
         binding.recyclerViewCharacters.apply {
             adapter = characterAdapter
-            layoutManager = LinearLayoutManager(requireContext())
         }
 
         characterAdapter.setUpListener(this)
