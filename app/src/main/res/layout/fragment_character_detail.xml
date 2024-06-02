@@ -6,12 +6,16 @@
     <data>
 
     </data>
+<ScrollView
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    tools:context=".ui.characterdetail.CharacterDetailFragment"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rootView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.characterdetail.CharacterDetailFragment">
+        android:paddingBottom="50dp"
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewCharacter"
@@ -199,4 +203,7 @@
             app:text="ADB" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
 </layout>

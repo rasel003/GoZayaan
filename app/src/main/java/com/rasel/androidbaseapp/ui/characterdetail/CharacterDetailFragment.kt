@@ -49,7 +49,7 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Bas
         viewModel.getCharacterDetail(args.characterId)
         setUiChangeListeners()
 
-        binding.tvCharacterDetails.setResizableText(getString(R.string.faq_after_dark_program_description), 4, true)
+        binding.tvCharacterDetails.setResizableText(getString(R.string.faq_after_dark_program_description), 3, true)
 
         binding.galleryView.setOnClickListener {
             val action = GridFragmentDirections.actionGlobalGridFragment()

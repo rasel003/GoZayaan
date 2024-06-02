@@ -561,8 +561,8 @@ fun copyToClipboard(context: Context, copyText: String?) {
 
 open class NoUnderlineClickSpan(val context: Context) : ClickableSpan() {
     override fun updateDrawState(textPaint: TextPaint) {
-        textPaint.isUnderlineText = false
-        textPaint.color = ContextCompat.getColor(context, R.color.colorAccent)
+        textPaint.isUnderlineText = true
+        textPaint.color = ContextCompat.getColor(context, R.color.colorPrimary)
     }
 
     override fun onClick(widget: View) {}
@@ -574,12 +574,13 @@ fun TextView.setResizableText(
     fullText: String,
     maxLines: Int,
     viewMore: Boolean,
+    inlineViewMore: Boolean=false,
     applyExtraHighlights: ((Spannable) -> (Spannable))? = null
 ) {
     val width = width
     if (width <= 0) {
         post {
-            setResizableText(fullText, maxLines, viewMore, applyExtraHighlights)
+            setResizableText(fullText, maxLines, viewMore, applyExtraHighlights = applyExtraHighlights)
         }
         return
     }
@@ -725,14 +726,16 @@ private fun TextView.addClickablePartTextResizable(
     val builder = SpannableStringBuilder(shortenedText)
     if (clickableText != null) {
         builder.append(clickableText)
-        val startIndexOffset = if (viewMore) 4 else 0 // Do not highlight the 3 dots and the space
+//        val startIndexOffset = if (viewMore) 4 else 0 // Do not highlight the 3 dots and the space
+        val startIndexOffset = if (viewMore) 0 else 0 // Do not highlight the 3 dots and the space
+
         builder.setSpan(
             object : NoUnderlineClickSpan(context) {
                 override fun onClick(widget: View) {
                     if (viewMore) {
-                        setResizableText(fullText, maxLines, false, applyExtraHighlights)
+                        setResizableText(fullText, maxLines, false, applyExtraHighlights = applyExtraHighlights)
                     } else {
-                        setResizableText(fullText, maxLines, true, applyExtraHighlights)
+                        setResizableText(fullText, maxLines, true, applyExtraHighlights = applyExtraHighlights)
                     }
                 }
             },
