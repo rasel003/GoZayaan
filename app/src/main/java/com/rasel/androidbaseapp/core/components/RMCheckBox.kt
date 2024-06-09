@@ -1,4 +1,4 @@
-package com.aqube.ram.core.components
+package com.rasel.androidbaseapp.core.components
 
 import android.content.Context
 import android.util.AttributeSet

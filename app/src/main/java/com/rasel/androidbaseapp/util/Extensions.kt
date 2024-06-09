@@ -215,10 +215,16 @@ fun CharSequence.makeBold(boldText: String): CharSequence {
  */
 @SuppressLint("WrongConstant")
 fun AppCompatActivity.updateForTheme(theme: Theme) = when (theme) {
-    Theme.DARK -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+    Theme.DARK -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+    Theme.LIGHT -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+    Theme.SYSTEM -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+    Theme.BATTERY_SAVER -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+
+
+ /*Theme.DARK -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
     Theme.LIGHT -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
     Theme.SYSTEM -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-    Theme.BATTERY_SAVER -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
+    Theme.BATTERY_SAVER -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY*/
 }
 
 /**

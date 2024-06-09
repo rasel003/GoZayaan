@@ -41,7 +41,7 @@
             app:layout_constraintBottom_toTopOf="@id/cardViewImage"
             app:layout_constraintEnd_toEndOf="@+id/cardViewImage" />
 
-        <com.aqube.ram.core.components.RMCheckBox
+        <com.rasel.androidbaseapp.core.components.RMCheckBox
             android:id="@+id/checkBoxBookmark"
             android:layout_width="28dp"
             android:layout_height="28dp"
@@ -201,6 +201,18 @@
             app:layout_constraintStart_toEndOf="@+id/customView"
             app:layout_constraintTop_toTopOf="@id/customView"
             app:text="ADB" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:rating="2.5"
+            style="@style/Widget.App.RatingBar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCharacterDetails" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

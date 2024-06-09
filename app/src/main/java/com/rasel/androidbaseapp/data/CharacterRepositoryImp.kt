@@ -21,7 +21,7 @@ class CharacterRepositoryImp @Inject constructor(
     override suspend fun getCharacters(): Flow<List<Character>> = flow {
 
         Timber.tag(TAG).d("getCharacters: get called")
-        delay(6000)
+//        delay(6000)
         val isCached = dataSourceFactory.getCacheDataSource().isCached()
         val characterList =
             dataSourceFactory.getDataStore(isCached).getCharacters().map { characterEntity ->

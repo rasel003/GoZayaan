@@ -103,17 +103,17 @@ class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListe
 
     override fun onStart() {
         super.onStart()
-        mContext.registerReceiver(
+       /* mContext.registerReceiver(
             networkChangeReceiver,
             IntentFilter(NetworkChangeReceiver.ACTION_CONNECTIVITY_CHANGE)
-        )
+        )*/
 
         viewModel.getLocalizationFromRemote()
     }
 
     override fun onStop() {
         super.onStop()
-        mContext.unregisterReceiver(networkChangeReceiver)
+//        mContext.unregisterReceiver(networkChangeReceiver)
     }
 
     fun showNoticeDialog() {
