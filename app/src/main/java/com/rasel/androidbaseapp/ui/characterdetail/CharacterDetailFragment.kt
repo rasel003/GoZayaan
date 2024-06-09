@@ -3,6 +3,7 @@ package com.rasel.androidbaseapp.ui.characterdetail
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,6 +16,7 @@ import com.rasel.androidbaseapp.presentation.viewmodel.Bookmark
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterDetailUIModel
 import com.rasel.androidbaseapp.presentation.viewmodel.CharacterDetailViewModel
 import com.rasel.androidbaseapp.ui.image_slider.GridFragmentDirections
+import com.rasel.androidbaseapp.util.isResizableNeeded
 import com.rasel.androidbaseapp.util.observe
 import com.rasel.androidbaseapp.util.setResizableText
 import com.rasel.androidbaseapp.util.showSnackBar
@@ -48,6 +50,11 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Bas
         observe(viewModel.getCharacter(), ::onViewStateChange)
         viewModel.getCharacterDetail(args.characterId)
         setUiChangeListeners()
+
+        binding.cardViewImage.setOnClickListener {
+            val result=binding.tvCharacterDetails.isResizableNeeded(getString(R.string.faq_after_dark_program_description), 4)
+            Toast.makeText(it.context, "Resizable $result", Toast.LENGTH_SHORT).show()
+        }
 
         binding.tvCharacterDetails.setResizableText(getString(R.string.faq_after_dark_program_description), 3, true)
 

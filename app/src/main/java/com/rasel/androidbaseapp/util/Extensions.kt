@@ -574,6 +574,31 @@ open class NoUnderlineClickSpan(val context: Context) : ClickableSpan() {
     override fun onClick(widget: View) {}
 }
 
+
+
+@SuppressLint("SetTextI18n")
+@Suppress("DEPRECATION") // It has been replaced by a Builder, which is minAPI 28, so OK for now
+fun TextView.isResizableNeeded(
+    fullText: String,
+    maxLines: Int) : Boolean{
+
+    // Since we take the string character by character, we don't want to break up the Windows-style
+    // line endings.
+    val adjustedText = fullText.replace("\r\n", "\n")
+    // Check if even the text has to be resizable.
+    val textLayout = StaticLayout(
+        adjustedText,
+        paint,
+        width - paddingLeft - paddingRight,
+        Layout.Alignment.ALIGN_NORMAL,
+        lineSpacingMultiplier,
+        lineSpacingExtra,
+        includeFontPadding
+    )
+    return !(textLayout.lineCount <= maxLines || adjustedText.isEmpty())
+}
+
+
 @SuppressLint("SetTextI18n")
 @Suppress("DEPRECATION") // It has been replaced by a Builder, which is minAPI 28, so OK for now
 fun TextView.setResizableText(

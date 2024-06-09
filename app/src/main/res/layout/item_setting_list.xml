@@ -29,16 +29,30 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Name" />
 
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/checkboxAttendanceSelector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:checked="true"
+            android:textSize="14sp"
+            android:thumb="@drawable/custom_thumb"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/switchValue"
+            app:layout_constraintStart_toEndOf="@+id/textViewSettingName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showText="false"
+            app:track="@drawable/custom_track" />
+
         <com.rasel.androidbaseapp.core.components.RMSwitch
             android:id="@+id/switchValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
             tools:visibility="visible"
-            app:switchPadding="150dp"
             android:checked="true"
-            android:drawablePadding="15dp"
-            app:thumbTextPadding="@dimen/margin_normal"
             android:padding="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,19 +71,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Value" />
 
-        <Switch
-            android:id="@+id/checkboxAttendanceSelector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:checked="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:thumb="@drawable/thumb_selector"
-            app:track="@drawable/track_selector" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
