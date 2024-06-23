@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.rasel.androidbaseapp.R
-import com.rasel.androidbaseapp.remote.utils.Resource
 import com.rasel.androidbaseapp.data.models.Localization
 import com.rasel.androidbaseapp.databinding.FragmentSlideshowBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
+import com.rasel.androidbaseapp.remote.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -82,6 +82,11 @@ class SlideshowFragment : Fragment(R.layout.fragment_slideshow) {
 
                 else -> {}
             }
+        }
+
+        binding.fab.setOnClickListener { fab ->
+            val popUpClass = PopUpClass()
+            popUpClass.showPopupWindow2(fab)
         }
 
     }

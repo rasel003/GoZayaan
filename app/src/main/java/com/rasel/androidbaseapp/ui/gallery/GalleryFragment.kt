@@ -4,19 +4,24 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import com.rasel.androidbaseapp.base.BaseFragment
+import com.rasel.androidbaseapp.data.models.UnsplashPhoto
 import com.rasel.androidbaseapp.databinding.FragmentGalleryBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.ui.settings.SettingsFragment
 import com.rasel.androidbaseapp.util.asMergedLoadStates
+import com.rasel.androidbaseapp.util.toJsonString
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
@@ -61,18 +66,20 @@ class GalleryFragment : BaseFragment<FragmentGalleryBinding, BaseViewModel>() {
 
         binding.swipeRefresh.setOnRefreshListener { adapter.refresh() }
 
-        binding.photoList.adapter = adapter.withLoadStateHeaderAndFooter(
+        binding.recycleView.adapter = adapter.withLoadStateHeaderAndFooter(
             header = PostsLoadStateAdapter(adapter),
             footer = PostsLoadStateAdapter(adapter)
         )
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(SettingsFragment.MY_KEY)?.observe(viewLifecycleOwner) {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
+            SettingsFragment.MY_KEY
+        )?.observe(viewLifecycleOwner) {
             // get your result here
             // show Dialog B again if you like ?
 
             Timber.tag("rsl").d("result value : $it")
 
-            if(it){
+            if (it) {
                 searchRequestViewModel.shouldWaitForNewUpdate = true
                 val action = GalleryFragmentDirections.actionNavGalleryToDialogInsurancePolicy()
                 findNavController().navigate(action)
@@ -88,9 +95,44 @@ class GalleryFragment : BaseFragment<FragmentGalleryBinding, BaseViewModel>() {
                 // list.
                 .distinctUntilChangedBy { it.refresh }
                 // Only react to cases where REFRESH completes i.e., NotLoading.
-                .filter { it.refresh is LoadState.NotLoading }
+//                .filter { it.refresh is LoadState.Error }
                 // Scroll to top is synchronous with UI updates, even if remote load was triggered.
-                .collect { /*binding.photoList.scrollToPosition(0)*/ }
+                .collect { loadState ->
+//                    binding.photoList.scrollToPosition(0)
+
+                    when (loadState.refresh) {
+                        is LoadState.Error -> {
+                            adapter.submitData(lifecycle, PagingData.empty())
+                            binding.tvNoDataFound.isVisible = true
+                            binding.progressCircular.isVisible = false
+                        }
+
+                        is LoadState.Loading -> {
+                            binding.tvNoDataFound.isVisible = false
+                            binding.progressCircular.isVisible = true
+                        }
+
+                        else -> {
+                            binding.tvNoDataFound.isVisible = false
+                            binding.progressCircular.isVisible = false
+
+                        }
+                    }
+                    Timber.tag("rsl").d("paging loadState: ${loadState.toJsonString()}")
+
+                }
+
+            /*adapter.addLoadStateListener { loadState ->
+                if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
+                    binding.recycleView.isVisible = false
+                    binding.tvNoDataFound.isVisible = true
+                } else {
+                    binding.recycleView.isVisible = true
+                    binding.tvNoDataFound.isVisible = false
+                }
+
+                Timber.tag("rsl").d("paging loadState: ${loadState.toJsonString()}")
+            }*/
         }
 
         searchRequestViewModel.searchQuery.observe(viewLifecycleOwner) {

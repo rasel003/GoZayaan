@@ -68,6 +68,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/fab_compose_email_content_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/asl_edit_reply" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

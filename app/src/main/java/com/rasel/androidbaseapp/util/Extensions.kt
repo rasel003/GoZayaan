@@ -71,6 +71,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.tasks.Task
+import com.google.gson.Gson
 import com.rasel.androidbaseapp.BuildConfig
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.data.models.Theme
@@ -572,6 +573,10 @@ open class NoUnderlineClickSpan(val context: Context) : ClickableSpan() {
     }
 
     override fun onClick(widget: View) {}
+}
+
+fun Any.toJsonString(gson: Gson = Gson()): String {
+    return gson.toJson(this)
 }
 
 
