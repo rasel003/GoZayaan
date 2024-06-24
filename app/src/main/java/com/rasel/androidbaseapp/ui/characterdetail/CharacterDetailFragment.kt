@@ -1,6 +1,10 @@
 package com.rasel.androidbaseapp.ui.characterdetail
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.transition.TransitionInflater
 import android.view.View
 import android.widget.Toast
@@ -62,6 +66,35 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Bas
             val action = GridFragmentDirections.actionGlobalGridFragment()
             findNavController().navigate(action)
         }
+
+        setBoldText()
+    }
+
+    private fun setBoldText(){
+        // Find your TextView in the layout
+
+        // The full text
+        val fullText = "Mon 3rd Feb, 11 AM"
+
+        // Create a SpannableString from the full text
+        val spannableString = SpannableString(fullText)
+
+        // Find the start and end indices of the bold part
+        val startIndex = fullText.indexOf(" ")
+        val endIndex = fullText.indexOf(",")
+
+        if(startIndex != -1 && endIndex != -1 && startIndex < endIndex) {
+            // Set the StyleSpan to bold for the specified range
+            spannableString.setSpan(
+                StyleSpan(Typeface.BOLD),
+                startIndex + 1,
+                endIndex,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        // Set the SpannableString to the TextView
+        binding.tvCharacterDetails2.text = spannableString
     }
 
     private fun setUiChangeListeners() {

@@ -213,6 +213,21 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvCharacterDetails" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCharacterDetails2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_normal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginEnd="16dp"
+            android:lineSpacingExtra="2dp"
+            android:fontFamily="@font/work_sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ratingBar"
+            tools:text="@string/faq_after_dark_program_description" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
