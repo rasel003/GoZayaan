@@ -14,6 +14,7 @@ import com.rasel.androidbaseapp.databinding.FragmentPlantListBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.presentation.viewmodel.PlantListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class PlantListFragment : BaseFragment<FragmentPlantListBinding, BaseViewModel>(),
@@ -22,6 +23,7 @@ class PlantListFragment : BaseFragment<FragmentPlantListBinding, BaseViewModel>(
     override fun getViewBinding(): FragmentPlantListBinding =
         FragmentPlantListBinding.inflate(layoutInflater)
 
+    private lateinit var adapter: PlantAdapter
     override val viewModel: PlantListViewModel by viewModels()
 
     /* override fun onCreateView(
@@ -46,9 +48,18 @@ class PlantListFragment : BaseFragment<FragmentPlantListBinding, BaseViewModel>(
 
         EspressoIdlingResource.increment()
 
-        val adapter = PlantAdapter() {
-            navigateToPlant(it)
-        }
+        adapter = PlantAdapter(
+            onItemClicked = {
+                navigateToPlant(it)
+            }, onBookmarkClicked = { plant : Plant , position ->
+                val list = viewModel.plants.value ?: emptyList()
+                val updatedList =  list.map { if (it.plantId == plant.plantId) {
+                    it.copy(commentsCount = Random.nextInt().toString())
+                } else {
+                    it
+                } }
+                adapter.submitList(updatedList)
+            })
         binding.plantList.adapter = adapter
         subscribeUi(adapter)
 

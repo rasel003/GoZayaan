@@ -5,12 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="clickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
+
         <variable
             name="plant"
-            type="com.rasel.androidbaseapp.cache.entities.Plant"/>
+            type="com.rasel.androidbaseapp.cache.entities.Plant" />
     </data>
 
     <com.rasel.androidbaseapp.core.components.MaskedCardView
@@ -24,38 +26,62 @@
         app:cardPreventCornerOverlap="false"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/plant_item_image"
-                    android:layout_width="0dp"
-                    tools:src="@tools:sample/avatars"
-                    android:layout_height="@dimen/plant_item_image_height"
-                    android:contentDescription="@string/a11y_plant_item_image"
-                    android:scaleType="centerCrop"
-                    app:imageFromUrl="@{plant.imageUrl}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/plant_item_image"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/plant_item_image_height"
+                android:contentDescription="@string/a11y_plant_item_image"
+                android:scaleType="centerCrop"
+                app:imageFromUrl="@{plant.imageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
 
-                <TextView
-                    android:id="@+id/plant_item_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="@{plant.name}"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:gravity="center_horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/plant_item_image"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="Tomato"/>
+            <TextView
+                android:id="@+id/plant_item_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:gravity="center_horizontal"
+                android:text="@{plant.name}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/plant_item_image"
+                tools:text="Tomato" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/plant_item_comment_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:gravity="center_horizontal"
+                android:text="@{plant.commentsCount}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/plant_item_title"
+                tools:text="@tools:sample/full_names" />
+
+            <com.rasel.androidbaseapp.core.components.RMCheckBox
+                android:id="@+id/checkBoxBookmark"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:marginTopSystemWindowInsets="@{true}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.rasel.androidbaseapp.core.components.MaskedCardView>
 

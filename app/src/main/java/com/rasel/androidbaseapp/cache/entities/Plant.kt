@@ -14,7 +14,9 @@ data class Plant(
     val description: String,
     val growZoneNumber: Int,
     val wateringInterval: Int = 7, // how often the plant should be watered, in days
-    val imageUrl: String = ""
+    val imageUrl: String = "",
+    val commentsCount: String = "2",
+    val bookmarked: Boolean
 ) {
 
     /**

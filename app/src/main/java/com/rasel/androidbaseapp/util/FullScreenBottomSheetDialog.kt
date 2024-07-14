@@ -12,10 +12,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.rasel.androidbaseapp.EspressoIdlingResource
 import com.rasel.androidbaseapp.R
+import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.databinding.DialogFullScreenBottomSheetBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.PlantListViewModel
 import com.rasel.androidbaseapp.ui.plant_list.PlantAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 
 @AndroidEntryPoint
@@ -62,9 +64,10 @@ class FullScreenBottomSheetDialog : BottomSheetDialogFragment() {
             )
         }
 
-        val adapter = PlantAdapter {
-
-        }
+        val adapter =  PlantAdapter(
+            onItemClicked = {
+            }, onBookmarkClicked = { plant : Plant, position ->
+            })
         binding.recyclerview.adapter = adapter
 
         val bottomSheetBehavior = BottomSheetBehavior.from(requireView().parent as View)

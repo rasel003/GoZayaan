@@ -88,8 +88,8 @@ dependencies {
     //for logging and debug
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2'
-    implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.6.1'
 
     compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$rootProject.assistedInjectVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
@@ -161,7 +161,7 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
 
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:33.1.0')
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
 
     // Add the dependencies for the Crashlytics and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
@@ -184,7 +184,7 @@ dependencies {
     androidTestImplementation "com.google.dagger:hilt-android-testing:$rootProject.hiltVersion"
     androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.navigationVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
-    androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation 'androidx.test:core:1.6.1'
     androidTestImplementation "junit:junit:4.13.2"
     androidTestImplementation 'com.linkedin.dexmaker:dexmaker-mockito:2.28.3'
     androidTestImplementation 'org.mockito:mockito-core:5.12.0'
@@ -193,15 +193,15 @@ dependencies {
 
 
     testImplementation "junit:junit:$rootProject.junitVersion"
-    testImplementation 'androidx.test:runner:1.5.2'
+    testImplementation 'androidx.test:runner:1.6.1'
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.12.0'
     testImplementation "androidx.arch.core:core-testing:2.2.0"
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1'
     testImplementation 'org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.71'
     testImplementation 'org.mockito:mockito-core:5.12.0'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
-    testImplementation 'androidx.test:core:1.5.0'
-    testImplementation 'androidx.test.ext:junit:1.1.5'
+    testImplementation 'androidx.test:core:1.6.1'
+    testImplementation 'androidx.test.ext:junit:1.2.1'
 //    testImplementation 'org.robolectric:robolectric:4.5.1'
     testImplementation 'androidx.room:room-testing:2.6.1'
 
