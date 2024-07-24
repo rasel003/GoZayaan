@@ -6,13 +6,14 @@ import com.rasel.androidbaseapp.data.models.UnsplashPhoto
 import com.rasel.androidbaseapp.remote.models.PostItem
 import com.rasel.androidbaseapp.remote.models.UnsplashSearchResponse
 import com.rasel.androidbaseapp.remote.utils.Resource
+import com.rasel.androidbaseapp.util.ApiResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 interface HomeDataSource {
     // Remote and cache
     suspend fun getDashboardData(token: String)
-    suspend fun getPostList(): Resource<List<PostItem>>
+    fun getPostList(): Flow<ApiResponse<List<PostItem>>>
 
 
     // Cache

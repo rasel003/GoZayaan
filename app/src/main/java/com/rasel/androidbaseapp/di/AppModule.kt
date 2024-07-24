@@ -4,6 +4,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
+import androidx.work.WorkManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -67,5 +68,11 @@ object AppModule {
     @Provides
     fun provideGson(): Gson {
         return GsonBuilder().create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWorkManager(@ApplicationContext context: Context): WorkManager {
+        return WorkManager.getInstance(context)
     }
 }

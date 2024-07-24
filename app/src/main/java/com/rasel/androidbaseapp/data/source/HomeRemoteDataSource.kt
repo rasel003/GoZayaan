@@ -10,6 +10,7 @@ import com.rasel.androidbaseapp.remote.api.MyApi
 import com.rasel.androidbaseapp.remote.models.UnsplashSearchResponse
 import com.rasel.androidbaseapp.remote.utils.SafeApiCall
 import com.rasel.androidbaseapp.ui.gallery.UnsplashPagingSource
+import com.rasel.androidbaseapp.util.apiRequestFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -41,7 +42,7 @@ class HomeRemoteDataSource @Inject constructor(
         }*/
     }
 
-    override suspend fun getPostList() = apiRequest { api.getPostList() }
+    override fun getPostList() = apiRequestFlow { api.getPostList() }
 
     override suspend fun getDataFromUnSplash(query: String) =
         apiRequest { api.getDataFromUnSplash(query) }

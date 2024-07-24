@@ -73,7 +73,7 @@ class ComposeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentComposeBinding.inflate(inflater, container, false)
         return binding.root
     }

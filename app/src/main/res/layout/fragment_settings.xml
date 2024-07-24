@@ -232,14 +232,5 @@
                 app:srcCompat="@drawable/asl_edit_reply" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <fragment
-            android:id="@+id/lessons_sheet"
-            android:name="com.rasel.androidbaseapp.ui.settings.RoomTypeSheetFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/fragment_room_type_sheet" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

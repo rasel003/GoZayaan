@@ -9,8 +9,10 @@ import com.rasel.androidbaseapp.data.repository.HomeDataSource
 import com.rasel.androidbaseapp.remote.models.PostItem
 import com.rasel.androidbaseapp.remote.models.UnsplashSearchResponse
 import com.rasel.androidbaseapp.remote.utils.Resource
+import com.rasel.androidbaseapp.util.ApiResponse
 import com.rasel.androidbaseapp.util.KEY_DASHBOARD_LAST_SAVED
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -32,8 +34,9 @@ class HomeCacheDataSource @Inject constructor(
     override suspend fun getDashboardData(token: String) {
     }
 
-    override suspend fun getPostList(): Resource<List<PostItem>> {
-        return Resource.Success(emptyList())
+    override fun getPostList(): Flow<ApiResponse<List<PostItem>>> = flow {
+//        return Resource.Success(emptyList())
+        emit(ApiResponse.Success(emptyList()))
     }
 
     override suspend fun isCached(): Boolean {

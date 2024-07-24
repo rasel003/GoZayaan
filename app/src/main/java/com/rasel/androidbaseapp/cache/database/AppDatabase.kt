@@ -8,18 +8,17 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.rasel.androidbaseapp.cache.dao.CharacterDao
-import com.rasel.androidbaseapp.cache.entities.CharacterCacheEntity
-import com.rasel.androidbaseapp.cache.entities.CharacterLocationCacheEntity
-import com.rasel.androidbaseapp.cache.utils.CacheConstants
-import com.rasel.androidbaseapp.cache.utils.Migrations
 import com.rasel.androidbaseapp.cache.dao.PlantDao
 import com.rasel.androidbaseapp.cache.dao.UserDao
+import com.rasel.androidbaseapp.cache.entities.CharacterCacheEntity
+import com.rasel.androidbaseapp.cache.entities.CharacterLocationCacheEntity
 import com.rasel.androidbaseapp.cache.entities.Department
 import com.rasel.androidbaseapp.cache.entities.Designation
 import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.cache.entities.User
+import com.rasel.androidbaseapp.cache.utils.CacheConstants
+import com.rasel.androidbaseapp.cache.utils.Migrations
 import com.rasel.androidbaseapp.workers.SeedDatabaseWorker
-import javax.inject.Inject
 
 @Database(
     entities = [
@@ -48,24 +47,26 @@ abstract class AppDatabase : RoomDatabase() {
         private var instance: AppDatabase? = null
         private val LOCK = Any()
 
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
-            instance ?: buildDatabase(context).also {
-                instance = it
+        operator fun invoke(context: Context, workManager: WorkManager) =
+            instance ?: synchronized(LOCK) {
+                instance ?: buildDatabase(context, workManager).also {
+                    instance = it
+                }
             }
-        }
 
-        private fun buildDatabase(context: Context) = Room.databaseBuilder(
+        private fun buildDatabase(context: Context, workManager: WorkManager) =
+            Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
                 CacheConstants.DB_NAME
             ).addCallback(
-                    object : RoomDatabase.Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                            val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
-                            WorkManager.getInstance(context).enqueue(request)
-                        }
+                object : Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
+                        workManager.enqueue(request)
                     }
-                ).build()
+                }
+            ).build()
     }
 }

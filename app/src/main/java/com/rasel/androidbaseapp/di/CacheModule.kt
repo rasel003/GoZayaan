@@ -1,6 +1,7 @@
 package com.rasel.androidbaseapp.di
 
 import android.content.Context
+import androidx.work.WorkManager
 import com.rasel.androidbaseapp.cache.CharacterCacheImp
 import com.rasel.androidbaseapp.cache.LocalizationCacheImp
 import com.rasel.androidbaseapp.cache.dao.CharacterDao
@@ -22,8 +23,8 @@ object CacheModule {
 
     @Singleton
     @Provides
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return AppDatabase.invoke(context)
+    fun provideAppDatabase(@ApplicationContext context: Context, workManager: WorkManager): AppDatabase {
+        return AppDatabase.invoke(context, workManager)
     }
 
     @Provides

@@ -86,7 +86,7 @@ interface MyApi {
     ): UnsplashSearchResponse
 
     @GET("https://jsonplaceholder.typicode.com/posts")
-    suspend fun getPostList(): List<PostItem>
+    suspend fun getPostList(): Response<List<PostItem>>
 
 }
 

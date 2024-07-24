@@ -58,3 +58,22 @@ fun<T> apiRequestFlow(call: suspend () -> Response<T>): Flow<ApiResponse<T>> = f
         }
     } ?: emit(ApiResponse.Failure("Timeout! Please try again.", 408))
 }.flowOn(Dispatchers.IO)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,8 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.data.models.Localization
 import com.rasel.androidbaseapp.databinding.FragmentSlideshowBinding
+import com.rasel.androidbaseapp.presentation.viewmodel.CoroutinesErrorHandler
 import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
 import com.rasel.androidbaseapp.remote.utils.Resource
+import com.rasel.androidbaseapp.util.ApiResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -51,18 +53,22 @@ class SlideshowFragment : Fragment(R.layout.fragment_slideshow) {
                 viewModel.currentLanguageFlow.value
             )
         }
-        slideshowViewModel.getPostList()
+        slideshowViewModel.getPostList(object : CoroutinesErrorHandler {
+            override fun onError(message: String) {
+//                binding.tvError.text = "Error! $message"
+            }
+        })
         slideshowViewModel.postList.observe(viewLifecycleOwner) {
-            binding.progress = it is Resource.Loading
+            binding.progress = it is ApiResponse.Loading
             when (it) {
 
-                is Resource.Success -> {
+                is ApiResponse.Success -> {
                     lifecycleScope.launch {
                         binding.progressBar.visibility = View.GONE
 
-                        if (it.value.isNotEmpty()) {
+                        if (it.data.isNotEmpty()) {
                             binding.tvNoDataFound.visibility = View.GONE
-                            adapter.addNewData(it.value)
+                            adapter.addNewData(it.data)
 
                         } else {
                             binding.tvNoDataFound.visibility = View.VISIBLE
@@ -70,7 +76,7 @@ class SlideshowFragment : Fragment(R.layout.fragment_slideshow) {
                     }
                 }
 
-                is Resource.Failure -> {
+                is ApiResponse.Failure -> {
                     binding.progressBar.visibility = View.GONE
                     /* if (it.errorCode == 401) {
                          sessionOut()
