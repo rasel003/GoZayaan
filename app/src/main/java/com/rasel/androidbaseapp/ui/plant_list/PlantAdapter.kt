@@ -2,7 +2,6 @@ package com.rasel.androidbaseapp.ui.plant_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rasel.androidbaseapp.cache.entities.Plant
@@ -23,7 +22,9 @@ class PlantAdapter(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onItemClicked = onItemClicked,
+            onBookmarkClicked = onBookmarkClicked
         )
     }
 
@@ -58,71 +59,10 @@ class PlantAdapter(
 
     }
 
-    internal inner class PlantViewHolder(
-        private val binding: ListItemPlantBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.setClickListener {
-                binding.plant?.let { plant ->
-                    onItemClicked(plant)
-                }
-            }
-            binding.checkBoxBookmark.setOnClickListener {
-                binding.plant?.let { plant ->
-                    onBookmarkClicked(plant, bindingAdapterPosition)
-                }
-            }
-        }
-
-        fun bind(item: Plant) {
-            binding.apply {
-                plant = item
-                executePendingBindings()
-            }
-        }
-
-        internal fun bindCommentsCount(commentsCount: String) {
-            binding.plantItemCommentCount.text = commentsCount
-        }
-
-        internal fun bindBookmarkState(bookmarked: Boolean) {
-            binding.checkBoxBookmark.isSelected = bookmarked
-        }
-
-        fun bindBookmarkButton(bookmarked: Boolean, onBookmarkClicked: () -> Unit) {
-            bindBookmarkState(bookmarked)
-
-        }
-    }
 }
 
-private class PlantDiffCallback : DiffUtil.ItemCallback<Plant>() {
 
-    override fun areItemsTheSame(oldItem: Plant, newItem: Plant): Boolean {
-        return oldItem.plantId == newItem.plantId
-    }
-
-    override fun areContentsTheSame(oldItem: Plant, newItem: Plant): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun getChangePayload(oldItem: Plant, newItem: Plant): Any? {
-
-        return when {
-            oldItem.commentsCount != newItem.commentsCount -> {
-                PlantChangePayload.Comments(newItem.commentsCount)
-            }
-
-            oldItem.bookmarked != newItem.bookmarked -> {
-                PlantChangePayload.Bookmark(newItem.bookmarked)
-            }
-
-            else -> super.getChangePayload(oldItem, newItem)
-        }
-    }
-}
-
-private sealed interface PlantChangePayload {
+sealed interface PlantChangePayload {
 
     data class Comments(val newCommentsCount: String) : PlantChangePayload
 
