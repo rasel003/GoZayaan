@@ -359,7 +359,7 @@
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
 <!--        <item name="android:windowDrawsSystemBarBackgrounds">false</item>-->
 
-        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="android:windowLightStatusBar" >false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">@bool/use_light_system_bars</item>
 
         <item name="android:statusBarColor">@color/red</item>

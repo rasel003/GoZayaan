@@ -8,9 +8,9 @@
     <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <!--Color-->
-        <item name="colorPrimary">@color/app_blue_700</item>
+        <item name="colorPrimary">@color/teal_900</item>
         <item name="colorPrimaryVariant">@color/app_blue_800</item>
-        <item name="colorSecondary">@color/app_orange_500</item>
+        <item name="colorSecondary">@color/pink_900</item>
         <item name="colorSecondaryVariant">@color/app_orange_400</item>
 
         <item name="android:colorBackground">@color/app_blue_50</item>
@@ -41,10 +41,13 @@
 
         <!--System/Platform attributes-->
         <item name="android:windowBackground">?android:colorBackground</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+<!--        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>-->
         <item name="scrimBackground">@color/app_white_50_alpha_060</item>
-        <item name="android:statusBarColor">@color/app_blue_50_alpha_060</item>
+        <item name="android:statusBarColor">@color/teal_900</item>
         <item name="android:navigationBarColor">@color/nav_bar</item>
+
+        <item name="android:windowLightStatusBar" >false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">@bool/use_light_system_bars</item>
 
         <!--Material shape attributes-->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>

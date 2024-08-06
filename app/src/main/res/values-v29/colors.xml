@@ -3,5 +3,5 @@
 <resources>
     <!--Set the navigation bar to transparent on Q+ and allow the system to guard against-->
     <!--low contrast scenarios.-->
-    <color name="nav_bar">@android:color/transparent</color>
+    <color name="nav_bar">@color/teal_900</color>
 </resources>

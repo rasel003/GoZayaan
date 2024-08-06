@@ -44,7 +44,7 @@
     <!--to guard for contrast. Q should have a transparent nav bar as Q will automatically -->
     <!--handles contrast by either dynamically coloring the nav bar handle (gesture nav) -->
     <!--or automatically applying a translucent background (3-button mode).-->
-    <color name="nav_bar">@color/app_black_900_alpha_020</color>
+    <color name="nav_bar">@color/teal_900</color>
     <color name="white">#FFFFFF</color>
 
     <!-- 2019 colors -->
@@ -132,6 +132,10 @@
     <color name="yellow_400">#FFEE58</color>
     <color name="yellow_700">#FBC02D</color>
     <color name="yellow_900">#F57F17</color>
+
+
+    <color name="teal_900">#004852</color>
+    <color name="pink_900">#F9EC82</color>
 
     <color name="green">#00cd59</color>
     <color name="color_back_bg">#EBF1FA</color>
