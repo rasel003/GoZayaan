@@ -15,5 +15,6 @@
 <resources>
 
   <drawable name="ic_theme_1_lockup">@drawable/ic_lockup_white</drawable>
+  <bool name="use_light_system_bars">false</bool>
 
 </resources>

@@ -357,12 +357,21 @@
     <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Widget.App.ModalBottomSheetDialog</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">false</item>-->
 
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">@bool/use_light_system_bars</item>
+
+        <item name="android:statusBarColor">@color/red</item>
+<!--        <item name="android:navigationBarColor">@color/white</item>-->
+<!--        <item name="android:windowIsFloating">false</item>-->
     </style>
 
     <style name="ThemeOverlay.App.BottomSheetDialog.FullScreen" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Widget.App.ModalBottomSheetDialog.FullScreen</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <item name="android:navigationBarColor">@color/red</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
     <!-- snackbar style-->

@@ -16,5 +16,6 @@
 
   <!--Use an alias to switch which drawable is used in light/dark themes-->
   <drawable name="ic_theme_1_lockup">@drawable/ic_lockup_blue</drawable>
+  <bool name="use_light_system_bars">true</bool>
 
 </resources>
