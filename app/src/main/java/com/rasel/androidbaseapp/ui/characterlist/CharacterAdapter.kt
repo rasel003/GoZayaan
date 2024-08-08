@@ -46,7 +46,7 @@ class CharacterAdapter @Inject constructor(
         RecyclerView.ViewHolder(binding.root), Binder<Character> {
         override fun bind(item: Character) {
             binding.apply {
-                textViewCharacterName.text = item.name
+                textViewCharacterName.text = "$bindingAdapterPosition ${item.name}"
                 glide.load(item.image).into(imageViewCharacter)
                 root.setOnClickListener {
                     onItemClickListener?.let { itemClick ->

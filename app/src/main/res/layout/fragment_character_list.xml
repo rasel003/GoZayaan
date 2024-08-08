@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.characterlist.CharacterListFragment">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnScrollTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scroll"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ProgressBar
         android:id="@+id/progressBarCharacters"
         android:layout_width="wrap_content"
@@ -18,50 +26,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-   <!-- <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerFrameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+    <!-- <com.facebook.shimmer.ShimmerFrameLayout
+         android:id="@+id/shimmerFrameLayout"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_gravity="center"
+         android:orientation="vertical">
 
-        &lt;!&ndash; Adding 15 rows of placeholders &ndash;&gt;
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+         &lt;!&ndash; Adding 15 rows of placeholders &ndash;&gt;
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
 
-            <include layout="@layout/shimmer_character_list" />
+             <include layout="@layout/shimmer_character_list" />
 
-            <include layout="@layout/shimmer_character_list" />
+             <include layout="@layout/shimmer_character_list" />
 
-            <include layout="@layout/shimmer_character_list" />
+             <include layout="@layout/shimmer_character_list" />
 
-            <include layout="@layout/shimmer_character_list" />
+             <include layout="@layout/shimmer_character_list" />
 
-            <include layout="@layout/shimmer_character_list" />
+             <include layout="@layout/shimmer_character_list" />
 
-            <include layout="@layout/shimmer_character_list" />
+             <include layout="@layout/shimmer_character_list" />
 
-            <include layout="@layout/shimmer_character_list" />
+             <include layout="@layout/shimmer_character_list" />
 
-            <include layout="@layout/shimmer_character_list" />
+             <include layout="@layout/shimmer_character_list" />
 
-            <include layout="@layout/shimmer_character_list" />
-        </LinearLayout>
+             <include layout="@layout/shimmer_character_list" />
+         </LinearLayout>
 
-    </com.facebook.shimmer.ShimmerFrameLayout>-->
+     </com.facebook.shimmer.ShimmerFrameLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCharacters"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnScrollTo"
         tools:listitem="@layout/item_character_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

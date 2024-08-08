@@ -18,9 +18,11 @@ import com.rasel.androidbaseapp.presentation.viewmodel.CharacterUIModel
 import com.rasel.androidbaseapp.util.LoadingUtils
 import com.rasel.androidbaseapp.util.doOnApplyWindowInsets
 import com.rasel.androidbaseapp.util.observe
+import com.rasel.androidbaseapp.util.smoothSnapToPosition
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseViewModel>(),
@@ -56,6 +58,12 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding, BaseVie
         binding.recyclerViewCharacters.doOnPreDraw {
             startPostponedEnterTransition()
         }*/
+
+        binding.btnScrollTo.setOnClickListener {
+            val position = Random.nextInt(1, characterAdapter.itemCount-1)
+            binding.btnScrollTo.text = "Position $position"
+            binding.recyclerViewCharacters.smoothSnapToPosition(position)
+        }
     }
 
     private fun initRecyclerView() {
