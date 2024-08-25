@@ -1,23 +1,18 @@
 package com.rasel.androidbaseapp.base
 
-import android.graphics.Color
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.core.dialog.dismissLoadingDialog
 import com.rasel.androidbaseapp.core.dialog.showLoadingDialog
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
-import com.rasel.androidbaseapp.util.getColorFromAttr
-import com.rasel.androidbaseapp.util.getColorFromTheme
-import com.rasel.androidbaseapp.util.setStatusBarColor
 import com.rasel.androidbaseapp.util.showSnackBar
 import timber.log.Timber
 
@@ -28,11 +23,19 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
 
     abstract fun getViewBinding(): VB
 
+    lateinit var mContext: Context
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 //        activity?.setStatusBarColor(context?.getColorFromAttr(R.attr.colorPrimary)!!)
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
     }
 
     override fun onCreateView(

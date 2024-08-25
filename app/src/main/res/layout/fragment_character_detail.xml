@@ -6,230 +6,90 @@
     <data>
 
     </data>
-<ScrollView
-    android:id="@+id/rootView"
-    android:layout_width="match_parent"
-    tools:context=".ui.characterdetail.CharacterDetailFragment"
-    android:layout_height="match_parent">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
-        android:paddingBottom="50dp"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        tools:context=".ui.characterdetail.CharacterDetailFragment">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageViewCharacter"
-            android:layout_width="100sp"
-            android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            android:transitionName="@string/transition_image"
-            app:cornerFamily="rounded"
-            app:cornerSize="10%"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="?colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:marginTopSystemWindowInsets="@{true}" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/galleryView"
-            style="@style/Widget.App.Button.OutLineButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gallery"
-            app:icon="@drawable/ic_gallery"
-            app:iconSize="16dp"
-            app:layout_constraintBottom_toTopOf="@id/cardViewImage"
-            app:layout_constraintEnd_toEndOf="@+id/cardViewImage" />
-
-        <com.rasel.androidbaseapp.core.components.RMCheckBox
-            android:id="@+id/checkBoxBookmark"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:marginTopSystemWindowInsets="@{true}" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:elevation="3dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewCharacter">
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Card.BottomRadius">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
+                android:layout_height="wrap_content">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewCharacter"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:transitionName="@string/transition_image"
+                    app:cornerFamily="rounded"
+                    app:cornerSize="10%"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:marginTopSystemWindowInsets="@{true}" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/textViewCharacterName"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textAppearance="?attr/textAppearanceHeadline5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?colorOnPrimary"
+                    app:layout_constraintEnd_toStartOf="@id/checkBoxBookmark"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/imageViewCharacter"
+                    app:layout_constraintTop_toTopOf="@id/imageViewCharacter"
                     tools:text="Character name" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textViewGenderLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/character_gender_label"
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewCharacterName"
-                    app:layout_constraintWidth_percent=".5" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textViewSpeciesLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/character_species_label"
-                    android:textAppearance="?attr/textAppearanceBody1"
+                <com.rasel.androidbaseapp.core.components.RMCheckBox
+                    android:id="@+id/checkBoxBookmark"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewCharacterName"
-                    app:layout_constraintWidth_percent=".5" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:marginTopSystemWindowInsets="@{true}" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textViewGender"
-                    android:layout_width="0dp"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewGenderLabel"
-                    app:layout_constraintWidth_percent=".5"
-                    tools:text="Male" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textViewSpecies"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceBody2"
+                    style="@style/Widget.App.TabLayout"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewSpeciesLabel"
-                    app:layout_constraintWidth_percent=".5"
-                    tools:text="Human" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textViewGenderLocationLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/character_location_label"
-                    android:textAppearance="?attr/textAppearanceBody1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewGender"
-                    app:layout_constraintWidth_percent=".5" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textViewStatusLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/character_status_label"
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewSpecies"
-                    app:layout_constraintWidth_percent=".5" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textViewGenderLocation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewGenderLocationLabel"
-                    app:layout_constraintWidth_percent=".5"
-                    tools:text="Earth" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textViewStatus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewStatusLabel"
-                    app:layout_constraintWidth_percent=".5"
-                    tools:text="Alive" />
+                    app:layout_constraintTop_toBottomOf="@id/imageViewCharacter" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvCharacterDetails"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_normal"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginEnd="16dp"
-            android:lineSpacingExtra="2dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardViewImage"
-            tools:text="@string/faq_after_dark_program_description" />
+            app:layout_constraintTop_toBottomOf="@id/cardHeader" />
 
-        <com.rasel.androidbaseapp.core.components.CustomView
-            android:id="@+id/customView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            android:background="#f00"
-            app:image="@drawable/ic_agenda_meal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:text="Android" />
-
-        <com.rasel.androidbaseapp.core.components.CustomView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#0f0"
-            app:image="@drawable/ic_arrow_drop_up"
-            app:layout_constraintEnd_toStartOf="@+id/imageViewCharacter"
-            app:layout_constraintStart_toEndOf="@+id/customView"
-            app:layout_constraintTop_toTopOf="@id/customView"
-            app:text="ADB" />
-
-        <androidx.appcompat.widget.AppCompatRatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:rating="2.5"
-            style="@style/Widget.App.RatingBar"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCharacterDetails" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvCharacterDetails2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_normal"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginEnd="16dp"
-            android:lineSpacingExtra="2dp"
-            android:fontFamily="@font/work_sans"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ratingBar"
-            tools:text="@string/faq_after_dark_program_description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
 
 </layout>

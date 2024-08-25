@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_settings">
+    app:startDestination="@id/reply_graph">
 
     <fragment
         android:id="@+id/nav_home"
@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_nav_plantListFragment_to_characterDetailFragment"
             app:destination="@id/characterDetailFragment" />
+        <action
+            android:id="@+id/action_nav_plantListFragment_to_nav_settings"
+            app:destination="@id/nav_settings" />
     </fragment>
 
     <fragment
@@ -87,9 +90,9 @@
         android:name="com.rasel.androidbaseapp.ui.settings.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings">
-       <!-- <action
+        <action
             android:id="@+id/action_nav_settings_to_nav_faq"
-            app:destination="@id/nav_faq" />-->
+            app:destination="@id/nav_faq" />
         <action
             android:id="@+id/action_nav_settings_to_dialogInsurancePolicy"
             app:destination="@id/dialogInsurancePolicy" />
@@ -177,8 +180,8 @@
     <dialog
         android:id="@+id/dialogInsurancePolicy"
         android:name="com.rasel.androidbaseapp.util.DialogInsurancePolicy"
-        tools:layout="@layout/dialog_insurance_policy"
-        android:label="DialogInsurancePolicy" >
+        android:label="DialogInsurancePolicy"
+        tools:layout="@layout/dialog_insurance_policy">
         <action
             android:id="@+id/action_dialogInsurancePolicy_to_nav_faq"
             app:destination="@id/nav_faq" />

@@ -51,13 +51,15 @@ class PlantListFragment : BaseFragment<FragmentPlantListBinding, BaseViewModel>(
         adapter = PlantAdapter(
             onItemClicked = {
                 navigateToPlant(it)
-            }, onBookmarkClicked = { plant : Plant , position ->
+            }, onBookmarkClicked = { plant: Plant, position ->
                 val list = viewModel.plants.value ?: emptyList()
-                val updatedList =  list.map { if (it.plantId == plant.plantId) {
-                    it.copy(commentsCount = Random.nextInt().toString())
-                } else {
-                    it
-                } }
+                val updatedList = list.map {
+                    if (it.plantId == plant.plantId) {
+                        it.copy(commentsCount = Random.nextInt().toString())
+                    } else {
+                        it
+                    }
+                }
                 adapter.submitList(updatedList)
             })
         binding.plantList.adapter = adapter
@@ -77,6 +79,12 @@ class PlantListFragment : BaseFragment<FragmentPlantListBinding, BaseViewModel>(
         return when (item?.itemId) {
             R.id.filter_zone -> {
                 updateData()
+                true
+            }
+
+            R.id.action_settings -> {
+                val direction = PlantListFragmentDirections.actionNavPlantListFragmentToNavSettings()
+                findNavController().navigate(direction)
                 true
             }
 

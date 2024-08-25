@@ -8,7 +8,6 @@ import com.rasel.androidbaseapp.base.BaseFragment
 import com.rasel.androidbaseapp.databinding.FragmentHomeBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.ui.email.EmailFragment
-import com.rasel.androidbaseapp.util.SpringAddItemAnimator
 import com.rasel.androidbaseapp.util.observe
 import dagger.hilt.android.AndroidEntryPoint
 

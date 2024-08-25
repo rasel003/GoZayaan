@@ -441,6 +441,18 @@
         <item name="tabIndicator">@drawable/tab_indicator</item>
     </style>
 
+    <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TabLayout</item>
+        <item name="tabTextAppearance">@style/TextAppearance.App.Button</item>
+        <item name="tabIndicatorFullWidth">false</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TabLayout" parent="">
+        <item name="colorPrimary">@color/pink_900</item>
+        <item name="colorSurface">@color/teal_900</item>
+        <item name="colorOnSurface">@color/white</item>
+    </style>
+
     <!-- textAppearance alone doesn't support line spacing attrs. Multiline body text will use
          style="Widget.IOSched.MultilineBody" instead of the equivalent textAppearance.
     -->

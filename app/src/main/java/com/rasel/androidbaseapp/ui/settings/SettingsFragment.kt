@@ -1,16 +1,11 @@
 package com.rasel.androidbaseapp.ui.settings
 
-import android.Manifest
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.util.Pair
@@ -19,12 +14,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.rasel.androidbaseapp.R
-import com.rasel.androidbaseapp.base.BaseFragment
+import com.rasel.androidbaseapp.base.DownloadFragment
 import com.rasel.androidbaseapp.core.theme.ThemeUtils
 import com.rasel.androidbaseapp.data.models.Localization
 import com.rasel.androidbaseapp.databinding.FragmentSettingsBinding
@@ -37,21 +30,18 @@ import com.rasel.androidbaseapp.ui.dialog.DialogForBank
 import com.rasel.androidbaseapp.ui.image_slider.GridFragmentDirections
 import com.rasel.androidbaseapp.ui.image_slider.ImageSliderFragmentDirections
 import com.rasel.androidbaseapp.ui.scrolling_tab.WithScrollViewFragmentDirections
-import com.rasel.androidbaseapp.util.FileUtils
 import com.rasel.androidbaseapp.util.FullScreenBottomSheetDialog
 import com.rasel.androidbaseapp.util.TimeUtils
 import com.rasel.androidbaseapp.util.TimeUtils.getStringDateFromTimeInMillis
 import com.rasel.androidbaseapp.util.observe
-import com.rasel.androidbaseapp.util.permissionGranted
 import com.rasel.androidbaseapp.util.result.EventObserver
-import com.rasel.androidbaseapp.util.showPermissionRequestDialog
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
+class SettingsFragment : DownloadFragment<FragmentSettingsBinding, BaseViewModel>(),
     Toolbar.OnMenuItemClickListener {
 
     override val viewModel: SettingsViewModel by viewModels()
@@ -72,28 +62,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
     private lateinit var datePicker: MaterialDatePicker<Long>
     private var selectedDate: String = ""
 
-    private lateinit var mContext: Context
-
-
-    private var requestPermissionLauncher: ActivityResultLauncher<String> =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                /* if (::downLoadUrl.isInitialized) {
-                     downloadFile(downLoadUrl)
-                 }*/
-                downloadFile()
-            }
-        }
-
     override fun getViewBinding(): FragmentSettingsBinding =
         FragmentSettingsBinding.inflate(layoutInflater)
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mContext = context
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -294,8 +266,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
             }
 
             R.id.action_fag -> {
-               /* val action = SettingsFragmentDirections.actionNavSettingsToNavFaq()
-                findNavController().navigate(action)*/
+                val action = SettingsFragmentDirections.actionNavSettingsToNavFaq()
+                findNavController().navigate(action)
                 return true
             }
 
@@ -425,63 +397,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, BaseViewModel>(),
         dialogForBank.dismiss()
     }
     // mnopqrs
-
-    private fun checkPermissionAndDownload() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            downloadFile()
-        } else {
-            var customPermission: String = Manifest.permission.READ_EXTERNAL_STORAGE
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                customPermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
-            }
-            when {
-                requireContext().permissionGranted(customPermission) -> {
-                    downloadFile()
-                }
-
-                shouldShowRequestPermissionRationale(customPermission) -> {
-                    requireContext().showPermissionRequestDialog(
-                        getString(R.string.permission_title),
-                        getString(R.string.write_permission_request)
-                    ) {
-                        requestPermissionLauncher.launch(customPermission)
-                    }
-                }
-
-                else -> {
-                    requestPermissionLauncher.launch(customPermission)
-                }
-            }
-        }
-
-    }
-
-    private fun downloadFile() {
-//        val downLoadUrl = "https://filesamples.com/samples/document/xlsx/sample1.xlsx"
-        val downLoadUrl = "https://sample-videos.com/xls/Sample-Spreadsheet-50000-rows.xls"
-
-//        val downLoadUrl = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-//        val downLoadUrl = "https://file-examples.com/wp-content/storage/2017/02/file_example_XLSX_5000.xlsx"
-
-        FileUtils.downloadFile(
-            url = downLoadUrl,
-            context = mContext,
-//            fileName = fileName
-        ) { downloadId: Long, extension: String ->
-            onDownLoadCompleted(downloadId, extension)
-        }
-    }
-
-    private fun onDownLoadCompleted(downloadID: Long, extension: String) {
-        val uri = FileUtils.getDownloadedFilePath(downloadID, mContext)
-
-        val snackbar = Snackbar.make(binding.root, "Download completed", Snackbar.LENGTH_INDEFINITE)
-        snackbar.setAction("Open") {
-            snackbar.dismiss()
-            uri?.let { it1 -> FileUtils.openDownloadedFile(it1, it.context, extension) }
-        }
-        snackbar.show()
-    }
 
     companion object {
         @JvmStatic
