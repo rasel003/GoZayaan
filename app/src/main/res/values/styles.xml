@@ -370,8 +370,9 @@
     <style name="ThemeOverlay.App.BottomSheetDialog.FullScreen" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Widget.App.ModalBottomSheetDialog.FullScreen</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
-        <item name="android:navigationBarColor">@color/red</item>
-        <item name="android:backgroundDimEnabled">false</item>
+<!--        <item name="android:navigationBarColor">@color/red</item>-->
+        <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
     <!-- snackbar style-->

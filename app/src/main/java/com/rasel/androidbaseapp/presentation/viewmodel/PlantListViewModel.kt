@@ -1,16 +1,26 @@
 package com.rasel.androidbaseapp.presentation.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.work.ListenableWorker.Result
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.google.gson.stream.JsonReader
+import com.rasel.androidbaseapp.cache.dao.PlantDao
 import com.rasel.androidbaseapp.cache.entities.Plant
 import com.rasel.androidbaseapp.data.HomeRepository
 import com.rasel.androidbaseapp.presentation.utils.CoroutineContextProvider
 import com.rasel.androidbaseapp.presentation.utils.ExceptionHandler
 import com.rasel.androidbaseapp.presentation.utils.UiAwareModel
+import com.rasel.androidbaseapp.util.PLANT_DATA_FILENAME
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
@@ -29,7 +39,9 @@ sealed class PlantUIModel : UiAwareModel() {
 class PlantListViewModel @Inject internal constructor(
     contextProvider: CoroutineContextProvider,
     plantRepository: HomeRepository,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    @ApplicationContext context: Context,
+    private val plantDao: PlantDao
 ) : BaseViewModel(contextProvider) {
 
     private val growZone: MutableStateFlow<Int> = MutableStateFlow(
@@ -82,6 +94,19 @@ class PlantListViewModel @Inject internal constructor(
                 savedStateHandle[GROW_ZONE_SAVED_STATE_KEY] = newGrowZone
             }
         }
+        /*viewModelScope.launch(Dispatchers.IO) {
+            context.assets.open(PLANT_DATA_FILENAME).use { inputStream ->
+                JsonReader(inputStream.reader()).use { jsonReader ->
+                    val plantType = object : TypeToken<List<Plant>>() {}.type
+                    val plantList: List<Plant> = Gson().fromJson(jsonReader, plantType)
+
+//                    val database = AppDatabase.invoke(applicationContext)
+                    plantDao.insertAll(plantList)
+
+                    Result.success()
+                }
+            }
+        }*/
     }
 
     fun setGrowZoneNumber(num: Int) {

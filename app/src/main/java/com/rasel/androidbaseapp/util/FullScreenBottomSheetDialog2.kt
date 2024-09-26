@@ -24,7 +24,7 @@ import kotlin.random.Random
 
 
 @AndroidEntryPoint
-class FullScreenBottomSheetDialog : BottomSheetDialogFragment() {
+class FullScreenBottomSheetDialog2 : BottomSheetDialogFragment() {
     private var orderId: String? = null
     private lateinit var binding: DialogFullScreenBottomSheetBinding
     val viewModel: PlantListViewModel by viewModels()
@@ -54,18 +54,6 @@ class FullScreenBottomSheetDialog : BottomSheetDialogFragment() {
             dismiss()
         }
 
-//        setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
-        dialog?.setOnShowListener { dialog ->
-            val layout: FrameLayout? = (dialog as BottomSheetDialog).
-            findViewById(com.google.android.material.R.id.design_bottom_sheet)
-            layout?.let {
-                val behavior = BottomSheetBehavior.from(it)
-                behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                behavior.skipCollapsed = true
-            }
-            // TODO: NAVHOST INSTANCE
-//            return view
-        }
 
         return binding.root
     }
@@ -106,7 +94,7 @@ class FullScreenBottomSheetDialog : BottomSheetDialogFragment() {
 
         const val KEY_ORDER_ID = ""
         fun display(fragmentManager: FragmentManager, tag: String, orderId: String) {
-            val dialog = FullScreenBottomSheetDialog()
+            val dialog = FullScreenBottomSheetDialog2()
             val bundle = Bundle()
             bundle.putString(KEY_ORDER_ID, orderId)
             dialog.arguments = bundle
