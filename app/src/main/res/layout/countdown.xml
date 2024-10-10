@@ -20,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <androidx.legacy.widget.Space
+    <Space
         android:id="@+id/spacer_top"
         android:layout_width="0dp"
         android:layout_height="@dimen/margin_normal"
@@ -50,7 +50,7 @@
         app:layout_constraintStart_toEndOf="@id/countdown_days_1"
         app:layout_constraintTop_toTopOf="@id/countdown_days_1" />
 
-    <androidx.legacy.widget.Space
+    <Space
         android:id="@+id/spacer_days_hours"
         android:layout_width="@dimen/onboarding_animation_padding"
         android:layout_height="0dp"
@@ -100,7 +100,7 @@
         app:layout_constraintStart_toStartOf="@id/countdown_hours_1"
         app:layout_constraintTop_toBottomOf="@id/countdown_hours_1" />
 
-    <androidx.legacy.widget.Space
+    <Space
         android:id="@+id/spacer_days_mins"
         android:layout_width="0dp"
         android:layout_height="@dimen/onboarding_animation_padding"
@@ -129,7 +129,7 @@
         app:layout_constraintStart_toEndOf="@id/countdown_mins_1"
         app:layout_constraintTop_toTopOf="@id/countdown_mins_1" />
 
-    <androidx.legacy.widget.Space
+    <Space
         android:id="@+id/spacer_mins_secs"
         android:layout_width="@dimen/onboarding_animation_padding"
         android:layout_height="0dp"
@@ -159,7 +159,7 @@
         app:layout_constraintStart_toEndOf="@id/countdown_secs_1"
         app:layout_constraintTop_toTopOf="@id/countdown_mins_1" />
 
-    <androidx.legacy.widget.Space
+    <Space
         android:id="@+id/spacer_mins_text"
         android:layout_width="0dp"
         android:layout_height="56dp"

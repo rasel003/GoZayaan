@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.bumptech.glide.RequestManager
 import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.FragmentImageSliderBinding
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
-import com.smarteist.autoimageslider.SliderAnimations
+/*import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
+import com.smarteist.autoimageslider.SliderAnimations*/
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import com.rasel.androidbaseapp.ui.image_slider.MyAdapter.MyItem
@@ -40,21 +40,21 @@ class ImageSliderFragment : Fragment(R.layout.fragment_image_slider) {
             )
         }
 
-        val imageSliderAdapter = ImageSliderAdapter(glide)
+        /*val imageSliderAdapter = ImageSliderAdapter(glide)
         imageSliderAdapter.addItem("https://cdn.paperfly.com.bd/merchant/assets/merchant_dashboard_slide_1.png")
         imageSliderAdapter.addItem("https://cdn.paperfly.com.bd/merchant/assets/mobile_merchant_dashboard_slide_1.png")
         imageSliderAdapter.addItem("https://cdn.paperfly.com.bd/merchant/assets/merchant_dashboard_slide_1.png")
         imageSliderAdapter.addItem("https://cdn.paperfly.com.bd/merchant/assets/mobile_merchant_dashboard_slide_1.png")
         imageSliderAdapter.addItem("https://cdn.paperfly.com.bd/merchant/assets/merchant_dashboard_slide_1.png")
         imageSliderAdapter.addItem("https://cdn.paperfly.com.bd/merchant/assets/mobile_merchant_dashboard_slide_1.png")
-        imageSliderAdapter.addItem("https://cdn.paperfly.com.bd/merchant/assets/merchant_dashboard_slide_1.png")
+        imageSliderAdapter.addItem("https://cdn.paperfly.com.bd/merchant/assets/merchant_dashboard_slide_1.png")*/
 
-        binding.sliderView.setSliderAdapter(imageSliderAdapter)
+        /*binding.sliderView.setSliderAdapter(imageSliderAdapter)
         binding.sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM) //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         binding.sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
         binding.sliderView.startAutoCycle()
 
-        binding.sliderView.setInfiniteAdapterEnabled(true)
+        binding.sliderView.setInfiniteAdapterEnabled(true)*/
 
         // RecyclerView
         val adapter = MyAdapter(glide)

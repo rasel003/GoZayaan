@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.smarteist.autoimageslider.SliderView
+           <!-- <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/sliderView"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
@@ -45,7 +45,7 @@
                 app:sliderIndicatorSelectedColor="#0249C0"
                 app:sliderIndicatorUnselectedColor="#D2EEFA"
                 app:sliderScrollTimeInSec="4"
-                app:sliderStartAutoCycle="true" />
+                app:sliderStartAutoCycle="true" />-->
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Title"
