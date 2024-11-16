@@ -22,7 +22,7 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary true
 
-        testInstrumentationRunner "com.rasel.androidbaseapp.CustomTestRunner"
+//        testInstrumentationRunner "com.rasel.androidbaseapp.CustomTestRunner"
 
         buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"" + getUnsplashAccess() + "\"")
         buildConfigField("String", "BASE_URL", '"https://rickandmortyapi.com/api/"')

@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/reply_graph"
+            android:id="@+id/nav_home"
             android:icon="@drawable/asl_my_courses"
             android:title="Emails" />
 
@@ -19,11 +19,9 @@
             android:icon="@drawable/asl_featured"
             android:title="@string/menu_slideshow" />
         <item
-            android:id="@+id/owl_graph"
             android:icon="@drawable/asl_my_courses"
             android:title="@string/owl" />
         <item
-            android:id="@+id/nav_character_list"
             android:icon="@drawable/asl_search"
             android:title="@string/menu_character_list" />
 

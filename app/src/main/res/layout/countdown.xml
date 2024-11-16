@@ -81,7 +81,6 @@
         app:layout_constraintTop_toTopOf="@id/countdown_days_1" />
 
     <TextView
-        android:id="@+id/countdown_days_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:importantForAccessibility="no"
@@ -91,7 +90,6 @@
         app:layout_constraintTop_toBottomOf="@id/countdown_days_1" />
 
     <TextView
-        android:id="@+id/countdown_hours_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:importantForAccessibility="no"
@@ -167,7 +165,6 @@
         app:layout_constraintTop_toBottomOf="@id/countdown_mins_1" />
 
     <TextView
-        android:id="@+id/countdown_mins_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:importantForAccessibility="no"
@@ -177,7 +174,6 @@
         app:layout_constraintTop_toBottomOf="@id/countdown_mins_1" />
 
     <TextView
-        android:id="@+id/countdown_secs_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:importantForAccessibility="no"

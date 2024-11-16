@@ -13,7 +13,6 @@ import androidx.viewbinding.ViewBinding
 import com.rasel.androidbaseapp.core.dialog.dismissLoadingDialog
 import com.rasel.androidbaseapp.core.dialog.showLoadingDialog
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
-import com.rasel.androidbaseapp.util.showSnackBar
 import timber.log.Timber
 
 abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragment() {
@@ -25,13 +24,6 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
 
     lateinit var mContext: Context
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-//        activity?.setStatusBarColor(context?.getColorFromAttr(R.attr.colorPrimary)!!)
-
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -94,7 +86,7 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
         if (message.isNullOrBlank()) return
         dismissLoadingDialog()
         Timber.e(message)
-        showSnackBar(binding.root, message)
+//        showSnackBar(binding.root, message)
     }
 
     fun disableEdgeToEdge() {

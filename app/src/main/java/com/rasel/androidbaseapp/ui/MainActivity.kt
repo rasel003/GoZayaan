@@ -1,7 +1,6 @@
 package com.rasel.androidbaseapp.ui
 
 import android.content.Context
-import android.content.IntentFilter
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +16,6 @@ import com.rasel.androidbaseapp.R
 import com.rasel.androidbaseapp.databinding.ActivityMain2Binding
 import com.rasel.androidbaseapp.presentation.viewmodel.LocalizedViewModel
 import com.rasel.androidbaseapp.util.NetworkChangeReceiver
-import com.rasel.androidbaseapp.util.NoticeDialogFragment
 import com.rasel.androidbaseapp.util.contentView
 import com.rasel.androidbaseapp.util.toastSuccess
 import com.rasel.androidbaseapp.util.updateForTheme
@@ -25,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListener,
+class MainActivity : AppCompatActivity(),
     NetworkChangeReceiver.ConnectionChangeCallback {
 
     private lateinit var mContext: Context
@@ -75,8 +73,6 @@ class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListe
                         R.id.nav_settings -> bottomNav.show()
                         else -> bottomNav.hide()
                     }*/
-
-                    printBackStack(controller)
                 }
             }
         }
@@ -111,48 +107,9 @@ class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListe
         viewModel.getLocalizationFromRemote()
     }
 
-    override fun onStop() {
-        super.onStop()
-//        mContext.unregisterReceiver(networkChangeReceiver)
-    }
-
-    fun showNoticeDialog() {
-        // Create an instance of the dialog fragment and show it.
-        val dialog = NoticeDialogFragment()
-        dialog.show(supportFragmentManager, "NoticeDialogFragment")
-    }
-
-    // The dialog fragment receives a reference to this Activity through the
-    // Fragment.onAttach() callback, which it uses to call the following
-    // methods defined by the NoticeDialogFragment.NoticeDialogListener
-    // interface.
-    override fun onDialogPositiveClick(dialog: DialogFragment) {
-        // User taps the dialog's positive button.
-        /*Snackbar.make(binding.fab, "Replace with your own action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show()*/
-    }
-
-    override fun onDialogNegativeClick(dialog: DialogFragment) {
-        // User taps the dialog's negative button.
-        /*Snackbar.make(binding.fab, "Replace with your own action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show()*/
-    }
-
     override fun onConnectionChange(isConnected: Boolean) {
         mContext.toastSuccess("Network isConnected : $isConnected")
     }
-
-    fun printBackStack(navController: NavController) {
-        val currentBackStack = navController.currentBackStack.value
-
-        val breadcrumb = currentBackStack.map { it.destination }
-            .filterNot { it is NavGraph }
-            .joinToString(" > ") { it.displayName.split('/')[1] }
-
-        Timber.tag("rsl").d("Backstack: $breadcrumb")
-
-    }
-
 
     companion object {
 
@@ -162,7 +119,7 @@ class MainActivity : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListe
          *
          * In this demo app, the position always points to an image index at the [ ] class.
          */
-        public var currentPosition = 0
+        var currentPosition = 0
         private const val KEY_CURRENT_POSITION =
             "com.google.samples.gridtopager.key.currentPosition"
     }

@@ -2,12 +2,9 @@
 <animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/night"
         android:drawable="@drawable/ic_bookmark_fill"
         android:state_checked="true" />
 
-    <item
-        android:id="@+id/day"
-        android:drawable="@drawable/ic_bookmark_outline" />
+    <item android:drawable="@drawable/ic_bookmark_outline" />
 
 </animated-selector>

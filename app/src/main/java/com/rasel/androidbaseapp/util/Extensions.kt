@@ -606,7 +606,7 @@ fun TextView.isResizableNeeded(
         adjustedText,
         paint,
         width - paddingLeft - paddingRight,
-        Layout.Alignment.ALIGN_NORMAL,
+        Alignment.ALIGN_NORMAL,
         lineSpacingMultiplier,
         lineSpacingExtra,
         includeFontPadding
@@ -640,7 +640,7 @@ fun TextView.setResizableText(
         adjustedText,
         paint,
         width - paddingLeft - paddingRight,
-        Layout.Alignment.ALIGN_NORMAL,
+        Alignment.ALIGN_NORMAL,
         lineSpacingMultiplier,
         lineSpacingExtra,
         includeFontPadding
@@ -719,7 +719,7 @@ fun TextView.setResizableText(
         shortenedStringWithSuffix,
         paint,
         width - paddingLeft - paddingRight,
-        Layout.Alignment.ALIGN_NORMAL,
+        Alignment.ALIGN_NORMAL,
         lineSpacingMultiplier,
         lineSpacingExtra,
         includeFontPadding
@@ -739,7 +739,7 @@ fun TextView.setResizableText(
             appended,
             paint,
             width - paddingLeft - paddingRight,
-            Layout.Alignment.ALIGN_NORMAL,
+            Alignment.ALIGN_NORMAL,
             lineSpacingMultiplier,
             lineSpacingExtra,
             includeFontPadding

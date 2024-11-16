@@ -8,34 +8,19 @@
     <color name="app_black_900">#000000</color>
 
     <color name="app_blue_50">#eef0f2</color>
-    <color name="app_blue_100">#d2dbe0</color>
     <color name="app_blue_200">#adbbc4</color>
     <color name="app_blue_300">#8ca2ae</color>
-    <color name="app_blue_600">#4a6572</color>
-    <color name="app_blue_700">#344955</color>
     <color name="app_blue_800">#232f34</color>
 
     <color name="app_orange_300">#fbd790</color>
     <color name="app_orange_400">#f9be64</color>
-    <color name="app_orange_500">#f9aa33</color>
-    <color name="sun_flower_200">#ddd10f</color>
-    <color name="sun_flower_500">#DBA900</color>
     <color name="sun_flower_700">#D99100</color>
-    <color name="star_ship_200">#DBA800</color>
-    <color name="star_ship_700">#D56800</color>
-    <color name="color_background">#E8ECEB</color>
-    <color name="color_background_dark">#24292E</color>
-    <color name="color_card_view_dark">#3B3E43</color>
-    <color name="color_text">#30353A</color>
 
     <color name="app_red_200">#cf7779</color>
     <color name="app_red_400">#ff4c5d</color>
 
     <color name="app_white_50_alpha_060">#99ffffff</color>
 
-    <color name="app_blue_50_alpha_060">#99eef0f2</color>
-
-    <color name="app_black_900_alpha_020">#33000000</color>
     <color name="app_black_900_alpha_087">#de000000</color>
     <color name="app_black_900_alpha_060">#99000000</color>
 
@@ -48,247 +33,68 @@
     <color name="white">#FFFFFF</color>
 
     <!-- 2019 colors -->
-    <color name="deep_sky_blue">#1a73e8</color> <!-- colorPrimary in Light mode-->
-    <color name="warm_blue">#574ddd</color> <!-- colorPrimaryDark in Light mode-->
+    <!-- colorPrimary in Light mode-->
+    <!-- colorPrimaryDark in Light mode-->
     <color name="carolina_blue">#8ab4f8</color> <!-- colorPrimary in Dark mode-->
     <color name="cornflower_blue">#669DF6</color> <!-- colorPrimaryDark in Dark mode-->
 
-    <color name="teal">#069f86</color>
-    <color name="bright_light_blue">#27e5fd</color>
-    <color name="sun_yellow">#fcd230</color>
-    <color name="bright_orange">#ff6c00</color>
-
-    <color name="transparent">#0fff</color>
-
-    <color name="color_primary">@color/deep_sky_blue</color>
-    <color name="color_primary_dark">@color/warm_blue</color>
-    <color name="color_on_secondary">@color/white</color>
-
-    <color name="color_control_light">#39000000</color> <!-- Same as textColorPrimary disabled -->
-    <color name="color_surface_secondary">#F8F9FA</color> <!-- Same as textColorPrimary disabled -->
+    <!-- Same as textColorPrimary disabled -->
+    <!-- Same as textColorPrimary disabled -->
 
     <!-- Scrim colors -->
-    <color name="system_ui_scrim_light">#B3FFFFFF</color> <!-- 70% white -->
-    <color name="system_ui_scrim_black">#40000000</color> <!-- 25% black -->
+    <!-- 70% white -->
+    <!-- 25% black -->
 
     <!-- We use a dark scrim by default since light status is API 23+ -->
-    <color name="status_bar_scrim">@color/system_ui_scrim_black</color>
     <!-- We use a dark scrim by default since light nav bar is API 27+ -->
-    <color name="nav_bar_scrim">@color/system_ui_scrim_black</color>
 
-    <!-- Other colors with dark mode alternatives -->
-    <color name="wifi_card_background">#e8f0fe</color>
-    <color name="event_card_header_background">@color/event_card_header_background_light</color>
-    <color name="list_divider">#1f000000</color>>
+    <!-- Other colors with dark mode alternatives --><![CDATA[
 
-    <!-- Other colors -->
-    <color name="default_tag_color">#999</color>
-    <color name="light_grey">#e6e6e6</color>
-    <color name="scrim">#33000000</color> <!-- 20% black -->
 
-    <color name="event_card_header_background_light">#f8f9fa</color>
-    <color name="event_card_header_background_dark">#252729</color>
+    >
 
-    <item name="chip_bg_alpha_checked" format="float" type="dimen">0.18</item>
-
-    <integer-array name="swipe_refresh">
-        <item>@color/deep_sky_blue</item>
-        <item>@color/teal</item>
-        <item>@color/bright_light_blue</item>
-        <item>@color/sun_yellow</item>
-        <item>@color/bright_orange</item>
-    </integer-array>
+    ]]><!-- Other colors -->
+    <!-- 20% black -->
 
 
     <!--theme colors-->
-    <color name="owl_yellow_200">#ffeb46</color>
-    <color name="owl_yellow_400">#ffc000</color>
-    <color name="owl_yellow_500">#ffde03</color>
-    <color name="owl_yellow_dark_primary">#242316</color>
-
-    <color name="owl_blue_200">#91a4fc</color>
-    <color name="owl_blue_700">#0336ff</color>
-    <color name="owl_blue_800">#0035c9</color>
-    <color name="owl_blue_dark_primary">#1c1d24</color>
-
-    <color name="owl_pink_200">#ff7597</color>
-    <color name="owl_pink_500">#ff0266</color>
-    <color name="owl_pink_600">#d8004d</color>
-    <color name="owl_pink_dark_primary">#24191c</color>
 
     <!--background protection for nav-bar, varied on Q+-->
-    <color name="immersive_sys_ui">#33000000</color>
-<!--    <color name="nav_bar">@color/immersive_sys_ui</color>-->
+    <!--    <color name="nav_bar">@color/immersive_sys_ui</color>-->
 
     <color name="colorPrimary">#2c3491</color>
-    <color name="colorPrimaryDark">#1f227c</color>
     <color name="colorAccent">#25ade3</color>
-    <color name="colorAccent2">#096FC4</color>
-    <color name="pfColor">#2c3491</color>
-
-    <color name="yellow">#e6ce17</color>
-    <color name="yellow_2">#FFBF00</color>
-    <color name="yellow_200">#FFF59D</color>
-    <color name="yellow_400">#FFEE58</color>
-    <color name="yellow_700">#FBC02D</color>
-    <color name="yellow_900">#F57F17</color>
 
 
     <color name="teal_900">#004852</color>
     <color name="pink_900">#F9EC82</color>
 
-    <color name="green">#00cd59</color>
-    <color name="color_back_bg">#EBF1FA</color>
     <color name="red">#cd1800</color>
-    <color name="gray">#999999</color>
-    <color name="dark_red">#bf1a00</color>
     <color name="foreground_material_light">#1f379f</color>
-    <color name="grey">#c8c8c8</color>
-    <color name="color_title">#334660</color>
-    <color name="blue_link">#1433e4</color>
-    <color name="view_green">#00C52F</color>
-    <color name="put_hd_color_green">#32A85D</color>
-
-    <color name="lightgray">#ededed</color>
-    <color name="darkblue">#151925</color>
-
-    <color name="black_overlay">#66000000</color>
-    <color name="color_blue">#5066DD</color>
-    <color name="color_white">#FFFFFF</color>
-    <color name="color_font_grey">#c8c8c8</color>
-
-
-    <color name="overlay_light_70">#B3FFFFFF</color>
-
-    <color name="grey_5">#f2f2f2</color>
-    <color name="grey_10">#e6e6e6</color>
-    <color name="grey_20">#cccccc</color>
-    <color name="grey_60">#666666</color>
 
 
     <!--Material color list from https://material.io/guidelines/style/color.html-->
 
-    <color name="red_50">#FFEBEE</color>
-    <color name="red_100">#FFCDD2</color>
-    <color name="red_200">#EF9A9A</color>
-    <color name="red_400">#EF5350</color>
-    <color name="red_500">#F44336</color>
-    <color name="red_600">#E53935</color>
-    <color name="red_700">#D32F2F</color>
-    <color name="red_900">#B71C1C</color>
-
-    <color name="green_50">#E8F5E9</color>
-    <color name="green_100">#C8E6C9</color>
-    <color name="green_200">#A5D6A7</color>
-    <color name="green_300">#81C784</color>
-    <color name="green_400">#66BB6A</color>
-    <color name="green_500">#4CAF50</color>
-    <color name="green_700">#388E3C</color>
-    <color name="green_900">#1B5E20</color>
-
-
-    <color name="purple_200">#CE93D8</color>
-    <color name="purple_300">#BA68C8</color>
-
-
-    <color name="blue_grey_50">#eceff1</color>
-    <color name="blue_grey_100">#CFD8DC</color>
-    <color name="blue_grey_400">#78909C</color>
-    <color name="blue_grey_800">#37474F</color>
-
-    <color name="indigo_800_overlay">#E6283593</color>
-
-    <color name="amber_900">#FF6F00</color>
-
-    <color name="purple_500">#9C27B0</color>
-
-    <color name="blue_50">#E3F2FD</color>
-    <color name="blue_100">#BBDEFB</color>
-    <color name="blue_200">#81D4FA</color>
-    <color name="blue_300">#4FC3F7</color>
-    <color name="blue_400">#42A5F5</color>
-    <color name="blue_500">#2196F3</color>
-    <color name="blue_800">#1565C0</color>
-    <color name="blue_900">#0D47A1</color>
-    <color name="blue_A700">#2962FF</color>
-
-    <color name="orange_400">#FFA726</color>
-    <color name="orange_500">#FF9800</color>
-
-    <color name="grey_300">#E0E0E0</color>
-    <color name="grey_400">#BDBDBD</color>
-    <color name="color_priority_card">#067395</color>
-    <color name="color_priority_card_two">#BFEBFA</color>
-
 
     <!--    System Gray Light -->
-    <color name="system_gray5_light">#D8D8DC</color>
-    <color name="system_gray6_light">#EBEBF0</color>
 
     <!--    System Gray Dark -->
-    <color name="system_gray_dark">#AEAEB2</color>
-    <color name="system_gray3_dark">#545456</color>
-    <color name="system_gray4_dark">#444446</color>
-    <color name="system_gray5_dark">#363638</color>
-    <color name="system_gray6_dark">#242426</color>
 
     <!--    System Color Light -->
-    <color name="system_blue_light">#0040DD</color>
-    <color name="system_green_light">#248A3D</color>
-    <color name="system_indigo_light">#3634A3</color>
-    <color name="system_orange_light">#C93400</color>
-    <color name="system_red_light">#D70015</color>
 
     <!--    System Color Dark -->
 
-    <color name="system_blue_dark">#409CFF</color>
-    <color name="system_green_dark">#30DB5B</color>
-    <color name="system_orange_dark">#FFB340</color>
-    <color name="system_pink_dark">#FF6482</color>
-    <color name="system_purple_dark">#DA8FFF</color>
-    <color name="system_red_dark">#FF6961</color>
-    <color name="system_teal_dark">#5DE6FF</color>
-    <color name="system_yellow_dark">#FFD426</color>
-
-
-    <color name="dark_primary">#1E62D4</color>
-    <color name="dark_primary2">#0249C0</color>
-
-    <color name="backgroundColor">#F4FBFE</color>
-    <color name="red_color">#FF4238</color>
 
     <color name="white_400">#dedede</color>
 
     <color name="black">#000000</color>
-    <color name="black_300">#c4c4c4</color>
-    <color name="black_500">#7b7b7b</color>
-    <color name="black_600">#555555</color>
-    <color name="black_700">#434343</color>
-
-    <color name="line_default">#8D97A4</color>
 
 
-
-
-    <color name="transparent_color">#00000000</color>
-
-    <color name="primary_color">#ff5e00</color> <!-- Try to have a color that renders well on both light & dark theme -->
+    <!-- Try to have a color that renders well on both light & dark theme -->
     <!-- You can use https://material.io/design/color/#tools-for-picking-colors to get dark color value from primary -->
-    <color name="primary_dark_color">#e65000</color>
-    <color name="notification_led_color">#ff8000</color>
 
-    <color name="black_color">#000000</color>
-    <color name="dark_grey_color">#444444</color>
     <color name="white_color">#ffffff</color>
-    <color name="green_color">#96c11f</color>
-    <color name="dark_green_color">#7d9f21</color>
 
-    <color name="voip_light_gray">#D0D8DE</color>
-    <color name="voip_dark_gray">#4B5964</color>
-    <color name="voip_gray">#96A5B1</color>
-    <color name="voip_calls_list_inactive_background">#F0F1F2</color>
-    <color name="voip_translucent_popup_background">#A64B5964</color>
-    <color name="voip_translucent_popup_alt_background">#E64B5964</color>
     <!-- Background -->
     <!-- Light gray -->
     <!-- Extra buttons -->
@@ -301,8 +107,4 @@
     For each RGB value of the color, the math to get is:
     C' = C * (A / 255) + 255 * (1 - (A / 255)) so for 10% transparency: C' = C * 0.1 + 229.5 -->
 
-    <color name="led_registered">#96c11f</color>
-    <color name="led_registration_in_progress">#ffa645</color>
-    <color name="led_not_registered">#e1e1e1</color>
-    <color name="led_error">#ff0000</color>
 </resources>

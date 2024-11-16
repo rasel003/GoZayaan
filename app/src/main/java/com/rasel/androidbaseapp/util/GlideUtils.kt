@@ -25,8 +25,6 @@ import com.rasel.androidbaseapp.data.models.TitleAndId
 import java.util.*
 import kotlin.random.Random
 
-fun loadListener(block: (loaded: Boolean) -> Unit) = GlideDrawableLoadListener(block)
-
 /**
  * A [RequestListener] which executes an action when a [Drawable] loads or fails to load.
  */

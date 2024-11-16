@@ -146,12 +146,6 @@ fun expandAndCollapseButtonWithRecyclerview(
     fab: ExtendedFloatingActionButton
 ) {
     recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            /*if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-            binding.btnAddPatient.extend();
-        }*/
-            super.onScrollStateChanged(recyclerView, newState)
-        }
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             /*if (dy > 0) {

@@ -49,5 +49,4 @@ data class Speaker(
      * Full URL of the speaker's LinkedIn profile.
      */
     val linkedInUrl: String? = null
-) {
-}
+)

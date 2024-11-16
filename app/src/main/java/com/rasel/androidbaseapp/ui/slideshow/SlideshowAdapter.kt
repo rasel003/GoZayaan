@@ -26,7 +26,7 @@ class SlideshowAdapter(
     }
 
     override fun onBindViewHolder(itemView: MyViewHOlder, position: Int) {
-        itemView.bind(dataArrayList[position], position)
+        itemView.bind(dataArrayList[position])
     }
 
     override fun getItemCount(): Int {
@@ -45,7 +45,7 @@ class SlideshowAdapter(
         binding.root
     ) {
 
-        fun bind(item: PostItem, position: Int) {
+        fun bind(item: PostItem) {
             binding.tvTitle.text = item.title
             binding.tvSubTitle.text = item.body
             binding.llNotification.setOnClickListener {

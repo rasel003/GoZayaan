@@ -39,10 +39,10 @@ class SlideshowViewModel @Inject constructor(
     val text: LiveData<String> = _text
 
     init {
-        getPost()
+//        getPost()
     }
 
-    fun getPostList(
+   /* fun getPostList(
         coroutinesErrorHandler: CoroutinesErrorHandler
     ) = baseRequest(
         _postList,
@@ -60,5 +60,5 @@ class SlideshowViewModel @Inject constructor(
             }
         }
 
-    }
+    }*/
 }

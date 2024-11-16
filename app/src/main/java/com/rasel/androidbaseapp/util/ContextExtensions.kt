@@ -141,7 +141,7 @@ fun Context.toastSystemL(message: String) {
 
 fun Context.toastSystemCopy(message: String) {
     val toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
-    toast.setGravity(Gravity.TOP, 0, 0);
+    toast.setGravity(Gravity.TOP, 0, 0)
     toast.show()
 }
 

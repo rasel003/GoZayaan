@@ -27,26 +27,17 @@
             <!--            <intent-filter android:autoVerify="true">-->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.LAUNCHER" />
 
                 <data android:scheme="https" />
                 <data android:host="www.example.com" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SignUpActivity" />
 
-        <activity
-            android:name=".ui.onboarding.OnboardingActivity"
-            android:exported="true"
-            android:theme="@style/Theme.App.Onboarding">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

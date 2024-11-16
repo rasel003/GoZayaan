@@ -48,7 +48,7 @@ fun Fragment.showLoadingDialog(
 fun AppCompatActivity.showLoadingDialog(
     cancelable: Boolean = false,
     canceledOnTouchOutside: Boolean = false
-): AlertDialog? {
+): AlertDialog {
     return MaterialAlertDialogBuilder(this).apply {
         setView(R.layout.layout_loading_dialog)
     }.create().let { dialog ->

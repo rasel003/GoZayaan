@@ -53,11 +53,11 @@ class SlideshowFragment : Fragment(R.layout.fragment_slideshow) {
                 viewModel.currentLanguageFlow.value
             )
         }
-        slideshowViewModel.getPostList(object : CoroutinesErrorHandler {
+        /*slideshowViewModel.getPostList(object : CoroutinesErrorHandler {
             override fun onError(message: String) {
 //                binding.tvError.text = "Error! $message"
             }
-        })
+        })*/
         slideshowViewModel.postList.observe(viewLifecycleOwner) {
             binding.progress = it is ApiResponse.Loading
             when (it) {

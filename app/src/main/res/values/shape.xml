@@ -28,35 +28,6 @@
         <item name="cornerSizeBottomLeft">@dimen/card_corner_radius</item>
     </style>
 
-    <style name="ShapeAppearance.Sunflower.Button.Add" parent="ShapeAppearance.MaterialComponents">
-        <item name="cornerFamily">rounded</item>
-
-        <item name="cornerSizeTopLeft">0dp</item>
-        <item name="cornerSizeTopRight">@dimen/button_corner_radius</item>
-        <item name="cornerSizeBottomRight">0dp</item>
-        <item name="cornerSizeBottomLeft">@dimen/button_corner_radius</item>
-    </style>
-
-    <style name="ShapeAppearance.Sunflower.FAB" parent="ShapeAppearance.MaterialComponents.SmallComponent" />
-
-
-    <style name="ShapeAppearance.PaperflyGo.Button.Submit" parent="ShapeAppearance.MaterialComponents">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">4dp</item>
-        <item name="cornerSizeBottomRight">0dp</item>
-        <item name="cornerSizeBottomLeft">0dp</item>
-    </style>
-
-    <style name="ShapeAppearance.PaperflyGo.Button.round.Submit" parent="ShapeAppearance.MaterialComponents">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">4dp</item>
-    </style>
-
-
-    <style name="ShapeAppearance.PaperflyGo.Button.Submit.Rounded" parent="ShapeAppearance.MaterialComponents">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">4dp</item>
-    </style>
 
     <!-- Add plant button -->
 
@@ -65,24 +36,6 @@
         <item name="cornerSize">50%</item>
     </style>
 
-
-    <style name="ShapeAppearance.PaperflyGo.EditText.Rounded_24" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
-    </style>
-
-    <style name="ShapeAppearance.PaperflyGo.Rounded_30_percent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">30%</item>
-    </style>
-
-
-    <style name="ShapeAppearance.PaperflyGo.Card.BottomRadius" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeBottomLeft">16dp</item>
-        <item name="cornerSizeBottomRight">16dp</item>
-        <item name="cornerSize">0dp</item>
-    </style>
 
     <style name="ShapeAppearance.App.Card.TopRadius" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
@@ -93,8 +46,8 @@
 
     <style name="ShapeAppearance.App.Card.BottomRadius" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeBottomLeft">8dp</item>
-        <item name="cornerSizeBottomRight">8dp</item>
+        <item name="cornerSizeBottomLeft">18dp</item>
+        <item name="cornerSizeBottomRight">18dp</item>
         <item name="cornerSize">0dp</item>
     </style>
 
@@ -103,47 +56,9 @@
         <item name="cornerSize">@dimen/zero_radius</item>
     </style>
 
-    <style name="ShapeAppearance.App.Card.WithOutRounded" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/zero_radius</item>
-    </style>
-
     <style name="ShapeAppearance.App.Image.WithOutRounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/zero_radius</item>
-    </style>
-
-    <style name="ShapeAppearance.Button" parent="ShapeAppearance.MaterialComponents">
-        <item name="cornerFamily">rounded</item>
-
-        <item name="cornerSizeTopLeft">0dp</item>
-        <item name="cornerSizeTopRight">16dp</item>
-        <item name="cornerSizeBottomRight">0dp</item>
-        <item name="cornerSizeBottomLeft">16dp</item>
-    </style>
-
-    <style name="ShapeAppearance.Card" parent="ShapeAppearance.MaterialComponents.LargeComponent">
-        <item name="cornerFamily">rounded</item>
-
-        <item name="cornerSizeTopLeft">0dp</item>
-        <item name="cornerSizeTopRight">16dp</item>
-        <item name="cornerSizeBottomRight">0dp</item>
-        <item name="cornerSizeBottomLeft">16dp</item>
-    </style>
-
-    <style name="ShapeAppearance.Image" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-
-        <item name="cornerSize">8dp</item>
-
-        <!--        <item name="cornerSizeTopLeft">8dp</item>-->
-        <!--        <item name="cornerSizeTopRight">8dp</item>-->
-        <!--        <item name="cornerSizeBottomRight">8dp</item>-->
-        <!--        <item name="cornerSizeBottomLeft">8dp</item>-->
-    </style>
-
-    <style name="ShapeAppearance.App.MinimizedSheet" parent="ShapeAppearance.App.MediumComponent">
-        <item name="cornerSizeTopLeft">@dimen/minimized_sheet_top_left_radius</item>
     </style>
 
 </resources>

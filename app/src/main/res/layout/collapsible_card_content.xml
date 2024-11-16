@@ -23,7 +23,6 @@
     <!-- Note: putting everything in a RelativeLayout confuses Talkback, which does not always
     focus on the HtmlTextView. -->
     <LinearLayout
-        android:id="@+id/collapsible_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
