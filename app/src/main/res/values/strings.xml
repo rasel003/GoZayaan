@@ -141,6 +141,8 @@
     <string name="resizable_text_read_more">\nread more</string>
     <string name="resizable_text_read_less">\nread less</string>
     <string name="recommended">Recommended</string>
+    <string name="popular_categories">Popular Categories</string>
+    <string name="see_all">See All</string>
 
 
 </resources>

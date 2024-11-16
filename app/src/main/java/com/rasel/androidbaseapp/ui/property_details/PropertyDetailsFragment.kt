@@ -1,4 +1,4 @@
-package com.rasel.androidbaseapp.ui.plant_details
+package com.rasel.androidbaseapp.ui.property_details
 
 import android.content.ContentValues
 import android.graphics.Bitmap

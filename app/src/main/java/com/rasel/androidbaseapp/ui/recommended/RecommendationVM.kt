@@ -1,4 +1,4 @@
-package com.rasel.androidbaseapp.ui.home
+package com.rasel.androidbaseapp.ui.recommended
 
 import androidx.lifecycle.LiveData
 import com.rasel.androidbaseapp.data.models.RecommendationModel

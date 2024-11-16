@@ -5,13 +5,13 @@
     app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.rasel.androidbaseapp.ui.home.RecommendationFragment"
+        android:id="@+id/nav_recommended"
+        android:name="com.rasel.androidbaseapp.ui.recommended.RecommendationFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_recommendation">
         <action
             android:id="@+id/action_nav_home_to_nav_gallery"
-            app:destination="@id/nav_plantDetailFragment" />
+            app:destination="@id/nav_property_details" />
     </fragment>
 
     <fragment
@@ -21,8 +21,8 @@
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-        android:id="@+id/nav_plantDetailFragment"
-        android:name="com.rasel.androidbaseapp.ui.plant_details.PropertyDetailsFragment"
+        android:id="@+id/nav_property_details"
+        android:name="com.rasel.androidbaseapp.ui.property_details.PropertyDetailsFragment"
         android:label="PlantDetailFragment"
         tools:layout="@layout/fragment_plant_detail">
 
@@ -34,4 +34,17 @@
             app:argType="com.rasel.androidbaseapp.data.models.RecommendationModel" />
     </fragment>
 
-   </navigation>
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.rasel.androidbaseapp.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_nav_recommended"
+            app:destination="@id/nav_recommended" />
+        <action
+            android:id="@+id/action_homeFragment_to_nav_property_details"
+            app:destination="@id/nav_property_details" />
+    </fragment>
+
+</navigation>

@@ -1,4 +1,4 @@
-package com.rasel.androidbaseapp.ui.home
+package com.rasel.androidbaseapp.ui.recommended
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
