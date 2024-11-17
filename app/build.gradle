@@ -24,7 +24,6 @@ android {
 
 //        testInstrumentationRunner "com.rasel.gozayaan.CustomTestRunner"
 
-        buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"" + getUnsplashAccess() + "\"")
         buildConfigField("String", "BASE_URL", '"https://d9c8de84d7e4424dbbb59e258f353159.api.mockbin.io"')
 
 
@@ -62,14 +61,6 @@ android {
         freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.FlowPreview"
 
     }
-    //this is used for room data base schemas, not mandatory
-    kapt {
-        arguments {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
-    }
-
-    // need this for @Parcelize to pass data
 }
 
 dependencies {
@@ -80,9 +71,7 @@ dependencies {
 
     //  for logging and debug
       implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
-
-    //SliderView
-//    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    
     implementation 'com.github.chahine:pageindicator:0.2.8'
 
     //for logging and debug
@@ -107,7 +96,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
 
-    implementation "androidx.paging:paging-runtime-ktx:$rootProject.pagingVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
 
     //Android Room
@@ -116,8 +104,6 @@ dependencies {
     ksp "androidx.room:room-compiler:$rootProject.roomVersion"
 
     implementation "androidx.viewpager2:viewpager2:$rootProject.viewPagerVersion"
-    implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
-    implementation 'androidx.hilt:hilt-work:1.2.0'
 
     //image loading library
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
@@ -127,8 +113,6 @@ dependencies {
     implementation "com.google.android.material:material:$rootProject.materialVersion"
 
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-    implementation 'com.airbnb.android:lottie:6.5.2'
-//    implementation 'com.pacioianu.david:ink-page-indicator:1.3.0'
 
 
     //Retrofit and GSON
@@ -137,8 +121,6 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation 'com.squareup.retrofit2:converter-moshi:2.11.0'
-    //Moshi
-    implementation 'com.squareup.moshi:moshi-kotlin:1.15.1'
 
     //Kotlin Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
@@ -154,20 +136,8 @@ dependencies {
     // for toast messages
     implementation 'com.github.GrenderG:Toasty:1.4.2'
 
-    implementation "androidx.media3:media3-exoplayer:$mediaVersion"
-    implementation "androidx.media3:media3-ui:$mediaVersion"
-    implementation "androidx.media3:media3-exoplayer-dash:$mediaVersion"
 
 
-    implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
-
-    // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:33.4.0')
-
-    // Add the dependencies for the Crashlytics and Analytics libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Testing dependencies
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
@@ -206,7 +176,4 @@ dependencies {
 //    testImplementation 'org.robolectric:robolectric:4.5.1'
     testImplementation 'androidx.room:room-testing:2.6.1'
 
-}
-def getUnsplashAccess() {
-    return project.findProperty("unsplash_access_key")
 }

@@ -66,16 +66,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
 import com.rasel.gozayaan.BuildConfig
 import com.rasel.gozayaan.R
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
-import java.util.*
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 import kotlin.math.roundToInt
 
 fun ObservableBoolean.hasSameValue(other: ObservableBoolean) = get() == other.get()
@@ -474,26 +469,6 @@ fun Job?.cancelIfActive() {
     }
 }
 
-// endregion
-
-// region UI utils
-
-// endregion
-
-// region Firebase
-suspend fun <T> Task<T>.suspendAndWait(): T =
-    suspendCancellableCoroutine { continuation ->
-        addOnSuccessListener { result ->
-            continuation.resume(result)
-        }
-        addOnFailureListener { exception ->
-            continuation.resumeWithException(exception)
-        }
-        addOnCanceledListener {
-            continuation.resumeWithException(Exception("Firebase Task was cancelled"))
-        }
-    }
-// endregion
 
 /**
  * Helper to throw exceptions only in Debug builds, logging a warning otherwise.
