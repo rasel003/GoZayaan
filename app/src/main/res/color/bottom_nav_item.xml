@@ -4,7 +4,7 @@
 
   <item
       android:state_checked="true"
-      android:color="?attr/colorSecondary"/>
-  <item android:color="#fff"/> <!--always white, invariant of theme-->
+      android:color="@color/yellow_900"/>
+  <item android:color="@color/white"/> <!--always white, invariant of theme-->
 
 </selector>
