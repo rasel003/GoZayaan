@@ -27,25 +27,15 @@
     <!-- Translatable resources -->
 
     <!-- String plurals and their related prefix / suffix strings -->
-    <plurals name="watering_needs_suffix">
-        <item quantity="one" translation_description="Suffix for the text describing how often a plant should be watered, singular. Used in combination with watering_needs_prefix: 'Watering needs: every day'.">every day</item>
-        <item quantity="other" translation_description="Suffix for the text describing how often a plant should be watered, plural. Used in combination with watering_needs_prefix: 'Watering needs: every 8 days'.">every %d days</item>
-    </plurals>
 
     <!-- Accessibility -->
     <string name="a11y_plant_item_image" translation_description="Accessibility text for each of the plant images shown in the 'My garden' and 'Plant list' screens.">Picture of plant</string>
     <string name="gallery_content_description" translation_description="Content description for the clickable image to navigate to the gallery screen">Navigate to gallery screen</string>
-    <string name="plant_detail_image_content_description" translation_description="Content description for the header / hero image that is show at the top of the plant detail screen.">Image of plant</string>
     <string name="menu_plantList">Plants</string>
-    <string name="cancel">Cancel</string>
 
-    <string name="permission_title">Oops! You\'ve denied the permission</string>
-    <string name="write_permission_request">I need storage permission, to save the media file to your storage.\nWithout the permission I cannot save your file.</string>
     <string name="no_data_found">No data found</string>
+    <string name="no_recommended_data_found">Failed to load, Recommended data</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="signin">Sign In</string>
 
 
     <!-- Schedule -->
@@ -141,7 +131,6 @@
     <string name="resizable_text_read_more">\nread more</string>
     <string name="resizable_text_read_less">\nread less</string>
     <string name="recommended">Recommended</string>
-    <string name="popular_categories">Popular Categories</string>
     <string name="see_all">See All</string>
     <string name="per_day">/Per Day</string>
 

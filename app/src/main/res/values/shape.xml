@@ -19,15 +19,6 @@
         <item name="cornerSize">@dimen/large_component_corner_radius</item>
     </style>
 
-    <style name="ShapeAppearance.Sunflower.Card" parent="ShapeAppearance.MaterialComponents">
-        <item name="cornerFamily">rounded</item>
-
-        <item name="cornerSizeTopLeft">0dp</item>
-        <item name="cornerSizeTopRight">@dimen/card_corner_radius</item>
-        <item name="cornerSizeBottomRight">0dp</item>
-        <item name="cornerSizeBottomLeft">@dimen/card_corner_radius</item>
-    </style>
-
 
     <!-- Add plant button -->
 
@@ -41,13 +32,6 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">16dp</item>
         <item name="cornerSizeTopRight">16dp</item>
-        <item name="cornerSize">0dp</item>
-    </style>
-
-    <style name="ShapeAppearance.App.Card.BottomRadius" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeBottomLeft">18dp</item>
-        <item name="cornerSizeBottomRight">18dp</item>
         <item name="cornerSize">0dp</item>
     </style>
 

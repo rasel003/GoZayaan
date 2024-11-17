@@ -8,7 +8,7 @@
     <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <!--Color-->
-        <item name="colorPrimary">@color/teal_900</item>
+        <item name="colorPrimary">@color/background_color</item>
         <item name="colorPrimaryVariant">@color/app_blue_800</item>
         <item name="colorSecondary">@color/pink_900</item>
         <item name="colorSecondaryVariant">@color/app_orange_400</item>
@@ -30,10 +30,9 @@
         <item name="editTextBorderColor">@color/app_white_50</item>
         <item name="menuSurfaceColor">@color/app_white_50</item>
         <item name="selectedNavItemColor">@color/app_white_50</item>
-        <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
 
 
-        <item name="colorOnPrimary">@color/app_white_50</item>
+        <item name="colorOnPrimary">@color/white</item>
         <item name="colorOnSecondary">@color/app_black_900</item>
         <item name="colorOnBackground">@color/app_black_900</item>
         <item name="colorOnSurface">@color/app_black_900</item>
@@ -78,12 +77,6 @@
 
         <!--Styles-->
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
-<!--        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>-->
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
-        <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
-        <item name="chipStyle">@style/Widget.App.Chip.Entry</item>
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
-<!--        <item name="materialButtonStyle">@style/Widget.App.Button</item>-->
 
         <!--Default styles-->
         <item name="bottomNavigationStyle">@style/Widget.Owl.BottomNavigationView</item>

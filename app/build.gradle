@@ -13,8 +13,8 @@ android {
     buildToolsVersion = rootProject.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.rasel.androidbaseapp"
-        namespace "com.rasel.androidbaseapp"
+        applicationId "com.rasel.gozayaan"
+        namespace "com.rasel.gozayaan"
 
         minSdkVersion 26
         targetSdkVersion rootProject.targetSdkVersion
@@ -22,10 +22,10 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary true
 
-//        testInstrumentationRunner "com.rasel.androidbaseapp.CustomTestRunner"
+//        testInstrumentationRunner "com.rasel.gozayaan.CustomTestRunner"
 
         buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"" + getUnsplashAccess() + "\"")
-        buildConfigField("String", "BASE_URL", '"https://rickandmortyapi.com/api/"')
+        buildConfigField("String", "BASE_URL", '"https://d9c8de84d7e4424dbbb59e258f353159.api.mockbin.io"')
 
 
         javaCompileOptions {
@@ -90,7 +90,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6'
     implementation 'androidx.test.espresso:espresso-idling-resource:3.6.1'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$rootProject.assistedInjectVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"

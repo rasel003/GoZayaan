@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/nav_recommended"
-        android:name="com.rasel.androidbaseapp.ui.recommended.RecommendationFragment"
+        android:name="com.rasel.gozayaan.ui.recommended.RecommendationFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_recommendation">
         <action
@@ -16,27 +16,27 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.rasel.androidbaseapp.ui.slideshow.SlideshowFragment"
+        android:name="com.rasel.gozayaan.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
         android:id="@+id/nav_property_details"
-        android:name="com.rasel.androidbaseapp.ui.property_details.PropertyDetailsFragment"
+        android:name="com.rasel.gozayaan.ui.property_details.PropertyDetailsFragment"
         android:label="PlantDetailFragment"
-        tools:layout="@layout/fragment_plant_detail">
+        tools:layout="@layout/fragment_property_detail">
 
         <deepLink
             app:action="ACTION_VIEW"
             app:uri="www.example.com/{plantId}" />
         <argument
             android:name="model"
-            app:argType="com.rasel.androidbaseapp.data.models.RecommendationModel" />
+            app:argType="com.rasel.gozayaan.data.models.RecommendationModel" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.rasel.androidbaseapp.ui.home.HomeFragment"
+        android:name="com.rasel.gozayaan.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
