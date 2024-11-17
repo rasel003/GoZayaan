@@ -25,9 +25,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/plant_photo"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:maxHeight="150dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:imageFromUrl="@{photo.heroImage}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -46,7 +45,7 @@
             android:text="@{photo.propertyName}"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginHorizontal="@dimen/dimen_8"
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintBottom_toTopOf="@id/tvCountryName"
@@ -65,6 +64,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/rubik"
             android:maxLines="1"
+            android:drawablePadding="@dimen/dimen_4"
             android:text="@{photo.location}"
             android:textColor="@color/white"
             android:textSize="14sp"

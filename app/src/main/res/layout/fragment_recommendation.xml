@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="progress"
-            type="boolean" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,8 +14,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/dimen_32"
+            android:layout_height="@dimen/dimen_32"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +29,7 @@
             android:fontFamily="@font/rubik_medium"
             android:text="@string/recommended"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/white_90_opacity"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnBack"
@@ -92,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="@{progress?View.VISIBLE:View.GONE}"
+            app:indicatorColor="@color/yellow_900"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

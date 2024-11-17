@@ -10,7 +10,6 @@ import com.rasel.gozayaan.base.BaseFragment
 import com.rasel.gozayaan.databinding.FragmentPropertyDetailBinding
 import com.rasel.gozayaan.presentation.viewmodel.BaseViewModel
 import com.rasel.gozayaan.ui.recommended.HomeViewModel
-import com.rasel.gozayaan.util.capitalizeFirstCharacter
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -53,6 +52,8 @@ class PropertyDetailsFragment : BaseFragment<FragmentPropertyDetailBinding, Base
         binding.tvPrice.text = "$ "+ formattedNumber(recommendationModel.fare ?: 0.0)
         binding.tvPerDay.text = "/"+recommendationModel.fareUnit
     }
+
+
     private fun formattedNumber(number: Double): String {
         val formatter = DecimalFormat("#,###.##")
         return formatter.format(number)

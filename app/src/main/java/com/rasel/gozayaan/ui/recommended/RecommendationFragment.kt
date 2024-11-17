@@ -2,6 +2,7 @@ package com.rasel.gozayaan.ui.recommended
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -50,7 +51,7 @@ class RecommendationFragment : BaseFragment<FragmentRecommendationBinding, BaseV
 
     private fun observeRecommendedData(){
         viewModel.recommendedList.observe(viewLifecycleOwner) {
-            binding.progress = it is ApiResponse.Loading
+            binding.progressBar.isVisible = it is ApiResponse.Loading
             when (it) {
 
                 is ApiResponse.Success -> {
