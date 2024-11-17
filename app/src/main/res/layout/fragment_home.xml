@@ -44,21 +44,21 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:drawableStartCompat="@drawable/location"
+                app:layout_constraintBottom_toBottomOf="@+id/btnBack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btnBack"
                 app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgProfile"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
                 android:layout_marginEnd="@dimen/dimen_16"
                 android:background="@drawable/profile"
-                android:padding="@dimen/dimen_4"
+                android:padding="@dimen/dimen_6"
+                app:layout_constraintBottom_toBottomOf="@+id/btnBack"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnBack"
                 app:srcCompat="@drawable/avater" />
 
             <!--<com.google.android.material.appbar.MaterialToolbar
@@ -83,7 +83,7 @@
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dimen_54"
                 android:layout_marginHorizontal="@dimen/dimen_16"
                 android:layout_marginTop="@dimen/dimen_32"
                 android:background="@drawable/rounded_rect_searchview"
@@ -96,7 +96,7 @@
                 app:searchIcon="@drawable/search" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView"
+                android:id="@+id/tvPopularCategoryTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_16"
@@ -112,14 +112,14 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardFlights"
                 android:layout_width="@dimen/dimen_0"
-                android:layout_height="100dp"
-                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_height="@dimen/dimen_100"
                 android:layout_marginTop="16dp"
                 app:cardBackgroundColor="@color/card_background"
                 app:layout_constraintEnd_toStartOf="@+id/cardHotels"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView">
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@id/tvPopularCategoryTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvPopularCategoryTitle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -156,7 +156,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardHotels"
                 android:layout_width="@dimen/dimen_0"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/dimen_100"
                 android:layout_marginHorizontal="@dimen/dimen_12"
                 app:cardBackgroundColor="@color/card_background"
                 app:layout_constraintEnd_toStartOf="@+id/cardVisa"
@@ -199,7 +199,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardVisa"
                 android:layout_width="@dimen/dimen_0"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/dimen_100"
                 android:layout_marginEnd="@dimen/dimen_12"
                 app:cardBackgroundColor="@color/card_background"
                 app:layout_constraintEnd_toStartOf="@+id/cardBusses"
@@ -242,7 +242,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardBusses"
                 android:layout_width="@dimen/dimen_0"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/dimen_100"
                 android:layout_marginEnd="@dimen/dimen_16"
                 app:cardBackgroundColor="@color/card_background"
                 app:layout_constraintEnd_toEndOf="parent"
