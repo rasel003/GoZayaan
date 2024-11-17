@@ -30,7 +30,7 @@
             android:scaleType="centerCrop"
             app:imageFromUrl="@{photo.heroImage}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="h,5:6"
+            app:layout_constraintDimensionRatio="h,7:8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -11,10 +11,10 @@ data class RecommendationModel(
     val currency: String?,
     @SerializedName("description")
     val description: String?,
-    @SerializedName("detail_image")
-    val detailImage: String?,
+    @SerializedName("detail_images")
+    val detailImages: List<String?>?,
     @SerializedName("fare")
-    val fare: Int?,
+    val fare: Double?,
     @SerializedName("fare_unit")
     val fareUnit: String?,
     @SerializedName("hero_image")

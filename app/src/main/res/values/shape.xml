@@ -53,7 +53,7 @@
 
     <style name="ShapeAppearance.App.Card.4_percent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/zero_radius</item>
+        <item name="cornerSize">@dimen/dimen_20</item>
     </style>
 
     <style name="ShapeAppearance.App.Image.WithOutRounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">

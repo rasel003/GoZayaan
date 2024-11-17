@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnBack"
@@ -18,14 +19,18 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/recommended"
+            android:fontFamily="@font/rubik_medium"
+            android:textSize="18sp"
             android:textAlignment="center"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnBack"
             app:layout_constraintTop_toTopOf="@+id/btnBack" />
@@ -46,10 +51,9 @@
             android:id="@+id/photo_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/dimen_24"
+            android:paddingVertical="@dimen/dimen_24"
             android:clipToPadding="false"
-            android:paddingStart="@dimen/card_side_margin"
-            android:paddingTop="@dimen/card_side_margin"
-            android:paddingEnd="@dimen/card_side_margin"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

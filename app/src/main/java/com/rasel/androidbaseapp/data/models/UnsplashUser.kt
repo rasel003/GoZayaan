@@ -19,8 +19,4 @@ data class UnsplashUser(
     @field:SerializedName("name") val name: String,
     @field:SerializedName("username") val username: String
 ) : Parcelable {
-    val attributionUrl: String
-        get() {
-            return "https://unsplash.com/$username?utm_source=sunflower&utm_medium=referral"
-        }
 }

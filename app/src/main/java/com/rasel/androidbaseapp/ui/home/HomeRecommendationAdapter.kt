@@ -1,23 +1,23 @@
-package com.rasel.androidbaseapp.ui.recommended
+package com.rasel.androidbaseapp.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rasel.androidbaseapp.data.models.RecommendationModel
-import com.rasel.androidbaseapp.databinding.ItemRecommendationBinding
+import com.rasel.androidbaseapp.databinding.ItemHomeRecommendationBinding
 import com.rasel.androidbaseapp.ui.comparator.PlaceComparator
 
 /**
  * Adapter for the [RecyclerView] in [UnsplashPhotoListFragment].
  */
-class RecommendationAdapter(
+class HomeRecommendationAdapter(
     private var onItemClicked: (bankData: RecommendationModel) -> Unit
 ) : ListAdapter<RecommendationModel, RecyclerView.ViewHolder>(PlaceComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PlantViewHolder(
-            ItemRecommendationBinding.inflate(
+            ItemHomeRecommendationBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -31,7 +31,7 @@ class RecommendationAdapter(
     }
 
    inner class PlantViewHolder(
-        private val binding: ItemRecommendationBinding
+        private val binding: ItemHomeRecommendationBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.rootLayout.setOnClickListener {

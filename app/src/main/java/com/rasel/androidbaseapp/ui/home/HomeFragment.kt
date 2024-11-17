@@ -9,14 +9,13 @@ import com.rasel.androidbaseapp.databinding.FragmentHomeBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
 import com.rasel.androidbaseapp.ui.recommended.HomeViewModel
 import com.rasel.androidbaseapp.ui.recommended.PhotoListUIModel
-import com.rasel.androidbaseapp.ui.recommended.RecommendationAdapter
 import com.rasel.androidbaseapp.util.observe
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, BaseViewModel>() {
 
-    private lateinit var adapter: RecommendationAdapter
+    private lateinit var adapter: HomeRecommendationAdapter
 
     override val viewModel: HomeViewModel by viewModels()
     override fun getViewBinding(): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
@@ -24,7 +23,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = RecommendationAdapter(MAX_GRID_SPANS) {
+        adapter = HomeRecommendationAdapter {
             val action = HomeFragmentDirections.actionHomeFragmentToNavPropertyDetails(it)
             findNavController().navigate(action)
         }

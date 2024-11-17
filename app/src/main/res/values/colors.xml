@@ -38,30 +38,6 @@
     <color name="carolina_blue">#8ab4f8</color> <!-- colorPrimary in Dark mode-->
     <color name="cornflower_blue">#669DF6</color> <!-- colorPrimaryDark in Dark mode-->
 
-    <!-- Same as textColorPrimary disabled -->
-    <!-- Same as textColorPrimary disabled -->
-
-    <!-- Scrim colors -->
-    <!-- 70% white -->
-    <!-- 25% black -->
-
-    <!-- We use a dark scrim by default since light status is API 23+ -->
-    <!-- We use a dark scrim by default since light nav bar is API 27+ -->
-
-    <!-- Other colors with dark mode alternatives --><![CDATA[
-
-
-    >
-
-    ]]><!-- Other colors -->
-    <!-- 20% black -->
-
-
-    <!--theme colors-->
-
-    <!--background protection for nav-bar, varied on Q+-->
-    <!--    <color name="nav_bar">@color/immersive_sys_ui</color>-->
-
     <color name="colorPrimary">#2c3491</color>
     <color name="colorAccent">#25ade3</color>
 
@@ -72,39 +48,13 @@
     <color name="red">#cd1800</color>
     <color name="foreground_material_light">#1f379f</color>
 
-
-    <!--Material color list from https://material.io/guidelines/style/color.html-->
-
-
-    <!--    System Gray Light -->
-
-    <!--    System Gray Dark -->
-
-    <!--    System Color Light -->
-
-    <!--    System Color Dark -->
-
-
     <color name="white_400">#dedede</color>
-
     <color name="black">#000000</color>
-
-
-    <!-- Try to have a color that renders well on both light & dark theme -->
-    <!-- You can use https://material.io/design/color/#tools-for-picking-colors to get dark color value from primary -->
-
     <color name="white_color">#ffffff</color>
 
-    <!-- Background -->
-    <!-- Light gray -->
-    <!-- Extra buttons -->
-    <!-- Top bars -->
-    <!-- Scheduled conference background dark mode -->
-    <!-- Text color above voip_dark_color5 -->
+    <color name="background_color">#1D2026</color>
+    <color name="card_background">#2D303A</color>
+    <color name="white_90">#FFFFFFE5</color>
 
-    <!-- Do not use a color with transparency here, it will look bad when in dark mode!
-    We use a solid color representation of the primary color but with 10% transparency.
-    For each RGB value of the color, the math to get is:
-    C' = C * (A / 255) + 255 * (1 - (A / 255)) so for 10% transparency: C' = C * 0.1 + 229.5 -->
 
 </resources>

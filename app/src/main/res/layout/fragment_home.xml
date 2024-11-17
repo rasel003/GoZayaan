@@ -9,26 +9,42 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:paddingHorizontal="@dimen/dimen_24"
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/hamburger_icon" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitle"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/recommended"
+            android:fontFamily="@font/rubik"
+            android:text="New York, NY"
             android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnBack"
             app:layout_constraintTop_toTopOf="@+id/btnBack" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/profile" />
 
         <!--<com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -42,63 +58,205 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_detail_back" />-->
 
-      <!--  <com.google.android.material.search.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:layout_constraintTop_toBottomOf="@+id/btnBack" />-->
+        <!--  <com.google.android.material.search.SearchView
+              android:id="@+id/searchView"
+              android:layout_width="match_parent"
+              android:layout_height="100dp"
+              app:layout_constraintTop_toBottomOf="@+id/btnBack" />-->
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/materialTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_48"
             android:text="Popular Categories"
             app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/rubik_medium"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardFlights"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/dimen_0"
             android:layout_height="100dp"
             android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/card_background"
             app:layout_constraintEnd_toStartOf="@+id/cardHotels"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgFlight"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintBottom_toTopOf="@id/tvFlight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:srcCompat="@drawable/flight" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvFlight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Flights"
+                    android:textAlignment="center"
+                    android:textColor="@color/white_90"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgFlight" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardHotels"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/dimen_0"
             android:layout_height="100dp"
+            app:cardBackgroundColor="@color/card_background"
             app:layout_constraintEnd_toStartOf="@+id/cardVisa"
+            android:layout_marginHorizontal="@dimen/dimen_12"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/cardFlights"
-            app:layout_constraintTop_toTopOf="@+id/cardFlights" />
+            app:layout_constraintTop_toTopOf="@+id/cardFlights">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgHotels"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintBottom_toTopOf="@id/tvHotels"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:srcCompat="@drawable/hotels" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvHotels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Hotels"
+                    android:textAlignment="center"
+                    android:textSize="13sp"
+                    android:textColor="@color/white_90"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgHotels" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardVisa"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/dimen_0"
+            app:cardBackgroundColor="@color/card_background"
             android:layout_height="100dp"
+            android:layout_marginEnd="@dimen/dimen_12"
             app:layout_constraintEnd_toStartOf="@+id/cardBusses"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/cardHotels"
-            app:layout_constraintTop_toTopOf="@+id/cardFlights" />
+            app:layout_constraintTop_toTopOf="@+id/cardFlights">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgVisa"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintBottom_toTopOf="@id/tvVisa"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:srcCompat="@drawable/visa" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvVisa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Visa"
+                    android:textColor="@color/white_90"
+                    android:textSize="13sp"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgVisa" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardBusses"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/dimen_0"
+            app:cardBackgroundColor="@color/card_background"
             android:layout_height="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/cardVisa"
-            app:layout_constraintTop_toTopOf="@+id/cardFlights" />
+            app:layout_constraintTop_toTopOf="@+id/cardFlights">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgBuses"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintBottom_toTopOf="@id/tvBuses"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:srcCompat="@drawable/busses" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvBuses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Buses"
+                    android:textAlignment="center"
+                    android:textColor="@color/white_90"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgBuses" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvRecommendedTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_48"
             android:text="@string/recommended"
+            android:fontFamily="@font/rubik_medium"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@id/tvSeeAll"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardFlights" />
@@ -107,9 +265,12 @@
             android:id="@+id/tvSeeAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/rubik_medium"
+            android:textColor="@color/white"
+            android:textSize="12sp"
             android:text="@string/see_all"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardFlights" />
+            app:layout_constraintTop_toTopOf="@+id/tvRecommendedTitle" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/photo_list"
@@ -121,11 +282,10 @@
             android:paddingTop="@dimen/card_side_margin"
             android:paddingEnd="@dimen/card_side_margin"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvRecommendedTitle"
-            tools:listitem="@layout/item_recommendation" />
+            tools:listitem="@layout/item_home_recommendation" />
 
         <ProgressBar
             android:id="@+id/progress_circular"

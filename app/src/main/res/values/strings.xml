@@ -143,6 +143,7 @@
     <string name="recommended">Recommended</string>
     <string name="popular_categories">Popular Categories</string>
     <string name="see_all">See All</string>
+    <string name="per_day">/Per Day</string>
 
 
 </resources>

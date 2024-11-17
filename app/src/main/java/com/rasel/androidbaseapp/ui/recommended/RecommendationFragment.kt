@@ -5,8 +5,10 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.rasel.androidbaseapp.base.BaseFragment
+import com.rasel.androidbaseapp.core.decorator.AdaptiveSpacingItemDecoration
 import com.rasel.androidbaseapp.databinding.FragmentRecommendationBinding
 import com.rasel.androidbaseapp.presentation.viewmodel.BaseViewModel
+import com.rasel.androidbaseapp.util.dp
 import com.rasel.androidbaseapp.util.observe
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,15 +18,22 @@ class RecommendationFragment : BaseFragment<FragmentRecommendationBinding, BaseV
     private lateinit var adapter: RecommendationAdapter
 
     override val viewModel: HomeViewModel by viewModels()
-    override fun getViewBinding(): FragmentRecommendationBinding = FragmentRecommendationBinding.inflate(layoutInflater)
+    override fun getViewBinding(): FragmentRecommendationBinding =
+        FragmentRecommendationBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = RecommendationAdapter(MAX_GRID_SPANS) {
+        adapter = RecommendationAdapter {
             val action = RecommendationFragmentDirections.actionNavHomeToNavGallery(it)
             findNavController().navigate(action)
         }
+        binding.photoList.addItemDecoration(
+            AdaptiveSpacingItemDecoration(
+                16.dp,
+                edgeEnabled = false
+            )
+        )
         binding.photoList.adapter = adapter
 
         viewModel.getDataFromUnSplash()

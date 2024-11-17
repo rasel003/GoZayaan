@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface MyApi {
 
-    @GET("https://2e7c20f0c5b547a990453c4503464744.api.mockbin.io/")
+    @GET("https://d9c8de84d7e4424dbbb59e258f353159.api.mockbin.io")
     suspend fun getRecommendationList(): List<RecommendationModel>
 
 }
