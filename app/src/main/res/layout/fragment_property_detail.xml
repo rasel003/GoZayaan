@@ -2,8 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-    </data>
+    <data></data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,11 +25,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="@dimen/dimen_32"
+                    android:layout_height="@dimen/dimen_32"
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:layout_marginTop="24dp"
+                    android:elevation="@dimen/dimen_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/back" />
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardTop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
+                    app:cardElevation="@dimen/dimen_0"
                     app:cardPreventCornerOverlap="false"
                     app:contentPadding="@dimen/dimen_0"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +56,7 @@
                         <androidx.viewpager.widget.ViewPager
                             android:id="@+id/pager"
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
+                            android:layout_height="400dp"
                             android:background="@color/card_background"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -58,11 +69,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="@dimen/dimen_24"
-                            app:piDefaultColor="@color/white_90"
-                            app:piSelectedColor="@color/yellow_900"
                             app:layout_constraintBottom_toBottomOf="@id/pager"
                             app:layout_constraintEnd_toEndOf="@id/pager"
-                            app:layout_constraintStart_toStartOf="@id/pager" />
+                            app:layout_constraintStart_toStartOf="@id/pager"
+                            app:piDefaultColor="@color/white_90"
+                            app:piSelectedColor="@color/yellow_900" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -72,7 +83,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_16"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="@dimen/dimen_32"
                     android:layout_marginEnd="@dimen/margin_small"
                     android:clickable="true"
                     android:fontFamily="@font/rubik_bold"
@@ -86,8 +97,8 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imgRattingIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dimen_14"
+                    android:layout_height="@dimen/dimen_14"
                     android:layout_marginEnd="@dimen/dimen_8"
                     android:src="@drawable/star"
                     app:layout_constraintBottom_toBottomOf="@+id/tvRattingValue"
@@ -98,10 +109,10 @@
                     android:id="@+id/tvRattingValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dimen_24"
+                    android:layout_marginEnd="@dimen/dimen_16"
                     android:fontFamily="@font/rubik"
                     android:gravity="center_horizontal"
-                    android:textColor="@color/white"
+                    android:textColor="@color/white_70_opacity"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tvPlaceName"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -112,8 +123,10 @@
                     android:id="@+id/tvCountryName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:drawableTint="@color/white_70_opacity"
                     android:fontFamily="@font/rubik"
-                    android:textColor="@color/white"
+                    android:textColor="@color/white_70_opacity"
                     android:textSize="14sp"
                     app:drawableStartCompat="@drawable/location"
                     app:layout_constraintEnd_toEndOf="@+id/tvRattingValue"
@@ -123,16 +136,19 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvAboutTripTitle"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_32"
                     android:fontFamily="@font/rubik_medium"
-                    android:textColor="@color/white"
+                    android:text="About the trip"
+                    app:drawableEndCompat="@drawable/emoji"
+                    android:drawablePadding="@dimen/dimen_8"
+                    android:textColor="@color/white_90_opacity"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="@id/tvRattingValue"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/tvCountryName"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCountryName"
-                    android:text="About the trip" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvCountryName" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvTripDescription"
@@ -141,7 +157,7 @@
                     android:layout_marginTop="@dimen/margin_small"
                     android:fontFamily="@font/rubik"
                     android:minHeight="@dimen/plant_description_min_height"
-                    android:textColor="@color/white"
+                    android:textColor="@color/white_70_opacity"
                     android:textIsSelectable="true"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -159,19 +175,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_16"
-            app:dividerColor="#1D2026"
+            app:dividerColor="@color/white_90"
             app:layout_constraintBottom_toTopOf="@id/btnBookNow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnBookNow"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_16"
-            android:text="Book Now"
+            android:paddingHorizontal="@dimen/dimen_32"
+            android:layout_marginBottom="@dimen/dimen_16"
             android:background="@drawable/bg_button"
+            android:textColor="@color/background_color"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:fontFamily="@font/rubik_medium"
+            android:text="Book Now"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -183,8 +204,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:fontFamily="@font/rubik_medium"
-            android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textColor="@color/white_90_opacity"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/btnBookNow"
             app:layout_constraintEnd_toStartOf="@+id/tvPerDay"
             app:layout_constraintHorizontal_bias="0.0"
@@ -198,14 +219,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rubik_medium"
-            android:textColor="#E6FFFFFF"
-            android:textSize="18sp"
+            android:text="@string/per_day"
+            android:textAllCaps="true"
+            android:layout_marginStart="@dimen/dimen_4"
+            android:textColor="@color/white_90"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
             app:layout_constraintEnd_toStartOf="@+id/btnBookNow"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/tvPrice"
-            app:layout_constraintTop_toTopOf="@+id/tvPrice"
-            android:text="@string/per_day" />
+            app:layout_constraintTop_toTopOf="@+id/tvPrice" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

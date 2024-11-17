@@ -3,6 +3,7 @@ package com.rasel.gozayaan.ui.property_details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.rasel.gozayaan.base.BaseFragment
@@ -11,6 +12,7 @@ import com.rasel.gozayaan.presentation.viewmodel.BaseViewModel
 import com.rasel.gozayaan.ui.recommended.HomeViewModel
 import com.rasel.gozayaan.util.capitalizeFirstCharacter
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 /**
@@ -34,6 +36,10 @@ class PropertyDetailsFragment : BaseFragment<FragmentPropertyDetailBinding, Base
 
        val recommendationModel = args.model
 
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         // ViewPager
         val myPagerAdapter = MyPagerAdapter(glide, args.model.detailImages ?: emptyList())
         binding.pager.adapter = myPagerAdapter
@@ -44,8 +50,11 @@ class PropertyDetailsFragment : BaseFragment<FragmentPropertyDetailBinding, Base
         binding.tvCountryName.text = recommendationModel.location
         binding.tvRattingValue.text = recommendationModel.rating.toString()
         binding.tvTripDescription.text = recommendationModel.description
-        binding.tvPrice.text = "$"+recommendationModel.fare
-        binding.tvPerDay.text = "/"+recommendationModel.fareUnit?.capitalizeFirstCharacter()
-
+        binding.tvPrice.text = "$ "+ formattedNumber(recommendationModel.fare ?: 0.0)
+        binding.tvPerDay.text = "/"+recommendationModel.fareUnit
+    }
+    private fun formattedNumber(number: Double): String {
+        val formatter = DecimalFormat("#,###.##")
+        return formatter.format(number)
     }
 }

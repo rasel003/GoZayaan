@@ -135,4 +135,9 @@
         <attr name="endColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="a">
+        <attr name="horizontal_color_start"/>
+        <attr name="horizontal_color_end"/>
+    </declare-styleable>
+
 </resources>

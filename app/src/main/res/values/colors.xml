@@ -52,6 +52,8 @@
     <color name="background_color">#1D2026</color>
     <color name="card_background">#2D303A</color>
     <color name="white_90">#4DFFFFE5</color>
+    <color name="white_70_opacity">#B3FFFFFF</color>
+    <color name="white_90_opacity">#E6FFFFFF</color>
     <color name="yellow_900">#F88264</color>
     <color name="yellow_500">#FFE3C5</color>
 
