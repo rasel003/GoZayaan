@@ -59,6 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/dimen_16"
+            app:paddingBottomSystemWindowInsets="@{true}"
             android:clipToPadding="false"
             android:paddingVertical="@dimen/dimen_24"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

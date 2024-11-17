@@ -20,6 +20,7 @@
         android:id="@+id/rootLayout"
         android:background="?selectableItemBackground"
         android:layout_width="210dp"
+        android:layout_marginEnd="@dimen/dimen_12"
         android:layout_height="230dp">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -41,7 +42,6 @@
             android:id="@+id/tvPlaceName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_normal"
             android:fontFamily="@font/rubik_bold"
             android:text="@{photo.propertyName}"
             android:textColor="@color/white"

@@ -19,6 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootLayout"
         android:background="?selectableItemBackground"
+        android:layout_margin="@dimen/dimen_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -40,11 +41,11 @@
             android:id="@+id/tvPlaceName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_normal"
             android:fontFamily="@font/rubik_bold"
             android:text="@{photo.propertyName}"
             android:textColor="@color/white"
             android:textSize="14sp"
+            android:layout_marginHorizontal="@dimen/dimen_16"
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintBottom_toTopOf="@id/tvCountryName"
@@ -68,8 +69,8 @@
             android:ellipsize="end"
             app:drawableStartCompat="@drawable/map_pin"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tvPlaceName"
+            app:layout_constraintStart_toStartOf="@id/tvPlaceName"
             app:layout_constraintTop_toBottomOf="@id/tvPlaceName"
             tools:text="Sunny F." />
 

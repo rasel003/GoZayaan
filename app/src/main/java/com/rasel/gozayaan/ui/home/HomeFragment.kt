@@ -7,10 +7,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.rasel.gozayaan.databinding.FragmentHomeBinding
 import com.rasel.gozayaan.base.BaseFragment
+import com.rasel.gozayaan.core.decorator.AdaptiveSpacingItemDecoration
 import com.rasel.gozayaan.presentation.viewmodel.BaseViewModel
 import com.rasel.gozayaan.presentation.viewmodel.CoroutinesErrorHandler
 import com.rasel.gozayaan.ui.recommended.HomeViewModel
 import com.rasel.gozayaan.util.ApiResponse
+import com.rasel.gozayaan.util.dp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,10 +27,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         adapter = HomeRecommendationAdapter {
             val action = HomeFragmentDirections.actionHomeFragmentToNavPropertyDetails(it)
             findNavController().navigate(action)
         }
+        binding.rvRecommended.addItemDecoration(AdaptiveSpacingItemDecoration(16.dp, edgeEnabled = false))
         binding.rvRecommended.adapter = adapter
 
         viewModel.getRecommendationList(object : CoroutinesErrorHandler {
