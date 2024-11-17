@@ -12,7 +12,7 @@ data class RecommendationModel(
     @SerializedName("description")
     val description: String?,
     @SerializedName("detail_images")
-    val detailImages: List<String?>?,
+    val detailImages: List<String>?,
     @SerializedName("fare")
     val fare: Double?,
     @SerializedName("fare_unit")

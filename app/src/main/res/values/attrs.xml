@@ -17,16 +17,15 @@
     <attr name="selectedNavItemColor" format="color" />
 
 
-
     <!--Emphasis values are used in combination with each "on" color to create three available -->
     <!--levels of emphasis for text and content.-->
-    <attr name="emphasisHighAlpha" format="float"/>
-    <attr name="emphasisMediumAlpha" format="float"/>
-    <attr name="emphasisDisabledAlpha" format="float"/>
+    <attr name="emphasisHighAlpha" format="float" />
+    <attr name="emphasisMediumAlpha" format="float" />
+    <attr name="emphasisDisabledAlpha" format="float" />
 
-    <attr name="motionInterpolatorPersistent" format="reference"/>
-    <attr name="motionInterpolatorIncoming" format="reference"/>
-    <attr name="motionInterpolatorOutgoing" format="reference"/>
+    <attr name="motionInterpolatorPersistent" format="reference" />
+    <attr name="motionInterpolatorIncoming" format="reference" />
+    <attr name="motionInterpolatorOutgoing" format="reference" />
 
     <!--Custom view themes/styles-->
     <attr name="bottomNavigationDrawerStyle" format="reference" />
@@ -76,7 +75,7 @@
         <attr name="android:textColor" />
         <attr name="android:textSize" />
         <attr name="android:fontFamily" />
-        <attr name="verticalBias"/>
+        <attr name="verticalBias" />
     </declare-styleable>
 
     <declare-styleable name="ReserveButton">
@@ -126,7 +125,14 @@
     </declare-styleable>
 
     <declare-styleable name="CustomView">
-        <attr format="string" name="text"/>
-        <attr format="reference" name="image"/>
+        <attr name="text" format="string" />
+        <attr name="image" format="reference" />
     </declare-styleable>
+
+
+    <declare-styleable name="GradientTextView">
+        <attr name="startColor" format="color" />
+        <attr name="endColor" format="color" />
+    </declare-styleable>
+
 </resources>

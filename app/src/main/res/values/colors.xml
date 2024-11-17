@@ -14,7 +14,6 @@
 
     <color name="app_orange_300">#fbd790</color>
     <color name="app_orange_400">#f9be64</color>
-    <color name="sun_flower_700">#D99100</color>
 
     <color name="app_red_200">#cf7779</color>
     <color name="app_red_400">#ff4c5d</color>
@@ -35,17 +34,15 @@
     <!-- 2019 colors -->
     <!-- colorPrimary in Light mode-->
     <!-- colorPrimaryDark in Light mode-->
-    <color name="carolina_blue">#8ab4f8</color> <!-- colorPrimary in Dark mode-->
-    <color name="cornflower_blue">#669DF6</color> <!-- colorPrimaryDark in Dark mode-->
+    <!-- colorPrimary in Dark mode-->
+    <!-- colorPrimaryDark in Dark mode-->
 
     <color name="colorPrimary">#2c3491</color>
-    <color name="colorAccent">#25ade3</color>
 
 
     <color name="teal_900">#004852</color>
     <color name="pink_900">#F9EC82</color>
 
-    <color name="red">#cd1800</color>
     <color name="foreground_material_light">#1f379f</color>
 
     <color name="white_400">#dedede</color>
@@ -55,6 +52,8 @@
     <color name="background_color">#1D2026</color>
     <color name="card_background">#2D303A</color>
     <color name="white_90">#FFFFFFE5</color>
+    <color name="yellow_900">#F88264</color>
+    <color name="yellow_500">#FFE3C5</color>
 
 
 </resources>

@@ -43,7 +43,7 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
         super.onViewCreated(view, savedInstanceState)
         observerEvents()
 
-//        setSystemBarIconColor()
+        setSystemBarIconColor()
 
     }
 
@@ -97,8 +97,8 @@ abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragm
     }
 
     fun setSystemBarIconColor(
-        isDarkStatusBar: Boolean = true,
-        isDarkNavigationBar: Boolean = true
+        isDarkStatusBar: Boolean = false,
+        isDarkNavigationBar: Boolean = false
     ) {
         activity?.window?.let {
             val windowInsetsController = WindowCompat.getInsetsController(it, requireView())

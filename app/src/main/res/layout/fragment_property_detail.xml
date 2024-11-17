@@ -3,16 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="item"
-            type="com.rasel.gozayaan.data.models.RecommendationModel" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color">
+        android:background="@color/background_color"
+        app:marginBottomSystemWindowInsets="@{true}">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/plant_detail_scrollview"
@@ -26,23 +24,63 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_normal">
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/dimen_0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Card.BottomRadius">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.chahinem.pageindicator.PageIndicator
+                            android:id="@+id/pagerPageIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/dimen_24"
+                            app:piDefaultColor="@color/white_90"
+                            app:piSelectedColor="@color/yellow_900"
+                            app:layout_constraintBottom_toBottomOf="@id/pager"
+                            app:layout_constraintEnd_toEndOf="@id/pager"
+                            app:layout_constraintStart_toStartOf="@id/pager" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvPlaceName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:layout_marginTop="40dp"
                     android:layout_marginEnd="@dimen/margin_small"
                     android:clickable="true"
                     android:fontFamily="@font/rubik_bold"
-                    android:text="@{item.propertyName}"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toStartOf="@id/imgRattingIcon"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardTop"
                     tools:text="Mountain Safari" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -50,7 +88,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen_8"
-                    android:contentDescription="@string/gallery_content_description"
                     android:src="@drawable/star"
                     app:layout_constraintBottom_toBottomOf="@+id/tvRattingValue"
                     app:layout_constraintEnd_toStartOf="@id/tvRattingValue"
@@ -60,14 +97,14 @@
                     android:id="@+id/tvRattingValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/dimen_24"
                     android:fontFamily="@font/rubik"
                     android:gravity="center_horizontal"
-                    android:text="@{item.rating.toString()}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvPlaceName"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvPlaceName"
                     tools:text="4.9" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -75,14 +112,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_marginBottom="@dimen/margin_normal"
                     android:fontFamily="@font/rubik"
-                    android:text="@{item.location}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     app:drawableStartCompat="@drawable/location"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tvRattingValue"
+                    app:layout_constraintStart_toStartOf="@+id/tvPlaceName"
                     app:layout_constraintTop_toBottomOf="@id/tvPlaceName"
                     tools:text="Kolkata, India" />
 
@@ -94,10 +129,10 @@
                     android:fontFamily="@font/rubik_medium"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tvRattingValue"
+                    app:layout_constraintStart_toStartOf="@+id/tvCountryName"
                     app:layout_constraintTop_toBottomOf="@+id/tvCountryName"
-                    tools:text="About the trip" />
+                    android:text="About the trip" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvTripDescription"
@@ -106,13 +141,12 @@
                     android:layout_marginTop="@dimen/margin_small"
                     android:fontFamily="@font/rubik"
                     android:minHeight="@dimen/plant_description_min_height"
-                    android:text="@{item.description}"
                     android:textColor="@color/white"
                     android:textIsSelectable="true"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tvRattingValue"
+                    app:layout_constraintStart_toStartOf="@+id/tvPlaceName"
                     app:layout_constraintTop_toBottomOf="@id/tvAboutTripTitle"
                     tools:text="List of Inspiring Slogans a fresh coat for a fresh start meet the world make traveling fun explore the globe with a new sky, a new life let us help you find ..." />
 
@@ -132,10 +166,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBookNow"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_16"
             android:text="Book Now"
+            android:background="@drawable/bg_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -147,7 +183,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:fontFamily="@font/rubik_medium"
-            android:text="@{item.fare.toString()}"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/btnBookNow"
@@ -163,7 +198,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rubik_medium"
-            android:text="/@{item.fareUnit.toString()}"
             android:textColor="#E6FFFFFF"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
@@ -171,7 +205,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/tvPrice"
             app:layout_constraintTop_toTopOf="@+id/tvPrice"
-            tools:text="@string/per_day" />
+            android:text="@string/per_day" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

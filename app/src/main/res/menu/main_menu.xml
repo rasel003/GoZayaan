@@ -7,18 +7,18 @@
 
         <item
             android:id="@+id/nav_home"
-            android:title="Emails" />
-
+            android:icon="@drawable/home"
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_plantListFragment"
-            android:title="@string/menu_plantList" />
+            android:icon="@drawable/bookmark"
+            android:title="@string/bookmark" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:icon="@drawable/notification"
+            android:title="@string/notification" />
         <item
-            android:title="@string/owl" />
-        <item
-            android:title="@string/menu_character_list" />
+            android:icon="@drawable/person"
+            android:title="@string/profile" />
 
     </group>
 </menu>

@@ -13,6 +13,7 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
         Glide.with(view.context)
             .load(imageUrl)
             .transition(DrawableTransitionOptions.withCrossFade())
+            .placeholder(R.color.card_background)
             .error(R.color.card_background)
             .into(view)
     }

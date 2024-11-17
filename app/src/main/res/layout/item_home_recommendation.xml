@@ -19,15 +19,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootLayout"
         android:background="?selectableItemBackground"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="210dp"
+        android:layout_height="230dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/plant_photo"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:maxHeight="150dp"
-            android:contentDescription="@string/a11y_plant_item_image"
             android:scaleType="centerCrop"
             app:imageFromUrl="@{photo.heroImage}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,6 +46,7 @@
             android:text="@{photo.propertyName}"
             android:textColor="@color/white"
             android:textSize="14sp"
+            android:layout_marginHorizontal="@dimen/dimen_16"
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintBottom_toTopOf="@id/tvCountryName"
@@ -62,16 +62,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_normal"
+            android:ellipsize="end"
             android:fontFamily="@font/rubik"
+            android:maxLines="1"
             android:text="@{photo.location}"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:maxLines="1"
-            android:ellipsize="end"
             app:drawableStartCompat="@drawable/map_pin"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tvPlaceName"
+            app:layout_constraintStart_toStartOf="@+id/tvPlaceName"
             app:layout_constraintTop_toBottomOf="@id/tvPlaceName"
             tools:text="Sunny F." />
 

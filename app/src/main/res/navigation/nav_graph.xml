@@ -15,12 +15,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.rasel.gozayaan.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
         android:id="@+id/nav_property_details"
         android:name="com.rasel.gozayaan.ui.property_details.PropertyDetailsFragment"
         android:label="PlantDetailFragment"

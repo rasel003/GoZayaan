@@ -17,13 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_color"
-        android:paddingHorizontal="@dimen/dimen_24">
+        app:paddingTopSystemWindowInsets="@{true}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="24dp"
+            android:layout_marginStart="@dimen/dimen_16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/hamburger_icon" />
@@ -46,11 +47,14 @@
             android:id="@+id/imgProfile"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:padding="@dimen/dimen_4"
             android:layout_marginStart="24dp"
+            android:layout_marginEnd="@dimen/dimen_16"
             android:layout_marginTop="24dp"
+            android:background="@drawable/profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/profile" />
+            app:srcCompat="@drawable/avater" />
 
         <!--<com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -76,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_48"
             android:fontFamily="@font/rubik_medium"
+            android:layout_marginHorizontal="@dimen/dimen_16"
             android:text="Popular Categories"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -88,6 +93,7 @@
             android:layout_width="@dimen/dimen_0"
             android:layout_height="100dp"
             android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/dimen_16"
             app:cardBackgroundColor="@color/card_background"
             app:layout_constraintEnd_toStartOf="@+id/cardHotels"
             app:layout_constraintHorizontal_bias="0.5"
@@ -219,6 +225,7 @@
             app:cardBackgroundColor="@color/card_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginEnd="@dimen/dimen_16"
             app:layout_constraintStart_toEndOf="@+id/cardVisa"
             app:layout_constraintTop_toTopOf="@+id/cardFlights">
 
@@ -262,31 +269,35 @@
             android:fontFamily="@font/rubik_medium"
             android:text="@string/recommended"
             android:textColor="@color/white"
+            android:layout_marginStart="@dimen/dimen_16"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@id/tvSeeAll"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardFlights" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <com.rasel.gozayaan.core.component.GradientTextView
             android:id="@+id/tvSeeAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_16"
             android:fontFamily="@font/rubik_medium"
             android:text="@string/see_all"
             android:textColor="@color/white"
             android:textSize="12sp"
+            app:endColor="@color/yellow_500"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRecommendedTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvRecommendedTitle" />
+            app:layout_constraintTop_toTopOf="@+id/tvRecommendedTitle"
+            app:startColor="@color/yellow_900" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecommended"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_16"
             android:clipToPadding="false"
             android:orientation="horizontal"
-            android:paddingStart="@dimen/card_side_margin"
-            android:paddingTop="@dimen/card_side_margin"
-            android:paddingEnd="@dimen/card_side_margin"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
