@@ -1,6 +1,7 @@
 package com.rasel.gozayaan.ui
 
 import android.content.Context
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.rasel.gozayaan.R
 import com.rasel.gozayaan.databinding.ActivityMainBinding
 import com.rasel.gozayaan.util.NetworkChangeReceiver
 import com.rasel.gozayaan.util.contentView
+import com.rasel.gozayaan.util.toastError
 import com.rasel.gozayaan.util.toastSuccess
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,14 +60,18 @@ class MainActivity : AppCompatActivity(),
 
     override fun onStart() {
         super.onStart()
-       /* mContext.registerReceiver(
+        mContext.registerReceiver(
             networkChangeReceiver,
             IntentFilter(NetworkChangeReceiver.ACTION_CONNECTIVITY_CHANGE)
-        )*/
+        )
 
+    }
+    override fun onStop() {
+        super.onStop()
+        mContext.unregisterReceiver(networkChangeReceiver)
     }
 
     override fun onConnectionChange(isConnected: Boolean) {
-        mContext.toastSuccess("Network isConnected : $isConnected")
+        if(!isConnected) mContext.toastError("Network connection not available")
     }
 }

@@ -11,6 +11,18 @@
         android:background="@color/background_color"
         app:marginBottomSystemWindowInsets="@{true}">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/dimen_32"
+            android:layout_height="@dimen/dimen_32"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="24dp"
+            android:elevation="@dimen/dimen_1"
+            app:marginTopSystemWindowInsets="@{true}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/plant_detail_scrollview"
             android:layout_width="match_parent"
@@ -24,17 +36,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/btnBack"
-                    android:layout_width="@dimen/dimen_32"
-                    android:layout_height="@dimen/dimen_32"
-                    android:layout_marginStart="@dimen/dimen_16"
-                    android:layout_marginTop="24dp"
-                    android:elevation="@dimen/dimen_1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/back" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardTop"

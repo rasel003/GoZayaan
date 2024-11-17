@@ -28,6 +28,10 @@ class RecommendationFragment : BaseFragment<FragmentRecommendationBinding, BaseV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         adapter = RecommendationAdapter {
             val action = RecommendationFragmentDirections.actionNavHomeToNavGallery(it)
             findNavController().navigate(action)
